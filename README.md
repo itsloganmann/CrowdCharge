@@ -21,4 +21,4 @@ Version 1.00
 <b>Our Story and Mission:</b>
 <br>
 What is ZapShare all about?
-We believe we can change the world for the better by increasing the adoption of electric vehicles in our cities.
+We believe we can change the world for the better by increasing the adoption of electric vehicles in our cities by offering an app that allows users to find private chargers on a map. Home owners can become a host on the network by offering their private charger to other users for a fee. 
