@@ -1,0 +1,103 @@
+body {
+	font-family: Calibri;
+
+}
+main {
+	background: #F3F3F3;
+}
+.navbar-custom .navbar-collapse .ml-auto .nav-item .nav-link {
+	color:#32DC32;
+	font-weight: bolder;
+	text-align:right;
+}
+
+.navbar-custom {
+	border-bottom: 2px #32DC32 solid;
+}
+/* Go Mobile first */
+
+
+#adoption-image {
+	width:100%;
+}
+
+#summary-text {
+    font-size: 0.9em;
+    color: #383838;
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 2vh;
+    padding-bottom: 3vh;
+}
+
+#summary-lines {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-top: 2px solid #32CD32;
+    border-bottom: 2px solid #32CD32;
+}
+
+#adoption {
+	color: #32DC32;
+}
+
+.homebox {
+    height: 42vh;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+    background-color: #FFF;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    transition-duration: 0.4s;
+    border-radius: 25px;
+    color: #4D4D4D;
+}
+
+.homeicons {
+    height: 15vh;
+    width: 15vw;
+}
+
+.boxheading {
+    font-size: 1em;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 100%;
+    height: 5vh;
+}
+
+.boximage {
+    text-align: center;
+    width: 85%;
+    padding-bottom: 0;
+    border-bottom: 2px solid #32CD32;
+    margin: 0 auto;
+}
+
+.boxparagraph {
+    font-size: 0.8em;
+    text-align: center;
+    width: 85%;
+    margin: auto;
+    padding-top: 2vh;
+    line-height: 3vh;
+    padding-bottom: 3vh;
+}
+
+.wrapper3 {
+    width: 75%;
+    margin: 0 auto;
+}
+
+/* media queries */
+@media only screen and (min-width: 800px) {
+	.threecolumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+	}
+}
