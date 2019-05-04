@@ -27,7 +27,7 @@
 	<!-----------------------------------------
 	---------- Header- Navigation bar ---------
 	------------------------------------------>
-	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light">
+	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
 		
 		<!-------------------------------------
 		--------Browser Menu(side menu)--------
@@ -39,24 +39,25 @@
 			<a class="nav-link" href="about.html">ABOUT</a>
 			<a class="nav-link" href="contact.html">CONTACT</a>
 		</div>
+		<button>
 		<span class="navbar-toggler-icon" onclick="openNav()"></span>
-
+		</button>
   		<!----------------------
 		----------Logo----------
 		----------------------->
-		 <a class="navbar-brand" href="index.html"><img src="../images/logo.png" width="300" height="100" alt="zapShare"></a>
+		<a class="navbar-brand" href="index.html"><img src="../images/logo2.png" id="logo-img" alt="zapShare"></a>
   		
   		<!-----------------------
 		----Notification icon----
 		------------------------>
-  	  	<a href="notification.html" class="fas fa-bell"></a>
+  	  	<a href="notification.html" class="fas fa-bell" id="bell-icon"></a>
 
 		<!-----------------------
 		------User toggler-------
 		------------------------>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
-   			<span class="navbar-toggler-icon"></span>
-  		</button>
+		<span class="fas fa-user-circle"></span>
+		</button>
 
 		<!----------------------
 		----User menu toggle----
@@ -64,16 +65,16 @@
   		<div class="collapse navbar-collapse w-100 order-3" id="userMenu">
   			    <ul class="nav navbar-nav ml-auto">
   			    	<li class="nav-item">
-  			    	<a class="nav-link" href="#">PROFILE</a>
+  			    	<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
   			    	</li>
   			    	<li class="nav-item">
-  			    	  	<a class="nav-link" href="#">CLIENT DETAIL</a>
+  			    	  	<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
   			    	</li>
   			    	<li class="nav-item">
-  			    		<a class="nav-link" href="#">HOST DETAILS</a>
+  			    		<a class="nav-link" href="./user_pages/host.html">HOST DETAILS</a>
   			    	</li>
   			    	<li class="nav-item">
-  			    		<a class="nav-link" href="#">WALLET</a>
+  			    		<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
   			    	</li>
 					<li class="nav-item">
   			    		<a class="nav-link" href="#">LOGOUT</a>
