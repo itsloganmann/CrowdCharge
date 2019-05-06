@@ -19,11 +19,13 @@
 	<link rel="stylesheet" href="../css/global.css">
 	<!-- Custom js-->
 	<script src="../js/sideNavbar.js"></script>
+	<!-- Firebase Login UI CSS -->
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
 
 </head>
 <body>
-
+	<div id="firebaseui-auth-container"></div>
 	<!-----------------------------------------
 	---------- Header- Navigation bar ---------
 	------------------------------------------>
@@ -77,10 +79,14 @@
   			    		<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
   			    	</li>
 					<li class="nav-item">
-  			    		<a class="nav-link" href="#">LOGOUT</a>
+  			    		<div class="nav-link">LOGOUT</div>
   			    	</li>
   			    </ul>
-  		</div>
+		  </div>
+		  
+		  <div id="auth-button">
+			  <input type="button" value="Login">
+		  </div>
 	</nav>
 				<!------------------------------------------------------
 				---------- Main Section - Contents of the Page ---------
@@ -115,6 +121,11 @@
 									
 								</div>
 				</main>
+				<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+				<script src="../js/firebase_init.js"></script>
+				<script src="../js/script.js"></script>
             
 </body>
 </html>
