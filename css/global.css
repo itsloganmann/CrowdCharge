@@ -1,8 +1,92 @@
 /*
 	documentation
 */
-header{}
+body {
+  font-family: Calibri;
 
-body{
-	background-color: #F3F3F3;
+}
+main {
+  background: #F3F3F3;
+}
+
+.navbar-brand {
+    margin: 0 auto;
+}
+#logo-img{
+	width: 150px; 
+	height: 50px;
+}
+
+.navbar-custom .navbar-collapse .ml-auto .nav-item .nav-link {
+  color:#32DC32;
+  font-weight: bolder;
+  text-align:right;
+}
+#bell-icon{
+    margin-right: 30px;
+}
+
+.navbar-custom {
+  border-bottom: 2px #32DC32 solid;
+}
+
+/*
+sidebar css
+*/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/*@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+*/
+@media only  screen and (min-width: 800px) {
+	#logo-img{
+		width: 300px; 
+		height: 100px;
+	}
+
+	#bell-icon{
+		font-size: 21pt;
+
+	}
+  #working{
+    margin-left: 25%;
+  }
+	#userToggler{
+		font-size: 21pt;
+		width: 100px;
+		height: 100px;
+	}
 }

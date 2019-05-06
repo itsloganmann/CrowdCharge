@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<title>The Right One</title>
+		<title>Home</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
 		<!-- Import Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -12,76 +11,109 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<!-- Load Bootstrap JavaScript library -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		
-				<!-- Custom CSS -->
+		<!-- Icons -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+		<!-- Custom CSS -->
 		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<link rel="stylesheet" href="../css/global.css">
+		<!-- Custom js-->
+		<script src="../js/sideNavbar.js"></script>
+
 
 	</head>
 <body>
-    <nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light">
-        <!-- logo -->
-        <div class="navbar-header">
-         <a class="navbar-brand" href="index.html"><img src="../images/logo.png" width="100" height="40" alt="zapShare"></a>
-        </div>
-        <!-- toggler -->
-         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-          </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="nav navbar-nav ml-auto">
-                      <li class="nav-item">
-                      <a class="nav-link" href="map.html">MAP</a>
-                      </li>
-                      <li class="nav-item">
-                            <a class="nav-link" href="profile.html">PROFILE</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="host.html">HOST</a>
-                      </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="#">ABOUT</a>
-                      </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="logout.html">CONTACT</a>
-                      </li>
-                  </ul>
-          </div>
-    </nav>
+	<!-----------------------------------------
+	---------- Header- Navigation bar ---------
+	------------------------------------------>
+	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
+		
+		<!-------------------------------------
+		--------Browser Menu(side menu)--------
+		-------------------------------------->
+		<div id="broswerMenu" class="sidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
+			<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
+			<a class="nav-link" href="./user_pages/host.html">HOST DETAILS</a>
+			<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
+			<a class="nav-link" href="#">LOGOUT</a>
 
+		</div>
+		<button>
+			<span class="fas fa-user-circle" onclick="openNav()"></span>
+		</button>
+  		<!----------------------
+		----------Logo----------
+		----------------------->
+		<a class="navbar-brand" href="index.html"><img src="../images/logo2.png" id="logo-img" alt="zapShare"></a>
+  		
+  		<!-----------------------
+		----Notification icon----
+		------------------------>
+		<div id="working">
+  	  	<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
+  	  	</div>
+		<!-----------------------
+		------User toggler-------
+		------------------------>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!----------------------
+		----User menu toggle----
+		----------------------->
+  		<div class="collapse navbar-collapse w-100" id="userMenu">
+  			    <ul class="nav navbar-nav ml-auto">
+  			    	<li class="nav-item">
+  			    	<a class="nav-link" href="index.html">HOME</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    	  	<a class="nav-link" href="map.html">MAP</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="about.html">ABOUT</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="contact.html">CONTACT</a>
+  			    	</li>
+  			    </ul>
+  		</div>
+	</nav>
 				<!------------------------------------------------------
 				---------- Main Section - Contents of the Page ---------
 				------------------------------------------------------->
 				<main>
 						<div id="summary-background">
-								<img src="../images/homeImg.jpeg" id="adoption-image" alt="logo">
-								<div id="summary-text">
-										<div id="summary-lines">
-										Our mission is to increase <span id="adoption">electric vehicle adoption</span> by improving charger availability anytime and anywhere. We offer a peer-to-peer network of private chargers in the city, viewable on a real-time map. Find a charger near you by visiting our Map page. To offer your EV charger on our network, sign up for an account and create your charger host profile today!
-										</div>
+							<img src="../images/homeImg.jpeg" id="adoption-image" alt="logo">
+							<div id="summary-text">
+								<div id="summary-lines">
+									Our mission is to increase <span id="adoption">electric vehicle adoption</span> by improving charger availability anytime and anywhere. We offer a peer-to-peer network of private chargers in the city, viewable on a real-time map. Find a charger near you by visiting our Map page. To offer your EV charger on our network, sign up for an account and create your charger host profile today!
 								</div>
+							</div>
 						</div>    
-								<div class="wrapper3 threecolumns whitebackground">
-												<div class="homebox">
-												<div class="boxheading">Save Time</div>
-												<div class="boximage"><img class="homeicons" src="../images/savetime.svg" alt="homeicon1"></div> 
-												<div class="boxparagraph">Your time is valuable, keep your EV charged anywhere you go. Search for chargers near you using our <b>Map</b> feature.</div>
-												</div>
+						<div class="wrapper3 threecolumns whitebackground">
+							<div class="homebox">
+							<div class="boxheading">Save Time</div>
+							<div class="boximage"><img class="homeicons" src="../images/savetime.svg" alt="homeicon1"></div> 
+							<div class="boxparagraph">Your time is valuable, keep your EV charged anywhere you go. Search for chargers near you using our <b>Map</b> feature.</div>
+							</div>
 
 									
-												<div class="homebox" onclick="window.location.href='about.html'">
-												<div class="boxheading">Go Green</div>
-												<div class="boximage"><img class="homeicons" src="../images/community.svg" alt="homeicon2"></div>
-												<div class="boxparagraph">Support other EV owners and join our growing community. Sign up for a ZapShare account to and create your profile.</div>
-												</div>
-
-												<div class="homebox" onclick="window.location.href='about.html'">
-												<div class="boxheading">Earn Cash</div>
-												<div class="boximage"><img class="homeicons" src="../images/getpaid.svg" alt="homeicon3"></div>
-												<div class="boxparagraph">Offer your EV charger on ZapShare and start earning cash by letting other users charge their EV vehicles at your location.</div>
-												</div>
+							<div class="homebox" onclick="window.location.href='about.html'">
+							<div class="boxheading">Go Green</div>
+							<div class="boximage"><img class="homeicons" src="../images/community.svg" alt="homeicon2"></div>
+							<div class="boxparagraph">Support other EV owners and join our growing community. Sign up for a ZapShare account to and create your profile.</div>
+							</div>
+							<div class="homebox" onclick="window.location.href='about.html'">
+							<div class="boxheading">Earn Cash</div>
+							<div class="boximage"><img class="homeicons" src="../images/getpaid.svg" alt="homeicon3"></div>
+							<div class="boxparagraph">Offer your EV charger on ZapShare and start earning cash by letting other users charge their EV vehicles at your location.</div>
+							</div>
 									
-								</div>
+						</div>
 				</main>
             
 </body>

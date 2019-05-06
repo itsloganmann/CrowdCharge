@@ -1,3 +1,4 @@
+
 body {
 	font-family: Calibri;
 }
@@ -12,11 +13,8 @@ main {
 	text-align:right;
 }
 
-.navbar-custom {
-	border-bottom: 2px #32DC32 solid;
-}
-/* Go Mobile first */
 
+/* Go Mobile first */
 
 #adoption-image {
 	width:100%;
