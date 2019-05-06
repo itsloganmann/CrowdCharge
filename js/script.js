@@ -1,14 +1,15 @@
 $(document).ready(function() {
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            $("#auth-button").on("click", function(){
-                firebase.auth().signOut().then(function () {
+            $("#logout-button").css("display", "block");
+            $("#logout-button").click(() => {
+                firebase.auth().signOut().then(() => {
                     location.replace("index.html");
                 });
             });
-            console.log(user.uid);
         } else {
-            $("#auth-button").on("click", function(){
+            $("#login-button").css("display", "block");
+            $("#login-button").on("click", () => {
                 $('#firebaseui-auth-container').css("display", "block");
             });
         }
