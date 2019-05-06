@@ -9,6 +9,8 @@
 
 		<!-- Import jQuery -->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 		<!-- Load Bootstrap JavaScript library -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		<!-- Icons -->
@@ -83,37 +85,33 @@
 		<!------------------------------------------------------
 		---------- Main Section - Contents of the Page ---------
 		------------------------------------------------------->
-		<div>
-		<div class="row margin-setting">
-			<div class="col-3 ">
-				<img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon"/>
-			</div>
-   			<div class="col-6">
-   				<h1 id="user-name">User Name</h1>
-   				<h3 id="user-phone">Phone</h3>
-   				<h3 id="user-email">Email</h3>
-   			</div>
-		</div>
-		<div class="row margin-setting">
-			<div class="col-12">
-				<ul class="nav ">
-					<li class="nav-item profile-nav">Bookings</li>
-					<li class="nav-item profile-nav">Payment</li>
-					<li class="nav-item profile-nav">Reviews</li>
-				</ul>
-			</div>
-		</div>
-		<div class="row margin-setting content">
-			<div class="col-12">
-				<div class="col-10 well">
-					content from firebase....
+		<div id="contentContainer">
+			<div class="row margin-setting">
+				<div class="col-3 ">
+					<img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon"/>
 				</div>
-				<div class="col-10 well">
-					content from firebase....
+	   			<div class="col-6">
+	   				<h1 id="user-name">User Name</h1>
+	   				<h3 id="user-phone">Phone</h3>
+	   				<h3 id="user-email">Email</h3>
+	   			</div>
+			</div>
+			<div class="row margin-setting" id="profile-tab">
+				<div class="col-12">
+					<ul class="nav">
+						<li class="nav-item profile-nav" id= "bookings">Bookings</li>
+						<li class="nav-item profile-nav" id="payment">Payment</li>
+						<li class="nav-item profile-nav" id="reviews">Reviews</li>
+					</ul>
 				</div>
 			</div>
-			
+			<div class="row margin-setting content" id="subContent">
+				
+			</div>
 		</div>
-		</div>
+
+		<script src="../../js/profile.js"></script>
+
+
 </body>
 </html>

@@ -1,13 +1,21 @@
+/*general margin-setting to mobile first*/
+
+#contentContainer{
+	margin-top: 50px;
+}
+
 .margin-setting{
 	margin-left: 15%;
 	margin-right: 15%;
 }
+
 
 #profile-icon{
 	width: 70px;
 	height: 70px;
 	margin: 0 auto;
 }
+
 #user-name{
 	font-size: 15pt;
 }
@@ -18,19 +26,33 @@
 	font-size: 11pt;
 
 }
-.profile-nav{
-	width: 20%;
+
+#profile-tab{
+	margin-top: 20px;
 }
+/*profile tab as nav element for Bootstrap*/
+.profile-nav{
+	width: 30%;
+}
+/*well class from bootstrap*/
 .well{
 	border-style: solid;
 	border-color: #F3F3F3;
-	margin: 20px;
+	margin: 30px;
 	background-color: white;
 }
+
+/*content detail*/
 .content{
 	margin-top: 30px;
 	background-color: #F3F3F3;
 }
+
+/*jquery elements*/
+.content-margin{
+	margin: 20px;
+}
+
 
 @media only  screen and (min-width: 800px) {
 	#profile-icon{
