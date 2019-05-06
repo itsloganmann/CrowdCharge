@@ -1,9 +1,106 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>about</title>
-</head>
-<body>
+<html lang="en">
+	<head>
+		<title>The Right About Page</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Import Bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-</body>
+		<!-- Import jQuery -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<!-- Load Bootstrap JavaScript library -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		
+				<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+
+	</head>		
+	<body>
+		<!------------------------------------------------------
+		---------- Nav BAR! ------------------------------------
+		------------------------------------------------------->
+		<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light">
+        <!-- logo -->
+        <div class="navbar-header">
+         <a class="navbar-brand" href="index.html"><img src="../images/logo.png" width="100" height="40" alt="zapShare"></a>
+        </div>
+        <!-- toggler -->
+         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item">
+                      <a class="nav-link" href="map.html">MAP</a>
+                      </li>
+                      <li class="nav-item">
+                            <a class="nav-link" href="profile.html">PROFILE</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="host.html">HOST</a>
+                      </li>
+                    <li class="nav-item">
+                          <a class="nav-link" href="#">ABOUT</a>
+                      </li>
+                    <li class="nav-item">
+                          <a class="nav-link" href="logout.html">CONTACT</a>
+                      </li>
+                  </ul>
+          </div>
+    </nav>
+	
+		<!------------------------------------------------------
+		---------- Main Section - Contents of the Page ---------
+		------------------------------------------------------->
+		<main>
+				<div class="headerimagecontainer">
+						<img src="../images/about.jpg" class="headerimage" alt="logo">
+						<div class="headertext">
+								About ZapShare
+						</div>
+				</div>
+
+				<div class="whitebackground wrapper3">
+						<h2>Our Story and Mission</h2>
+						<div class="aboutUsText">
+						<ol>
+								<li>We believe we can change the world for the better by increasing the adoption of electric vehicles in our cities.</li>
+								<li>We understand the pain points of owning an electric vehicle; we are building techonology that improves the user experience.</li>
+								<li>We believe in a peer-to-peer network system, where our users can engage directly with other electric vehicle owners.</li>
+						</ol>
+						</div>
+				</div>
+
+				<div class="whitebackground wrapper2">
+						<div class=" twocolumns fourcolumns whitebackground">
+										<div class="aboutbox">
+										<div class="aboutheading">Environmentally Friendly Transport</div>
+										<div class="aboutimage"><img class="homeicons" src="../images/greencar.svg" alt="abouticon1"></div> 
+										<div class="aboutparagraph">Electric vehicles produce zero emissions, making them an ideal choice for mid-to-long range trips around the city.</div>
+										</div>
+
+										<div class="aboutbox">
+										<div class="aboutheading">Clean and Renewable Energy</div>
+										<div class="aboutimage"><img class="homeicons" src="../images/greenenergy.svg" alt="abouticon2"></div>
+										<div class="aboutparagraph">Electric vehicles go hand-in-hand with renewable energy sources. With more EV's on the roads, we can be less reliant on fossil fuels.</div>
+										</div>
+
+										<div class="aboutbox">
+										<div class="aboutheading">Clean Air</div>
+										<div class="aboutimage"><img class="homeicons" src="../images/cleanair.svg" alt="abouticon3"></div>
+										<div class="aboutparagraph">By increasing the adoption of EV vehicles, we are able to lower the number of gas powered cars in our cities that pollute our air.</div>
+										</div>
+
+										<div class="aboutbox">
+										<div class="aboutheading">Healthy and Equitable Economy</div>
+										<div class="aboutimage"><img class="homeicons" src="../images/healthyeconomy.svg" alt="abouticon3"></div>
+										<div class="aboutparagraph">Anyone with an available charger can participate in our network as a host and receive peer-to-peer payments for their services provided.  </div>
+										</div>
+						</div>
+				</div>
+		</main>  
+	</body>
 </html>
