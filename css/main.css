@@ -1,21 +1,6 @@
-body {
-	font-family: Calibri;
 
-}
-main {
-	background: #F3F3F3;
-}
-.navbar-custom .navbar-collapse .ml-auto .nav-item .nav-link {
-	color:#32DC32;
-	font-weight: bolder;
-	text-align:right;
-}
 
-.navbar-custom {
-	border-bottom: 2px #32DC32 solid;
-}
 /* Go Mobile first */
-
 
 #adoption-image {
 	width:100%;
