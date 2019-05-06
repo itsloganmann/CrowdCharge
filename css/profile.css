@@ -1,0 +1,51 @@
+.margin-setting{
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+#profile-icon{
+	width: 70px;
+	height: 70px;
+	margin: 0 auto;
+}
+#user-name{
+	font-size: 15pt;
+}
+#user-phone{
+	font-size: 11pt;
+}
+#user-email{
+	font-size: 11pt;
+
+}
+.profile-nav{
+	width: 20%;
+}
+.well{
+	border-style: solid;
+	border-color: #F3F3F3;
+	margin: 20px;
+	background-color: white;
+}
+.content{
+	margin-top: 30px;
+	background-color: #F3F3F3;
+}
+
+@media only  screen and (min-width: 800px) {
+	#profile-icon{
+		width: 100%;
+		height: 100%;
+	}
+	#user-name{
+		font-size: 30pt;
+	}
+	#user-phone{
+		font-size: 22pt;
+
+	}
+	#user-email{
+		font-size: 22pt;
+
+	}
+}

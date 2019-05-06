@@ -1,15 +1,35 @@
 /*
 	documentation
 */
-header{}
+body {
+  font-family: Calibri;
 
-body{
-	background-color: #F3F3F3;
+}
+main {
+  background: #F3F3F3;
+}
+
+.navbar-brand {
+    margin: 0 auto;
 }
 #logo-img{
 	width: 150px; 
 	height: 50px;
 }
+
+.navbar-custom .navbar-collapse .ml-auto .nav-item .nav-link {
+  color:#32DC32;
+  font-weight: bolder;
+  text-align:right;
+}
+#bell-icon{
+    margin-right: 30px;
+}
+
+.navbar-custom {
+  border-bottom: 2px #32DC32 solid;
+}
+
 /*
 sidebar css
 */
@@ -54,6 +74,19 @@ sidebar css
 @media only  screen and (min-width: 800px) {
 	#logo-img{
 		width: 300px; 
+		height: 100px;
+	}
+
+	#bell-icon{
+		font-size: 21pt;
+
+	}
+  #working{
+    margin-left: 25%;
+  }
+	#userToggler{
+		font-size: 21pt;
+		width: 100px;
 		height: 100px;
 	}
 }
