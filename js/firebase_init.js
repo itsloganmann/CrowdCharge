@@ -1,6 +1,5 @@
 // Code snippet from Firebase for setting up web app.
 (function(){  
-
   var config = {
     apiKey: "AIzaSyBXOtHAyVkN2mZraH3sBpBvkCpgdKpmDyI",
     authDomain: "zapshare-1e3ba.firebaseapp.com",
@@ -13,3 +12,33 @@
 
   app_firebase = firebase; 
 })();
+
+// Firebase Authentication
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+var uiConfig = {
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      return true;
+    },
+    uiShown: function() {
+      $('#firebaseui-auth-container').css({
+        "display" : "none",
+        "position" : "fixed",
+        "left" : "0",
+        "right" : "0",
+        "z-index" : "2"
+      });
+    }
+  },
+  signInFlow: 'popup',
+  signInSuccessUrl: 'index.html',
+  signInOptions: [{
+    provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    requireDisplayName: true
+    }
+  ],
+  tosUrl: '<your-tos-url>',
+  privacyPolicyUrl: '<your-privacy-policy-url>'
+};
+
+ui.start('#firebaseui-auth-container', uiConfig);

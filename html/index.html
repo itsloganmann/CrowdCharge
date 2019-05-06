@@ -20,11 +20,12 @@
 		<link rel="stylesheet" href="../css/global.css">
 		<!-- Custom js-->
 		<script src="../js/sideNavbar.js"></script>
+	  <!-- Firebase Login UI CSS -->
+	  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
 
 	</head>
 <body>
-
 	<!-----------------------------------------
 	---------- Header- Navigation bar ---------
 	------------------------------------------>
@@ -80,13 +81,19 @@
   			    	<li class="nav-item">
   			    		<a class="nav-link" href="contact.html">CONTACT</a>
   			    	</li>
+              <li class="nav-item" id="logout-button">
+  			    		<div class="nav-link">LOGOUT</div>
+  			    	</li>
   			    </ul>
-  		</div>
+		  </div>
+		  
+			  <input type="button" id="login-button" value="Login">
 	</nav>
 				<!------------------------------------------------------
 				---------- Main Section - Contents of the Page ---------
 				------------------------------------------------------->
 				<main>
+						<div id="firebaseui-auth-container"></div>
 						<div id="summary-background">
 							<img src="../images/homeImg.jpeg" id="adoption-image" alt="logo">
 							<div id="summary-text">
@@ -116,6 +123,10 @@
 									
 						</div>
 				</main>
+				<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+				<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+				<script src="../js/firebase_init.js"></script>
+				<script src="../js/script.js"></script>
             
 </body>
 </html>
