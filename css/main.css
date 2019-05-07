@@ -158,7 +158,7 @@ main {
 	text-align:center;
 }
 
-#login-button, #logout-button {
+#login-button {
     display: none;
 }
 

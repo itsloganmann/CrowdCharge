@@ -33,7 +33,7 @@
 		<!-------------------------------------
 		--------Browser Menu(side menu)--------
 		-------------------------------------->
-		<div id="broswerMenu" class="sidenav" >
+		<div id="browserMenu" class="sidenav" >
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
 			<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
@@ -42,7 +42,7 @@
 			<a class="nav-link" href="#">LOGOUT</a>
 
 		</div>
-		<button>
+		<button id="browserMenu-button">
 			<span class="fas fa-user-circle" onclick="openNav()"></span>
 		</button>
   		<!----------------------
@@ -59,14 +59,14 @@
 		<!-----------------------
 		------User toggler-------
 		------------------------>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
+  		<button class="navbar-toggler" id="user-menu" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<!----------------------
 		----User menu toggle----
 		----------------------->
-  		<div class="collapse navbar-collapse w-100" id="userMenu">
+  	   <div class="collapse navbar-collapse w-100" id="userMenu">
   			    <ul class="nav navbar-nav ml-auto">
   			    	<li class="nav-item">
   			    	<a class="nav-link" href="index.html">HOME</a>
