@@ -23,6 +23,7 @@ main {
   text-align:right;
 }
 #bell-icon{
+  font-size: 18pt;
     margin-right: 30px;
 }
 
@@ -66,13 +67,17 @@ sidebar css
   margin-left: 50px;
 }
 
+#browserMenu-button, #bell-icon {
+  display: none
+}
+
 
 /*@media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
 */
-@media only  screen and (min-width: 800px) {
+@media only  screen and (min-width: 768px) {
 	#logo-img{
 		width: 250px; 
 		height: 77px;
@@ -82,15 +87,16 @@ sidebar css
 		font-size: 21pt;
 
 	}
-    #working{
-    margin-left: 25%;
-  }
+
 	#userToggler{
 		font-size: 21pt;
 		width: 100px;
 		height: 100px;
 	}
 }
+
+/* Go Mobile first */
+
 
 @media only screen and (min-width: 500px) {
     .twocolumns{

@@ -1,7 +1,8 @@
 $(document).ready(function() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            $("#logout-button").css("display", "block");
+            $("#browserMenu-button").css("display", "initial");
+            $("#bell-icon").css("display", "initial");
             $("#logout-button").click(() => {
                 firebase.auth().signOut().then(() => {
                     location.replace("index.html");
