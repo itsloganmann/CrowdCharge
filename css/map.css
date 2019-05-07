@@ -1,0 +1,53 @@
+.semi-expanded-map-side {
+
+}
+
+.full-expanded-map-side {
+
+}
+
+#map-side-close-button{
+
+}
+#map-side-expansion-button{
+    float: right;
+}
+
+#map-side-close-button, #map-side-expansion-button {
+    font-size: 18pt;
+    color: #356859;
+    padding: 4px;
+    margin: 4px;
+}
+#map-side-content {
+    float: left;
+    width: 100%;
+    border-right: 1px solid black;
+    height: 252px;
+    background-color: #848FA5;
+}
+
+#map-main-content {
+    float: right;
+    width: 100%;
+    height: calc(100vh - 68px - 252px);
+    background-color: #F3F3F3;
+}
+
+@media only screen and (min-width: 768px) {
+    #map-wrapper {
+        display: block;
+        height: 100%;
+        float: right;
+    }
+
+    #map-main-content {
+        width: calc(100% - 288px);
+        height: calc(100vh - 68px);
+    }
+
+    #map-side-content {
+        width: 288px;
+        height: calc(100vh - 68px);
+    }
+}
