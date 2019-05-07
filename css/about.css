@@ -33,3 +33,27 @@
 	padding:2vh;
 	text-align:center;
 }
+.headerimagecontainer{
+    position:relative;
+}
+.headerimage{
+    max-width:100%;
+    max-height:100%;
+}
+.headertext{
+    position:absolute;
+    margin:0 auto;
+    z-index:99;
+    left: 0;
+    right: 0;
+    top: 40%; /* Adjust this value to move the positioned div up and down */
+    text-align: center;
+    color:white;
+    font-size: 3em;
+    text-shadow: 2px 2px black;
+    display:none;
+}
+.homeicons {
+    height: 15vh;
+    width: 15vw;
+}
