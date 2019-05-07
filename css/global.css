@@ -9,7 +9,7 @@ main {
   background: #F3F3F3;
 }
 
-.navbar-brand {
+#navbar-brand {
     margin: 0 auto;
 	
 }
@@ -119,10 +119,188 @@ sidebar css
 
 
 
+
+
+
+/*********************/
 #overlay {
   position: fixed;
   width: 100vw;
   height: 100%;
   background-color: rgb(0, 0, 0, 0.6);
+}
+
+.expanded-side {
+    width: 336px !important;
+}
+
+#side-menu {
+    z-index: 1;
+    display: block;
+    height: 100vh;
+    width: 0px;
+    max-width: 336px;
+    position: fixed;
+    background-color: #FFFBE6;
+    transition: width 1s ease;
+    overflow-y: auto;
+    box-shadow: 0px 0px 4px 0px #356859;
+    border-top: 22px solid #356859;
+    max-width: 100vw;
+}
+
+#side-menu-button-wrapper {
+    display: block;
+    position: absolute;
+    width: calc(100% - 16px);
+    margin: 12px auto auto;
+    left: 0;
+    right: 0;
+}
+.side-menu-button {
+    display: block;
+    cursor: pointer;
+    width: calc(100% - 12px);
+    height: 42px;
+    padding: 0px 16px;
+    background-color: unset;
+    margin: 4px auto;
+    text-align: left;
+    font-size: 14pt;
+    color: #000000;
+    line-height: 42px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#logout-button {
+    color: #000000;
+    background-color: #B9E4C9;
+}
+
+.side-menu-button:hover {
+    background-color: #848FA5;
+    opacity: 0.8;
+    color: #FFFFFF;
+}
+
+#logout-button:hover {
+    color: #FFFFFF;
+    background-color: #FD5523;
+    opacity: 0.8;
+}
+
+#open-side-menu-button, #bell-icon{
+    cursor: pointer;
+    font-size: 16pt;
+    color: #356859;
+}
+
+.side-menu-text {
+    display: block;
+    width: calc(100% - 12px);
+    height: 42px;
+    padding: 0px 16px;
+    background-color: unset;
+    margin: 4px auto;
+    text-align: left;
+    font-size: 14pt;
+    color: #848FA5;
+    line-height: 42px;
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#side-menu-hr { 
+    border-color: #356859;
+}
+
+#side-menu-close-button {
+    font-size: 18pt;
+    color: #356859;
+    cursor: pointer;
+    padding: 8px;
+    float: right;
+}
+
+#userMenu {
+    width: initial!important;
+}
+
+.nav-link {
+    font-size: 14pt;
+}
+
+#map-side-content {
+    float: left;
+    width: 100%;
+    border-right: 1px solid black;
+    height: 252px;
+    background-color: #848FA5;
+}
+
+#map-main-content {
+    float: right;
+    width: 100%;
+    height: calc(100vh - 68px - 252px);
+    background-color: #F3F3F3;
+}
+
+
+@media only screen and (min-width: 768px) {
+    #navbar-brand {
+        margin: 0 0 0 14px;
     }
+    #logo-img {
+        height: 50px;
+        width: 150px;
+    }
+    #bell-wrapper {
+        position: absolute;
+        right: 0;
+        float: right;
+    }
+    #userMenu {
+        float: right;
+        margin-right: 64px;
+    }
+
+    #map-wrapper {
+        display: block;
+        height: 100%;
+        float: right;
+    }
+
+    #map-main-content {
+        width: calc(100% - 288px);
+        height: calc(100vh - 68px);
+    }
+
+    #map-side-content {
+        width: 288px;
+        height: calc(100vh - 68px);
+        
+    }
+}
+.semi-expanded-map-side {
+
+}
+
+.full-expanded-map-side {
+
+}
+
+#map-side-close-button{
+
+}
+#map-side-expansion-button{
+    float: right;
+}
+
+#map-side-close-button, #map-side-expansion-button {
+    font-size: 18pt;
+    color: #356859;
+    padding: 4px;
+    margin: 4px;
 }

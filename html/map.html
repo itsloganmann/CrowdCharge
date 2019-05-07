@@ -23,7 +23,6 @@
 		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="../css/main.css">
 	<link rel="stylesheet" href="../css/global.css">
 	<!-- Custom js-->
 	<script src="../js/sideNavbar.js"></script>
@@ -34,68 +33,65 @@
 </head>
 
 <body>
-	<!-----------------------------------------
-	---------- Header- Navigation bar ---------
-	------------------------------------------>
+	<!-- Side Menu -->
+	<div id="side-menu" class="side-nav">
+		<div id="side-menu-button-wrapper">
+			<div class="side-menu-text">Account
+				<span id="side-menu-close-button" class="fas fa-times"></span>
+			</div>
+			<hr class="side-menu-hr">
+			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">User Page</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">Client Profile</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/host.html">Host Profile</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/wallet.html">Wallet</a>
+			<hr class="side-menu-hr">
+			<div class="nav-link side-menu-button" id="logout-button">Sign Out</div>
+			<hr class="side-menu-hr">
+		</div>
+	</div>
+	<!-- Header Navbar -->
 	<nav class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
 
-		<!-------------------------------------
-		--------Browser Menu(side menu)--------
-		-------------------------------------->
-		<div id="browserMenu" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
-			<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
-			<a class="nav-link" href="./user_pages/host.html">HOST DETAILS</a>
-			<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
-			<div class="nav-link" id="logout-button">LOGOUT</div>
-
-		</div>
-		<button id="browserMenu-button">
-			<span class="fas fa-user-circle" onclick="openNav()"></span>
-		</button>
-		<!----------------------
-		----------Logo----------
-		----------------------->
-		<a class="navbar-brand" href="index.html"><img src="../images/logo2.png" id="logo-img" alt="zapShare"></a>
-
-		<!-----------------------
-		----Notification icon----
-		------------------------>
-		<div id="working">
+		<span id="open-side-menu-button" class="fas fa-bars"></span>
+		<a id="navbar-brand" href="index.html">
+			<img src="../images/logo2.png" id="logo-img" alt="zapShare" width="120">
+		</a>
+		<div id="bell-wrapper">
 			<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
 		</div>
-		<!-----------------------
-		------User toggler-------
-		------------------------>
-		<button class="navbar-toggler" id="user-menu" type="button" data-toggle="collapse" data-target="#userMenu"
+		<div class="navbar-toggler" id="user-menu" data-toggle="collapse" data-target="#userMenu"
 			aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+			<span class="fas fa-chevron-down"></span>
+		</div>
+		<div id="login-button">Login</div>
 
-		<!----------------------
-		----User menu toggle----
-		----------------------->
+		<!-- Dropdown menu -->
 		<div class="collapse navbar-collapse w-100" id="userMenu">
 			<ul class="nav navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="index.html">HOME</a>
+					<a class="nav-link" href="index.html">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="map.html">MAP</a>
+					<a class="nav-link" href="map.html">Map</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="about.html">ABOUT</a>
+					<a class="nav-link" href="about.html">About</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="contact.html">CONTACT</a>
+					<a class="nav-link" href="contact.html">Contact</a>
 				</li>
 			</ul>
 		</div>
-		<div id="login-button">Login</div>
 	</nav>
 	<main>
 		<div id="firebaseui-auth-container"></div>
+		<div id="map-main-content">
+			<span class="clickme">Click me!</p>
+		</div>
+		<div id="map-side-content">
+			<span id="map-side-close-button" class="fas fa-times"></span>
+			<span id="map-side-expansion-button" class="fas fa-chevron-left"></span>
+		</div>
 	</main>
 
 	<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
