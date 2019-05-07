@@ -11,6 +11,7 @@ main {
 
 #navbar-brand {
     margin: 0 auto;
+	
 }
 #logo-img{
 	width: 150px; 
@@ -24,6 +25,9 @@ main {
 
 .navbar-custom {
   border-bottom: 2px #32DC32 solid;
+}
+.browser-menu-item{
+  text-align: right;
 }
 
 /*
