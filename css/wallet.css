@@ -1,16 +1,12 @@
-.whitebackground h2 {
-    text-align:center;
+main {
+	background:white;
 }
-.aboutUsText {
+
+#walletOuterBox{
+	background:#F3F3F3;
 }
-.aboutimage {
-	text-align:center;
-}
-.abouticons {
-    height: 20vh;
-    width: 20vw;
-}
-.aboutbox {
+
+.fundsBox {
     /*height: 50vh; */
     width: 95%;
    /* margin: 3vh auto; */
@@ -23,13 +19,11 @@
 		margin-right: 5vh;
 }
 
-.aboutheading {
-	font-size:1em;
+#walletHeader {
 	padding:10px 5px;
 	text-align:center;
 }
 
-.aboutparagraph{
-	padding:2vh;
-	text-align:center;
+h1 {
+	
 }
