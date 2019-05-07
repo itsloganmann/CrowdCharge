@@ -1,29 +1,24 @@
+<!-- Host Settings -->
 <!DOCTYPE html>
+
 <html>
-<head>
-	<title>my profile</title>
-	<meta charset="utf-8">
+	<head>
+		<title>Host Settings</title>
+		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
 		<!-- Import Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 		<!-- Import jQuery -->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
 		<!-- Load Bootstrap JavaScript library -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		<!-- Icons -->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
 		<!-- Custom CSS -->
-		<link rel="stylesheet" href="../../css/global.css">
-		<link rel="stylesheet" href="../../css/profile.css">
+		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		
+	</head>
+	<body>
 
-		<!-- Custom js-->
-		<script src="../../js/sideNavbar.js"></script>
-</head>
-<body>
 	<!-----------------------------------------
 	---------- Header- Navigation bar ---------
 	------------------------------------------>
@@ -84,36 +79,25 @@
 		  
 			  <input type="button" id="login-button" value="Login">
 	</nav>
+		
 		<!------------------------------------------------------
 		---------- Main Section - Contents of the Page ---------
 		------------------------------------------------------->
-		<div id="contentContainer">
-			<div class="row margin-setting">
-				<div class="col-3 ">
-					<img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon"/>
-				</div>
-	   			<div class="col-6">
-	   				<h1 id="user-name">User Name</h1>
-	   				<h3 id="user-phone">Phone</h3>
-	   				<h3 id="user-email">Email</h3>
-	   			</div>
-			</div>
-			<div class="row margin-setting" id="profile-tab">
-				<div class="col-12">
-					<ul class="nav">
-						<li class="nav-item profile-nav"><a id= "bookings" href="#"> Bookings</a></li>
-						<li class="nav-item profile-nav"><a id= "payment" href="#">Payment</a></li>
-						<li class="nav-item profile-nav"><a id= "reviews" href="#">Reviews</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="row margin-setting content" id="subContent">
-				
-			</div>
+		<h1>Host</h1>
+		<ul>
+			<li>Chargers</li>
+			<li>Requests</li>
+			<li>Payment</li>
+		</ul>
+		<div class="homebox">
+			<h3>Chargers</h3>
+			<p>Here are your chargers! Select them to edit details and availability.</p>
+			
+			<a>Good Home Charger</a>
+			<a href="add_new_charger.html">Add new charger</a>
 		</div>
-
-		<script src="../../js/profile.js"></script>
-
-
-</body>
+	
+		
+	</body>
 </html>
+	
