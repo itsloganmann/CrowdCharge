@@ -1,0 +1,20 @@
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude; 
+}
+
+L.mapbox.accessToken = 'pk.eyJ1IjoiZXBhdTg4IiwiYSI6ImNqdjhyemQwNDAzM3U0MnJ5bW9ndHI4bXoifQ.JjTAqjq-WeON4_zK7naPEw';
+var map = L.mapbox.map('map')
+    .setView([40, -74.50], 9)
+    .addLayer(L.mapbox.styleLayer('mapbox://styles/epau88/cjvco9wve04a41fny3uh0z02z'));
+</script>
