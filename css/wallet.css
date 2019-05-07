@@ -1,0 +1,29 @@
+main {
+	background:white;
+}
+
+#walletOuterBox{
+	background:#F3F3F3;
+}
+
+.fundsBox {
+    /*height: 50vh; */
+    width: 95%;
+   /* margin: 3vh auto; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+    background-color: #FFF;
+    transition-duration: 0.4s;
+    border-radius: 25px;
+    color: #4D4D4D;
+    margin-bottom: 5vh;
+		margin-right: 5vh;
+}
+
+#walletHeader {
+	padding:10px 5px;
+	text-align:center;
+}
+
+h1 {
+	
+}
