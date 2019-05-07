@@ -1,0 +1,36 @@
+.whitebackground h2 {
+    text-align:center;
+}
+.aboutUsText {
+}
+.aboutimage {
+	text-align:center;
+}
+.abouticons {
+    height: 20vh;
+    width: 20vw;
+}
+.aboutbox {
+    /*height: 50vh; */
+    width: 95%;
+   /* margin: 3vh auto; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+    background-color: #FFF;
+    transition-duration: 0.4s;
+    border-radius: 25px;
+    color: #4D4D4D;
+    margin-bottom: 5vh;
+		margin-right: 5vh;
+}
+
+.aboutheading {
+	font-size:1em;
+	padding:10px 5px;
+	text-align:center;
+
+}
+
+.aboutparagraph{
+	padding:2vh;
+	text-align:center;
+}
