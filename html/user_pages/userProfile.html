@@ -30,9 +30,9 @@
 	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
 		
 		<!-------------------------------------
-		--------Browser Menu(side menu)--------
+		--------User Menu(side menu)--------
 		-------------------------------------->
-		<div id="broswerMenu" class="sidenav" >
+		<div id="userMenu" class="sidenav" >
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a class="nav-link" href="userProfile.html">PROFILE</a>
 			<a class="nav-link" href="userProfile.html">CLIENT DETAIL</a>
@@ -47,7 +47,7 @@
   		<!----------------------
 		----------Logo----------
 		----------------------->
-		<a class="navbar-brand" href="../index.html"><img src="../../images/logo2.png" id="logo-img" alt="zapShare"></a>
+		<a class="navbar-brand" href="index.html"><img src="../../images/logo2.png" id="logo-img" alt="zapShare"></a>
   		
   		<!-----------------------
 		----Notification icon----
@@ -56,16 +56,16 @@
   	  	<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
   	  	</div>
 		<!-----------------------
-		------User toggler-------
+		------Browser toggler-------
 		------------------------>
-  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#browserMenu" aria-controls="browserMenu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<!----------------------
-		----User menu toggle----
+		----Browser menu toggle----
 		----------------------->
-  		<div class="collapse navbar-collapse w-100" id="userMenu">
+  		<div class="collapse navbar-collapse w-100" id="browserMenu">
   			    <ul class="nav navbar-nav ml-auto">
   			    	<li class="nav-item">
   			    	<a class="nav-link" href="../index.html">HOME</a>
@@ -80,7 +80,9 @@
   			    		<a class="nav-link" href="../contact.html">CONTACT</a>
   			    	</li>
   			    </ul>
-  		</div>
+		  </div>
+		  
+			  <input type="button" id="login-button" value="Login">
 	</nav>
 		<!------------------------------------------------------
 		---------- Main Section - Contents of the Page ---------
@@ -99,9 +101,9 @@
 			<div class="row margin-setting" id="profile-tab">
 				<div class="col-12">
 					<ul class="nav">
-						<li class="nav-item profile-nav" id= "bookings">Bookings</li>
-						<li class="nav-item profile-nav" id="payment">Payment</li>
-						<li class="nav-item profile-nav" id="reviews">Reviews</li>
+						<li class="nav-item profile-nav"><a id= "bookings" href="#"> Bookings</a></li>
+						<li class="nav-item profile-nav"><a id= "payment" href="#">Payment</a></li>
+						<li class="nav-item profile-nav"><a id= "reviews" href="#">Reviews</a></li>
 					</ul>
 				</div>
 			</div>

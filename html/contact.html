@@ -27,65 +27,65 @@
 	</head>
 	<body>
 		<!-----------------------------------------
-		---------- Header- Navigation bar ---------
-		------------------------------------------>
-		<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
+	---------- Header- Navigation bar ---------
+	------------------------------------------>
+	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
 		
-			<!-------------------------------------
-			--------User Menu(side menu)--------
-			-------------------------------------->
-			<div id="broswerMenu" class="sidenav" >
-				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-				<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
-				<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
-				<a class="nav-link" href="./user_pages/host_settings.html">HOST DETAILS</a>
-				<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
-				<a class="nav-link" href="#">LOGOUT</a>
+		<!-------------------------------------
+		--------User Menu(side menu)--------
+		-------------------------------------->
+		<div id="userMenu" class="sidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a class="nav-link" href="./user_pages/userProfile.html">PROFILE</a>
+			<a class="nav-link" href="./user_pages/userProfile.html">CLIENT DETAIL</a>
+			<a class="nav-link" href="./user_pages/host_settings.html">HOST DETAILS</a>
+			<a class="nav-link" href="./user_pages/wallet.html">WALLET</a>
+			<a class="nav-link" href="#">LOGOUT</a>
 
-			</div>
-			<button>
-				<span class="fas fa-user-circle" onclick="openNav()"></span>
-			</button>
-	  		<!----------------------
-			----------Logo----------
-			----------------------->
-			<a class="navbar-brand" href="index.html"><img src="../images/logo2.png" id="logo-img" alt="zapShare"></a>
-	  		
-	  		<!-----------------------
-			----Notification icon----
-			------------------------>
-			<div id="working">
-	  	  	<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
-	  	  	</div>
-			<!-----------------------
-			------User toggler-------
-			------------------------>
-	  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userMenu" aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+		</div>
+		<button>
+			<span class="fas fa-user-circle" onclick="openNav()"></span>
+		</button>
+  		<!----------------------
+		----------Logo----------
+		----------------------->
+		<a class="navbar-brand" href="index.html"><img src="../images/logo2.png" id="logo-img" alt="zapShare"></a>
+  		
+  		<!-----------------------
+		----Notification icon----
+		------------------------>
+		<div id="working">
+  	  	<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
+  	  	</div>
+		<!-----------------------
+		------Browser toggler-------
+		------------------------>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#browserMenu" aria-controls="browserMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-			<!----------------------
-			----Browser menu toggle----
-			----------------------->
-	  		<div class="collapse navbar-collapse w-100" id="userMenu">
-	  			    <ul class="nav navbar-nav ml-auto">
-	  			    	<li class="nav-item">
-	  			    	<a class="nav-link" href="index.html">HOME</a>
-	  			    	</li>
-	  			    	<li class="nav-item">
-	  			    	  	<a class="nav-link" href="map.html">MAP</a>
-	  			    	</li>
-	  			    	<li class="nav-item">
-	  			    		<a class="nav-link" href="about.html">ABOUT</a>
-	  			    	</li>
-	  			    	<li class="nav-item">
-	  			    		<a class="nav-link" href="contact.html">CONTACT</a>
-	  			    	</li>
-	  			    </ul>
-			  </div>
-			  
-				  <input type="button" id="login-button" value="Login">
-		</nav>
+		<!----------------------
+		----Browser menu toggle----
+		----------------------->
+  		<div class="collapse navbar-collapse w-100" id="browserMenu">
+  			    <ul class="nav navbar-nav ml-auto">
+  			    	<li class="nav-item">
+  			    	<a class="nav-link" href="index.html">HOME</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    	  	<a class="nav-link" href="map.html">MAP</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="about.html">ABOUT</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="contact.html">CONTACT</a>
+  			    	</li>
+  			    </ul>
+		  </div>
+		  
+			  <input type="button" id="login-button" value="Login">
+	</nav>
 	
 		<!------------------------------------------------------
 		---------- Main Section - Contents of the Page ---------

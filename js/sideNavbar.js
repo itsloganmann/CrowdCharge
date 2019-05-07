@@ -1,6 +1,6 @@
 	function openNav() {
-	  document.getElementById("broswerMenu").style.width = "250px";
+	  document.getElementById("userMenu").style.width = "250px";
 	}
 	function closeNav() {
-	  document.getElementById("broswerMenu").style.width = "0";
+	  document.getElementById("userMenu").style.width = "0";
 	}
