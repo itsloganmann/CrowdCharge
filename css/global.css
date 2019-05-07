@@ -67,7 +67,7 @@ sidebar css
   margin-left: 50px;
 }
 
-#browserMenu-button, #bell-icon {
+#userMenu-button, #bell-icon {
   display: none
 }
 
@@ -79,8 +79,8 @@ sidebar css
 */
 @media only  screen and (min-width: 768px) {
 	#logo-img{
-		width: 300px; 
-		height: 100px;
+		width: 250px; 
+		height: 77px;
 	}
 
 	#bell-icon{

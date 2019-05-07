@@ -13,44 +13,75 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<!-- Load Bootstrap JavaScript library -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		<!-- Custom CSS -->
-		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		<!-- Icons -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		
+		<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="../../css/global.css">
+		<!-- Custom js-->
+		<script src="../../js/sideNavbar.js"></script>
 	</head>
 	<body>
-		<!-------------------------------------------------------
-			------------------ Navigation Bar ---------------------
-			------------------------------------------------------->
-		<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light">
-        <!-- logo -->
-        <div class="navbar-header">
-         <a class="navbar-brand" href="index.html"><img src="../images/logo.png" width="100" height="40" alt="zapShare"></a>
-        </div>
-        <!-- toggler -->
-         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-          </button>
+	<!-----------------------------------------
+	---------- Header- Navigation bar ---------
+	------------------------------------------>
+	<nav  class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
+		
+		<!-------------------------------------
+		--------User Menu(side menu)--------
+		-------------------------------------->
+		<div id="userMenu" class="sidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a class="nav-link" href="userProfile.html">PROFILE</a>
+			<a class="nav-link" href="userProfile.html">CLIENT DETAIL</a>
+			<a class="nav-link" href="host_settings.html">HOST DETAILS</a>
+			<a class="nav-link" href="wallet.html">WALLET</a>
+			<a class="nav-link" href="#">LOGOUT</a>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="nav navbar-nav ml-auto">
-                      <li class="nav-item">
-                      <a class="nav-link" href="map.html">MAP</a>
-                      </li>
-                      <li class="nav-item">
-                            <a class="nav-link" href="profile.html">PROFILE</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="host.html">HOST</a>
-                      </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="#">ABOUT</a>
-                      </li>
-                    <li class="nav-item">
-                          <a class="nav-link" href="logout.html">CONTACT</a>
-                      </li>
-                  </ul>
-          </div>
-    </nav>
+		</div>
+		<button>
+			<span class="fas fa-user-circle" onclick="openNav()"></span>
+		</button>
+  		<!----------------------
+		----------Logo----------
+		----------------------->
+		<a class="navbar-brand" href="../index.html"><img src="../../images/logo2.png" id="logo-img" alt="zapShare"></a>
+  		
+  		<!-----------------------
+		----Notification icon----
+		------------------------>
+		<div id="working">
+  	  	<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
+  	  	</div>
+		<!-----------------------
+		------Browser toggler-------
+		------------------------>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#browserMenu" aria-controls="browserMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!----------------------
+		----Browser menu toggle----
+		----------------------->
+  		<div class="collapse navbar-collapse w-100" id="browserMenu">
+  			    <ul class="nav navbar-nav ml-auto">
+  			    	<li class="nav-item">
+  			    	<a class="nav-link" href="../index.html">HOME</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    	  	<a class="nav-link" href="../map.html">MAP</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="../about.html">ABOUT</a>
+  			    	</li>
+  			    	<li class="nav-item">
+  			    		<a class="nav-link" href="../contact.html">CONTACT</a>
+  			    	</li>
+  			    </ul>
+		  </div>
+		  
+			  <input type="button" id="login-button" value="Login">
+	</nav>
 		
 		<!------------------------------------------------------
 		---------- Main Section - Contents of the Page ---------
