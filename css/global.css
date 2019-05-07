@@ -26,6 +26,9 @@ main {
 .navbar-custom {
   border-bottom: 2px #32DC32 solid;
 }
+.browser-menu-item{
+  text-align: right;
+}
 
 /*
 sidebar css
