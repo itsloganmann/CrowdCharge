@@ -15,8 +15,8 @@ main {
 }
 
 .navbar-custom {
-  border-top: 8px #356859 solid;
-  box-shadow: 0px 0px 4px 0px #356859;
+  border-top: 8px #045D56 solid;
+  box-shadow: 0px 0px 4px 0px #045D56;
 }
 .browser-menu-item{
   text-align: right;
@@ -52,10 +52,6 @@ main {
 	}
 	.headertext{
 		display:block;
-  }
-  #logo-img {
-      height: 50px;
-      width: 150px;
   }
   #bell-wrapper {
       float: right;
@@ -98,11 +94,10 @@ main {
     width: 0px;
     max-width: 336px;
     position: fixed;
-    background-color: #FFFBE6;
+    background-color: #FFFFFF;
     transition: width 1s ease;
     overflow-y: auto;
-    box-shadow: 0px 0px 4px 0px #356859;
-    border-top: 22px solid #356859;
+    box-shadow: 0px 0px 4px 0px #045D56;
     max-width: 100vw;
 }
 
@@ -131,8 +126,8 @@ main {
 }
 
 #logout-button {
-    color: #000000;
-    background-color: #B9E4C9;
+    color: #FF6859;
+    background-color: #FFFFFF;
 }
 
 .side-menu-button:hover {
@@ -143,14 +138,14 @@ main {
 
 #logout-button:hover {
     color: #FFFFFF;
-    background-color: #FD5523;
+    background-color: #FF6859;
     opacity: 0.8;
 }
 
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
     font-size: 18pt;
-    color: #848FA5;
+    color: #EEEEEE;
     float: right;
 }
 
@@ -171,12 +166,12 @@ main {
 }
 
 #side-menu-hr { 
-    border-color: #356859;
+    border-color: #045D56;
 }
 
 #side-menu-close-button {
     font-size: 18pt;
-    color: #356859;
+    color: #045D56;
     cursor: pointer;
     padding: 8px;
     float: right;
@@ -196,7 +191,7 @@ main {
 
 #HeaderNav {
   justify-content: flex-end;
-  background-color: #FFFBE6 !important;
+  background-color: #045D56 !important;
   z-index: 99;
 }
 
