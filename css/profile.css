@@ -52,6 +52,10 @@
 .content-margin{
 	margin: 20px;
 }
+.h1-font-size{
+	font-size: 12pt;
+}
+.h2-font-size{}
 
 
 @media only  screen and (min-width: 800px) {
