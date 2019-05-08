@@ -20,15 +20,21 @@
     margin: 4px;
 }
 #map-side-content {
-    float: left;
-    width: 100%;
     border-right: 1px solid black;
     height: 252px;
     background-color: #848FA5;
 }
 
+#map-side-content-wrapper {
+    display: block;
+    position: absolute;
+    width: calc(100% - 16px);
+    margin: 12px auto auto;
+    left: 0;
+    right: 0;
+}
+
 #map-main-content {
-    float: right;
     width: 100%;
     height: calc(100vh - 68px - 252px);
     background-color: #F3F3F3;
@@ -44,10 +50,12 @@
     #map-main-content {
         width: calc(100% - 288px);
         height: calc(100vh - 68px);
+        float: right !important;
     }
 
     #map-side-content {
         width: 288px;
         height: calc(100vh - 68px);
+        float: left !important;
     }
 }

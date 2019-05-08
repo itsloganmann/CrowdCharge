@@ -22,3 +22,4 @@ $(document).ready(function() {
         $('#firebaseui-auth-container').css("display", "none");
     });
 });
+
