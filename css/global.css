@@ -9,18 +9,9 @@ main {
   background: #F3F3F3;
 }
 
-#navbar-brand {
-    margin: 0 auto;
-	
-}
 #logo-img{
 	width: 150px; 
 	height: 50px;
-}
-
-#bell-icon{
-  font-size: 18pt;
-    margin-right: 30px;
 }
 
 .navbar-custom {
@@ -61,16 +52,11 @@ main {
 	.headertext{
 		display:block;
   }
-  #navbar-brand {
-    margin: 0 0 0 14px;
-  }
   #logo-img {
       height: 50px;
       width: 150px;
   }
   #bell-wrapper {
-      position: absolute;
-      right: 0;
       float: right;
   }
   #userMenu {
@@ -104,7 +90,8 @@ main {
 }
 
 #side-menu {
-    z-index: 1;
+    right: 0;
+    z-index: 100;
     display: block;
     height: 100vh;
     width: 0px;
@@ -159,10 +146,11 @@ main {
     opacity: 0.8;
 }
 
-#open-side-menu-button, #bell-icon{
+#open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
-    font-size: 16pt;
+    font-size: 18pt;
     color: #356859;
+    float: right;
 }
 
 .side-menu-text {
@@ -193,10 +181,48 @@ main {
     float: right;
 }
 
+#navbar-brand {
+  position: absolute;
+  left: 10px;
+}
 #userMenu {
     width: initial!important;
 }
 
 .nav-link {
     font-size: 14pt;
+}
+
+#HeaderNav {
+  justify-content: flex-end;
+}
+
+#HeaderNav > div {
+  padding: 8px;
+  float: right;
+}
+
+.dropdown {
+  z-index: 1;
+}
+
+.dropdown-toggle {
+  background-color: inherit;
+  border: none;
+}
+
+.dropdown-toggle:after {
+  display: none;
+}
+
+.dropdown-toggle:hover {
+  background-color: initial;
+}
+
+.dropdown-toggle:active {
+  background-color: initial;
+}
+
+#login-button {
+  display: none;
 }

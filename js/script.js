@@ -15,6 +15,7 @@ $(document).ready(function() {
                 $("body").prepend("<div id='overlay'></div>")
                 $('#firebaseui-auth-container').css("display", "block");
             });
+            $("#login-button").css("display", "initial");
         }
     });
     $("body").on("click", "#overlay", () => {

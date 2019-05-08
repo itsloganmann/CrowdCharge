@@ -1,7 +1,6 @@
 $(document).ready(function () {
 	$("#HeaderNav").on("click", "#open-side-menu-button", (event) => {
 		$("#side-menu").toggleClass("expanded-side");
-		event.stopPropagation();
 	});
 	$("#side-menu-close-button, #side-menu-close-button *").on("click", (event) => {
 		$("#side-menu").toggleClass("expanded-side");

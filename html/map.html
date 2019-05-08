@@ -37,16 +37,14 @@
 	<!-- Side Menu -->
 	<div id="side-menu" class="side-nav">
 		<div id="side-menu-button-wrapper">
-			<div class="side-menu-text">Account
+			<div class="side-menu-text">Menu
 				<span id="side-menu-close-button" class="fas fa-times"></span>
 			</div>
 			<hr class="side-menu-hr">
-			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">User Page</a>
-			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">Client Profile</a>
-			<a class="nav-link side-menu-button" , href="./user_pages/host_setting.html">Host Profile</a>
-			<a class="nav-link side-menu-button" , href="./user_pages/wallet.html">Wallet</a>
-			<hr class="side-menu-hr">
-			<div class="nav-link side-menu-button" id="logout-button">Sign Out</div>
+			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">Home</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/userProfile.html">Map</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/host_setting.html">About</a>
+			<a class="nav-link side-menu-button" , href="./user_pages/wallet.html">Contact</a>
 			<hr class="side-menu-hr">
 		</div>
 	</div>
@@ -54,21 +52,37 @@
 	<div>
 		<nav class="navbar navbar-custom navbar-expand-md navbar-light bg-light" id="HeaderNav">
 
-			<span id="open-side-menu-button" class="fas fa-user"></span>
 			<a id="navbar-brand" href="index.html">
 				<img src="../images/logo2.png" id="logo-img" alt="zapShare" width="120">
 			</a>
 			<div id="bell-wrapper">
 				<a href="notification.html" class="fas fa-bell nav-item ml-auto" id="bell-icon"></a>
 			</div>
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div id="user-wrapper">
+						<a href="notification.html" class="fas fa-user" id="user-icon"></a>
+					</div>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+					<button class="dropdown-item" type="button">User Details</button>
+					<button class="dropdown-item" type="button">Client Profile</button>
+					<button class="dropdown-item" type="button">Host Profile</button>
+					<button class="dropdown-item" type="button">Your Wallet</button>
+					<button class="dropdown-item" type="button" id="logout-button">Sign Out</button>
+				</div>
+			</div>
+			<!--
 			<div class="navbar-toggler" id="user-menu" data-toggle="collapse" data-target="#userMenu"
 				aria-controls="userMenu" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="fas fa-bars"></span>
-			</div>
+			</div> -->
 			<div id="login-button">Login</div>
+			<div id="open-side-menu-button" class="fas fa-bars"></span>
 
 			<!-- Dropdown menu -->
-			<div class="collapse navbar-collapse w-100" id="userMenu">
+			<!--			<div class="collapse navbar-collapse w-100" id="userMenu">
 				<ul class="nav navbar-nav ml-auto">
 					<li class="nav-item browser-menu-item">
 						<a class="nav-link" href="index.html">Home</a>
@@ -83,7 +97,7 @@
 						<a class="nav-link" href="contact.html">Contact</a>
 					</li>
 				</ul>
-			</div>
+			</div> -->
 		</nav>
 		<main>
 			<div id="firebaseui-auth-container"></div>
