@@ -23,10 +23,7 @@ var uiConfig = {
     uiShown: function() {
       $('#firebaseui-auth-container').css({
         "display" : "none",
-        "position" : "fixed",
-        "left" : "0",
-        "right" : "0",
-        "z-index" : "2"
+        "z-index" : "10"
       });
     }
   },
