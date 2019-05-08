@@ -1,46 +1,65 @@
-.semi-expanded-map-side {
-
-}
-
-.full-expanded-map-side {
-
-}
-
-#map-side-close-button{
-
-}
 #map-side-expansion-button{
     float: right;
 }
 
-#map-side-close-button, #map-side-expansion-button {
+#map-horizontal-expansion-button, #map-vertical-expansion-button {
     font-size: 18pt;
     color: #356859;
     padding: 4px;
     margin: 4px;
-}
-#map-side-content {
-    border-right: 1px solid black;
-    height: 252px;
-    background-color: #848FA5;
+    float: right;
 }
 
-#map-side-content-wrapper {
-    display: block;
-    position: absolute;
-    width: calc(100% - 16px);
-    margin: 12px auto auto;
-    left: 0;
-    right: 0;
+#map-vertical-expansion-button {
+    display: unset;
+}
+#map-horizontal-expansion-button {
+    display: none;
+}
+
+#map-side-content {
+    border-right: 1px solid black;
+    height: 164px;
+    background-color: #848FA5;
+    transition: height 1s ease;
+    width: 100vw;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    max-height: calc(100vh - 68px);
 }
 
 #map-main-content {
     width: 100%;
-    height: calc(100vh - 68px - 252px);
+    height: calc(100vh - 68px - 164px);
     background-color: #F3F3F3;
 }
 
+
+#map-horizontal-expansion-button, #map-vertical-expansion-button {
+    font-size: 18pt;
+    color: #356859;
+    padding: 4px;
+    margin: 4px;
+    float: right;
+}
+
+@media only screen and (min-width: 0px) {
+    .map-side-expanded {
+        width: initial;
+        max-width: initial;
+        height: 336px !important;
+        max-height: calc(100vh - 68px) !important;
+    }
+}
+
 @media only screen and (min-width: 768px) {
+    .map-side-expanded {
+        height: calc(100vh - 68px) !important;
+        max-height: calc(100vh - 68px) !important;
+        width: 388px !important;
+        max-width: 100vw !important;
+    }
     #map-wrapper {
         display: block;
         height: 100%;
@@ -56,6 +75,13 @@
     #map-side-content {
         width: 288px;
         height: calc(100vh - 68px);
-        float: left !important;
+        transition: width 1s ease;
+    }
+
+    #map-vertical-expansion-button {
+        display: none;
+    }
+    #map-horizontal-expansion-button {
+        display: unset;
     }
 }
