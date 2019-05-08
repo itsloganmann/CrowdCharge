@@ -15,7 +15,8 @@ main {
 }
 
 .navbar-custom {
-  border-bottom: 2px #32DC32 solid;
+  border-top: 8px #356859 solid;
+  box-shadow: 0px 0px 4px 0px #356859;
 }
 .browser-menu-item{
   text-align: right;
@@ -149,7 +150,7 @@ main {
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
     font-size: 18pt;
-    color: #356859;
+    color: #848FA5;
     float: right;
 }
 
@@ -195,6 +196,8 @@ main {
 
 #HeaderNav {
   justify-content: flex-end;
+  background-color: #FFFBE6 !important;
+  z-index: 99;
 }
 
 #HeaderNav > div {
