@@ -3,9 +3,6 @@ html, body{
 	height:100%; 
 	background-repeat: no-repeat;
 }
-#subcontent{
-	background: transparent;
-}
 .margin-setting{
 	margin-left: 15%;
 	margin-right: 15%;
@@ -17,4 +14,7 @@ html, body{
 	margin-top: 30px;
 	background-color: #F3F3F3;
 	height: 500px;
+}
+#notification-header{
+	color: white;
 }
