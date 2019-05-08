@@ -1,0 +1,20 @@
+html, body{
+	background-image: linear-gradient(#F05A29 0%, #FF9F10 85.94%); 
+	height:100%; 
+	background-repeat: no-repeat;
+}
+#subcontent{
+	background: transparent;
+}
+.margin-setting{
+	margin-left: 15%;
+	margin-right: 15%;
+}
+#contentContainer{
+	margin-top: 50px;
+}
+.content{
+	margin-top: 30px;
+	background-color: #F3F3F3;
+	height: 500px;
+}
