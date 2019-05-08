@@ -199,6 +199,7 @@ main {
   justify-content: flex-end;
   background-color: #045D56 !important;
   z-index: 99;
+  height: 64px;
 }
 
 .nav-bar-icon {
@@ -244,4 +245,31 @@ main {
 
 #login-button-wrapper:hover {
   border: 2px solid #F05A29;
+}
+
+#nav-top {
+  display: none;
+  justify-content: space-evenly;
+  width: 436px;
+}
+
+.nav-top-link {
+  color: #EEEEEE;
+}
+
+.nav-top-link:hover {
+  color: #F05A29;
+  text-decoration: unset;
+}
+
+@media only screen and (min-width: 768px) {
+  .expanded-side {
+    width: 0 !important;
+  }
+  #side-menu, #open-side-menu-button {
+    display: none;
+  }
+  #nav-top {
+    display: flex;
+  }
 }
