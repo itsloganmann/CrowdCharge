@@ -22,7 +22,7 @@
     border-bottom: 22px solid #356859;
     height: 164px;
     background-color: #EEEEEE;
-    transition: height 1s ease;
+    transition: height 0.5s ease;
     width: 100vw;
     position: fixed;
     z-index: 1;
@@ -76,7 +76,7 @@
     #map-side-content {
         width: 288px;
         height: calc(100vh - 76px);
-        transition: width 1s ease;
+        transition: width 0.5s ease;
     }
 
     #map-vertical-expansion-button {
