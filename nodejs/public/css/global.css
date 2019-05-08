@@ -15,8 +15,9 @@ main {
 }
 
 .navbar-custom {
-  border-top: 8px #045D56 solid;
-  box-shadow: 0px 0px 4px 0px #045D56;
+  border-top: 4px #04395d solid;
+  border-top: 4px #04395d solid;
+  box-shadow: 0px 0px 4px 0px #04395d;
 }
 .browser-menu-item{
   text-align: right;
@@ -96,7 +97,7 @@ main {
     background-color: #EEEEEE;
     transition: width 0.5s ease;
     overflow-y: auto;
-    box-shadow: 0px 0px 4px 0px #045D56;
+    box-shadow: 0px 0px 4px 0px #04395d;
     max-width: 100vw;
 }
 
@@ -175,12 +176,12 @@ main {
 }
 
 #side-menu-hr { 
-    border-color: #045D56;
+    border-color: #04395d;
 }
 
 #side-menu-close-button {
     font-size: 18pt;
-    color: #045D56;
+    color: #04395d;
     cursor: pointer;
     padding: 8px;
     float: right;
@@ -188,7 +189,7 @@ main {
 
 #navbar-brand {
   position: absolute;
-  left: 10px;
+  left: 24px;
 }
 
 .nav-link {
@@ -197,7 +198,7 @@ main {
 
 #HeaderNav {
   justify-content: flex-end;
-  background-color: #045D56 !important;
+  background-color: #04395d !important;
   z-index: 2;
   height: 64px;
 }
