@@ -3,7 +3,7 @@ $(document).ready(function() {
         if (user) {
             $("#bell-wrapper").css("display", "initial");
             $("#user-menu-button").css("display", "initial");
-            $("#logout-button-wrapper").click(() => {
+            $("#logout-button").click(() => {
                 firebase.auth().signOut().then(() => {
                     location.replace("index.html");
                 });
