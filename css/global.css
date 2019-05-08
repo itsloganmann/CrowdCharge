@@ -23,8 +23,11 @@ main {
 }
 
 
-#userMenu-button, #bell-icon {
-  display: none
+#user-menu-button, #bell-wrapper {
+  display: none;
+}
+#user-menu-button {
+  padding: 0px;
 }
 
 /* Go Mobile first */
@@ -55,10 +58,6 @@ main {
   }
   #bell-wrapper {
       float: right;
-  }
-  #userMenu {
-      float: right;
-      margin-right: 64px;
   }
 }
 
@@ -94,7 +93,7 @@ main {
     width: 0px;
     max-width: 336px;
     position: fixed;
-    background-color: #FFFFFF;
+    background-color: #EEEEEE;
     transition: width 0.5s ease;
     overflow-y: auto;
     box-shadow: 0px 0px 4px 0px #045D56;
@@ -126,7 +125,7 @@ main {
 }
 
 #logout-button {
-    color: #FF6859;
+    color: #F05A29;
     background-color: #FFFFFF;
 }
 
@@ -138,7 +137,7 @@ main {
 
 #logout-button:hover {
     color: #FFFFFF;
-    background-color: #FF6859;
+    background-color: #F05A29;
     opacity: 0.8;
 }
 
@@ -147,6 +146,16 @@ main {
     font-size: 18pt;
     color: #EEEEEE;
     float: right;
+}
+
+#bell-icon:hover {
+  text-decoration: unset;
+}
+#bell-icon {
+  padding: 8px;
+}
+#bell-wrapper {
+  padding: 0;
 }
 
 .side-menu-text {
@@ -181,9 +190,6 @@ main {
   position: absolute;
   left: 10px;
 }
-#userMenu {
-    width: initial!important;
-}
 
 .nav-link {
     font-size: 14pt;
@@ -195,9 +201,13 @@ main {
   z-index: 99;
 }
 
-#HeaderNav > div {
+.nav-bar-icon {
   padding: 8px;
   float: right;
+  margin: 0px 4px;
+}
+.nav-bar-icon:hover {
+  color: #F05A29;
 }
 
 .dropdown {
@@ -221,6 +231,17 @@ main {
   background-color: initial;
 }
 
-#login-button {
+#login-button-wrapper {
+  cursor: pointer;
   display: none;
+  color: #EEEEEE;
+  background-color: inherit;
+  border-radius: 4px;
+  border: 2px solid #EEEEEE;
+  margin-right: 10px;
+  padding: 2px 12px;
+}
+
+#login-button-wrapper:hover {
+  border: 2px solid #F05A29;
 }
