@@ -22,10 +22,6 @@ main {
   text-align: right;
 }
 
-
-#user-menu-button, #bell-wrapper {
-  display: none;
-}
 #user-menu-button {
   padding: 0px;
 }
@@ -234,7 +230,6 @@ main {
 
 #login-button-wrapper {
   cursor: pointer;
-  display: none;
   color: #EEEEEE;
   background-color: inherit;
   border-radius: 4px;

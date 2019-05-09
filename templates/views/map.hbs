@@ -2,33 +2,25 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Map</title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>
-  <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
-  <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet'>
-  <link rel="stylesheet" href="css/map.css">
-  {{>head_style}}
-  {{>bootstrap_style}}
+		<title>{{title}}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{{>stylesheets}}
+		{{>imports}}
+    {{>mapboxsetup}}
 </head>
 
 <body>
   <main>    
     {{>sidenav}}
     {{>topnav}}
-    <div id="firebaseui-auth-container"></div>
-    <div id="map-wrapper">
-      <div id='map'></div>
-      {{>mapscript}}
-    </div>
+    {{>maprender}}
     <div id="map-drawer">
       <span id="map-horizontal-expansion-button" class="fas fa-chevron-right"></span>
       <span id="map-vertical-expansion-button" class="fas fa-chevron-up"></span>
     </div>
   </main>
-  {{>body_script}}
-  {{>bootstrap_script}}
-  <script src="js/map.js"></script>
+  {{>javascripts}}
 </body>
 
 </html>
