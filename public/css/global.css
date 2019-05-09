@@ -216,13 +216,26 @@ main {
   border: none;
 }
 
+.dropdown-toggle:after {
+  display: none;
+}
+
 .dropdown-toggle:hover {
   background-color: initial;
 }
 
 .dropdown-toggle:active {
   background-color: initial;
-  border: 0px;
+}
+
+.dropdown-toggle:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: initial !important;
+}
+
+.btn-secondary.dropdown-toggle {
+  background-color: initial;
 }
 
 #login-button-wrapper {
