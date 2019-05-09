@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>my profile</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    {{>head_style}}
+    {{>bootstrap_style}}
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="../../css/profile.css">
+</head>
+<body>
+	<!-- Side Menu -->
+	{{>sidenav}}
+	<!-- Header Navbar -->
+	{{>topnav}}
+		<!------------------------------------------------------
+		---------- Main Section - Contents of the Page ---------
+		------------------------------------------------------->
+		<div id="contentContainer">
+			<div class="row margin-setting">
+				<div class="col-3 ">
+					<img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon"/>
+				</div>
+	   			<div class="col-6">
+	   				<h1 id="user-name">User Name</h1>
+	   				<h3 id="user-phone">Phone</h3>
+	   				<h3 id="user-email">Email</h3>
+	   			</div>
+			</div>
+			<div class="row margin-setting" id="profile-tab">
+				<div class="col-12">
+					<ul class="nav">
+						<li class="nav-item profile-nav"><a id= "bookings" href="#"> Bookings</a></li>
+						<li class="nav-item profile-nav"><a id= "payment" href="#">Payment</a></li>
+						<li class="nav-item profile-nav"><a id= "reviews" href="#">Reviews</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row margin-setting content" id="subContent">
+				
+			</div>
+		</div>
+        {{>body_script}}
+        {{>bootstrap_script}}
+		<script src="../../js/profile.js"></script>
+
+
+</body>
+</html>
