@@ -191,7 +191,7 @@ main {
     font-size: 14pt;
 }
 
-#HeaderNav {
+#header-nav {
   justify-content: flex-end;
   background-color: #045D56 !important;
   z-index: 2;
