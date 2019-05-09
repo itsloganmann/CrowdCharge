@@ -1,4 +1,10 @@
-#map-side-expansion-button{
+#map {
+    position: block;
+    height: 100%;
+    width: 100%;
+}
+
+#map-side-expansion-button {
     float: right;
 }
 
@@ -8,7 +14,9 @@
     padding: 4px;
     margin: 4px;
     float: right;
+    cursor: pointer;
 }
+
 
 #map-vertical-expansion-button {
     display: unset;
@@ -17,9 +25,8 @@
     display: none;
 }
 
-#map-side-content {
+#map-drawer {
     box-shadow: 0px 0px 4px 0px #356859;
-    border-bottom: 22px solid #356859;
     height: 164px;
     background-color: #EEEEEE;
     transition: height 0.5s ease;
@@ -30,9 +37,9 @@
     max-height: calc(100vh - 64px);
 }
 
-#map-main-content {
+#map-wrapper {
     width: 100%;
-    height: calc(100vh - 70px - 164px);
+    height: calc(100vh - 64px - 164px);
     background-color: #FFFFFF;
 }
 
@@ -67,13 +74,13 @@
         float: right;
     }
 
-    #map-main-content {
+    #map-wrapper {
         width: calc(100% - 288px);
         height: calc(100vh - 64px);
         float: right !important;
     }
 
-    #map-side-content {
+    #map-drawer {
         width: 288px;
         height: calc(100vh - 64px);
         transition: width 0.5s ease;
