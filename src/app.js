@@ -58,13 +58,48 @@ app.get('/weather', (req, res) => {
     })
 })
 
-app.get('/userProfile', (req, res) => {
-    res.render('userProfile', {
+app.get('/user_profile', (req, res) => {
+    res.render('user_profile', {
+        title: 'Client',
+        name: 'Edwin'
+    })
+})
+app.get('/add_new_charger', (req, res) => {
+    res.render('add_new_charger', {
+        title: 'New Charger',
+        name: 'Edwin'
+    })
+})
+app.get('/user_setting', (req, res) => {
+    res.render('user_setting', {
+        title: 'User Setting',
+        name: 'Edwin'
+    })
+})
+app.get('/wallet', (req, res) => {
+    res.render('wallet', {
+        title: 'Wallet',
+        name: 'Edwin'
+    })
+})
+app.get('/contact', (req, res) => {
+    res.render('contact', {
+        title: 'Contact',
+        name: 'Edwin'
+    })
+})
+app.get('/index', (req, res) => {
+    res.render('index', {
         title: 'Weather',
         name: 'Edwin'
     })
 })
-
+app.get('/notification', (req, res) => {
+    res.render('notification', {
+        title: 'Notification',
+        name: 'Edwin'
+    })
+})
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'Weather',

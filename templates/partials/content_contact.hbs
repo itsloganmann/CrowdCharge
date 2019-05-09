@@ -1,0 +1,61 @@
+<main>
+    <div class="headerimagecontainer">
+        <img src="../images/homeImg.jpeg" class="headerimage" alt="logo">
+        <div class="headertext">
+            Contact Us
+        </div>
+    </div>
+
+    <div id="summary-text">
+        <div id="summary-lines">
+            Please fill out the form below to reach the ZapShare team!
+        </div>
+    </div>
+
+    <div class="wrapper2">
+        <form action="thanks.html" method="post">
+            <input type="hidden" name="recipient" id="recipient" value="Edwin">
+            <input type="hidden" name="subject" id="subject" value="ZapShare Contact">
+            <input type="hidden" name="redirect" id="redirect" value="thanks.html">
+            <input type="hidden" name="sort" id="sort"
+                value="order:firstname,lastname,email,company,phone,type,comment">
+
+            <fieldset>
+                <legend>Contact Info</legend>
+                <div class="formrow">
+                    <input type="text" name="firstname" id="firstname" placeholder="First Name">
+                </div>
+                <div class="formrow">
+                    <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+                </div>
+                <div class="formrow">
+                    <input type="email" name="email" id="email" placeholder="Email">
+                </div>
+                <div class="formrow">
+                    <input type="text" name="company" id="company" placeholder="Company">
+                </div>
+                <div class="formrow">
+                    <input type="text" name="phone" id="phone" placeholder='Phone'>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Select a Category You Are Inquiring About</legend>
+                <select size="5" name="type" id="type">
+                    <option value="directory">Business Inquiries</option>
+                    <option value="exchanges">Feature Request</option>
+                    <option value="resources">Technical Support</option>
+                    <option value="policies">Service Feedback</option>
+                    <option value="business">Report a Bug</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Message</legend>
+                <textarea name="comment" id="comment"></textarea>
+            </fieldset>
+            <div id="formsubmit">
+                <input type="submit" value="Submit" id="subbutton">
+                <input type="reset" value="Reset" id="resetbutton">
+            </div>
+        </form>
+    </div>
+</main>

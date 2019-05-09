@@ -6,37 +6,15 @@
 		<title>Host Settings</title>
 		<meta charset = "utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{{>head_style}}
-        {{>bootstrap_style}}
-		<!-- Custom CSS -->
-		<link rel="stylesheet" type="text/css" href="../css/global.css">
+		{{>imports}}
+
 		
 	</head>
 	<body>
 
-	    <!-- Side Menu -->
 	    {{>sidenav}}
-
-		<!-- Header Navbar -->
 		{{>topnav}}
-
-		<!------------------------------------------------------
-		---------- Main Section - Contents of the Page ---------
-		------------------------------------------------------->
-		<h1>Host</h1>
-		<ul>
-			<li>Chargers</li>
-			<li>Requests</li>
-			<li>Payment</li>
-		</ul>
-		<div class="homebox">
-			<h3>Chargers</h3>
-			<p>Here are your chargers! Select them to edit details and availability.</p>
-			
-			<a>Good Home Charger</a>
-			<a href="add_new_charger.html">Add new charger</a>
-		</div>
-		{{>body_script}}
-  		{{>bootstrap_script}}
+		{{>content_host_setting}}
+		{{>javascripts}}
 	</body>
 </html>

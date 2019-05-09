@@ -4,51 +4,14 @@
 		<title>Wallet</title>
 		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		{{>head_style}}
-        {{>bootstrap_style}}
-		<!-- Custom CSS -->
-		<link rel='stylesheet' type='text/css' href"css/wallet.css'>
+		{{>imports}}
+		{{>style_wallet}}
+
 	</head>
 	<body>
-		 <!-- Side Menu -->
 	    {{>sidenav}}
-
-		<!-- Header Navbar -->
 		{{>topnav}}
-		
-			<!------------------------------------------------------
-			---------- Main Section - Contents of the Page ---------
-			------------------------------------------------------->
-		<main>
-			<div id ='walletHeader'>
-				<h1>Your Wallet</h1>
-				<h3>Current Balance $</h3>
-			</div>
-			<div id='walletOuterBox'>
-				<div class='fundsBox'>
-					<p class='boxTitle'><span>Add </span>CDN$ 5.00</p>
-					<button type='button' class='addFunds'>Add Funds</button>
-				</div>
-				<div class='fundsBox'>
-					<p class='boxTitle'><span>Add </span>CDN$ 10.00</p>
-					<button type='button' class='addFunds'>Add Funds</button>
-				</div>
-				<div class='fundsBox'>
-					<p class='boxTitle'><span>Add </span>CDN$ 25.00</p>
-					<button type='button' class='addFunds'>Add Funds</button>
-				</div>
-				<div class='fundsBox'>
-					<p class='boxTitle'><span>Add </span>CDN$ 50.00</p>
-					<button type='button' class='addFunds'>Add Funds</button>
-				</div>
-				<div class='fundsBox'>
-					<p class='boxTitle'><span>Add </span>CDN$ 100.00</p>
-					<button type='button' class='addFunds'>Add Funds</button>
-				</div>
-			</div>
-		</main>
-        {{>body_script}}
-  		{{>bootstrap_script}}
+        {{>content_wallet}}		
+        {{>javascripts}}
 	</body>
 </html>
