@@ -39,16 +39,12 @@
 #newCharger{
     color:#f05a29;
     background-color:white;
-    text-align:center;
-    width:40%;
-    height:30vh;
 }
 .chargerButton{
     color:white;
     background-color:#f05a29;
     text-align:center;
-    width:40%;
+    width:30%;
     height:30vh;
     margin:0 5vh;
-    
 }
