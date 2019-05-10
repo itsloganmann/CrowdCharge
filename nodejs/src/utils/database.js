@@ -4,6 +4,8 @@ const entity = require('./database-schema');
 // const connectionURL ='mongodb://127.0.0.1:27017';
 // const databaseName = 'ZapShare';
 
+//ALL CREATION METHODS
+//push new user to database
 let createUser = function(userInfo) {
     let user = new entity.user(userInfo);//JSON.parse(userInfo));
     user.save()
@@ -14,19 +16,22 @@ let createUser = function(userInfo) {
         });
 };
 
+//push new charger to database
 let createCharger = function(chargerInfo) {
     let charger = new entity.charger(chargerInfo);//JSON.parse(userInfo));
     charger.save()
         .then(()=>{
             console.log(charger);
-            let marker = new entity.marker({
+            // //create new marker for charger in database
+            // let marker = new entity.marker({
 
-            });
+            // });
         }).catch((err)=>{
             console.log(err)
         });
 };
 
+//push new booking to pending bookings
 let createBooking = function(bookingInfo) {
     let booking = new entity.pendingBooking(bookingInfo);//JSON.parse(userInfo));
     booking.save()
@@ -37,6 +42,7 @@ let createBooking = function(bookingInfo) {
         });
 };
 
+//push new review to review bank
 let createReview = function(reviewInfo) {
     let review = new entity.review(reviewInfo);//JSON.parse(userInfo));
     review.save()
@@ -47,6 +53,63 @@ let createReview = function(reviewInfo) {
         });
 };
 
+//USER FUNCTIONS
+//get user profile
+let getUser;
+//get user's pending bookings
+let getPendingBookings
+//get user's confirmed and unpaid bookings (should take action on these ones!)
+let getUnpaidBookings
+//get user's confirmed and paid bookings
+let getPaidBookings
+//get user's booking history
+let getUserHistory
+//get reviews of the user
+let getAllUserReviews;
+
+//HOST Functions
+//get user's chargers
+let getUserChargers;
+
+//get charger's pending bookings
+let getChargerPending
+//get all of user's bookings pending their confirmation (ie. all charger requests)
+let getAllChargerPending
+
+//get charger's paid bookings
+let getChargerPaid
+//get charger's unpaid bookings
+let getChargerUnpaid
+//get charger's scheduled/confirmed bookings (unpaid + paid)
+let getChargerConfirmed
+//get charger's booking history
+let getChargerHistory
+
+//get charger's reviews
+let getChargerReview
+//get all of host's charger reviews
+let getAllChargerReviews
+
+
+
+
+//BOOKING FUNCTIONALITIES
+//-- HOST (charger management)
+//confirm a booking (move from pending to unpaid)
+//reject a booking (send a notification to user, delete booking from unpaid)
+//set unavailable time (create a confirmed booking under host's own name)
+//-- USER (booking)
+//view host reviews/details
+//create a booking (check if time/date ok, push to pending, await host response)
+//pay for a booking (move from unpaid to paid collection)
+//-- SYSTEM (booking maintenance)
+//move all paid/confirmed bookings passed date to history
+//delete all unpaid bookings passed date
+//delete all pending bookings passed date
+
+//MAP THINGS
+//Get all chargers for map population
+//Get host details
 module.exports = {
     createUser : createUser,
     createBooking : createBooking,

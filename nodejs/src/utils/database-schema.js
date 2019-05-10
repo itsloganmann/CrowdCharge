@@ -37,12 +37,12 @@ const User = mongoose.model('User', {
     lastName: {
         type: String
     },
-    // phone: {
-    //     type: String
-    // },
-    // email:{
-    //     type: String
-    // },
+    phone: {
+        type: String
+    },
+    email:{
+        type: String
+    },
     // chargers:{
     //     type: Array,
     //     default: []
