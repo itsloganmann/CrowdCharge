@@ -1,0 +1,46 @@
+/*general margin-setting to mobile first*/
+
+#contentContainer{
+	margin-top: 50px;
+}
+.content{
+	margin-top: 30px;
+	background-color: #F3F3F3;
+}
+#profile-icon{
+	width: 70px;
+	height: 70px;
+	margin:0 auto;
+	display: block;
+}
+#img-btn{
+	margin:0 auto;
+	display: block;
+	width: auto;
+}
+
+#user-img{
+	display: block;
+	width: 100%;
+}
+.margin-setting{
+	margin: 10px;
+}
+.inner-margin-setting{
+	margin: 0 auto;
+}
+
+.input-width{
+	width: 100%;
+}
+#save-btn{
+	width: 100px;
+	margin: 0 auto;
+	display: block;
+}
+@media only screen and (min-width: 500px) {
+.margin-setting{
+	margin-left: 15%;
+	margin-right: 15%;
+}
+}
