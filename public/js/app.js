@@ -6,7 +6,7 @@ fetch('http://puzzle.mead.io/puzzle').then((response) => {
     })
 })
 const fetchLocation = (search) => {
-    fetch('http://localhost:3000/weather?address=' + encodeURIComponent(search)).then((response) => {
+    fetch('/weather?address=' + encodeURIComponent(search)).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 console.log(data.error)
