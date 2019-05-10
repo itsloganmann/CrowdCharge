@@ -14,11 +14,13 @@
     width: 90vw;
     min-width: 222px;
     max-width: 728px;
+    min-height: 288px;
     height: 80vh;
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 4px 0px #000000;
     padding: 32px;
+    overflow: auto;
 }
 
 @media only screen and (min-width: 768px) {

@@ -2,23 +2,56 @@
 <html>
 
 <head>
-		<title>{{title}}</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{{>imports}}
-		{{>style_map}}
-    {{>mapboxsetup}}
+  <title>{{title}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{>imports}}
+  {{>style_map}}
+  {{>mapboxsetup}}
 </head>
 
 <body>
-  <main>    
+  <main>
     {{>sidenav}}
     {{>topnav}}
     {{>maprender}}
     <div id="map-drawer">
-      <span id="map-horizontal-expansion-button" class="fas fa-chevron-right"></span>
-      <span id="map-vertical-expansion-button" class="fas fa-chevron-up"></span>
-      <button id="clickme">Click Me</button>
+      <span id="map-drawer-close-button" class="fas fa-times map-drawer-button"></span>
+      <span id="map-drawer-expansion-button" class="fas fa-chevron-up map-drawer-button"></span>
+
+      <div id="map-drawer-text-wrapper">
+        <div class="map-drawer-text-row">
+          <div class="map-drawer-text-left">Next Availability</div>
+          <div class="map-drawer-text-right" id="map-drawer-availability">Today 4:30PM</div>
+        </div>
+        <br>
+        <div class="map-drawer-text-row">
+          <div class="map-drawer-text-left">Charger Type</div>
+          <div class="map-drawer-text-right" id="map-drawer-charger">Level 2 XDC</div>
+        </div>
+        <br>
+        <div class="map-drawer-text-row">
+          <div class="map-drawer-text-left">Hourly Rate</div>
+          <div class="map-drawer-text-right" id="map-drawer-hourly">$5.00</div>
+        </div>
+        <br>
+        <div class="map-drawer-text-row">
+          <div class="map-drawer-text-left">3.7/5.0</div>
+          <div class="map-drawer-text-right" id="map-drawer-reviews">See Reviews</div>
+        </div>
+        <br>
+        <div class="map-drawer-text-row">
+          <div class="map-drawer-text-right" id="map-drawer-dates">View Availabile Dates</div>
+        </div>
+        <br>
+        <div class="map-drawer-text-row" id="map-drawer-details-wrapper">
+          <div class="map-drawer-text-left">Additional Details</div>
+          <br>
+          <div class="map-drawer-text-left" id="map-drawer-details">CONTENT</div>
+        </div>
+        <br>
+        <button id="request-booking-button">REQUEST BOOKING</button>
+      </div>
     </div>
   </main>
   {{>javascripts}}

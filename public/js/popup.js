@@ -1,4 +1,4 @@
-$("#clickme").on("click", () => {
+$("#request-booking-button").on("click", () => {
     console.log("Clicked");
 	$("main").before("<div id='popup-wrapper'><div id='popup'></div></div>");
 	$("#popup").append("<input type='text'></div>");

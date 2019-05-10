@@ -278,3 +278,8 @@ main {
     display: flex;
   }
 }
+
+
+.display-reveal {
+  display: block !important
+}
