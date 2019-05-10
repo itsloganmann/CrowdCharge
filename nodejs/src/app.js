@@ -4,6 +4,9 @@ const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 
+//the database
+const db = require('./utils/database')
+
 // Variable for the current directory is __dirname.
 console.log(__dirname)
 
@@ -23,6 +26,9 @@ hbs.registerPartials(partialsPath)
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
 app.use(express.static(publicDirectoryPath))
 
+//Initialize connections to mongodb
+const MongoClient = require('mongodb').MongoClient;
+let dburl = "mongodb://localhost:27017/ZapShare"
 // Setting up the routing for different pages.
 app.get('', (req, res) => {
     res.render('index', {
@@ -73,6 +79,17 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
+    console.log("in create user");
+    let wuviv = {
+        "firstName": "Vivian",
+        "lastName" : "Wu"
+    };
+    db.createUser(wuviv)
+
+    // let c1 = {
+
+    // }
+
     res.render('about', {
         title: 'Weather',
         name: 'Edwin'
@@ -95,6 +112,7 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/help/*', (req, res) => {
+    
     res.render('404', {
         title: '404',
         name: 'Edwin Pau',
@@ -110,6 +128,17 @@ app.get('*', (req, res) => {
         errorMessage: 'Page not found.'
     })
 })
+
+
+// app.route("/createUser", (req,res) =>{
+//     console.log("in create user");
+//     let wuviv = {
+//         "firstName": "Vivian",
+//         "lastName" : "Wu"
+//     };
+
+//     db.createUser(wuviv)
+// });
 
 // Starts up the web server.
 app.listen(3000, () => {
