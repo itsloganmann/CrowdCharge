@@ -5,6 +5,9 @@ const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 
+//the database
+const db = require('./database/database')
+
 // Variable for the current directory is __dirname.
 console.log(__dirname)
 
@@ -14,8 +17,26 @@ const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
+<<<<<<< HEAD:src/app.js
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
+=======
+//Initialize firebase functions for hosting
+// const functions = require('firebase-functions');
+//Initialize access to firebase database
+// const firebase = require("firebase");
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDoV0bGzK3j1KIbqExhpefPr8LVj1LIVMM",
+//     authDomain: "comp2930-9f929.firebaseapp.com",
+//     databaseURL: "https://comp2930-9f929.firebaseio.com",
+//     projectId: "comp2930-9f929",
+//     storageBucket: "comp2930-9f929.appspot.com",
+//     messagingSenderId: "980529339514",
+//     appId: "1:980529339514:web:6c8c367e87a1e0c9"
+//   };
+// firebase.initializeApp(firebaseConfig);
+// const firebaseDBRef = firebase.app().database().ref();
+>>>>>>> 013637c5dd1c96e111b58ab3726382abb043bb8e:nodejs/src/app.js
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -27,6 +48,9 @@ hbs.registerPartials(partialsPath)
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
 app.use(express.static(publicDirectoryPath))
 
+// //Initialize connections to mongodb
+// const MongoClient = require('mongodb').MongoClient;
+// let dburl = "mongodb://localhost:27017/ZapShare"
 // Setting up the routing for different pages.
 app.get('', (req, res) => {
     res.render('index', {
@@ -111,6 +135,19 @@ app.get('/notification', (req, res) => {
     })
 })
 app.get('/about', (req, res) => {
+    // console.log("in create user");
+    // let wuviv = {
+    //     "firstName": "Vivian",
+    //     "lastName" : "Wu"
+    // };
+    // db.createUser(wuviv)
+
+    // let c1 = {
+
+    // }
+
+    db.getUser("5cd4a3cf26eed92a90076951");
+
     res.render('about', {
         title: 'Weather',
         name: 'Edwin'
@@ -133,6 +170,7 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/help/*', (req, res) => {
+    
     res.render('404', {
         title: '404',
         name: 'Edwin Pau',
@@ -149,7 +187,27 @@ app.get('*', (req, res) => {
     })
 })
 
+
+// app.route("/createUser", (req,res) =>{
+//     console.log("in create user");
+//     let wuviv = {
+//         "firstName": "Vivian",
+//         "lastName" : "Wu"
+//     };
+
+//     db.createUser(wuviv)
+// });
+
 // Starts up the web server.
+<<<<<<< HEAD:src/app.js
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
+=======
+app.listen(3000, () => {
+    console.log('Server is up on port 3000.')
+});
+
+//Hosts app on firebase functions
+// exports.app = functions.https.onRequest(app);
+>>>>>>> 013637c5dd1c96e111b58ab3726382abb043bb8e:nodejs/src/app.js
