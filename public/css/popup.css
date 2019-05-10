@@ -29,9 +29,17 @@
 }
 
 /** Map Page **/
+#popup-header {
+    
+}
+
+#popup-subheader {
+    color: #F05A29;
+}
 #popup-content {
     background-color: hotpink;
     height: 300px;
+    overflow-y: auto;
 }
 
 #popup-confirm {
@@ -53,4 +61,20 @@
     margin-top: 8px;
     box-shadow: 0px 4px 4px 0px #999999;
     cursor: pointer;
+}
+
+.time-slot-button {
+    background-color: #999999;
+    font-size: 12pt;
+    width: 70%;
+    border-radius: 2px;
+    border: 0px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    box-shadow: 0px 4px 4px 0px #999999;
+    cursor: pointer;  
+}
+
+.button-selected {
+    background-color: #F05A29;
 }

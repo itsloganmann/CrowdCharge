@@ -17,9 +17,8 @@ $("#request-booking-button").on("click", () => {
 
 
 // Removes popup for booking
-$(document).on("click", "#popup-wrapper", (e) => {
-    if (e.target.id == "popup-wrapper") {
+$(document).on("click", "#popup-wrapper, #popup-cancel", (e) => {
+    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel") {
         var popup = $("#popup-wrapper").detach();
-        e.stopPropagation();
     }
 });
