@@ -13,22 +13,6 @@ const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
-//Initialize firebase functions for hosting
-const functions = require('firebase-functions');
-//Initialize access to firebase database
-const firebase = require("firebase");
-const firebaseConfig = {
-    apiKey: "AIzaSyDoV0bGzK3j1KIbqExhpefPr8LVj1LIVMM",
-    authDomain: "comp2930-9f929.firebaseapp.com",
-    databaseURL: "https://comp2930-9f929.firebaseio.com",
-    projectId: "comp2930-9f929",
-    storageBucket: "comp2930-9f929.appspot.com",
-    messagingSenderId: "980529339514",
-    appId: "1:980529339514:web:6c8c367e87a1e0c9"
-  };
-firebase.initializeApp(firebaseConfig);
-const firebaseDBRef = firebase.app().database().ref();
-
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
@@ -155,10 +139,6 @@ app.get('*', (req, res) => {
     })
 })
 
-// Starts up the web server.
-// app.listen(3000, () => {
-//     console.log('Server is up on port 3000.')
-// })
-
-//Hosts app on firebase functions
-exports.app = functions.https.onRequest(app);
+app.listen(3000, () => {
+    console.log('Server is up on port 3000.')
+}) 
