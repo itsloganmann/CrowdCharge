@@ -5,7 +5,7 @@ const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 //the database
-const db = require('./utils/database')
+const db = require('./database/database')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -17,20 +17,20 @@ const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
 //Initialize firebase functions for hosting
-const functions = require('firebase-functions');
+// const functions = require('firebase-functions');
 //Initialize access to firebase database
-const firebase = require("firebase");
-const firebaseConfig = {
-    apiKey: "AIzaSyDoV0bGzK3j1KIbqExhpefPr8LVj1LIVMM",
-    authDomain: "comp2930-9f929.firebaseapp.com",
-    databaseURL: "https://comp2930-9f929.firebaseio.com",
-    projectId: "comp2930-9f929",
-    storageBucket: "comp2930-9f929.appspot.com",
-    messagingSenderId: "980529339514",
-    appId: "1:980529339514:web:6c8c367e87a1e0c9"
-  };
-firebase.initializeApp(firebaseConfig);
-const firebaseDBRef = firebase.app().database().ref();
+// const firebase = require("firebase");
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDoV0bGzK3j1KIbqExhpefPr8LVj1LIVMM",
+//     authDomain: "comp2930-9f929.firebaseapp.com",
+//     databaseURL: "https://comp2930-9f929.firebaseio.com",
+//     projectId: "comp2930-9f929",
+//     storageBucket: "comp2930-9f929.appspot.com",
+//     messagingSenderId: "980529339514",
+//     appId: "1:980529339514:web:6c8c367e87a1e0c9"
+//   };
+// firebase.initializeApp(firebaseConfig);
+// const firebaseDBRef = firebase.app().database().ref();
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -42,9 +42,9 @@ hbs.registerPartials(partialsPath)
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
 app.use(express.static(publicDirectoryPath))
 
-//Initialize connections to mongodb
-const MongoClient = require('mongodb').MongoClient;
-let dburl = "mongodb://localhost:27017/ZapShare"
+// //Initialize connections to mongodb
+// const MongoClient = require('mongodb').MongoClient;
+// let dburl = "mongodb://localhost:27017/ZapShare"
 // Setting up the routing for different pages.
 app.get('', (req, res) => {
     res.render('index', {
@@ -95,16 +95,18 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    console.log("in create user");
-    let wuviv = {
-        "firstName": "Vivian",
-        "lastName" : "Wu"
-    };
-    db.createUser(wuviv)
+    // console.log("in create user");
+    // let wuviv = {
+    //     "firstName": "Vivian",
+    //     "lastName" : "Wu"
+    // };
+    // db.createUser(wuviv)
 
     // let c1 = {
 
     // }
+
+    db.getUser("5cd4a3cf26eed92a90076951");
 
     res.render('about', {
         title: 'Weather',
@@ -157,9 +159,9 @@ app.get('*', (req, res) => {
 // });
 
 // Starts up the web server.
-// app.listen(3000, () => {
-//     console.log('Server is up on port 3000.')
-// })
+app.listen(3000, () => {
+    console.log('Server is up on port 3000.')
+});
 
 //Hosts app on firebase functions
-exports.app = functions.https.onRequest(app);
+// exports.app = functions.https.onRequest(app);

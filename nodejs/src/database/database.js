@@ -1,8 +1,6 @@
-// const {MongoClient, ObjectID} = require('mongodb');
+//import entity definitions + connection to db
 const entity = require('./database-schema');
 
-// const connectionURL ='mongodb://127.0.0.1:27017';
-// const databaseName = 'ZapShare';
 
 //ALL CREATION METHODS
 //push new user to database
@@ -54,8 +52,19 @@ let createReview = function(reviewInfo) {
 };
 
 //USER FUNCTIONS
+//--details
 //get user profile
-let getUser;
+let getUser = function(uUID) {
+    console.log(uUID);
+    entity.user.findById(uUID, (err, user)=>{
+        if(err)
+            return console.log("Error finding User " + uUID + ".");
+        console.log(user)
+    });
+
+};
+
+//--bookings
 //get user's pending bookings
 let getPendingBookings
 //get user's confirmed and unpaid bookings (should take action on these ones!)
@@ -64,33 +73,41 @@ let getUnpaidBookings
 let getPaidBookings
 //get user's booking history
 let getUserHistory
+
+//--reviews
 //get reviews of the user
 let getAllUserReviews;
 
 //HOST Functions
+//-- get all; connect user to their chargers
 //get user's chargers
 let getUserChargers;
 
+//-- pending booking functionality (has action)
 //get charger's pending bookings
 let getChargerPending
 //get all of user's bookings pending their confirmation (ie. all charger requests)
 let getAllChargerPending
 
+//-- bookings (no action)
 //get charger's paid bookings
 let getChargerPaid
 //get charger's unpaid bookings
 let getChargerUnpaid
-//get charger's scheduled/confirmed bookings (unpaid + paid)
+//get charger's scheduled/confirmed bookings (unpaid + paid(includes host set unavail times))
 let getChargerConfirmed
 //get charger's booking history
 let getChargerHistory
 
+//-- charger availaibility
+//get charger's user set unavail times (in paid, under hosts name)
+let getChargerAvailability
+
+//--charger reviews
 //get charger's reviews
 let getChargerReview
 //get all of host's charger reviews
 let getAllChargerReviews
-
-
 
 
 //BOOKING FUNCTIONALITIES
@@ -98,10 +115,12 @@ let getAllChargerReviews
 //confirm a booking (move from pending to unpaid)
 //reject a booking (send a notification to user, delete booking from unpaid)
 //set unavailable time (create a confirmed booking under host's own name)
+
 //-- USER (booking)
 //view host reviews/details
 //create a booking (check if time/date ok, push to pending, await host response)
 //pay for a booking (move from unpaid to paid collection)
+
 //-- SYSTEM (booking maintenance)
 //move all paid/confirmed bookings passed date to history
 //delete all unpaid bookings passed date
@@ -109,13 +128,18 @@ let getAllChargerReviews
 
 //MAP THINGS
 //Get all chargers for map population
-//Get host details
+
 module.exports = {
     createUser : createUser,
     createBooking : createBooking,
     createCharger : createCharger,
-    createReview : createReview
+    createReview : createReview,
+    getUser : getUser
 };
+
+// const {MongoClient, ObjectID} = require('mongodb');
+// const connectionURL ='mongodb://127.0.0.1:27017';
+// const databaseName = 'ZapShare';
 // let wuviv = new entity.user({
 //     firstName : "Vivian",
 //     lastName: "Wu"
