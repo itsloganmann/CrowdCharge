@@ -32,8 +32,8 @@ $('#chargers').click(function(event) {
 
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
-	var newCharger = $("<button id='newCharger'>+</button>");
-	var yourCharger =$("<button class='charger'>Your Charger</button>");
+	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
+	var yourCharger =$("<button class='chargerButton'>Your Charger</button>");
 
 	$('#content').append(header);
 	$('#content').append(chargerContainer);
