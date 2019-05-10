@@ -5,8 +5,8 @@
 		<title>{{title}}</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{{>stylesheets}}
 		{{>imports}}
+		{{>style_map}}
     {{>mapboxsetup}}
 </head>
 
@@ -18,9 +18,11 @@
     <div id="map-drawer">
       <span id="map-horizontal-expansion-button" class="fas fa-chevron-right"></span>
       <span id="map-vertical-expansion-button" class="fas fa-chevron-up"></span>
+      <button id="clickme">Click Me</button>
     </div>
   </main>
   {{>javascripts}}
+  <script src="js/map.js"></script>
 </body>
 
 </html>

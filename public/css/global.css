@@ -228,6 +228,16 @@ main {
   background-color: initial;
 }
 
+.dropdown-toggle:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: initial !important;
+}
+
+.btn-secondary.dropdown-toggle {
+  background-color: initial;
+}
+
 #login-button-wrapper {
   cursor: pointer;
   color: #EEEEEE;

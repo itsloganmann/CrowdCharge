@@ -1,83 +1,93 @@
 console.log("js file loaded successfullly");
-//booking tab click; build elements for booking details
-$("#bookings").click(function(event) {
-	$("#bookings").css({"color" : "#F05A29"});
-	$("#payment").css({"color" : "black"});
-	$("#reviews").css({"color" : "black"});
 
-	$("#subContent").html("");
+window.onload = function(){
+	//highlight active tab
+	$('#chargers').css({'color':'#f05a29'});
+	$('#bookings').css({'color':'black'});
+	$('#reviews').css({'color':'black'});
+	$('#earnings').css({'color':'black'});
 
-	//container hold all confirmed bookings for user
-	var confirmContainer = $("<div class='col-12'></div>");
-	var bookingHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='bookingHeading1'><b>Confirmed Bookings</b></h3>");
-	var bookingSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading1'> "
-		+ "These bookings have been confirmed by the host and are ready to go!</h6>");
-	var confirmedBookingData = $("<div class='col-10 well' id='confirmedBookingData'>"
-		+ "Some info from firebase</div>");
+	//clear old content
+	$('#content').html('');
 
-	//container hold all pending bookings for user
-	var pendingContainer =$("<div class='col-12'></div>");
-	var bookingHeading2 = $("<h3 class='col-10  content-margin h1-font-size' id= 'bookingHeading2'><b>Pending Bookings</b></h3>");
-	var bookingSubHeading2 = $("<h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading2'>"
-		+"These bookings have not been confirmed by the host yet, we’ll notify you when they do!</h6>");
-	var pendingBookingData = $("<div class='col-10 well' id='pendingBookingData'>Some info from firebase</div>");
+	//create new content
+	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
+	var chargerContainer = $("<div id='chargerContainer'></div>")
+	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
+	var yourCharger =$("<button class='chargerButton'>Your Charger</button>");
 
-	//appending
-	confirmContainer.append(bookingHeading1);
-	confirmContainer.append(bookingSubHeading1);
-	confirmContainer.append(confirmedBookingData);
-	pendingContainer.append(bookingHeading2);
-	pendingContainer.append(bookingSubHeading2);
-	pendingContainer.append(pendingBookingData);
+	$('#content').append(header);
+	$('#content').append(chargerContainer);
+	$('#chargerContainer').append(newCharger);
+	$('#chargerContainer').append(yourCharger);
+};
 
-	$("#subContent").append(confirmContainer);
-	$("#subContent").append(pendingContainer);
+$('#chargers').click(function(event) {
+	$('#chargers').css({'color':'#f05a29'});
+	$('#bookings').css({'color':'black'});
+	$('#reviews').css({'color':'black'});
+	$('#earnings').css({'color':'black'});
 
-});
-//payment tab click; build elements for payment details
-$("#payment").click(function(event) {
-	$("#bookings").css({"color" : "black"});
-	$("#payment").css({"color" : "#F05A29"});
-	$("#reviews").css({"color" : "black"});	
-	
-	$("#subContent").html("");
+	$('#content').html('');
 
-	//container hold all payment details for user
-	var paymentContainer = $("<div class='col-12'></div>");
-	var paymentHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='paymentHeading1'><b>Payment</b></h3>");
-	var paymentSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='paymentSubHeading1'>" +
-		"These bookings are unpaid for. Pay before the booking date!</h6>");
-	var paymentData = $("<div class='col-10 well' id='paymentData'>Some info from firebase</div>");
+	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
+	var chargerContainer = $("<div id='chargerContainer'></div>")
+	var newCharger = $("<button id='newCharger'>+</button>");
+	var yourCharger =$("<button class='charger'>Your Charger</button>");
 
-	//appending
-	paymentContainer.append(paymentHeading1);
-	paymentContainer.append(paymentSubHeading1);
-	paymentContainer.append(paymentData);
-
-	$("#subContent").append(paymentContainer);
-
+	$('#content').append(header);
+	$('#content').append(chargerContainer);
+	$('#chargerContainer').append(newCharger);
+	$('#chargerContainer').append(yourCharger);
 });
 
-//reviews tab click; build elements for reviews details
-$("#reviews").click(function(event) {
-	$("#bookings").css({"color" : "black"});
-	$("#payment").css({"color" : "black"});
-	$("#reviews").css({"color" : "#F05A29"});	
+$('#bookings').click(function(event){
+	$('#chargers').css({'color':'black'});
+	$('#bookings').css({'color':'#f05a29'});
+	$('#reviews').css({'color':'black'});
+	$('#earnings').css({'color':'black'});
 
-	$("#subContent").html("");
+	$('#content').html('');
 
-	//container hold all review details for user
-	var reviewContainer = $("<div class='col-12'></div>");
-	var reviewHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='reviewHeading1'><b>Reviews for You</b></h3>");
-	var reviewSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='reviewSubHeading1'>" +
-		"These are the comments of hosts that you’ve charged with.</h6>");
-	var reviewsData = $("<div class='col-10 well' id='reviewsData'>Some info from firebase</div>");
-	
-	//appending
-	reviewContainer.append(reviewHeading1);
-	reviewContainer.append(reviewSubHeading1);
-	reviewContainer.append(reviewsData);
+	var header = $("<p class='boxHeader'>Here are all your bookings.</p>");
+	var pendingContainer = $("<div id='pendingContainer'></div>");
+	var pendingHeader = $("<h3>Pending</h3>");
+	var historyContainer = $("<div id='historyContainer'></div>");
+	var historyHeader = $("<h3>History</h3>");
 
-	$("#subContent").append(reviewContainer);
+	$('#content').append(header);
+	$('#content').append(pendingContainer);
+	$(pendingContainer).append(pendingHeader);
+	$('#content').append(historyContainer);
+	$(historyContainer).append(historyHeader);
+})
 
-});
+$('#reviews').click(function(event){
+	$('#chargers').css({'color':'black'});
+	$('#bookings').css({'color':'black'});
+	$('#reviews').css({'color':'#f05a29'});
+	$('#earnings').css({'color':'black'});
+
+	$('#content').html('');
+
+	var header = $("<p class='boxHeader'>Here are all your reviews.</p>");
+	var reviewsContainer = $("<div id='reviewsContainer'></div>");
+
+	$('#content').append(header);
+	$('#content').append(reviewsContainer);
+})
+
+$('#earnings').click(function(event){
+	$('#chargers').css({'color':'black'});
+	$('#bookings').css({'color':'black'});
+	$('#reviews').css({'color':'black'});
+	$('#earnings').css({'color':'#f05a29'});
+
+	$('#content').html('');
+
+	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
+	var earningsContainer = $("<div id='earningsContainer'></div>");
+
+	$('#content').append(header);
+	$('#content').append(earningsContainer);
+})
