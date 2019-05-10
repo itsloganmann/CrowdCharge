@@ -7,3 +7,19 @@ $("#map-drawer-expansion-button").on("click", () => {
 $("#map-drawer-close-button").on("click", () => {
     var drawer = $("#map-drawer").detach();
 });
+
+
+// Generates popup for booking
+$("#request-booking-button").on("click", () => {
+    console.log(popupWrapper);
+    $("main").before(popupWrapper);
+});
+
+
+// Removes popup for booking
+$(document).on("click", "#popup-wrapper", (e) => {
+    if (e.target.id == "popup-wrapper") {
+        var popup = $("#popup-wrapper").detach();
+        e.stopPropagation();
+    }
+});

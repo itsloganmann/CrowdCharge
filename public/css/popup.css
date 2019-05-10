@@ -4,6 +4,7 @@
     height: 100vh;
     z-index: 19;
     background-color: rgb(0, 0, 0, 0.6);
+    text-align: center;
 }
 
 #popup {
@@ -25,4 +26,31 @@
 
 @media only screen and (min-width: 768px) {
 
+}
+
+/** Map Page **/
+#popup-content {
+    background-color: hotpink;
+    height: 300px;
+}
+
+#popup-confirm {
+    background-color: #F05A29;
+    color: #FFFFFF;
+}
+
+#popup-cancel {
+    background-color: #FFFFFF;
+    color: #F05A29;
+}
+
+#popup-confirm, #popup-cancel {
+    font-size: 14pt;
+    width: 80%;
+    border-radius: 4px;
+    border: 0px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    box-shadow: 0px 4px 4px 0px #999999;
+    cursor: pointer;
 }

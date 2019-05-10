@@ -1,12 +1,21 @@
-$("#request-booking-button").on("click", () => {
-    console.log("Clicked");
-	$("main").before("<div id='popup-wrapper'><div id='popup'></div></div>");
-	$("#popup").append("<input type='text'></div>");
-});
+var popupWrapper = document.createElement('div');
+popupWrapper.id = "popup-wrapper";
+var popup = document.createElement('div');
+popup.id = "popup";
+var popupHeader = document.createElement('h3');
+popupHeader.id = "popup-header";
+popupHeader.innerHTML = "Book a Time";
+popup.appendChild(popupHeader);
+var popupContent = document.createElement('div');
+popupContent.id = "popup-content";
+popup.appendChild(popupContent);
+var popupConfirm = document.createElement('button');
+popupConfirm.id = "popup-confirm";
+popupConfirm.innerHTML = "Confirm";
+popup.appendChild(popupConfirm);
+var popupCancel = document.createElement('button');
+popupCancel.id = "popup-cancel";
+popupCancel.innerHTML = "Cancel";
+popup.appendChild(popupCancel);
+popupWrapper.appendChild(popup);
 
-$(document).on("click", "#popup-wrapper", (e) => {
-	if (e.target.id == "popup-wrapper") {
-		$("#popup-wrapper").remove();
-		e.stopPropagation();
-	} 
-});
