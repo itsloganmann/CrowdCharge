@@ -4,4 +4,3 @@ $("#header-nav").on("click", "#open-side-menu-button", (event) => {
 $("#side-menu-close-button, #side-menu-close-button *").on("click", (event) => {
 	$("#side-menu").toggleClass("expanded-side");
 });
-
