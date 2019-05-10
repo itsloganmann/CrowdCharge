@@ -1,3 +1,4 @@
+// Imports
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
@@ -12,6 +13,9 @@ const app = express()
 const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
+
+// Sets up environmental variable used for Heroku (port)
+const port = process.env.PORT || 3000
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -112,6 +116,6 @@ app.get('*', (req, res) => {
 })
 
 // Starts up the web server.
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
 })
