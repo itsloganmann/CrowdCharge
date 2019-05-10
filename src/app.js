@@ -153,17 +153,6 @@ app.get('*', (req, res) => {
     })
 })
 
-
-// app.route("/createUser", (req,res) =>{
-//     console.log("in create user");
-//     let wuviv = {
-//         "firstName": "Vivian",
-//         "lastName" : "Wu"
-//     };
-
-//     db.createUser(wuviv)
-// });
-
 // Starts up the web server.
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
