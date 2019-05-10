@@ -1,24 +1,32 @@
 <div id="contentContainer">
     <div class="row margin-setting">
-        <div class="col-3 ">
-            <img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon" />
-        </div>
-        <div class="col-6">
-            <h1 id="user-name">User Name</h1>
-            <h3 id="user-phone">Phone</h3>
-            <h3 id="user-email">Email</h3>
+        <div class="col-12">
+            <h1 id="profile-header"><b>Profile</b></h1>
         </div>
     </div>
     <div class="row margin-setting" id="profile-tab">
         <div class="col-12">
             <ul class="nav">
-                <li class="nav-item profile-nav"><a id="bookings" href="#"> Bookings</a></li>
+                <li class="nav-item profile-nav"><a id="bookings" href="#">Bookings</a></li>
                 <li class="nav-item profile-nav"><a id="payment" href="#">Payment</a></li>
                 <li class="nav-item profile-nav"><a id="reviews" href="#">Reviews</a></li>
             </ul>
         </div>
     </div>
     <div class="row margin-setting content" id="subContent">
-
+        <div class="col-12">
+            <h3 class="col-10 content-margin h1-font-size" id="bookingHeading1"><b>Confirmed Bookings</b></h3>
+            <h6 class="col-10 content-margin h2-font-size" id="bookingSubHeading1">
+                These bookings have been confirmed by the host and are ready to go!
+            </h6>
+            <div class="col-10 well" id="confirmedBookingData">Some info from database</div>
+        </div>
+        <div class="col-12">
+            <h3 class='col-10  content-margin h1-font-size' id= 'bookingHeading2'><b>Pending Bookings</b></h3>
+            <h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading2'>
+                These bookings have not been confirmed by the host yet, we’ll notify you when they do!
+            </h6>
+            <div class='col-10 well' id='pendingBookingData'>Some info from firebase</div>
+        </div>
     </div>
 </div>
