@@ -1,4 +1,4 @@
-timer = undefined;
+let timer = undefined;
 
 function carGo() {
     //animation pre-setting
@@ -14,7 +14,7 @@ function carGo() {
         });
 }
 
-$("#logo-img").hover(function () {
+$("#logo-img").hover( () => {
         if (timer === undefined){
 	        timer = setTimeout(carGo, 5000)
 	} else {
