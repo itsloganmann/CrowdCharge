@@ -26,6 +26,10 @@ main {
   padding: 0px;
 }
 
+nav {
+    color: #464648;
+}
+
 /* Go Mobile first */
 
 @media only screen and (min-width: 590px) {
@@ -202,6 +206,7 @@ main {
   float: right;
   margin: 0px 4px;
 }
+
 .nav-bar-icon:hover {
   color: #F05A29;
 }
@@ -241,14 +246,14 @@ main {
   cursor: pointer;
   color: #EEEEEE;
   background-color: inherit;
-  border-radius: 4px;
+  radius: 4px;
   border: 2px solid #EEEEEE;
   margin-right: 10px;
   padding: 2px 12px;
 }
 
 #login-button-wrapper:hover {
-  border: 2px solid #F05A29;
+  border: 1px solid #464648;
 }
 
 #nav-top {
@@ -262,7 +267,7 @@ main {
 }
 
 .nav-top-link:hover {
-  color: #F05A29;
+  color: #bf331d;
   text-decoration: unset;
 }
 
