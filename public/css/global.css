@@ -1,6 +1,4 @@
-/*
-	documentation
-*/
+/* Documentation */
 body {
   font-family: Roboto;
 
@@ -14,7 +12,7 @@ main {
 }
 
 .navbar-custom {
-  border-bottom: 4px #1DBF73 solid;
+  border-bottom: 3px linear-gradient(to right, #1DBF73, #bf331d) solid;
   box-shadow: 0px 0px 4px 0px #045D56;
 }
 .browser-menu-item{
@@ -25,10 +23,13 @@ main {
   padding: 0px;
 }
 
+.wrapper-80-percent {
+  width: 80%;
+}
+
 /* Go Mobile first */
 
-
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 590px) {
     .twocolumns{
         display:grid;
         grid-template-columns:1fr 1fr;
@@ -50,10 +51,10 @@ main {
 	}
 	.headertext{
 		display:block;
-  }
-  #bell-wrapper {
-      float: right;
-  }
+  	}
+  	#bell-wrapper {
+      		float: right;
+  	}
 }
 
 @media only screen and (min-width: 1000px) {
@@ -62,11 +63,6 @@ main {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 }
-
-
-
-
-
 
 /*********************/
 #overlay {
@@ -146,9 +142,11 @@ main {
 #bell-icon:hover {
   text-decoration: unset;
 }
+
 #bell-icon {
   padding: 8px;
 }
+
 #bell-wrapper {
   padding: 0;
 }
