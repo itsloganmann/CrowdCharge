@@ -12,10 +12,11 @@ main {
 }
 
 .navbar-custom {
-  border-bottom: 10px solid;
-  border-bottom-image: linear-gradient(45deg, #1DBF73, #bf331d) 1;
+  border-bottom: 5px solid;
+  border-image: linear-gradient(45deg, #1DBF73, #bf331d) 1;
   box-shadow: 0px 0px 4px 0px #045D56;
 }
+
 .browser-menu-item{
   text-align: right;
 }
@@ -101,6 +102,7 @@ main {
     left: 0;
     right: 0;
 }
+
 .side-menu-button {
     display: block;
     cursor: pointer;
@@ -129,7 +131,7 @@ main {
 }
 
 #logout-button:hover {
-    color: #FFFFFF;
+    color: #bf331d;
     background-color: #F05A29;
     opacity: 0.8;
 }
@@ -143,6 +145,7 @@ main {
 
 #bell-icon:hover {
   text-decoration: unset;
+  color: #bf331d;
 }
 
 #bell-icon {
