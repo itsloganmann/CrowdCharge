@@ -8,7 +8,9 @@ main {
 }
 
 #logo-img{
+	position: absolute;
 	width: 170px;
+	top: -25px;
 }
 
 .navbar-custom {
