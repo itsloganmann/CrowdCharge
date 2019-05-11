@@ -2,7 +2,7 @@ timer = undefined;
 
 $("#logo-img").hover(function () {
         if (timer === undefined){
-	        timer = setTimeout(carGo(), 5000)
+	        timer = setTimeout(carGo(), 20000)
 	} else {
 		timer = clearInterval(timer)
 	}
