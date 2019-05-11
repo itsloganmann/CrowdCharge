@@ -185,7 +185,7 @@ main {
   left: 10px;
 }
 
-.nav-link {
+.nav-link a{
     font-size: 14pt;
     color: #464648;
 }
