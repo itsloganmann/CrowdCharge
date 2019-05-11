@@ -1,7 +1,11 @@
+timer = undefined;
+
 $("#logo-img").hover(function () {
-        window.setTimeout(function () {
-            carGo();
-        }, 5000);
+        if (timer === undefined){
+	        timer = .setTimeout(carGo(), 5000)
+	} else {
+		timer = clearInterval(timer)
+	}
 });
 
 function carGo() {
