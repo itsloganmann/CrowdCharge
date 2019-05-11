@@ -12,8 +12,8 @@ main {
 }
 
 .navbar-custom {
-  border: 10px solid;
-  border-image: linear-gradient(45deg, #1DBF73, #bf331d) 1;
+  border-bottom: 10px solid;
+  border-bottom-image: linear-gradient(45deg, #1DBF73, #bf331d) 1;
   box-shadow: 0px 0px 4px 0px #045D56;
 }
 .browser-menu-item{
