@@ -10,11 +10,11 @@ main {
 }
 
 #logo-img{
-	width: 150px;
+	height: 80px;
 }
 
 .navbar-custom {
-  border-bottom: 8px #1DBF73 solid;
+  border-bottom: 4px #1DBF73 solid;
   box-shadow: 0px 0px 4px 0px #045D56;
 }
 .browser-menu-item{
@@ -191,6 +191,7 @@ main {
 }
 
 #header-nav {
+  width: 80%;
   justify-content: flex-end;
   background-color: #ffffff !important;
   z-index: 2;
