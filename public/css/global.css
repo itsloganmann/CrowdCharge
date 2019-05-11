@@ -26,10 +26,6 @@ main {
   padding: 0px;
 }
 
-nav {
-    color: #464648;
-}
-
 /* Go Mobile first */
 
 @media only screen and (min-width: 590px) {
@@ -191,6 +187,7 @@ nav {
 
 .nav-link {
     font-size: 14pt;
+    color: #464648;
 }
 
 #header-nav {
