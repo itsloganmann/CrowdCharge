@@ -35,6 +35,7 @@
 
 #popup-subheader {
     color: #F05A29;
+    cursor: pointer;
 }
 #popup-content {
     background-color: hotpink;
