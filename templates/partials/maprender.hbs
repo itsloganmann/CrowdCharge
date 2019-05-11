@@ -1,56 +1,140 @@
 <div id="map-wrapper">
-<div id='map'></div>
+    <div id='map'></div>
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhdTg4IiwiYSI6ImNqdjhyemQwNDAzM3U0MnJ5bW9ndHI4bXoifQ.JjTAqjq-WeON4_zK7naPEw';
 
         var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-96, 37.8],
-            zoom: 3
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-123.116226, 49.246292], // starting position [lng, lat]
+            zoom: 11 // starting zoom
         });
 
-        map.on('load', function () {
+        const defaultPosition = () => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude
+                const long = position.coords.longitude
+                map.flyTo({
+                    center: [long, lat],
+                    zoom: 13
+                });
+            })
+        }
 
+        defaultPosition();
+
+        map.on('load', function () {
+            // Add a layer showing the places.
             map.addLayer({
-                "id": "points",
+                "id": "places",
                 "type": "symbol",
                 "source": {
                     "type": "geojson",
                     "data": {
                         "type": "FeatureCollection",
-                        "features": [{
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [-77.03238901390978, 38.913188059745586]
-                            },
-                            "properties": {
-                                "title": "Mapbox DC",
-                                "icon": "monument"
-                            }
-                        }, {
-                            "type": "Feature",
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [-122.414, 37.776]
-                            },
-                            "properties": {
-                                "title": "Mapbox SF",
-                                "icon": "harbor"
-                            }
-                        }]
+                        "features": geojson
                     }
                 },
                 "layout": {
                     "icon-image": "{icon}-15",
-                    "text-field": "{title}",
-                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                    "text-offset": [0, 0.6],
-                    "text-anchor": "top"
+                    "icon-allow-overlap": true
                 }
             });
+
+            // When a click event occurs on a feature in the places layer, open a popup at the
+            // location of the feature, with description HTML from its properties.
+            map.on('click', 'places', function (e) {
+                let coordinates = e.features[0].geometry.coordinates.slice();
+                let description = e.features[0].properties.description;
+
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                map.flyTo({
+                    center: [coordinates[0], coordinates[1]],
+                    zoom: 11
+                });
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(description)
+                    .addTo(map);
+            });
+
+            // Change the cursor to a pointer when the mouse is over the places layer.
+            map.on('mouseenter', 'places', function () {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            // Change it back to a pointer when it leaves.
+            map.on('mouseleave', 'places', function () {
+                map.getCanvas().style.cursor = '';
+            });
+        });
+
+        var geojson = [
+        {
+            "type": "Feature",
+            "properties": {
+                "description": "UBC Charger",
+                "icon": "marker"
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [-123.259563, 49.269246]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "description": "Edwin's Charger",
+                "icon": "marker"
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [-123.143504, 49.175458]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "description": "BCIT Downtown Charger",
+                "icon": "marker"
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [-123.115272, 49.283332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "description": "BCIT Burnaby Charger",
+                "icon": "marker"
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [-123.002025, 49.250124]
+            }
+        }   
+        ]
+    
+        // Uses a for loop to add markers to the map page
+        geojson.forEach(function(marker) {
+
+            // Create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
         });
     </script>
 </div>
