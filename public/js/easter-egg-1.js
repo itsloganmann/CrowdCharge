@@ -1,13 +1,5 @@
 timer = undefined;
 
-$("#logo-img").hover(function () {
-        if (timer === undefined){
-	        timer = setTimeout(carGo, 20000)
-	} else {
-		timer = clearInterval(timer)
-	}
-});
-
 function carGo() {
     //animation pre-setting
     $("#logo-img").css({ "position": "absolute", "top": "-25px" });
@@ -21,3 +13,11 @@ function carGo() {
             $("#logo-img").animate({ left: "0px" });
         });
 }
+
+$("#logo-img").hover(function () {
+        if (timer === undefined){
+	        timer = setTimeout(carGo, 20000)
+	} else {
+		timer = clearInterval(timer)
+	}
+});
