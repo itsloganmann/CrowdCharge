@@ -46,7 +46,6 @@
 }
 
 #map {
-    position: block;
     height: 100%;
     width: 100%;
 }
@@ -70,12 +69,12 @@
     position: fixed;
     z-index: 1;
     bottom: 0;
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - 84px);
 }
 
 #map-wrapper {
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 84px);
     background-color: #FFFFFF;
 }
 
@@ -125,7 +124,6 @@
 #map-drawer-details-wrapper {
     display: none;
     height: 120px;
-    background-color: hotpink;
 }
 
 @media only screen and (min-width: 0px) {
@@ -133,19 +131,18 @@
         width: initial;
         max-width: initial;
         height: 336px !important;
-        max-height: calc(100vh - 64px) !important;
+        max-height: calc(100vh - 84px) !important;
     }
 }
 
 @media only screen and (min-width: 768px) {
     .map-side-expanded {
-        height: calc(100vh - 64px) !important;
-        max-height: calc(100vh - 64px) !important;
+        height: calc(100vh - 84px) !important;
     }
 
     #map-drawer {
         width: 368px;
-        height: calc(100vh - 64px);
+        height: calc(100vh - 84px);
         transition: width 0.5s ease;
     }
 

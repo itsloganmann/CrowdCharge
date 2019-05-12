@@ -1,8 +1,4 @@
 /* Documentation */
-body {
-  font-family: Roboto;
-
-}
 main {
   background: #F3F3F3;
 }
@@ -213,20 +209,20 @@ main {
 }
 
 .dropdown-toggle {
-  background-color: inherit;
-  border: none;
+  background-color: inherit !important;
+  border: none !important;
 }
 
 .dropdown-toggle:after {
-  display: none;
+  display: none !important;
 }
 
 .dropdown-toggle:hover {
-  background-color: initial;
+  background-color: initial !important;
 }
 
 .dropdown-toggle:active {
-  background-color: initial;
+  background-color: initial !important;
 }
 
 .dropdown-toggle:focus {
@@ -236,21 +232,21 @@ main {
 }
 
 .btn-secondary.dropdown-toggle {
-  background-color: initial;
+  background-color: initial !important;
 }
 
 #login-button-wrapper {
   cursor: pointer;
   color: #EEEEEE;
   background-color: inherit;
-  radius: 4px;
+  border-radius: 4px;
   border: 2px solid #EEEEEE;
   margin-right: 10px;
   padding: 2px 12px;
 }
 
 #login-button-wrapper:hover {
-  border: 1px solid #464648;
+  border: 2px solid #464648;
 }
 
 #nav-top {
