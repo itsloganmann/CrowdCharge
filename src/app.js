@@ -5,6 +5,9 @@ const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 
+//the database
+const db = require('./database/database')
+
 // Variable for the current directory is __dirname.
 console.log(__dirname)
 
@@ -70,6 +73,13 @@ app.get('/user_profile', (req, res) => {
     })
 })
 
+app.get('/host_setting', (req, res) => {
+    res.render('host_setting', {
+        title: 'ZapShare - Host Settings',
+        name: ''
+    })
+})
+
 app.get('/add_new_charger', (req, res) => {
     res.render('add_new_charger', {
         title: 'ZapShare - Add a Charger',
@@ -79,7 +89,7 @@ app.get('/add_new_charger', (req, res) => {
 
 app.get('/user_setting', (req, res) => {
     res.render('user_setting', {
-        title: 'ZapShare - User Setting',
+        title: 'ZapShare - User Settings',
         name: ''
     })
 })
@@ -134,6 +144,7 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/help/*', (req, res) => {
+    
     res.render('404', {
         title: 'Help',
         name: '',
