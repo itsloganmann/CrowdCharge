@@ -15,7 +15,16 @@
 	height: 70px;
 	margin: 0 auto;
 }
-
+/*tab style*/
+#bookings{
+	color: #F05A29; 
+}
+#payment{
+	color: black;
+}
+#reviews{
+	color: black;
+}
 #user-name{
 	font-size: 15pt;
 }
@@ -50,10 +59,12 @@
 
 /*jquery elements*/
 .content-margin{
-	margin: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 .h1-font-size{
-	font-size: 12pt;
+	font-size: 14pt;
+	margin-top: 15px;
 }
 .h2-font-size{}
 

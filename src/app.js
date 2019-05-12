@@ -1,8 +1,12 @@
+// Imports
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
+
+//the database
+const db = require('./database/database')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -12,6 +16,9 @@ const app = express()
 const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
+
+// Sets up environmental variable used for Heroku (port)
+const port = process.env.PORT || 3000
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -64,6 +71,12 @@ app.get('/user_profile', (req, res) => {
         name: 'Edwin'
     })
 })
+app.get('/host_setting', (req, res) => {
+    res.render('host_setting', {
+        title: 'Host',
+        name: 'Edwin'
+    })
+})
 app.get('/add_new_charger', (req, res) => {
     res.render('add_new_charger', {
         title: 'New Charger',
@@ -90,7 +103,7 @@ app.get('/contact', (req, res) => {
 })
 app.get('/index', (req, res) => {
     res.render('index', {
-        title: 'Weather',
+        title: 'zapshare',
         name: 'Edwin'
     })
 })
@@ -123,6 +136,7 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/help/*', (req, res) => {
+    
     res.render('404', {
         title: '404',
         name: 'Edwin Pau',
@@ -139,6 +153,7 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
-}) 
+// Starts up the web server.
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
+})
