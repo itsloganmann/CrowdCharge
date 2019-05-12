@@ -30,11 +30,12 @@ app.use(express.static(publicDirectoryPath))
 // Setting up the routing for different pages.
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'Weather',
-        name: 'Edwin'
+        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network',
+        name: 'Home'
     })
 }) 
 
+// Demonstrates a use for local API modules and how to get data from call back functions.
 app.get('/weather', (req, res) => {
     if (!req.query.address) {
         return res.send({
@@ -64,72 +65,78 @@ app.get('/weather', (req, res) => {
 
 app.get('/user_profile', (req, res) => {
     res.render('user_profile', {
-        title: 'Client',
-        name: 'Edwin'
+        title: 'ZapShare - User Profile',
+        name: ''
     })
 })
+
 app.get('/add_new_charger', (req, res) => {
     res.render('add_new_charger', {
-        title: 'New Charger',
-        name: 'Edwin'
+        title: 'ZapShare - Add a Charger',
+        name: ''
     })
 })
+
 app.get('/user_setting', (req, res) => {
     res.render('user_setting', {
-        title: 'User Setting',
-        name: 'Edwin'
+        title: 'ZapShare - User Setting',
+        name: ''
     })
 })
+
 app.get('/wallet', (req, res) => {
     res.render('wallet', {
-        title: 'Wallet',
-        name: 'Edwin'
+        title: 'ZapShare - Wallet',
+        name: ''
     })
 })
+
 app.get('/contact', (req, res) => {
     res.render('contact', {
-        title: 'Contact',
-        name: 'Edwin'
+        title: 'ZapShare - Contact',
+        name: ''
     })
 })
 app.get('/index', (req, res) => {
     res.render('index', {
-        title: 'zapshare',
-        name: 'Edwin'
+        title: 'ZapShare - Peer-to-peer Electric Charging Network',
+        name: ''
     })
 })
+
 app.get('/notification', (req, res) => {
     res.render('notification', {
-        title: 'Notification',
-        name: 'Edwin'
+        title: 'ZapShare - Notification',
+        name: ''
     })
 })
+
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'Weather',
-        name: 'Edwin'
+        title: 'ZapShare - About',
+        name: ''
     })
 })
 
 app.get('/map', (req, res) => {
     res.render('map', {
-        title: 'Map',
-        name: 'Edwin'
+        title: 'ZapShare - Map',
+        name: ''
     })
 })
 
 app.get('/help', (req, res) => {
-    res.render('help', {
-        message: 'This is a message for help',
+    res.render('Help', {
+        message: 'Help page contents.',
         title: 'Help',
-        name: 'Edwin'
+        name: ''
     })
 })
 
 app.get('/help/*', (req, res) => {
     res.render('404', {
-        title: '404',
-        name: 'Edwin Pau',
+        title: 'Help',
+        name: '',
         errorMessage: 'Help article not found.'
     })
 })
@@ -137,8 +144,8 @@ app.get('/help/*', (req, res) => {
 // Handles 404 not found.
 app.get('*', (req, res) => {
     res.render('404', {
-        title: '404',
-        name: 'Edwin Pau',
+        title: 'ZapShare - 404 Page Not Found',
+        name: '',
         errorMessage: 'Page not found.'
     })
 })

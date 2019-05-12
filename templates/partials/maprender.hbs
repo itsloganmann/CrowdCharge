@@ -2,8 +2,10 @@
     <div id='map'></div>
 
     <script>
+        // MapBox API Access Token
         mapboxgl.accessToken = 'pk.eyJ1IjoiZXBhdTg4IiwiYSI6ImNqdjhyemQwNDAzM3U0MnJ5bW9ndHI4bXoifQ.JjTAqjq-WeON4_zK7naPEw';
 
+        // Creates a new map and style, with starting location in Vancouver
         var map = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
@@ -11,17 +13,32 @@
             zoom: 11 // starting zoom
         });
 
+        // Declares long and lat variables to be used
+        let long = undefined
+        let lat = undefined 
+
+        // Function that retrieves current location using HTML5 from the browser
         const defaultPosition = () => {
             navigator.geolocation.getCurrentPosition((position) => {
-                const lat = position.coords.latitude
-                const long = position.coords.longitude
+                lat = position.coords.latitude
+                long = position.coords.longitude
                 map.flyTo({
                     center: [long, lat],
                     zoom: 13
                 });
+
+            // Create a HTML element for current location
+            var el = document.createElement('div');
+            el.className = 'currentmarker';
+
+            // Make a marker for the current location and add to map
+            new mapboxgl.Marker(el)
+                .setLngLat([long, lat])
+                .addTo(map);
             })
         }
 
+        // Fires the default location function which moves the map to the current location.
         defaultPosition();
 
         map.on('load', function () {
@@ -54,15 +71,16 @@
                 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 }
-
                 map.flyTo({
                     center: [coordinates[0], coordinates[1]],
-                    zoom: 11
+                    zoom: 15
                 });
 
+                // Builds the popup when user clicks on a host marker.
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
-                    .setHTML(description)
+                    .setHTML('<img class="host-marker-img" src="https://image.flaticon.com/icons/svg/1579/1579928.svg" alt="host"> <span class="host-marker-title">'
+                             + description + '</span>')
                     .addTo(map);
             });
 
@@ -77,6 +95,7 @@
             });
         });
 
+        // Populates the map using geojson object
         var geojson = [
         {
             "type": "Feature",
@@ -97,7 +116,7 @@
             },
             "geometry": {
             "type": "Point",
-            "coordinates": [-123.143504, 49.175458]
+            "coordinates": [-123.134504, 49.175458]
             }
         },
         {
@@ -121,11 +140,11 @@
             "type": "Point",
             "coordinates": [-123.002025, 49.250124]
             }
-        }   
+        },
         ]
-    
+
         // Uses a for loop to add markers to the map page
-        geojson.forEach(function(marker) {
+        geojson.forEach( (marker) => {
 
             // Create a HTML element for each feature
             var el = document.createElement('div');

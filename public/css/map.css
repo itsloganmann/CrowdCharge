@@ -7,6 +7,44 @@
     cursor: pointer;
 }
 
+.currentmarker {
+    background-image: url('https://image.flaticon.com/icons/svg/1673/1673221.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 6px 2px;
+    width: 220px;
+    margin: auto;
+    background-color: #FFFFFF;
+    color: #464648;
+    border-top: 6px solid #1DBF73;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.host-marker-img {
+    width: 35px;
+    height: auto;
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.host-marker-title {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
 #map {
     position: block;
     height: 100%;
@@ -25,7 +63,6 @@
     float: right;
     cursor: pointer;
 }
-
 
 #map-vertical-expansion-button {
     display: unset;
