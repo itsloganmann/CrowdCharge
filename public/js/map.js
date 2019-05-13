@@ -16,6 +16,9 @@ $("#request-booking-button").on("click", () => {
     checkSelected();
     // Testing purposes
     addTimeSlot("0:00", "1:00");
+    addTimeSlot("1:00", "2:00");
+    addTimeSlot("2:00", "3:00");
+
 });
 
 // Checks if any time has been selected. Disables confirm button if none are selected.
@@ -72,7 +75,10 @@ var addTimeSlot = (startTime, endTime) => {
 // Colour change for time slot button
 $(document).on("click", ".time-slot-button", (e) => {
     e.preventDefault();
-    $(e.target).toggleClass("button-selected");
+    $(".time-slot-button").removeClass("button-selected");
+    $(".time-slot-button").removeAttr("id");
+    $(e.target).addClass("button-selected");
+    $(e.target).attr("id", "popup-time");
     checkSelected();
     e.stopPropagation();
 });
@@ -80,5 +86,4 @@ $(document).on("click", ".time-slot-button", (e) => {
 $(document).on("click", ".marker", (e) => {
     var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
     $("#map-drawer-text-wrapper").prepend(clickedMarkerName);
-    $("#map-drawer").append(drawer);
 });
