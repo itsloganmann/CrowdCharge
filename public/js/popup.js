@@ -9,52 +9,69 @@ var createPopup = () => {
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
 	popup.id = "popup";
-	var popupHeader = document.createElement('h3');
-	popupHeader.id = "popup-header";
-	popup.appendChild(popupHeader);
-	var popupSubheader = document.createElement('h5');
-	popupSubheader.id = "popup-subheader";
-	popup.appendChild(popupSubheader);
-	var popupContent = document.createElement('div');
-	popupContent.id = "popup-content";
-	popup.appendChild(popupContent);
-	var popupConfirm = document.createElement('button');
-	popupConfirm.id = "popup-confirm";
-	popupConfirm.className = "orange-button";
-	popupConfirm.disabled = true;
-	popup.appendChild(popupConfirm);
-	var popupCancel = document.createElement('button');
-	popupCancel.id = "popup-cancel";
-	popupCancel.className = "white-button";
-	popup.appendChild(popupCancel);
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
 	console.log("Creating popup complete!");
 }
 
-var setPopupBookingPageOne = () => {
-	console.log("Setting popup page one...")
+var createPopupHeader = (size, text) => {
+	var popupHeader = document.createElement(size);
+	popupHeader.id = "popup-header";
+	$('#popup').append(popupHeader);
+	$('#popup-header').html(text);
+}
+
+var createPopupSubheader = (size, text) => {
+	var popupSubheader = document.createElement(size);
+	popupSubheader.id = "popup-subheader";
+	$('#popup').append(popupSubheader);
+	$('#popup-subheader').html(text);
+}
+
+var createPopupContent = () => {
+	var popupContent = document.createElement('div');
+	popupContent.id = "popup-content";
+	$('#popup').append(popupContent);
+}
+
+var createPopupConfirmButton = (id, text) => {
+	var popupConfirm = document.createElement('button');
+	popupConfirm.id = id;
+	popupConfirm.className = "orange-button";
+	$('#popup').append(popupConfirm);
+	$('#' + id).html(text);
+}
+
+var createPopupCancelButton = (id, text) => {
+	var popupCancel = document.createElement('button');
+	popupCancel.id = id;
+	popupCancel.className = "white-button";
+	$('#popup').append(popupCancel);
+	$('#' + id).html(text);
+}
+
+var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
 	var month = today.getMonth() + 1;
 	var monthFmt = months[today.getMonth()];
 	var year = today.getFullYear();
-	$('#popup-subheader').html(monthFmt + ", " + day);
-	$('#popup-header').html("Book a Time");
-	$('#popup-confirm').html("Request Booking");
-	$('#popup-cancel').html("Cancel");
-	console.log("Setting popup page one complete!")
+	return (monthFmt + " " + day + ", " + year);
 }
-
+var setPopupBookingPageOne = () => {
+	createPopupHeader("h3", "Book a Time");
+	createPopupSubheader("h5", getCurrentDate());
+	createPopupContent();
+	createPopupConfirmButton("popup-confirm", "Request Booking");
+	createPopupCancelButton("popup-cancel", "Cancel");
+}
 var setPopupBookingPageTwo = () => {
-	$("#popup-confirm").attr("id", "popup-confirm-validate");
-	$("#popup-confirm-validate").html("Validate");
-	$("#popup-cancel").attr("id", "popup-back");
-	$("#popup-back").html("Back");
+	createPopupHeader("h5", "You have requested: <b>May 11, 2019</b> at <b>11am-12am</b>. Do you wish to confirm this booking request?");
+	createPopupConfirmButton("popup-confirm-validate", "Confirm");
+	createPopupCancelButton("popup-back", "Back");
 }
 
 var setPopupBookingPageThree = () => {
-	$("#popup-confirm-validate").remove();
-	$("#popup-back").attr("id", "popup-finish");
-	$("#popup-finish").html("Close");
+	createPopupHeader("h5", "Your booking for <b>May 11, 2019</b> at <b>11am-12am</b> has been sent. Please wait for a confirmation from the host before making your payment.");
+	createPopupCancelButton("popup-finish", "Close");
 }

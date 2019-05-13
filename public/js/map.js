@@ -12,14 +12,15 @@ $("#map-drawer-close-button").on("click", () => {
 $("#request-booking-button").on("click", () => {
     createPopup();
     setPopupBookingPageOne();
+    checkSelected();
     // Testing purposes
     addTimeSlot("0:00", "1:00");
 });
 
-function checkSelected(){
+// Checks if any time has been selected. Disables confirm button if none are selected.
+function checkSelected() {
     var selected = document.getElementsByClassName('button-selected');
-    console.log(selected[0] === undefined);
-    if (selected[0] === undefined){
+    if (selected[0] === undefined) {
         $('#popup-confirm').prop('disabled', true);
         $('#popup-confirm').addClass('disabled-button');
         $('#popup-confirm').html('Please select a time slot!');
@@ -29,71 +30,30 @@ function checkSelected(){
         $('#popup-confirm').html('Request Booking');
     }
 }
- 
+
 
 // Removes popup for booking
-$(document).on("click", "#popup-wrapper, #popup-cancel", (e) => {
-    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel") {
-        console.log("Gone!!");
-        $(".time-slot-button").remove();
+$(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();
     }
 });
 
-// Removes popup for booking
 $(document).on("click", "#popup-confirm", (e) => {
-    if (e.target.id == "popup-confirm") {
-        setPopupBookingPageTwo();
-        popupPageOneHeader = $("#popup-header").detach();
-        popupPageOneSubheader = $("#popup-subheader").detach();
-        popupPageOneContent = $("#popup-content").detach();
-        $("#popup").css({
-            "height": "60vh",
-            "transform": "translateY(20vh)"
-        });
+    popupPageOne = $("#popup").children().detach();
+    setPopupBookingPageTwo();
 
-    }
 });
-
-function appendTimes(id, list) {
-    console.log(list);
-    for (let item of list){
-        console.log(item);
-    }
-}
-
 $(document).on("click", "#popup-back", (e) => {
-    $("#popup").prepend(popupPageOneContent);
-    $("#popup").prepend(popupPageOneSubheader);
-    $("#popup").prepend(popupPageOneHeader);
-	$("#popup-confirm-validate").attr("id", "popup-confirm");
-    $("#popup-back").attr("id", "popup-cancel");
+    $("#popup").children().remove();
+    $("#popup").prepend(popupPageOne);
     e.stopPropagation();
-
-    $("#popup").css({
-        "height": "80vh",
-        "transform": "translateY(10vh)"
-    });
 });
 
 $(document).on("click", "#popup-confirm-validate", (e) => {
-    setPopupBookingPageThree();
-    $("#popup").append("<div>Your booking for May, 11 at 11am-12am Please wait for a confirmation from the host.<div>");
-    $("#popup").css({
-        "height": "40vh",
-        "transform": "translateY(30vh)"
-    });
-});
-
-
-$(document).on("click", "#popup-finish", (e) => {
     $("#popup").children().remove();
-    $("#popup-wrapper").remove();
-
+    setPopupBookingPageThree();
 });
-
-
-
 
 
 // Adds a new time slot button
@@ -107,7 +67,6 @@ var addTimeSlot = (startTime, endTime) => {
 // Colour change for time slot button
 $(document).on("click", ".time-slot-button", (e) => {
     e.preventDefault();
-    console.log(e.target);
     $(e.target).toggleClass("button-selected");
     checkSelected();
     e.stopPropagation();
