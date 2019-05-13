@@ -1,7 +1,7 @@
 /*general margin-setting to mobile first*/
 
 #contentContainer{
-	margin: 3vh 0;
+	margin-top: 3vh 0;
 }
 .content{
 	margin-top: 30px;
@@ -12,6 +12,7 @@
 	height: 70px;
 	margin:0 auto;
 	display: block;
+	border-radius:25px;
 }
 #img-btn{
 	margin:0 auto;
@@ -24,25 +25,36 @@
 	width: 100%;
 	padding: 2vh;
 }
-#profile-icon{
-	border-radius:25px;
-}
 .margin-setting{
-	width:90%;
-	margin:0 auto;
+	margin: 10px;
 	border-radius:10px;
 }
 .inner-margin-setting{
 	margin: 0 auto;
 }
 
-.input-width{
+.input-style{
 	width: 100%;
+}
+.input-disable{
+	background-color:#EBEBE4;
+}
+#edit-btn{
+	width: 100px;
+	margin: 0 auto;
+	display: block;
+	margin-top: 50px;
 }
 #save-btn{
 	width: 100px;
 	margin: 0 auto;
 	display: block;
+	margin-top: 50px;
+	display: none;
+}
+#checkbox-field{
+	padding: 10px 20px 40px;
+	margin-top: 30px;
 }
 @media only screen and (min-width: 500px) {
 .margin-setting{
