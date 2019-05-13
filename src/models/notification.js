@@ -3,9 +3,10 @@ const validator = require('validator')
 
 // Creates mongoose data model for a notification object and adds validator to data
 const Notification = mongoose.model('Notification', {
-    charger: {
-        type: String
-    },
+    booking: {
+        type: Object,
+        required: true
+    }
     user: {
         type: String,
         required: true
