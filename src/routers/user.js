@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve user json object from client
@@ -9,21 +10,30 @@ router.post('/users', async (req, res) => {
     try {
         // Waits for the promise that comes back when saving.
         await user.save()
-        res.status(201).send(user)
+
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token })
         // Code only runs here if save is successful, otherwise runs catch code block.
     } catch (error) {
         res.status(400).send(error)
     }
 })
 
-// GET request endpoint for fetching all users. Refactored using async-await with try-catch statement.
-router.get('/users', async (req, res) => {
+// GET request endpoint for fetching all users.
+// Sets up auth middleware first before getting data.
+router.get('/users', auth, async (req, res) => {
     try {
         const users = await User.find( {} )
         res.send(users)
     } catch (error) {
         res.status(500).send()
     }
+})
+
+// GET request endpoint for fetching own user data. 
+// Sets up auth middleware first before getting data.
+router.get('/users/me', auth, async (req, res) => {
+    res.send(req.user)
 })
 
 // GET request endpoint for fetching individual user by ID. Dynamic route handler.
@@ -95,6 +105,17 @@ router.delete('/users/:id', async (req, res) => {
         res.send(user)
     } catch (error) {
         res.status(500).send()
+    }
+})
+
+// Route handler for users login using email and password, generate an auth token
+router.post('/users/login', async (req, res) => {
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()
+        res.send({ user, token })
+    } catch (e) {
+        res.status(400).send()
     }
 })
 

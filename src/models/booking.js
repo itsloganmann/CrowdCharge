@@ -8,7 +8,15 @@ const Booking = mongoose.model('Booking', {
         required: true,
         trim: true
     },
-    accepted: {
+    pending: {
+        type: Boolean,
+        default: true
+    },
+    paid: {
+        type: Boolean,
+        default: false
+    },
+    completed: {
         type: Boolean,
         default: false
     }
