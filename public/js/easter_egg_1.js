@@ -1,4 +1,4 @@
-$("#logo-img").hover(function () {
+$(".runable").hover(function () {
     window.setTimeout(function () {
         carGo();
         $("#logo-img").removeClass("runable");

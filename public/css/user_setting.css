@@ -30,13 +30,28 @@
 	margin: 0 auto;
 }
 
-.input-width{
+.input-style{
 	width: 100%;
+}
+.input-disable{
+	background-color:#EBEBE4;
+}
+#edit-btn{
+	width: 100px;
+	margin: 0 auto;
+	display: block;
+	margin-top: 50px;
 }
 #save-btn{
 	width: 100px;
 	margin: 0 auto;
 	display: block;
+	margin-top: 50px;
+	display: none;
+}
+#checkbox-field{
+	padding: 10px 20px 40px;
+	margin-top: 30px;
 }
 @media only screen and (min-width: 500px) {
 .margin-setting{
