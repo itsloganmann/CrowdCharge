@@ -1,5 +1,5 @@
-//viv's mongodb startup command
-// C:\Program Files\MongoDB\Server\4.0\bin> .\mongod.exe --dbpath=c:\Users\wuviv\MongoDB-data
+//alex's mongodb startup command
+// C:\Program Files\MongoDB\Server\4.0\bin> .\mongod.exe --dbpath "c:\Users\ajgia\MongoDB-data"
 
 //mongoDB object modelling module
 const mongoose = require('mongoose');

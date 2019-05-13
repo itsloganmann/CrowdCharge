@@ -78,6 +78,8 @@ let getUserHistory
 //get reviews of the user
 let getAllUserReviews;
 
+//START HERE
+
 //HOST Functions
 //-- get all; connect user to their chargers
 //get user's chargers

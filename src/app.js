@@ -17,26 +17,8 @@ const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
-<<<<<<< HEAD:src/app.js
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
-=======
-//Initialize firebase functions for hosting
-// const functions = require('firebase-functions');
-//Initialize access to firebase database
-// const firebase = require("firebase");
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDoV0bGzK3j1KIbqExhpefPr8LVj1LIVMM",
-//     authDomain: "comp2930-9f929.firebaseapp.com",
-//     databaseURL: "https://comp2930-9f929.firebaseio.com",
-//     projectId: "comp2930-9f929",
-//     storageBucket: "comp2930-9f929.appspot.com",
-//     messagingSenderId: "980529339514",
-//     appId: "1:980529339514:web:6c8c367e87a1e0c9"
-//   };
-// firebase.initializeApp(firebaseConfig);
-// const firebaseDBRef = firebase.app().database().ref();
->>>>>>> 013637c5dd1c96e111b58ab3726382abb043bb8e:nodejs/src/app.js
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -198,16 +180,6 @@ app.get('*', (req, res) => {
 //     db.createUser(wuviv)
 // });
 
-// Starts up the web server.
-<<<<<<< HEAD:src/app.js
-app.listen(port, () => {
-    console.log('Server is up on port ' + port)
-})
-=======
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
+app.listen(4000, () => {
+    console.log('Server is up on port 4000.')
 });
-
-//Hosts app on firebase functions
-// exports.app = functions.https.onRequest(app);
->>>>>>> 013637c5dd1c96e111b58ab3726382abb043bb8e:nodejs/src/app.js
