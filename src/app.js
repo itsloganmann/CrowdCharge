@@ -66,15 +66,15 @@ app.get('/weather', (req, res) => {
     })
 })
 
-app.get('/user_profile', (req, res) => {
-    res.render('user_profile', {
+app.get('/profile_details', (req, res) => {
+    res.render('profile_details', {
         title: 'ZapShare - User Profile',
         name: ''
     })
 })
 
-app.get('/host_setting', (req, res) => {
-    res.render('host_setting', {
+app.get('/host_dashboard', (req, res) => {
+    res.render('host_dashboard', {
         title: 'ZapShare - Host Settings',
         name: ''
     })
@@ -87,8 +87,8 @@ app.get('/add_new_charger', (req, res) => {
     })
 })
 
-app.get('/user_setting', (req, res) => {
-    res.render('user_setting', {
+app.get('/client_dashboard', (req, res) => {
+    res.render('client_dashboard', {
         title: 'ZapShare - User Settings',
         name: ''
     })
