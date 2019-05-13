@@ -210,21 +210,39 @@ let getChargerHistory = function(cUID, callback){
 
 //-- charger availaibility
 //get charger's user set unavail times (in paid, under hosts name)
-let getChargerAvailability
-let getChargerAvailability = function(cUID, callback){
-    let cUID = entity.Charger.findById(cUID, (err, charger)=>{
+let getChargerAvailability = function(cUID, callback) {
+    entity.Charger.findById(cUID, (err, charger)=>{
         entity.paidBooking.find({charger:cUID, user: charger.owner}, (err,paidBookings)=>{
             callback(null, paidBookings);
         });
     });
     
-}
+};
 
 //--charger reviews
 //get charger's reviews
-let getChargerReview
+let getChargerReview = function(cUID, callback){
+    entity.Review.find({reviewee:cUID}, (err, reviews)=>{
+        callback(null, reviews);
+    });
+};
 //get all of host's charger reviews
-let getAllChargerReviews
+let getAllChargerReviews = function( uUID, callback){
+    let AllReviews = [];
+    getUserChargers(uUID, (err, chargers)=>{
+        chargers.forEach((charger)=>{
+            getChargerPending(charger._id,function(err, pendingBookings){
+                if(err){
+                    console.log(err);
+                }
+                AllPending = AllPending.concat(pendingBookings);
+                if(chargers.indexOf(charger) == chargers.length-1)
+                    callback(null, AllPending);
+            });
+        }); 
+    });
+        // console.log(chargers);
+}     
 
 
 //BOOKING FUNCTIONALITIES
