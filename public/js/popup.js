@@ -7,8 +7,9 @@ var createPopup = () => {
 	console.log("Creating popup...");
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
-	var popup = document.createElement('div');
+	var popup = document.createElement('form');
 	popup.id = "popup";
+	popup.method = "POST";
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
 	console.log("Creating popup complete!");
@@ -50,6 +51,15 @@ var createPopupCancelButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
+var createFormButton = (id, text) => {
+	var button = document.createElement('input');
+	button.setAttribute("type", "button");
+	button.setAttribute("value", "Confirm");
+	button.id = id;
+	button.className = "orange-button";
+	$('#popup').append(button);
+}
+
 var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
@@ -58,6 +68,13 @@ var getCurrentDate = () => {
 	var year = today.getFullYear();
 	return (monthFmt + " " + day + ", " + year);
 }
+var addPopupHiddenField = (value) => {
+	let input = document.createElement("input")
+	input.setAttribute("type", "hidden");
+	input.setAttribute("value", value);
+	$('#popup').append(input);
+}
+
 var setPopupBookingPageOne = () => {
 	createPopupHeader("h3", "Book a Time");
 	createPopupSubheader("h5", "<b id='popup-date'><input type='text' readonly id='datepicker' value='" + getCurrentDate() + "'></b>");
@@ -67,17 +84,15 @@ var setPopupBookingPageOne = () => {
 	createPopupCancelButton("popup-cancel", "Cancel");
 }
 var setPopupBookingPageTwo = (date, time) => {
+	addPopupHiddenField(date);
+	addPopupHiddenField(time);
 	console.log(time);
 	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
-	createPopupConfirmButton("popup-confirm-validate", "Confirm");
+	createFormButton("popup-confirm-validate", "Confirm");
 	createPopupCancelButton("popup-back", "Back");
 }
 
 var setPopupBookingPageThree = (date, time) => {
 	createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.");
 	createPopupCancelButton("popup-finish", "Close");
-}
-
-var getText = (id) => {
-	return $("#" + id).html();
 }

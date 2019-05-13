@@ -45,7 +45,7 @@ $(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
 
 $(document).on("click", "#popup-confirm", (e) => {
     var date = $("#datepicker").val();;
-    var time = getText("popup-time");
+    var time = $("#popup-time").html();
     console.log(time);
     popupPageOne = $("#popup").children().detach();
     setPopupBookingPageTwo(date, time);
@@ -58,8 +58,8 @@ $(document).on("click", "#popup-back", (e) => {
 });
 
 $(document).on("click", "#popup-confirm-validate", (e) => {
-    var date = getText("popup-date");
-    var time = getText("popup-time");
+    var date = $("#popup-date").html();
+    var time = $("#popup-time").html();
     $("#popup").children().remove();
     setPopupBookingPageThree(date, time);
 });
