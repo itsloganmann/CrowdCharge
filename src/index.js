@@ -3,6 +3,8 @@ const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
+const chargerRouter = require('./routers/charger')
+const reviewRouter = require('./routers/review')
 
 // Sets up express
 const app = express()
@@ -14,6 +16,8 @@ app.use(express.json())
 // Registers routers, allowing us to refactor routes into separate files
 app.use(userRouter)
 app.use(bookingRouter)
+app.use(chargerRouter)
+app.use(reviewRouter)
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
