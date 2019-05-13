@@ -1,3 +1,50 @@
+.marker {
+    background-image: url('https://image.flaticon.com/icons/svg/1783/1783838.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.currentmarker {
+    background-image: url('https://image.flaticon.com/icons/svg/1673/1673221.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.mapboxgl-popup-content {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 6px 2px;
+    width: 220px;
+    margin: auto;
+    background-color: #FFFFFF;
+    color: #464648;
+    border-top: 6px solid #1DBF73;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.host-marker-img {
+    width: 35px;
+    height: auto;
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.host-marker-title {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
 #map {
     position: block;
     height: 100%;
@@ -8,27 +55,16 @@
     float: right;
 }
 
-#map-horizontal-expansion-button, #map-vertical-expansion-button {
-    font-size: 18pt;
-    color: #356859;
-    padding: 4px;
-    margin: 4px;
-    float: right;
-    cursor: pointer;
-}
-
-
-#map-vertical-expansion-button {
+#map-drawer-expansion-button {
     display: unset;
+    float: left;
 }
-#map-horizontal-expansion-button {
-    display: none;
-}
+
 
 #map-drawer {
     box-shadow: 0px 0px 4px 0px #356859;
-    height: 164px;
-    background-color: #EEEEEE;
+    height: 216px;
+    background-color: #FFFFFF;
     transition: height 0.5s ease;
     width: 100vw;
     position: fixed;
@@ -39,17 +75,57 @@
 
 #map-wrapper {
     width: 100%;
-    height: calc(100vh - 64px - 164px);
+    height: calc(100vh - 64px);
     background-color: #FFFFFF;
 }
 
 
-#map-horizontal-expansion-button, #map-vertical-expansion-button {
+.map-drawer-button {
     font-size: 18pt;
     color: #356859;
     padding: 4px;
     margin: 4px;
+    cursor: pointer;
+}
+#map-drawer-close-button {
     float: right;
+}
+
+#map-drawer-text-wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 8px 10%;    
+}
+#map-drawer-text-row {
+    display: block;
+    width: 100%;
+    margin: 4px 8px;
+    
+}
+.map-drawer-text-left {
+    float: left;
+}
+.map-drawer-text-right {
+    float: right;
+}
+#request-booking-button {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+    color: #FFFFFF;
+    background-color: #F05A29;
+    border: 0px;
+    padding: 8px 14px;
+    box-shadow: 0px 4px 4px 0px #000000;
+    cursor: pointer;
+
+}
+#map-drawer-details-wrapper {
+    display: none;
+    height: 120px;
+    background-color: hotpink;
 }
 
 @media only screen and (min-width: 0px) {
@@ -65,31 +141,18 @@
     .map-side-expanded {
         height: calc(100vh - 64px) !important;
         max-height: calc(100vh - 64px) !important;
-        width: 388px !important;
-        max-width: 100vw !important;
-    }
-    #map-wrapper {
-        display: block;
-        height: 100%;
-        float: right;
-    }
-
-    #map-wrapper {
-        width: calc(100% - 288px);
-        height: calc(100vh - 64px);
-        float: right !important;
     }
 
     #map-drawer {
-        width: 288px;
+        width: 368px;
         height: calc(100vh - 64px);
         transition: width 0.5s ease;
     }
 
-    #map-vertical-expansion-button {
+    #map-drawer-expansion-button {
         display: none;
     }
-    #map-horizontal-expansion-button {
-        display: unset;
+    #map-drawer-details-wrapper {
+        display: block;
     }
 }

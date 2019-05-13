@@ -1,14 +1,24 @@
-$(document).ready(function() {
-    $("#map-horizontal-expansion-button").on("click", () => {
-        console.log("horizontal");
-        $("#map-drawer").toggleClass("map-side-expanded");
-        $("#map-horizontal-expansion-button").toggleClass("fa-chevron-right fa-chevron-left");
-        $("#map-vertical-expansion-button").toggleClass("fa-chevron-up fa-chevron-down");
-    });
-    $("#map-vertical-expansion-button").on("click", () => {
-        console.log("vertical");
-        $("#map-drawer").toggleClass("map-side-expanded");
-        $("#map-horizontal-expansion-button").toggleClass("fa-chevron-right fa-chevron-left");
-        $("#map-vertical-expansion-button").toggleClass("fa-chevron-up fa-chevron-down");
-    });
+$("#map-drawer-expansion-button").on("click", () => {
+    $("#map-drawer").toggleClass("map-side-expanded");
+    $("#map-drawer-details-wrapper").toggleClass("display-reveal");
+    $("#map-drawer-expansion-button").toggleClass("fa-chevron-up fa-chevron-down");
+});
+
+$("#map-drawer-close-button").on("click", () => {
+    var drawer = $("#map-drawer").detach();
+});
+
+
+// Generates popup for booking
+$("#request-booking-button").on("click", () => {
+    console.log(popupWrapper);
+    $("main").before(popupWrapper);
+});
+
+
+// Removes popup for booking
+$(document).on("click", "#popup-wrapper, #popup-cancel", (e) => {
+    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel") {
+        var popup = $("#popup-wrapper").detach();
+    }
 });

@@ -1,8 +1,6 @@
-/*
-	documentation
-*/
+/* Documentation */
 body {
-  font-family: Calibri;
+  font-family: Roboto;
 
 }
 main {
@@ -10,14 +8,16 @@ main {
 }
 
 #logo-img{
-	width: 150px; 
-	height: 50px;
+	position: absolute;
+	width: 170px;
+	top: -25px;
 }
 
 .navbar-custom {
-  border-top: 8px #045D56 solid;
+  border-bottom: 5px #1DBF73 solid;
   box-shadow: 0px 0px 4px 0px #045D56;
 }
+
 .browser-menu-item{
   text-align: right;
 }
@@ -28,8 +28,7 @@ main {
 
 /* Go Mobile first */
 
-
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 590px) {
     .twocolumns{
         display:grid;
         grid-template-columns:1fr 1fr;
@@ -51,10 +50,10 @@ main {
 	}
 	.headertext{
 		display:block;
-  }
-  #bell-wrapper {
-      float: right;
-  }
+  	}
+  	#bell-wrapper {
+      		float: right;
+  	}
 }
 
 @media only screen and (min-width: 1000px) {
@@ -63,11 +62,6 @@ main {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
 }
-
-
-
-
-
 
 /*********************/
 #overlay {
@@ -104,6 +98,7 @@ main {
     left: 0;
     right: 0;
 }
+
 .side-menu-button {
     display: block;
     cursor: pointer;
@@ -132,7 +127,7 @@ main {
 }
 
 #logout-button:hover {
-    color: #FFFFFF;
+    color: #bf331d;
     background-color: #F05A29;
     opacity: 0.8;
 }
@@ -146,10 +141,13 @@ main {
 
 #bell-icon:hover {
   text-decoration: unset;
+  color: #bf331d;
 }
+
 #bell-icon {
   padding: 8px;
 }
+
 #bell-wrapper {
   padding: 0;
 }
@@ -187,15 +185,17 @@ main {
   left: 10px;
 }
 
-.nav-link {
+.nav-link a{
     font-size: 14pt;
+    color: #464648;
 }
 
 #header-nav {
   justify-content: flex-end;
-  background-color: #045D56 !important;
+  background-color: #ffffff !important;
   z-index: 2;
-  height: 64px;
+  height: 84px;
+  color: #464648;
 }
 
 .nav-bar-icon {
@@ -203,6 +203,7 @@ main {
   float: right;
   margin: 0px 4px;
 }
+
 .nav-bar-icon:hover {
   color: #F05A29;
 }
@@ -242,14 +243,14 @@ main {
   cursor: pointer;
   color: #EEEEEE;
   background-color: inherit;
-  border-radius: 4px;
+  radius: 4px;
   border: 2px solid #EEEEEE;
   margin-right: 10px;
   padding: 2px 12px;
 }
 
 #login-button-wrapper:hover {
-  border: 2px solid #F05A29;
+  border: 1px solid #464648;
 }
 
 #nav-top {
@@ -259,11 +260,11 @@ main {
 }
 
 .nav-top-link {
-  color: #EEEEEE;
+  color: #464648;
 }
 
 .nav-top-link:hover {
-  color: #F05A29;
+  color: #bf331d;
   text-decoration: unset;
 }
 
@@ -277,4 +278,8 @@ main {
   #nav-top {
     display: flex;
   }
+}
+
+.display-reveal {
+  display: block !important
 }
