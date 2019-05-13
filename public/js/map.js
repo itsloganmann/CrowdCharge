@@ -8,20 +8,12 @@ $("#map-drawer-close-button").on("click", () => {
     var drawer = $("#map-drawer").detach();
 });
 
-var months = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
 // Generates popup for booking
 $("#request-booking-button").on("click", () => {
     createPopup();
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth() + 1;
-    var monthFmt = months[today.getMonth()];
-    var year = today.getFullYear();
-    popupSubheader.innerHTML = monthFmt + ", " + day;
+    setPopupBookingPageOne();
+    // Testing purposes
     addTimeSlot("0:00", "1:00");
-    console.log(popupWrapper);
-    $("main").before(popupWrapper);
 });
 
 function checkSelected(){
@@ -32,9 +24,9 @@ function checkSelected(){
         $('#popup-confirm').addClass('disabled-button');
         $('#popup-confirm').html('Please select a time slot!');
     } else {
-        $('#popup-confirm').html('Request Booking');
         $('#popup-confirm').removeClass('disabled-button');
         $('#popup-confirm').prop('disabled', false);
+        $('#popup-confirm').html('Request Booking');
     }
 }
  
@@ -42,6 +34,7 @@ function checkSelected(){
 // Removes popup for booking
 $(document).on("click", "#popup-wrapper, #popup-cancel", (e) => {
     if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel") {
+        console.log("Gone!!");
         $(".time-slot-button").remove();
         $("#popup-wrapper").remove();
     }
@@ -50,14 +43,10 @@ $(document).on("click", "#popup-wrapper, #popup-cancel", (e) => {
 // Removes popup for booking
 $(document).on("click", "#popup-confirm", (e) => {
     if (e.target.id == "popup-confirm") {
-        //var list = document.getElementsByClassName('button-selected');
-        //selected = $('.button-selected').detach();
-        //console.log(list[0]);
-        popupPageOne = $("#popup").children().detach();
-        //console.log(list[0]);
-        //console.log(selected);
-        $("#popup").append(popupConfirmValidate);   
-        $("#popup").append(popupBackButton);   
+        setPopupBookingPageTwo();
+        popupPageOneHeader = $("#popup-header").detach();
+        popupPageOneSubheader = $("#popup-subheader").detach();
+        popupPageOneContent = $("#popup-content").detach();
         $("#popup").css({
             "height": "60vh",
             "transform": "translateY(20vh)"
@@ -74,8 +63,13 @@ function appendTimes(id, list) {
 }
 
 $(document).on("click", "#popup-back", (e) => {
-    $("#popup").children().detach();
-    $("#popup").append(popupPageOne);
+    $("#popup").prepend(popupPageOneContent);
+    $("#popup").prepend(popupPageOneSubheader);
+    $("#popup").prepend(popupPageOneHeader);
+	$("#popup-confirm-validate").attr("id", "popup-confirm");
+    $("#popup-back").attr("id", "popup-cancel");
+    e.stopPropagation();
+
     $("#popup").css({
         "height": "80vh",
         "transform": "translateY(10vh)"
@@ -83,9 +77,8 @@ $(document).on("click", "#popup-back", (e) => {
 });
 
 $(document).on("click", "#popup-confirm-validate", (e) => {
-    $("#popup").children().detach();
-    $("#popup").append("<div>Your booking for May, 11 at 11am-12am and 1pm-3pm has been sent. Please wait for a confirmation from the host.<div>");
-    $("#popup").append(popupFinishButton);      
+    setPopupBookingPageThree();
+    $("#popup").append("<div>Your booking for May, 11 at 11am-12am Please wait for a confirmation from the host.<div>");
     $("#popup").css({
         "height": "40vh",
         "transform": "translateY(30vh)"
@@ -108,7 +101,7 @@ var addTimeSlot = (startTime, endTime) => {
     var timeSlot = document.createElement('button');
     timeSlot.className = "time-slot-button";
     timeSlot.innerHTML = startTime + " - " + endTime;
-    popupContent.appendChild(timeSlot);
+    $("#popup-content").append(timeSlot);
 }
 
 // Colour change for time slot button
