@@ -16,8 +16,8 @@ function carGo() {
 
 $("#logo-img").hover( () => {
         if (timer === undefined){
-	        timer = setTimeout(carGo, 5000)
-	} else {
-		timer = clearInterval(timer)
-	}
+            timer = setTimeout(carGo, 5000)
+    } else {
+        timer = clearInterval(timer)
+    }
 });

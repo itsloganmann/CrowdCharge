@@ -8,16 +8,17 @@
   {{>imports}}
   {{>style_map}}
   {{>mapboxsetup}}
+
 </head>
 
 <body>
+  {{>sidenav}}
+  {{>topnav}}
   <main>
-    {{>sidenav}}
-    {{>topnav}}
     {{>maprender}}
     <div id="map-drawer">
-      <span id="map-drawer-close-button" class="fas fa-times map-drawer-button"></span>
-      <span id="map-drawer-expansion-button" class="fas fa-chevron-up map-drawer-button"></span>
+      <span id="map-drawer-close-button" class="fas fa-times ui-button-custom"></span>
+      <span id="map-drawer-expansion-button" class="fas fa-chevron-up ui-button-custom"></span>
 
       <div id="map-drawer-text-wrapper">
         <div class="map-drawer-text-row">
@@ -41,7 +42,7 @@
         </div>
         <br>
         <div class="map-drawer-text-row">
-          <div class="map-drawer-text-right" id="map-drawer-dates">View Availabile Dates</div>
+          <div class="map-drawer-text-right" id="map-drawer-dates">View Schedule</div>
         </div>
         <br>
         <div class="map-drawer-text-row" id="map-drawer-details-wrapper">
@@ -50,13 +51,15 @@
           <div class="map-drawer-text-left" id="map-drawer-details">CONTENT</div>
         </div>
         <br>
-        <button id="request-booking-button">REQUEST BOOKING</button>
+        <button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>
       </div>
     </div>
   </main>
   <script src="js/popup.js"></script>
   {{>javascripts}}
   <script src="js/map.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
+{{>footer}}
 
 </html>

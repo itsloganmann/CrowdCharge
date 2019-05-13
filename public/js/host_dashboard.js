@@ -20,6 +20,8 @@ window.onload = function(){
 	$('#content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
 	$('#chargerContainer').append(yourCharger);
+	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
+
 };
 
 $('#chargers').click(function(event) {
@@ -39,6 +41,8 @@ $('#chargers').click(function(event) {
 	$('#content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
 	$('#chargerContainer').append(yourCharger);
+	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
+
 });
 
 $('#bookings').click(function(event){
