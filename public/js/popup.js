@@ -60,12 +60,14 @@ var getCurrentDate = () => {
 }
 var setPopupBookingPageOne = () => {
 	createPopupHeader("h3", "Book a Time");
-	createPopupSubheader("h5", "<b id='popup-date'>" + getCurrentDate() + "</b>");
+	createPopupSubheader("h5", "<b id='popup-date'><input type='text' readonly id='datepicker' value='" + getCurrentDate() + "'></b>");
+	$("#datepicker").datepicker();
 	createPopupContent();
 	createPopupConfirmButton("popup-confirm", "Request Booking");
 	createPopupCancelButton("popup-cancel", "Cancel");
 }
 var setPopupBookingPageTwo = (date, time) => {
+	console.log(time);
 	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
 	createPopupConfirmButton("popup-confirm-validate", "Confirm");
 	createPopupCancelButton("popup-back", "Back");

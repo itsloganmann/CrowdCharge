@@ -44,8 +44,9 @@ $(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
 });
 
 $(document).on("click", "#popup-confirm", (e) => {
-    var date = getText("popup-date");
+    var date = $("#datepicker").val();;
     var time = getText("popup-time");
+    console.log(time);
     popupPageOne = $("#popup").children().detach();
     setPopupBookingPageTwo(date, time);
 
