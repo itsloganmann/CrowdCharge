@@ -1,5 +1,7 @@
-//alex's mongodb startup command
-// C:\Program Files\MongoDB\Server\4.0\bin> .\mongod.exe --dbpath "c:\Users\ajgia\MongoDB-data"
+
+//viv's mongodb startup command
+// C:\Program Files\MongoDB\Server\4.0\bin .\mongod.exe --dbpath=c:\Users\wuviv\MongoDB-data
+
 
 //mongoDB object modelling module
 const mongoose = require('mongoose');
@@ -84,14 +86,14 @@ const bookingSchema = {
         type: String
     },
     timeStart: {
-        type: Number
+        type: Date
     },
     timeEnd:{
-        type: Number
-    },
-    date:{
         type: Date
     }
+    // date:{
+    //     type: Date
+    // }
 };
 
 //pending booking model
@@ -102,6 +104,9 @@ const unpaidBooking = mongoose.model('unpaidBooking', bookingSchema);
 
 //paid booking model
 const paidBooking = mongoose.model('paidBooking', bookingSchema);
+
+//booking history
+const BookingHistory = mongoose.model('BookingHistory', bookingSchema);
 
 //review model
 const Review = mongoose.model('Review', {
@@ -153,12 +158,13 @@ const Notification = mongoose.model('Notification',{
 });
 
 module.exports ={
-    user: User,
-    charger: Charger,
+    User: User,
+    Charger: Charger,
     pendingBooking: pendingBooking,
     unpaidBooking: unpaidBooking,
     paidBooking: paidBooking,
-    review: Review,
-    marker: Marker,
-    notification: Notification
+    BookingHistory : BookingHistory,
+    Review: Review,
+    Marker: Marker,
+    Motification: Notification
 };
