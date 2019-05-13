@@ -50,10 +50,6 @@
     width: 100%;
 }
 
-#map-side-expansion-button {
-    float: right;
-}
-
 #map-drawer-expansion-button {
     display: unset;
     float: left;
@@ -65,8 +61,8 @@
     height: 216px;
     background-color: #FFFFFF;
     transition: height 0.5s ease;
-    width: 100vw;
-    position: fixed;
+    width: 100%;
+    position: absolute;
     z-index: 1;
     bottom: 0;
     max-height: calc(100vh - 84px);
@@ -109,9 +105,9 @@
     float: right;
 }
 #request-booking-button {
-    width: 100%;
-    margin: 0 auto;
-    display: block;
+    width: 80%;
+    bottom: 24px;
+    position: absolute;
     cursor: pointer;
 
 }

@@ -276,10 +276,6 @@ main {
   }
 }
 
-.display-reveal {
-  display: block !important
-}
-
 .orange-button {
   background-color: #F05A29;
   color: #FFFFFF;
@@ -303,7 +299,69 @@ main {
 }
 
 .disabled-button {
-  background-color: #999999 !important;
+  background-color: #F0825E !important;
   color: #EEEEEE !important;
   box-shadow: none !important;
+}
+
+
+/* ------------------------- Footer Style ----------------------------- */
+footer {
+  line-height: 22px;
+  background-color: #444;
+  box-shadow: 4px -15px 8px -15px rgba(0, 0, 0, 0.2), 10px -15px 40px -15px rgba(0, 0, 0, 0.19);
+  border-top: 4px solid #1DBF73;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #1DBF73;
+}
+
+#footer-p {
+  color: #ccc;
+  font-size: 12px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  background-color: #333;
+}
+
+.footercolumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 75%;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
+.footercolumn {
+  margin: 0 50px;
+  color: #ccc;
+}
+
+.footertitle {
+  color: #fff;
+  font-size: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+footer ul {
+  color: #ccc;
+  font-size: 12px;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  padding-top: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+  .footercolumns {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }

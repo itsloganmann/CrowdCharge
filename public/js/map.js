@@ -1,6 +1,6 @@
 $("#map-drawer-expansion-button").on("click", () => {
     $("#map-drawer").toggleClass("map-side-expanded");
-    $("#map-drawer-details-wrapper").toggleClass("display-reveal");
+    $("#map-drawer-details-wrapper").slideToggle(350);
     $("#map-drawer-expansion-button").toggleClass("fa-chevron-up fa-chevron-down");
 });
 
@@ -12,6 +12,7 @@ $("#map-drawer-close-button").on("click", () => {
 $("#request-booking-button").on("click", () => {
     createPopup();
     setPopupBookingPageOne();
+    $("#popup").fadeIn(200);
     checkSelected();
     // Testing purposes
     addTimeSlot("0:00", "1:00");
@@ -40,8 +41,10 @@ $(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
 });
 
 $(document).on("click", "#popup-confirm", (e) => {
+    var date = getText("popup-date");
+    var time = getText("popup-time");
     popupPageOne = $("#popup").children().detach();
-    setPopupBookingPageTwo();
+    setPopupBookingPageTwo(date, time);
 
 });
 $(document).on("click", "#popup-back", (e) => {
@@ -51,8 +54,10 @@ $(document).on("click", "#popup-back", (e) => {
 });
 
 $(document).on("click", "#popup-confirm-validate", (e) => {
+    var date = getText("popup-date");
+    var time = getText("popup-time");
     $("#popup").children().remove();
-    setPopupBookingPageThree();
+    setPopupBookingPageThree(date, time);
 });
 
 
@@ -70,4 +75,10 @@ $(document).on("click", ".time-slot-button", (e) => {
     $(e.target).toggleClass("button-selected");
     checkSelected();
     e.stopPropagation();
+});
+
+$(document).on("click", ".marker", (e) => {
+    var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
+    $("#map-drawer-text-wrapper").prepend(clickedMarkerName);
+    $("#map-drawer").append(drawer);
 });

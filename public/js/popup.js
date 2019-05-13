@@ -60,18 +60,22 @@ var getCurrentDate = () => {
 }
 var setPopupBookingPageOne = () => {
 	createPopupHeader("h3", "Book a Time");
-	createPopupSubheader("h5", getCurrentDate());
+	createPopupSubheader("h5", "<b id='popup-date'>" + getCurrentDate() + "</b>");
 	createPopupContent();
 	createPopupConfirmButton("popup-confirm", "Request Booking");
 	createPopupCancelButton("popup-cancel", "Cancel");
 }
-var setPopupBookingPageTwo = () => {
-	createPopupHeader("h5", "You have requested: <b>May 11, 2019</b> at <b>11am-12am</b>. Do you wish to confirm this booking request?");
+var setPopupBookingPageTwo = (date, time) => {
+	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
 	createPopupConfirmButton("popup-confirm-validate", "Confirm");
 	createPopupCancelButton("popup-back", "Back");
 }
 
-var setPopupBookingPageThree = () => {
-	createPopupHeader("h5", "Your booking for <b>May 11, 2019</b> at <b>11am-12am</b> has been sent. Please wait for a confirmation from the host before making your payment.");
+var setPopupBookingPageThree = (date, time) => {
+	createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.");
 	createPopupCancelButton("popup-finish", "Close");
+}
+
+var getText = (id) => {
+	return $("#" + id).html();
 }

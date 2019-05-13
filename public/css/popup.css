@@ -9,11 +9,10 @@
 
 #popup {
     transform: translateY(calc(50vh - 50%));
-    display: block;
+    display: none;
     z-index: 20;
     margin: 0 auto;
     width: 90vw;
-    min-width: 222px;
     max-width: 728px;
     border-radius: 8px;
     color: #464648;

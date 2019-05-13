@@ -11,9 +11,9 @@
 </head>
 
 <body>
+  {{>sidenav}}
+  {{>topnav}}
   <main>
-    {{>sidenav}}
-    {{>topnav}}
     {{>maprender}}
     <div id="map-drawer">
       <span id="map-drawer-close-button" class="fas fa-times ui-button"></span>
@@ -41,7 +41,7 @@
         </div>
         <br>
         <div class="map-drawer-text-row">
-          <div class="map-drawer-text-right" id="map-drawer-dates">View Available Dates</div>
+          <div class="map-drawer-text-right" id="map-drawer-dates">View Schedule</div>
         </div>
         <br>
         <div class="map-drawer-text-row" id="map-drawer-details-wrapper">
@@ -58,5 +58,6 @@
   {{>javascripts}}
   <script src="js/map.js"></script>
 </body>
+{{>footer}}
 
 </html>
