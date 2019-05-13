@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-
 // Creates mongoose data model for a booking object and adds validator to data
 const Booking = mongoose.model('Booking', {
     bookingDate: {

@@ -6,7 +6,6 @@ const router = new express.Router()
 // REST API for creating resources. Sets up routing for POST requests to retrieve user json object from client
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-
     try {
         // Waits for the promise that comes back when saving.
         await user.save()
@@ -50,27 +49,36 @@ router.patch('/users/:id', async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
-    const isValidOperation = updates.every((update) => {
-        return allowedUpdates.includes(update)
-    })
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid updates!' })
     }
 
     try {
-        // req.body lets us access the data from front-end. new: true lets us get the updated user back.
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+        const user = await User.findById(req.params.id)
 
+        // // EXAMPLE Below can be used for mongoose to find id and update. req.body lets us access the data from front-end. new: true lets us get the updated user back.
+        // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+
+        // Small adjustment required to use middleware. Updates user data.
+        updates.forEach((update) => {
+            user[update] = req.body[update]
+            console.log(user[update])
+        })
+
+        await user.save()
+        
         // If no user is found.
         if (!user) {
             return res.status(404).send()
         }
-
+        
         // Sends back the found user data back after updating it
         res.send(user)
 
     } catch (error) {
+        console.log('error!')
         res.status(400).send(error)
     }
 })
