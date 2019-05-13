@@ -161,7 +161,22 @@ app.get('*', (req, res) => {
     })
 })
 
+// app.route("/createUser", (req,res) =>{
+//     console.log("in create user");
+//     let wuviv = {
+//         "firstName": "Vivian",
+//         "lastName" : "Wu"
+//     };
+
+//     db.createUser(wuviv)
+// });
+
+// app.listen(4000, () => {
+//     console.log('Server is up on port 4000.')
+// });
+
 // Starts up the web server.
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
+
