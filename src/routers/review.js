@@ -2,9 +2,10 @@
 const express = require('express')
 const Review = require('../models/review')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 // GET request endpoint for fetching all bookings
-router.get('/reviews', async (req, res) => {
+router.get('/reviews', auth, async (req, res) => {
     try {
         const reviews = await Review.find( {} )
         res.send(reviews)
@@ -15,7 +16,7 @@ router.get('/reviews', async (req, res) => {
 })
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve review json object from client
-router.post('/reviews', async (req, res) => {
+router.post('/reviews', auth, async (req, res) => {
     const review = new Review(req.body)
 
     try {
@@ -27,7 +28,7 @@ router.post('/reviews', async (req, res) => {
 })
 
 // GET request endpoint for fetching review by id
-router.get('/reviews/:id', async (req, res) => {
+router.get('/reviews/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -46,7 +47,7 @@ router.get('/reviews/:id', async (req, res) => {
 })
 
 // Updates a review
-router.patch('/reviews/:id', async (req, res) => {
+router.patch('/reviews/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['details', 'rating']
@@ -76,7 +77,7 @@ router.patch('/reviews/:id', async (req, res) => {
 })
 
 // Route handler for deleting reviews
-router.delete('/reviews/:id', async (req, res) => {
+router.delete('/reviews/:id', auth, async (req, res) => {
     try {
         const review = await Review.findByIdAndDelete(req.params.id)
 

@@ -37,7 +37,7 @@ router.get('/users/me', auth, async (req, res) => {
 })
 
 // GET request endpoint for fetching individual user by ID. Dynamic route handler.
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:id', auth, async (req, res) => {
     const _id = req.params.id
     
     try {
@@ -55,7 +55,7 @@ router.get('/users/:id', async (req, res) => {
 })
 
 // Updates a user
-router.patch('/users/:id', async (req, res) => {
+router.patch('/users/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
@@ -94,7 +94,7 @@ router.patch('/users/:id', async (req, res) => {
 })
 
 // Route handler for deleting resources
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/:id', auth, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id)
 
@@ -109,7 +109,7 @@ router.delete('/users/:id', async (req, res) => {
 })
 
 // Route handler for users login using email and password, generate an auth token
-router.post('/users/login', async (req, res) => {
+router.post('/users/login', auth, async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()

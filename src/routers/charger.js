@@ -2,9 +2,10 @@
 const express = require('express')
 const Charger = require('../models/charger')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 // GET request endpoint for fetching all chargers
-router.get('/chargers', async (req, res) => {
+router.get('/chargers', auth, async (req, res) => {
     try {
         const chargers = await Charger.find( {} )
         res.send(chargers)
@@ -15,7 +16,7 @@ router.get('/chargers', async (req, res) => {
 })
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve charger json object from client
-router.post('/chargers', async (req, res) => {
+router.post('/chargers', auth, async (req, res) => {
     const charger = new Charger(req.body)
 
     try {
@@ -27,7 +28,7 @@ router.post('/chargers', async (req, res) => {
 })
 
 // GET request endpoint for fetching charger by id
-router.get('/chargers/:id', async (req, res) => {
+router.get('/chargers/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -46,7 +47,7 @@ router.get('/chargers/:id', async (req, res) => {
 })
 
 // Updates a charger
-router.patch('/chargers/:id', async (req, res) => {
+router.patch('/chargers/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['rate', 'type', 'details']
@@ -76,7 +77,7 @@ router.patch('/chargers/:id', async (req, res) => {
 })
 
 // Route handler for deleting chargers
-router.delete('/chargers/:id', async (req, res) => {
+router.delete('/chargers/:id', auth, async (req, res) => {
     try {
         const charger = await Charger.findByIdAndDelete(req.params.id)
 

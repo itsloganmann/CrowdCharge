@@ -2,9 +2,10 @@
 const express = require('express')
 const Notification = require('../models/notification')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 // GET request endpoint for fetching all notifications
-router.get('/notifications', async (req, res) => {
+router.get('/notifications', auth, async (req, res) => {
     try {
         const notifications = await Notification.find( {} )
         res.send(notifications)
@@ -15,7 +16,7 @@ router.get('/notifications', async (req, res) => {
 })
 
 // GET request endpoint for fetching notifications by id
-router.get('/notifications/:id', async (req, res) => {
+router.get('/notifications/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -34,7 +35,7 @@ router.get('/notifications/:id', async (req, res) => {
 })
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve notification json object from client
-router.post('/notifications', async (req, res) => {
+router.post('/notifications', auth, async (req, res) => {
     const notification = new Notification(req.body)
 
     try {
@@ -46,7 +47,7 @@ router.post('/notifications', async (req, res) => {
 })
 
 // Updates a notification
-router.patch('/notifications/:id', async (req, res) => {
+router.patch('/notifications/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['read']
@@ -76,7 +77,7 @@ router.patch('/notifications/:id', async (req, res) => {
 })
 
 // Route handler for deleting notifications
-router.delete('/notifications/:id', async (req, res) => {
+router.delete('/notifications/:id', auth, async (req, res) => {
     try {
         const notification = await Notification.findByIdAndDelete(req.params.id)
 

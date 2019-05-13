@@ -2,9 +2,10 @@
 const express = require('express')
 const Booking = require('../models/booking')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 // GET request endpoint for fetching all bookings
-router.get('/bookings', async (req, res) => {
+router.get('/bookings', auth, async (req, res) => {
     try {
         const bookings = await Booking.find( {} )
         res.send(bookings)
@@ -15,7 +16,7 @@ router.get('/bookings', async (req, res) => {
 })
 
 // GET request endpoint for fetching booking by id
-router.get('/bookings/:id', async (req, res) => {
+router.get('/bookings/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -34,7 +35,7 @@ router.get('/bookings/:id', async (req, res) => {
 })
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve booking json object from client
-router.post('/bookings', async (req, res) => {
+router.post('/bookings', auth, async (req, res) => {
     const booking = new Booking(req.body)
 
     try {
@@ -46,7 +47,7 @@ router.post('/bookings', async (req, res) => {
 })
 
 // Updates a booking
-router.patch('/bookings/:id', async (req, res) => {
+router.patch('/bookings/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['accepted']
@@ -76,7 +77,7 @@ router.patch('/bookings/:id', async (req, res) => {
 })
 
 // Route handler for deleting bookings
-router.delete('/bookings/:id', async (req, res) => {
+router.delete('/bookings/:id', auth, async (req, res) => {
     try {
         const booking = await Booking.findByIdAndDelete(req.params.id)
 

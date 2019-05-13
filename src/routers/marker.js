@@ -2,9 +2,10 @@
 const express = require('express')
 const Marker = require('../models/marker')
 const router = new express.Router()
+const auth = require('../middleware/auth')
 
 // GET request endpoint for fetching all markers
-router.get('/markers', async (req, res) => {
+router.get('/markers', auth, async (req, res) => {
     try {
         const markers = await Marker.find( {} )
         res.send(markers)
@@ -15,7 +16,7 @@ router.get('/markers', async (req, res) => {
 })
 
 // GET request endpoint for fetching markers by id
-router.get('/markers/:id', async (req, res) => {
+router.get('/markers/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
@@ -34,7 +35,7 @@ router.get('/markers/:id', async (req, res) => {
 })
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve marker json object from client
-router.post('/markers', async (req, res) => {
+router.post('/markers', auth, async (req, res) => {
     const marker = new Marker(req.body)
 
     try {
@@ -46,7 +47,7 @@ router.post('/markers', async (req, res) => {
 })
 
 // Updates a marker
-router.patch('/markers/:id', async (req, res) => {
+router.patch('/markers/:id', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['long', 'lat']
@@ -76,7 +77,7 @@ router.patch('/markers/:id', async (req, res) => {
 })
 
 // Route handler for deleting markers
-router.delete('/markers/:id', async (req, res) => {
+router.delete('/markers/:id', auth, async (req, res) => {
     try {
         const marker = await Marker.findByIdAndDelete(req.params.id)
 
