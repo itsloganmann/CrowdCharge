@@ -1,0 +1,81 @@
+#popup-wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 19;
+    background-color: rgb(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+#popup {
+    transform: translateY(10vh);
+    display: block;
+    z-index: 20;
+    margin: 0 auto;
+    width: 90vw;
+    min-width: 222px;
+    max-width: 728px;
+    min-height: 288px;
+    height: 80vh;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px #000000;
+    padding: 32px;
+    overflow: auto;
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+/** Map Page **/
+#popup-header {
+    
+}
+
+#popup-subheader {
+    color: #F05A29;
+    cursor: pointer;
+}
+#popup-content {
+    background-color: hotpink;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#popup-confirm {
+    background-color: #F05A29;
+    color: #FFFFFF;
+}
+
+#popup-cancel {
+    background-color: #FFFFFF;
+    color: #F05A29;
+}
+
+#popup-confirm, #popup-cancel {
+    font-size: 14pt;
+    width: 80%;
+    border-radius: 4px;
+    border: 0px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    box-shadow: 0px 4px 4px 0px #999999;
+    cursor: pointer;
+}
+
+.time-slot-button {
+    background-color: #999999;
+    font-size: 12pt;
+    width: 70%;
+    border-radius: 2px;
+    border: 0px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    box-shadow: 0px 4px 4px 0px #999999;
+    cursor: pointer;  
+}
+
+.button-selected {
+    background-color: #F05A29;
+}
