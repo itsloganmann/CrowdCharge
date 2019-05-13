@@ -95,6 +95,11 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
+    let wuviv = {
+                "firstName": "Vivian",
+                "lastName" : "Wu"
+            };
+    db.createUser(wuviv);
 //    console.log(db.getUserChargers("5cd5fbb2eaa7db46388a0860"));
 // db.getUserChargers("5cd5fbb2eaa7db46388a0860", function(err, chargers) {
 //     if (err) {
@@ -103,13 +108,16 @@ app.get('/about', (req, res) => {
 //     console.log(chargers);
 
 // });
-db.getAllChargerPending("5cd5fbb2eaa7db46388a0860", function(err, ChargerPending) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(ChargerPending);
+// db.getAllChargerPending("5cd5fbb2eaa7db46388a0860", function(err, ChargerPending) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log(ChargerPending);
 
-});
+// });
+// db.payBooking("5cd620c680e91e04d040851f", function(err, booking){
+//     console.log(booking);
+// });
 // db.getChargerPending("5cd5e014996246647c04cd58", function(err,pending){
 //     if(err)
 //         console.log(err);

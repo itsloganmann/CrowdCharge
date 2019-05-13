@@ -5,7 +5,7 @@
 const mongoose = require('mongoose');
 //database hosting url/location
 const connectionURL ='mongodb://127.0.0.1:27017/ZapShare'
-
+// const connectionURL = 'mongodb+srv://admin:zapshare@zapshare-qqjxu.mongodb.net/ZapShare?retryWrites=true'
 //connect to database
 mongoose.connect(connectionURL,{
     useNewUrlParser :true,
@@ -38,10 +38,10 @@ const User = mongoose.model('User', {
     //     type: Array,
     //     default: []
     // }
-    notifications: {
-        type: Array,
-        default: []
-    }
+    // notifications: {
+    //     type: Array,
+    //     default: []
+    // }
 });
 
 //charger model
@@ -89,9 +89,6 @@ const bookingSchema = {
     timeEnd:{
         type: Date
     }
-    // date:{
-    //     type: Date
-    // }
 };
 
 //pending booking model
@@ -140,11 +137,11 @@ const Marker = mongoose.model('Marker',{
 
 //notification model (to notify user of changes)
 const Notification = mongoose.model('Notification',{
-    charger:{
+    user : {
         type: String
     },
-    user: {
-        type: String
+    booking: {
+        type: Object
     },
     //notification type (one of: booking recieved, booking declined, booking accepted, booking paid, booking cancelled)
     type: {
