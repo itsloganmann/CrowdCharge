@@ -10,6 +10,7 @@ var createPopup = () => {
 	var popup = document.createElement('form');
 	popup.id = "popup";
 	popup.method = "POST";
+	popup.action = "/bookings";
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
 	console.log("Creating popup complete!");
@@ -53,7 +54,7 @@ var createPopupCancelButton = (id, text) => {
 
 var createFormButton = (id, text) => {
 	var button = document.createElement('input');
-	button.setAttribute("type", "button");
+	button.setAttribute("type", "submit");
 	button.setAttribute("value", "Confirm");
 	button.id = id;
 	button.className = "orange-button";
@@ -68,9 +69,10 @@ var getCurrentDate = () => {
 	var year = today.getFullYear();
 	return (monthFmt + " " + day + ", " + year);
 }
-var addPopupHiddenField = (value) => {
+var addPopupHiddenField = (name, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", "hidden");
+	input.setAttribute("name", name);
 	input.setAttribute("value", value);
 	$('#popup').append(input);
 }
@@ -84,8 +86,8 @@ var setPopupBookingPageOne = () => {
 	createPopupCancelButton("popup-cancel", "Cancel");
 }
 var setPopupBookingPageTwo = (date, time) => {
-	addPopupHiddenField(date);
-	addPopupHiddenField(time);
+	addPopupHiddenField("date", date);
+	addPopupHiddenField("time", time);
 	console.log(time);
 	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
 	createFormButton("popup-confirm-validate", "Confirm");
