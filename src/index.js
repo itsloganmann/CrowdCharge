@@ -5,6 +5,8 @@ const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
 const chargerRouter = require('./routers/charger')
 const reviewRouter = require('./routers/review')
+const markerRouter = require('./routers/marker')
+const notificationRouter = require('./routers/notification')
 
 // Sets up express
 const app = express()
@@ -18,6 +20,8 @@ app.use(userRouter)
 app.use(bookingRouter)
 app.use(chargerRouter)
 app.use(reviewRouter)
+app.use(markerRouter)
+app.use(notificationRouter)
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)

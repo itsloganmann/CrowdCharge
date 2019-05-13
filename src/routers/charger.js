@@ -26,4 +26,68 @@ router.post('/chargers', async (req, res) => {
     }
 })
 
+// GET request endpoint for fetching charger by id
+router.get('/chargers/:id', async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const charger = await Charger.findById(_id)
+
+        // If it doesn't find any matching booking id's, then send back 404
+        if (!charger) {
+            return res.status(404).send()
+        }
+
+        // Send back the matching booking if found
+        res.send(charger)
+    } catch (error) {
+        res.status(500).send()
+    }
+})
+
+// Updates a charger
+router.patch('/chargers/:id', async (req, res) => {
+    // Specifies what is allowed to be updated in the db
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['rate', 'type', 'details']
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    try {
+        // req.body lets us access the data from front-end. new: true lets us get the updated user back.
+        const charger = await Charger.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+
+        // If no booking is found.
+        if (!charger) {
+            return res.status(404).send()
+        }
+
+        // Sends back the found booking data back after updating it
+        res.send(booking)
+
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+// Route handler for deleting chargers
+router.delete('/chargers/:id', async (req, res) => {
+    try {
+        const charger = await Charger.findByIdAndDelete(req.params.id)
+
+        if (!charger) {
+            return res.status(404).send()
+        }
+
+        res.send(charger)
+    } catch (error) {
+        res.status(500).send()
+    }
+})
+
 module.exports = router

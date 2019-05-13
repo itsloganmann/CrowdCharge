@@ -26,4 +26,68 @@ router.post('/reviews', async (req, res) => {
     }
 })
 
+// GET request endpoint for fetching review by id
+router.get('/reviews/:id', async (req, res) => {
+    const _id = req.params.id
+
+    try {
+        const review = await Review.findById(_id)
+
+        // If it doesn't find any matching review id's, then send back 404
+        if (!review) {
+            return res.status(404).send()
+        }
+
+        // Send back the matching review if found
+        res.send(review)
+    } catch (error) {
+        res.status(500).send()
+    }
+})
+
+// Updates a review
+router.patch('/reviews/:id', async (req, res) => {
+    // Specifies what is allowed to be updated in the db
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['details', 'rating']
+    const isValidOperation = updates.every((update) => {
+        return allowedUpdates.includes(update)
+    })
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    try {
+        // req.body lets us access the data from front-end. new: true lets us get the updated user back.
+        const review = await Review.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+
+        // If no review is found.
+        if (!review) {
+            return res.status(404).send()
+        }
+
+        // Sends back the found review data back after updating it
+        res.send(review)
+
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+
+// Route handler for deleting reviews
+router.delete('/reviews/:id', async (req, res) => {
+    try {
+        const review = await Review.findByIdAndDelete(req.params.id)
+
+        if (!review) {
+            return res.status(404).send()
+        }
+
+        res.send(review)
+    } catch (error) {
+        res.status(500).send()
+    }
+})
+
 module.exports = router
