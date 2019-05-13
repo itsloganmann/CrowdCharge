@@ -18,10 +18,12 @@
     min-height: 288px;
     height: 80vh;
     border-radius: 8px;
+    color: #464648;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 4px 0px #000000;
     padding: 32px;
     overflow: auto;
+    border-top: 12px solid #1DBF73;
 }
 
 @media only screen and (min-width: 768px) {
@@ -41,26 +43,10 @@
     height: 300px;
     overflow-y: auto;
 }
-
-#popup-confirm {
-    background-color: #F05A29;
-    color: #FFFFFF;
-}
-
-#popup-cancel {
-    background-color: #FFFFFF;
-    color: #F05A29;
-}
-
 #popup-confirm, #popup-cancel {
     font-size: 14pt;
     width: 80%;
-    border-radius: 4px;
-    border: 0px;
-    padding: 8px 16px;
     margin-top: 8px;
-    box-shadow: 0px 4px 4px 0px #999999;
-    cursor: pointer;
 }
 
 .time-slot-button {
@@ -71,10 +57,12 @@
     border: 0px;
     padding: 8px 16px;
     margin-top: 8px;
-    box-shadow: 0px 4px 4px 0px #999999;
-    cursor: pointer;  
 }
 
 .button-selected {
     background-color: #F05A29;
+}
+
+#popup-close-button {
+    float: right;
 }

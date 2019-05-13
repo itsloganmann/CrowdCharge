@@ -131,7 +131,7 @@ main {
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
     font-size: 18pt;
-    color: #EEEEEE;
+    color: #045D56;
     float: right;
 }
 
@@ -201,7 +201,7 @@ main {
 }
 
 .nav-bar-icon:hover {
-  color: #F05A29;
+  color: #F05A29 !important;
 }
 
 .dropdown {
@@ -278,4 +278,32 @@ main {
 
 .display-reveal {
   display: block !important
+}
+
+.orange-button {
+  background-color: #F05A29;
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px #999999;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 80%;
+}
+
+.white-button {
+  background-color: #FFFFFF;
+  color: #F05A29;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px 0px #999999;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 80%;
+}
+
+.disabled-button {
+  background-color: #999999 !important;
+  color: #EEEEEE !important;
+  box-shadow: none !important;
 }
