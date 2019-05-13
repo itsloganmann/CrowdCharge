@@ -1,7 +1,7 @@
 /*general margin-setting to mobile first*/
 
 #contentContainer{
-	margin-top: 50px;
+	margin: 3vh 0;
 }
 .content{
 	margin-top: 30px;
@@ -22,9 +22,15 @@
 #user-img{
 	display: block;
 	width: 100%;
+	padding: 2vh;
+}
+#profile-icon{
+	border-radius:25px;
 }
 .margin-setting{
-	margin: 10px;
+	width:90%;
+	margin:0 auto;
+	border-radius:10px;
 }
 .inner-margin-setting{
 	margin: 0 auto;
