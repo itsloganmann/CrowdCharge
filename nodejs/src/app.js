@@ -95,18 +95,28 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    // console.log("in create user");
-    // let wuviv = {
-    //     "firstName": "Vivian",
-    //     "lastName" : "Wu"
-    // };
-    // db.createUser(wuviv)
+//    console.log(db.getUserChargers("5cd5fbb2eaa7db46388a0860"));
+// db.getUserChargers("5cd5fbb2eaa7db46388a0860", function(err, chargers) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log(chargers);
 
-    // let c1 = {
+// });
+db.getAllChargerPending("5cd5fbb2eaa7db46388a0860", function(err, ChargerPending) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(ChargerPending);
 
-    // }
-
-    db.getUser("5cd4a3cf26eed92a90076951");
+});
+// db.getChargerPending("5cd5e014996246647c04cd58", function(err,pending){
+//     if(err)
+//         console.log(err);
+//     console.log(pending);
+// });
+    // db.getAllChargerPending("5cd5fbb2eaa7db46388a0860");
+    // db.getPendingBookings("5cd5de69f8fdd863c8a5e96d");
 
     res.render('about', {
         title: 'Weather',

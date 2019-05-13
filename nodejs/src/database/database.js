@@ -54,54 +54,171 @@ let createReview = function(reviewInfo) {
 //USER FUNCTIONS
 //--details
 //get user profile
-let getUser = function(uUID) {
-    console.log(uUID);
-    entity.user.findById(uUID, (err, user)=>{
+let getUser = function(uUID, callback) {
+    // console.log(uUID);
+    entity.User.findById(uUID, (err, user)=>{
         if(err)
-            return console.log("Error finding User " + uUID + ".");
-        console.log(user)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(user)
+        callback(null, user);
     });
-
 };
 
 //--bookings
 //get user's pending bookings
-let getPendingBookings
-//get user's confirmed and unpaid bookings (should take action on these ones!)
-let getUnpaidBookings
+let getPendingBookings = function(uUID, callback) {
+    entity.pendingBooking.find({user: uUID}, (err, pendingBookings)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(pendingBookings);
+        callback(null, pendingBookings);
+    });
+};
+//get user's confirmed and unpaid bookings (should take action on these ones!
+let getUnpaidBookings = function(uUID, callback) {
+    entity.unpaidBookings.find({user: uUID}, (err, UnpaidBookings)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(UnpaidBookings)
+        callback(null, UnpaidBookings);
+    });
+};
 //get user's confirmed and paid bookings
-let getPaidBookings
+let getPaidBookings = function(uUID, callback) {
+    entity.paidBookings.find({user: uUID}, (err, PaidBookings)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(PaidBookings)
+        callback(null, PaidBookings);
+    });
+};
 //get user's booking history
-let getUserHistory
+let getUserHistory = function(uUID, callback) {
+    entity.BookingHistory.find({user: uUID}, (err, BookingHistory)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(BookingHistory)
+        callback(null, BookingHistory);
+    });
+};
 
 //--reviews
 //get reviews of the user
-let getAllUserReviews;
+let getAllUserReviews = function(uUID, callback) {
+    entity.Review.find({reviewee: uUID}, (err, Reviews)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(Reviews)
+        callback(null, Reviews);
+    });
+};
 
 //HOST Functions
 //-- get all; connect user to their chargers
 //get user's chargers
-let getUserChargers;
+let getUserChargers = function(uUID, callback) {
+    var output;
+    let chargers = entity.Charger.find({owner: uUID}, (err, Chargers)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(Chargers)
+        // return Chargers;
+        // output = Chargers;
+        // console.log(output);
+        callback(Chargers);
+    });
+};
 
 //-- pending booking functionality (has action)
 //get charger's pending bookings
-let getChargerPending
+let getChargerPending = function(cUID, callback) {
+    entity.pendingBooking.find({charger: cUID}, (err, pendingBookings)=>{
+        if(err)
+            return console.log("Error cannot find User: " + uUID + ".");
+        // console.log(pendingBookings);
+        // return pendingBookings;
+        callback(null,pendingBookings);
+    });
+};
 //get all of user's bookings pending their confirmation (ie. all charger requests)
-let getAllChargerPending
+let getAllChargerPending = function(uUID, callback){
+    let AllPending = [];
+    entity.Charger.find({owner: uUID}, (err, chargers)=>{
+        // console.log(chargers);
+        chargers.forEach((charger)=>{
+            getChargerPending(charger._id,function(err, pendingBookings){
+                if(err){
+                    console.log(err);
+                }
+                AllPending = AllPending.concat(pendingBookings);
+                if(chargers.indexOf(charger) == chargers.length-1)
+                    callback(null, AllPending);
+            });
+        });  
+    });
+};
 
 //-- bookings (no action)
 //get charger's paid bookings
-let getChargerPaid
+let getChargerPaid = function(cUID, callback){
+    entity.paidBooking.find({charger: cUID}, (err, paidBookings)=>{
+        if(err)
+            return console.log("Error cannot find Charger: " + cUID + ".");
+        callback(null,paidBookings);
+    });
+};
 //get charger's unpaid bookings
-let getChargerUnpaid
+let getChargerUnpaid = function(cUID, callback){
+    entity.unpaidBooking.find({charger: cUID}, (err, unpaidBookings)=>{
+        if(err)
+            return console.log("Error cannot find Charger: " + cUID + ".");
+        callback(null,unpaidBookings);
+    });
+};
 //get charger's scheduled/confirmed bookings (unpaid + paid(includes host set unavail times))
-let getChargerConfirmed
+let getChargerConfirmed = function(cUID, callback){
+    let confirmedBookings = [];
+    // entity.paidBooking.find({charger: cUID}, (err, paidBookings)=>{
+    //     if(err)
+    //         return console.log("Error cannot find Charger: " + cUID + ".");
+    //     confirmedBookings = confirmedBookings.concat(paidBookings);
+    //     entity.unpaidBooking.find({charger: cUID}, (err, unpaidBookings)=>{
+    //         if(err)
+    //             return console.log("Error cannot find Charger: " + cUID + ".");
+    //         confirmedBookings = confirmedBookings.concat(unpaidBookings);
+
+    //         callback(null, confirmedBookings);
+    //     });
+    // });
+    getChargerPaid(cUID, function(err, paidBookings){
+        confirmedBookings = confirmedBookings.concat(paidBookings);
+        getChargerUnpaid(cUID, function(err, unpaidBookings){
+            confirmedBookings = confirmedBookings.concat(unpaidBookings);
+            callback(null, confirmedBookings);
+        });
+    });
+    
+};
 //get charger's booking history
-let getChargerHistory
+let getChargerHistory = function(cUID, callback){
+    entity.BookingHistory.find({charger: cUID}, (err, BookingHistorys)=>{
+        if(err)
+            return console.log("Error cannot find Charger: " + cUID + ".");
+        callback(null,BookingHistorys);
+    });
+};
 
 //-- charger availaibility
 //get charger's user set unavail times (in paid, under hosts name)
 let getChargerAvailability
+let getChargerAvailability = function(cUID, callback){
+    let cUID = entity.Charger.findById(cUID, (err, charger)=>{
+        entity.paidBooking.find({charger:cUID, user: charger.owner}, (err,paidBookings)=>{
+            callback(null, paidBookings);
+        });
+    });
+    
+}
 
 //--charger reviews
 //get charger's reviews
@@ -134,7 +251,11 @@ module.exports = {
     createBooking : createBooking,
     createCharger : createCharger,
     createReview : createReview,
-    getUser : getUser
+    getUser : getUser,
+    getPendingBookings : getPendingBookings,
+    getChargerPending: getChargerPending,
+    getAllChargerPending : getAllChargerPending,
+    getUserChargers : getUserChargers
 };
 
 // const {MongoClient, ObjectID} = require('mongodb');
