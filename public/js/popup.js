@@ -1,7 +1,6 @@
 var months = ["January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"];
 
-
 // Creates initial popup with generic IDs
 var createPopup = () => {
 	var popupWrapper = document.createElement('div');
@@ -194,6 +193,11 @@ $('body').on('click', '#signup-popup-button', (event) => {
 			'Content-Type': 'application/json'
 		}
 	}).then(res => res.json())
-		.then(response => console.log('Success:', JSON.stringify(response)))
+		.then( (response) => {
+			console.log('Success:', JSON.stringify(response))
+			
+			localStorage.setItem('jwt', JSON.stringify(response.token))
+			window.location.replace(window.location.href);
+		})
 		.catch(error => console.error('Error:', error));
 });
