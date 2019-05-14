@@ -278,24 +278,24 @@ main {
 
 .orange-button {
   background-color: #F05A29;
+  margin: 24px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px #999999;
   border-radius: 4px;
   border: 0px;
   padding: 8px 16px;
-  width: 80%;
+  width: 100%;
 }
 
 .white-button {
   background-color: #FFFFFF;
+  margin: 24px auto 8px;
   color: #F05A29;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px #999999;
   border-radius: 4px;
-  border: 0px;
+  border: 2px solid #F05A29;
   padding: 8px 16px;
-  width: 80%;
+  width: 100%;
 }
 
 .disabled-button {
