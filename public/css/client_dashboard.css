@@ -13,12 +13,15 @@
 /*tab style*/
 #bookings{
 	color: #F05A29; 
+	cursor: pointer;
 }
 #payment{
 	color: black;
+	cursor: pointer;
 }
 #reviews{
 	color: black;
+	cursor: pointer;
 }
 
 /*profile tab as nav element for Bootstrap*/
