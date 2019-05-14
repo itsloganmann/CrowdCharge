@@ -120,6 +120,25 @@ $("#login-button").on("click", () => {
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
 	$("#popup").fadeIn(100);
+	$('#login-popup-button').on('click', (event) => {
+		event.preventDefault();
+		const useremail = $('#login-email-input').val();
+		const userpassword = $('#login-password-input').val();
+		const url = '/users/login'
+		const data = {
+			email: useremail,
+			password: userpassword
+		}
+		fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(res => res.json())
+			.then(response => console.log('Success:', JSON.stringify(response)))
+			.catch(error => console.error('Error:', error));
+	});
 });
 
 $('body').on("click", "#popup-signup-here", () => {
@@ -154,7 +173,7 @@ $('body').on("click", "#popup-signup-here", () => {
 		$("#popup").append(signInPage);
 	});
 	$('#signup-popup-button').on('click', (event) => {
-		event.preventDefault()
+		event.preventDefault();
 		const useremail = $('#signup-email-input').val();
 		const username = $('#signup-name-input').val();
 		const userphone = $('#signup-phone-input').val();
