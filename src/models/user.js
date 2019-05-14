@@ -54,6 +54,18 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
+// Creates a public profile function.
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userObject = user.toObject()
+
+    // Hides password and tokens from sending back to the client
+    delete userObject.password
+    delete userObject.tokens
+
+    return userObject
+}
+
 // Generates user web auth token. This is an instanced method.
 userSchema.methods.generateAuthToken = async function () {
     const user = this

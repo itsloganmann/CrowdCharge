@@ -1,5 +1,5 @@
 .marker {
-    background-image: url('https://image.flaticon.com/icons/svg/1783/1783838.svg');
+    background-image: url('../images/hostmarker.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -8,7 +8,7 @@
 }
 
 .currentmarker {
-    background-image: url('https://image.flaticon.com/icons/svg/1673/1673221.svg');
+    background-image: url('../images/currentmarker.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -114,6 +114,12 @@
 #map-drawer-details-wrapper {
     display: none;
     height: 120px;
+}
+#booking-confirmation-text {
+    font-size: 1.25rem;
+}
+#booking-finish-text {
+    font-size: 1.25rem;
 }
 
 @media only screen and (min-width: 0px) {
