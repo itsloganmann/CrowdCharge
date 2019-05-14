@@ -235,7 +235,7 @@ main {
   background-color: initial !important;
 }
 
-#login-button-wrapper {
+#login-button {
   cursor: pointer;
   color: #EEEEEE;
   background-color: inherit;
@@ -245,7 +245,7 @@ main {
   padding: 2px 12px;
 }
 
-#login-button-wrapper:hover {
+#login-button:hover {
   border: 2px solid #464648;
 }
 
