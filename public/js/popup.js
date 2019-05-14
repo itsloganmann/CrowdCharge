@@ -119,37 +119,8 @@ $("#login-button").on("click", () => {
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
 	$("#popup").fadeIn(100);
-	$('#login-popup-button').on('click', (event) => {
-		event.preventDefault();
-		const useremail = $('#login-email-input').val();
-		const userpassword = $('#login-password-input').val();
-		const url = '/users/login'
-		const data = {
-			email: useremail,
-			password: userpassword
-		}
-		fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(res => res.json())
-			.then(response => console.log('Success:', JSON.stringify(response)))
-			.catch(error => console.error('Error:', error));
-	});
-/*
-	async function getUserAsync(name) 
-	{
-	let response = await fetch(https://api.github.com/users/${name});
-	let data = await response.json()
-	return data;
-	}
+});
 
-	getUserAsync('yourUsernameHere')
-	.then(data => console.log(data));
-	});
-	*/
 
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
@@ -182,7 +153,25 @@ $('body').on("click", "#popup-signup-here", () => {
 		$("#popup").children().remove();
 		$("#popup").append(signInPage);
 	});
-	})
+});
+
+$('body').on('click', '#login-popup-button', (event) => {
+	const useremail = $('#login-email-input').val();
+	const userpassword = $('#login-password-input').val();
+	const url = '/users/login'
+	const data = {
+		email: useremail,
+		password: userpassword
+	}
+	fetch(url, {
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then(res => res.json())
+		.then(response => console.log('Success:', JSON.stringify(response)))
+		.catch(error => console.error('Error:', error));
 });
 
 $('body').on('click', '#signup-popup-button', (event) => {
@@ -196,6 +185,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		email: useremail,
 		password: userpassword
 	}
+	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
