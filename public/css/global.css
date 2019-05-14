@@ -131,13 +131,20 @@ main {
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
     font-size: 18pt;
-    color: #045D56;
+    color: #848FA5;
     float: right;
 }
 
 #bell-icon:hover {
   text-decoration: unset;
-  color: #bf331d;
+  color: #7DB39D;
+}
+#user-icon:hover {
+  color: #7DB39D;
+}
+#login-button:hover {
+  color: #7DB39D;
+  border: 2px solid #7DB39D;
 }
 
 #bell-icon {
@@ -197,12 +204,13 @@ main {
 .nav-bar-icon {
   padding: 8px;
   float: right;
-  margin: 0px 4px;
+  margin: 0px 8px;
 }
 
-.nav-bar-icon:hover {
-  color: #F05A29 !important;
+#user-icon {
+  padding: 8px;
 }
+
 
 .dropdown {
   z-index: 1;
@@ -211,6 +219,7 @@ main {
 .dropdown-toggle {
   background-color: inherit !important;
   border: none !important;
+  padding: 0px;
 }
 
 .dropdown-toggle:after {
@@ -237,27 +246,27 @@ main {
 
 #login-button {
   cursor: pointer;
-  color: #EEEEEE;
+  color: #1DBF73;
   background-color: inherit;
   border-radius: 4px;
-  border: 2px solid #EEEEEE;
+  border: 2px solid #1DBF73;
   margin-right: 10px;
   padding: 2px 12px;
-}
-
-#login-button:hover {
-  border: 2px solid #464648;
 }
 
 #nav-top {
   display: none;
   justify-content: space-evenly;
-  width: 436px;
+  position: absolute;
+  left: 188px;
+  width: 388px;
 }
 
 .nav-top-link {
   color: #464648;
+  height: 100%;
 }
+
 
 .nav-top-link:hover {
   color: #bf331d;
