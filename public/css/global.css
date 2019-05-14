@@ -235,7 +235,7 @@ main {
   background-color: initial !important;
 }
 
-#login-button-wrapper {
+#login-button {
   cursor: pointer;
   color: #EEEEEE;
   background-color: inherit;
@@ -245,7 +245,7 @@ main {
   padding: 2px 12px;
 }
 
-#login-button-wrapper:hover {
+#login-button:hover {
   border: 2px solid #464648;
 }
 
@@ -278,30 +278,42 @@ main {
 
 .orange-button {
   background-color: #F05A29;
+  margin: 24px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px #999999;
   border-radius: 4px;
   border: 0px;
   padding: 8px 16px;
-  width: 80%;
+  width: 100%;
 }
 
 .white-button {
   background-color: #FFFFFF;
+  margin: 24px auto 8px;
   color: #F05A29;
   cursor: pointer;
-  box-shadow: 0px 4px 4px 0px #999999;
   border-radius: 4px;
-  border: 0px;
+  border: 2px solid #F05A29;
   padding: 8px 16px;
-  width: 80%;
+  width: 100%;
 }
 
 .disabled-button {
   background-color: #F0825E !important;
   color: #EEEEEE !important;
   box-shadow: none !important;
+}
+
+.form-input {
+  width: 100%;
+  border: 0px;
+  border-radius: 4px 4px 0px 0px;
+  padding: 0px 8px 6px;
+  border-bottom: 1px solid #464648;
+  outline: none;
+}
+.form-input:focus {
+  border-bottom: 2px solid #1DBF73;
 }
 
 

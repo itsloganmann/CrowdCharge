@@ -58,7 +58,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 // GET request endpoint for fetching all users.
 // Sets up auth middleware first before getting data.
-router.get('/users', auth, async (req, res) => {
+router.get('/users', async (req, res) => {
     try {
         const users = await User.find( {} )
         res.send(users)
