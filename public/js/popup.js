@@ -100,6 +100,7 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Creating login pop-up
 $("#login-button").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "ZapShare", "login-header");
@@ -121,7 +122,7 @@ $("#login-button").on("click", () => {
 	$("#popup").fadeIn(100);
 });
 
-
+// Creating sign up pop-up
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
 	signInPage = $("#popup").children().detach();
@@ -155,7 +156,9 @@ $('body').on("click", "#popup-signup-here", () => {
 	});
 });
 
+// Login button listener
 $('body').on('click', '#login-popup-button', (event) => {
+
 	const useremail = $('#login-email-input').val();
 	const userpassword = $('#login-password-input').val();
 	const url = '/users/login'
@@ -163,6 +166,8 @@ $('body').on('click', '#login-popup-button', (event) => {
 		email: useremail,
 		password: userpassword
 	}
+
+	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -170,10 +175,16 @@ $('body').on('click', '#login-popup-button', (event) => {
 			'Content-Type': 'application/json'
 		}
 	}).then(res => res.json())
-		.then(response => console.log('Success:', JSON.stringify(response)))
+		.then( (response) => {
+			console.log('Success:', JSON.stringify(response))
+			localStorage.setItem('jwt', JSON.stringify(response.token))
+
+			//window.location.replace(window.location.href);
+		})
 		.catch(error => console.error('Error:', error));
 });
 
+// Sign up button listener
 $('body').on('click', '#signup-popup-button', (event) => {
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
@@ -195,9 +206,30 @@ $('body').on('click', '#signup-popup-button', (event) => {
 	}).then(res => res.json())
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
-			
 			localStorage.setItem('jwt', JSON.stringify(response.token))
-			window.location.replace(window.location.href);
+
+			//window.location.replace(window.location.href);
+		})
+		.catch(error => console.error('Error:', error));
+});
+
+// Log out button listener
+$('body').on('click', '#logout-button', (event) => {
+	const url = '/users/logout'
+	const jwt = JSON.parse(localStorage.getItem('jwt'))
+
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	}).then(res => console.log(res))
+		.then( (response) => {
+			console.log('Success:', JSON.stringify(response))
+			
+			localStorage.removeItem('jwt')
+			//window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
