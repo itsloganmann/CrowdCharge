@@ -4,9 +4,9 @@ const express = require('express')
 const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
-
-//the database
-const db = require('./database/database')
+const userRouter = require('./routers/user')
+const bookingRouter = require('./routers/booking')
+require('./db/mongoose')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -17,8 +17,15 @@ const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
+// Customizes server, automatically parse incoming json into an object
+app.use(express.json())
+
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
+
+// Registers routers, allowing us to refactor routes into separate files
+app.use(userRouter)
+app.use(bookingRouter)
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')

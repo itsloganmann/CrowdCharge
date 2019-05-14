@@ -11,6 +11,11 @@ const port = process.env.PORT || 3000
 // Customizes server, automatically parse incoming json into an object
 app.use(express.json())
 
+// // Middleware function for maintenance mode. Disables all http requests. 
+// app.use((req, res, next) => {
+//         res.status(503).send('Site is in maintenance mode, cannot query data.')
+// })
+
 // Registers routers, allowing us to refactor routes into separate files
 app.use(userRouter)
 app.use(bookingRouter)
@@ -19,6 +24,23 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
 
+// NOTES: Without middleware: new request -> run route handler
+//        With middleware: new request -> do something -> run route handler
+
+// EXAMPLE: jsonwebtoken
+// const jwt = require('jsonwebtoken')
+
+// const myFunction = async () => {
+//     // Creates a web token based on user id and a secret passphrase
+//     const token = jwt.sign({ _id: 'abc123'}, 'zapsharerox', {expiresIn: '7 days'})
+
+//     // Makes sure user is authenticated
+//     jwt.verify(token, 'zapsharerox')
+// }
+
+// myFunction()
+
+// EXAMPLE: bcryptjs
 // const bcrypt = require('bcryptjs')
 
 // const myFunction = async () => {
