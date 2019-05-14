@@ -304,6 +304,18 @@ main {
   box-shadow: none !important;
 }
 
+.form-input {
+  width: 100%;
+  border: 0px;
+  border-radius: 4px 4px 0px 0px;
+  padding: 0px 8px 6px;
+  border-bottom: 1px solid #464648;
+  outline: none;
+}
+.form-input:focus {
+  border-bottom: 2px solid #1DBF73;
+}
+
 
 /* ------------------------- Footer Style ----------------------------- */
 footer {

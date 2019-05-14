@@ -4,14 +4,12 @@ var months = ["January", "February", "March", "April", "May", "June",
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
-	console.log("Creating popup...");
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
 	popup.id = "popup";
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
-	console.log("Creating popup complete!");
 }
 
 var createPopupHeader = (size, text, id) => {
