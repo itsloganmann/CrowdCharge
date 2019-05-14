@@ -118,7 +118,7 @@ $("#login-button").on("click", () => {
 	createPopupContent("popup", "div", "popup-signup-text");
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
-	$("#popup-signup-here").html("Signup here!");
+	$("#popup-signup-here").html("Sign up here!");
 	$("#popup").fadeIn(100);
 });
 
