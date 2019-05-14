@@ -139,7 +139,18 @@ $("#login-button").on("click", () => {
 			.then(response => console.log('Success:', JSON.stringify(response)))
 			.catch(error => console.error('Error:', error));
 	});
-});
+/*
+	async function getUserAsync(name) 
+	{
+	let response = await fetch(https://api.github.com/users/${name});
+	let data = await response.json()
+	return data;
+	}
+
+	getUserAsync('yourUsernameHere')
+	.then(data => console.log(data));
+	});
+	*/
 
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
@@ -172,26 +183,29 @@ $('body').on("click", "#popup-signup-here", () => {
 		$("#popup").children().remove();
 		$("#popup").append(signInPage);
 	});
-	$('#signup-popup-button').on('click', (event) => {
-		event.preventDefault();
-		const useremail = $('#signup-email-input').val();
-		const username = $('#signup-name-input').val();
-		const userphone = $('#signup-phone-input').val();
-		const userpassword = $('#signup-password-input').val();
-		const url = '/users'
-		const data = {
-			name: username,
-			email: useremail,
-			password: userpassword
+	})
+});
+
+$('body').on('click', '#signup-popup-button', (event) => {
+	console.log("start");
+	event.preventDefault();
+	const useremail = $('#signup-email-input').val();
+	const username = $('#signup-name-input').val();
+	const userphone = $('#signup-phone-input').val();
+	const userpassword = $('#signup-password-input').val();
+	const url = '/users'
+	const data = {
+		name: username,
+		email: useremail,
+		password: userpassword
+	}
+	fetch(url, {
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: {
+			'Content-Type': 'application/json'
 		}
-		fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		}).then(res => res.json())
-			.then(response => console.log('Success:', JSON.stringify(response)))
-			.catch(error => console.error('Error:', error));
-	});
+	}).then(res => res.json())
+		.then(response => console.log('Success:', JSON.stringify(response)))
+		.catch(error => console.error('Error:', error));
 });
