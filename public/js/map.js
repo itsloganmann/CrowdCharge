@@ -72,6 +72,26 @@ var addTimeSlot = (startTime, endTime) => {
     $("#popup-time-slots").append(timeSlot);
 }
 
+var setPopupBookingPageOne = () => {
+	createPopupHeader("h3", "Book a Time");
+	createPopupSubheader("h5", "<b id='popup-date'><input type='text' readonly id='datepicker' value='" + getCurrentDate() + "'></b>");
+	$("#datepicker").datepicker();
+	createPopupContent("popup", "div", "popup-time-slots", "popup-input-wrapper");
+	createPopupConfirmButton("popup-confirm", "Request Booking");
+	createPopupCancelButton("popup-cancel", "Cancel");
+}
+var setPopupBookingPageTwo = (date, time) => {
+	console.log(time);
+	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
+	createPopupConfirmButton("popup-confirm-validate", "Confirm");
+	createPopupCancelButton("popup-back", "Back");
+}
+
+var setPopupBookingPageThree = (date, time) => {
+	createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.");
+	createPopupCancelButton("popup-finish", "Close");
+}
+
 // Colour change for time slot button
 $(document).on("click", ".time-slot-button", (e) => {
     e.preventDefault();

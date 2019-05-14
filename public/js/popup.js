@@ -101,40 +101,18 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
-var setPopupBookingPageOne = () => {
-	createPopupHeader("h3", "Book a Time");
-	createPopupSubheader("h5", "<b id='popup-date'><input type='text' readonly id='datepicker' value='" + getCurrentDate() + "'></b>");
-	$("#datepicker").datepicker();
-	createPopupContent("popup", "div", "popup-time-slots", "popup-input-wrapper");
-	createPopupConfirmButton("popup-confirm", "Request Booking");
-	createPopupCancelButton("popup-cancel", "Cancel");
-}
-var setPopupBookingPageTwo = (date, time) => {
-	console.log(time);
-	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
-	createPopupConfirmButton("popup-confirm-validate", "Confirm");
-	createPopupCancelButton("popup-back", "Back");
-}
-
-var setPopupBookingPageThree = (date, time) => {
-	createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.");
-	createPopupCancelButton("popup-finish", "Close");
-}
-
-
-
-var loginUI = () => {
+$("#login-button").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "ZapShare");
 	createPopupContent("popup", "div", "login-email-wrapper", "popup-input-wrapper");
 	createPopupContent("popup", "div", "login-password-wrapper", "popup-input-wrapper");
-	
+
 	createPopupLabel("login-email-wrapper", "login-email-input", "Email", "login-email-label", "form-label");
 	createPopupLabel("login-password-wrapper", "login-password-input", "Password", "login-password-label", "form-label");
-	
+
 	createPopupInput("login-email-wrapper", "email", "email", "login-email-input", "form-input");
 	createPopupInput("login-password-wrapper", "password", "password", "login-password-input", "form-input");
-	
+
 	createPopupConfirmButton("login-popup-button", "LOGIN");
 
 	createPopupContent("popup", "div", "popup-signup-text");
@@ -142,10 +120,6 @@ var loginUI = () => {
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Signup here!");
 	$("#popup").fadeIn(100);
-}
-
-$("#login-button").on("click", () => {
-	loginUI();
 });
 
 $('body').on("click", "#popup-signup-here", () => {
@@ -178,5 +152,27 @@ $('body').on("click", "#popup-signup-here", () => {
 	$("#signup-popup-back-button").on('click', () => {
 		$("#popup").children().remove();
 		$("#popup").append(signInPage);
+	});
+	$('#signup-popup-button').on('click', (event) => {
+		event.preventDefault()
+		const useremail = $('#signup-email-input').val();
+		const username = $('#signup-name-input').val();
+		const userphone = $('#signup-phone-input').val();
+		const userpassword = $('#signup-password-input').val();
+		const url = '/users'
+		const data = {
+			name: username,
+			email: useremail,
+			password: userpassword
+		}
+		fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).then(res => res.json())
+			.then(response => console.log('Success:', JSON.stringify(response)))
+			.catch(error => console.error('Error:', error));
 	});
 });
