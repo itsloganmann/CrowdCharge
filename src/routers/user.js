@@ -69,7 +69,7 @@ router.get('/users', async (req, res) => {
 
 // GET request endpoint for fetching own user data. 
 // Sets up auth middleware first before getting data.
-router.get('/users/me', auth, async (req, res) => {
+router.get('/users/me', async (req, res) => {
     res.send(req.user)
 })
 
