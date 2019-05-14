@@ -17,8 +17,9 @@ const auth = async (req, res, next) => {
             throw new Error()
         }
 
-        // Stores found user data so we don't have to query again 
+        // Stores found user data and token so we don't have to query again 
         req.user = user
+        req.token = token
 
         // User has proven they have been authenticated properly
         next()
