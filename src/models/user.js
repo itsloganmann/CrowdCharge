@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    age: {
+    phone: {
         type: Number,
         default: 0,
         validate(value) {
             // Custom validator
             if (value < 0) {
-                throw new Error('Age must be a positive number')
+                throw new Error('phone must be a positive number')
             }
         }
     }, 

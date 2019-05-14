@@ -12,6 +12,28 @@ $("#bookings").click(function(event) {
 	var bookingHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='bookingHeading1'><b>Confirmed Bookings</b></h3>");
 	var bookingSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading1'> "
 		+ "These bookings have been confirmed by the host and are ready to go!</h6>");
+	
+	//fetch
+	const user_data;
+	fetch('/users')
+	.then((res) =>{return res.json()})
+	.then((data) => {
+		user_data = parseJSON(data);
+	});
+	const user_id = user_data.id;
+	fetch('/client/paybooking')
+	.then((res)=> {return res.json()})
+	.then((db) => {
+		const data = parseJSON(db);
+		confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
+		+"<p id='cb-date'>" + data.date + "</p>"
+		+"<p id='cb-cost'>" + data.cost + "</p>"
+		+"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
+		+"<p id='cb-address'>" + data.address + "</p>"
+		+"<p id='cb-city'>" + data.city + "</p>"		
+		+"</div>");
+	});
+
 	var confirmedBookingData = $("<div class='col-10 well' id='confirmedBookingData'>"
 		+ "Some info from firebase</div>");
 
