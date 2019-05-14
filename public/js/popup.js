@@ -178,8 +178,7 @@ $('body').on('click', '#login-popup-button', (event) => {
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', JSON.stringify(response.token))
-
-			//window.location.replace(window.location.href);
+			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
@@ -207,8 +206,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', JSON.stringify(response.token))
-
-			//window.location.replace(window.location.href);
+			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
@@ -227,9 +225,8 @@ $('body').on('click', '#logout-button', (event) => {
 	}).then(res => console.log(res))
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
-			
 			localStorage.removeItem('jwt')
-			//window.location.replace(window.location.href);
+			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
