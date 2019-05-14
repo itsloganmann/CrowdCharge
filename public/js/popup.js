@@ -188,17 +188,17 @@ $('body').on("click", "#popup-signup-here", () => {
 
 $('body').on('click', '#signup-popup-button', (event) => {
 	console.log("start");
-	event.preventDefault();
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
 	const userphone = $('#signup-phone-input').val();
 	const userpassword = $('#signup-password-input').val();
-	const url = '/users'
+	const url = '/users/signup'
 	const data = {
 		name: username,
 		email: useremail,
 		password: userpassword
 	}
+	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
