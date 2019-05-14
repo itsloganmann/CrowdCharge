@@ -14,18 +14,20 @@ var createPopup = () => {
 	console.log("Creating popup complete!");
 }
 
-var createPopupHeader = (size, text) => {
+var createPopupHeader = (size, text, id) => {
 	var popupHeader = document.createElement(size);
-	popupHeader.id = "popup-header";
+	popupHeader.className = "popup-header";
+	popupHeader.id = id;
 	$('#popup').append(popupHeader);
-	$('#popup-header').html(text);
+	$('.popup-header').html(text);
 }
 
-var createPopupSubheader = (size, text) => {
+var createPopupSubheader = (size, text, id) => {
 	var popupSubheader = document.createElement(size);
-	popupSubheader.id = "popup-subheader";
+	popupSubheader.className = "popup-subheader";
+	popupSubheader.id = id;
 	$('#popup').append(popupSubheader);
-	$('#popup-subheader').html(text);
+	$('.popup-subheader').html(text);
 }
 
 var createPopupContent = (targetId, type, id, className) => {
@@ -103,7 +105,7 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 
 $("#login-button").on("click", () => {
 	createPopup();
-	createPopupHeader("h3", "ZapShare");
+	createPopupHeader("h3", "ZapShare", "login-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "popup-input-wrapper");
 	createPopupContent("popup", "div", "login-password-wrapper", "popup-input-wrapper");
 
@@ -125,7 +127,7 @@ $("#login-button").on("click", () => {
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
 	signInPage = $("#popup").children().detach();
-	createPopupHeader("h3", "Let's Get Started!");
+	createPopupHeader("h3", "Let's Get Started!", "signup-header");
 
 	createPopupContent("popup", "div", "signup-email-wrapper", "popup-input-wrapper");
 	createPopupContent("popup", "div", "signup-name-wrapper", "popup-input-wrapper");

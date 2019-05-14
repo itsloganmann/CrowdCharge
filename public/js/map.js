@@ -73,8 +73,8 @@ var addTimeSlot = (startTime, endTime) => {
 }
 
 var setPopupBookingPageOne = () => {
-	createPopupHeader("h3", "Book a Time");
-	createPopupSubheader("h5", "<b id='popup-date'><input type='text' readonly id='datepicker' value='" + getCurrentDate() + "'></b>");
+	createPopupHeader("h3", "Book a Time", "booking-header");
+	createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
 	$("#datepicker").datepicker();
 	createPopupContent("popup", "div", "popup-time-slots", "popup-input-wrapper");
 	createPopupConfirmButton("popup-confirm", "Request Booking");
@@ -82,13 +82,13 @@ var setPopupBookingPageOne = () => {
 }
 var setPopupBookingPageTwo = (date, time) => {
 	console.log(time);
-	createPopupHeader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?");
+	createPopupSubheader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?", "booking-confirmation-text");
 	createPopupConfirmButton("popup-confirm-validate", "Confirm");
 	createPopupCancelButton("popup-back", "Back");
 }
 
 var setPopupBookingPageThree = (date, time) => {
-	createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.");
+	createPopupSubheader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.", "booking-finish-text");
 	createPopupCancelButton("popup-finish", "Close");
 }
 

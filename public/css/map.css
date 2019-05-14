@@ -115,6 +115,12 @@
     display: none;
     height: 120px;
 }
+#booking-confirmation-text {
+    font-size: 1.25rem;
+}
+#booking-finish-text {
+    font-size: 1.25rem;
+}
 
 @media only screen and (min-width: 0px) {
     .map-side-expanded {

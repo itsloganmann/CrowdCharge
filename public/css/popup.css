@@ -27,12 +27,11 @@
 
 
 /** Map Page **/
-#popup-header {
+.popup-header {
     font-size: 1.5rem;
 }
-#popup-subheader {
-    color: #F05A29;
-    cursor: pointer;
+.popup-subheader {
+    font-size: 1.0rem;
 }
 .popup-content {
 
@@ -76,6 +75,7 @@
 .form-input {
     width: 100%;
     border: 0px;
+    border-radius: 4px 4px 0px 0px;
     padding: 0px 8px 6px;
     border-bottom: 1px solid #464648;
     outline: none;
@@ -123,8 +123,11 @@
 }
 
 @media only screen and (min-width: 768px) {
-    #popup-header {
+    .popup-header {
         font-size: 1.75rem;
+    }
+    .popup-subheader {
+        font-size: 1.25rem;
     }
     .form-label {
         font-size: 12pt;
