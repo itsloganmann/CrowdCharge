@@ -6,7 +6,12 @@ const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 //the database
-const db = require('./database/database')
+// const db = require('./database/database')
+const mongoose = require('./db/mongooseInit')
+
+const clientRouter = require('./routers/client')
+
+
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -29,6 +34,8 @@ hbs.registerPartials(partialsPath)
 
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
 app.use(express.static(publicDirectoryPath))
+
+app.use('/client',clientRouter);
 
 // Setting up the routing for different pages.
 app.get('', (req, res) => {
@@ -160,20 +167,6 @@ app.get('*', (req, res) => {
         errorMessage: 'Page not found.'
     })
 })
-
-// app.route("/createUser", (req,res) =>{
-//     console.log("in create user");
-//     let wuviv = {
-//         "firstName": "Vivian",
-//         "lastName" : "Wu"
-//     };
-
-//     db.createUser(wuviv)
-// });
-
-// app.listen(4000, () => {
-//     console.log('Server is up on port 4000.')
-// });
 
 // Starts up the web server.
 app.listen(port, () => {
