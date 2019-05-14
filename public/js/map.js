@@ -18,7 +18,6 @@ $("#request-booking-button").on("click", () => {
     addTimeSlot("0:00", "1:00");
     addTimeSlot("1:00", "2:00");
     addTimeSlot("2:00", "3:00");
-
 });
 
 // Checks if any time has been selected. Disables confirm button if none are selected.
@@ -70,7 +69,7 @@ var addTimeSlot = (startTime, endTime) => {
     var timeSlot = document.createElement('button');
     timeSlot.className = "time-slot-button";
     timeSlot.innerHTML = startTime + " - " + endTime;
-    $("#popup-content").append(timeSlot);
+    $("#popup-time-slots").append(timeSlot);
 }
 
 // Colour change for time slot button
@@ -87,4 +86,24 @@ $(document).on("click", ".time-slot-button", (e) => {
 $(document).on("click", ".marker", (e) => {
     var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
     $("#map-drawer-text-wrapper").prepend(clickedMarkerName);
+});
+
+
+$('body').on("click", "#popup-confirm-validate", (e) => {
+    const popupDate = $('#popup-date').val();
+    const popupTime = $('#popup-time').val();
+    date = new Date();
+    const url = '/bookings'
+    const data = {
+        bookingDate : date
+    }
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(response => console.log('Success:', JSON.stringify(response)))
+        .catch(error => console.error('Error:', error));
 });
