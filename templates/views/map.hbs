@@ -54,6 +54,40 @@
         <button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>
       </div>
     </div>
+
+  <form>
+  Name: <input type="text" id="name" name="name"><br>
+  Email: <input type="text" id="email" name="email"><br>
+  Password <input type="password" id="password" name="password"><br>
+  <input type="submit" value="Submit" onclick="send($event)">
+  </form>  
+
+    <script>
+      const username = $('#name').val();
+      const useremail = $('#email').val();
+      const userpassword = $('#password').val();
+      const url = '/bookings'
+      const data = {
+        bookingDate: 'January 1, 2050'
+      }
+
+      console.log(data)
+
+      const send = (event) => {
+        event.preventDefault()
+
+        fetch(url, {
+           method: 'GET',
+           body: JSON.stringify(data),
+           headers: {
+             'Content-Type': 'application/json'
+          }
+         }).then(res => res.json())
+         console.log('Success')
+      }
+     
+    </script>
+
   </main>
   <script src="js/popup.js"></script>
   {{>javascripts}}
