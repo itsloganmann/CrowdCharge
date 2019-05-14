@@ -5,7 +5,7 @@ $("#map-drawer-expansion-button").on("click", () => {
 });
 
 $("#map-drawer-close-button").on("click", () => {
-    var drawer = $("#map-drawer").detach();
+    $("#map-drawer").hide();
 });
 
 // Generates popup for booking
@@ -104,8 +104,9 @@ $(document).on("click", ".time-slot-button", (e) => {
 });
 
 $(document).on("click", ".marker", (e) => {
-    var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
-    $("#map-drawer-text-wrapper").prepend(clickedMarkerName);
+    //var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
+    $("#map-drawer").show();
+    //$("#map-drawer-text-wrapper").prepend(clickedMarkerName);
 });
 
 
