@@ -34,23 +34,24 @@ $("#bookings").click(function(event) {
 	$("#subContent").append(pendingContainer);
 
 	var request = new Request('/client/bookings', {
-		method: 'GET',
-		body: {"uUID" : uUID, "bookingType" : "PENDING"}
+		method: 'POST',
+		body: {"uUID" : "hello", "bookingType" : "PENDING"}
 	});
-	
+
 	fetch(request)
     .then((res)=> {return res.json()})
     .then((db) => {
-		console.log(db);
-        const data = JSON.stringify(db);
-        let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
-        +"<p id='cb-date'>" + data.date + "</p>"
-        +"<p id='cb-cost'>" + data.cost + "</p>"
-        +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
-        +"<p id='cb-address'>" + data.address + "</p>"
-        +"<p id='cb-city'>" + data.city + "</p>"
-		+"</div>");
-		confirmContainer.append(confirmedBookingData);
+		// console.log(db);
+        // const data = JSON.stringify(db);
+        // let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
+        // +"<p id='cb-date'>" + data.date + "</p>"
+        // +"<p id='cb-cost'>" + data.cost + "</p>"
+        // +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
+        // +"<p id='cb-address'>" + data.address + "</p>"
+        // +"<p id='cb-city'>" + data.city + "</p>"
+		// +"</div>");
+		// confirmContainer.append(confirmedBookingData);
+		console.log("returned");
     });
 
 });

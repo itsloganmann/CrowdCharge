@@ -7,48 +7,118 @@ const Charger = require('../models/charger.js')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
-
-// //Get user's profile
-// // uUID -> User
-// router.get('/client/me', auth, async (req, res)=>{
-//    req.user;
-// })
-
-//Get client's bookings
-//uUID, bookingType -> [bookings]
-router.get('/bookings', async(req, res)=>{
-    // try {
-    //     const responseJSON= {};
-    //     const bookings = await Booking.find( {user:req.uUID, type: req.bookingType} );
-    //     bookings.array.forEach(booking => {
-            
-            
-    //     });
-    //     res.send(bookings)
-    // } catch (error) {
-    //     // Sets up internal server error code. Database went wrong.
-    //     res.status(500).send()
-    // }
-    console.log("we in");
-    console.log(req.data);
-    res.send(req.data);
-})
-
-router.get('/client/Bookingss', async(req, res)=>{
-    try {
-        const responseJSON= {};
-        const bookings = await Booking.find( {user:req.uUID, type: req.bookingType} );
-        bookings.array.forEach(booking => {
-            
-            
+//Get client's pending bookings
+router.get('/pendingBookings', async(req, res)=>{
+    try{
+        //const responseBookings= [];
+        const bookings = await Booking.find( {user:"5cd9f080c546a50b142d6ef1", state: "PENDING"} );
+        var promises = bookings.map(async booking=>{
+            try{
+                const charger = await Charger.findById(booking.charger);
+                let element ={};
+                element.startTime = booking.timeStart;
+                element.endTime = booking.timeEnd;
+                element.cost = (charger.rate*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
+                element.address = charger.location;
+                //element.city = 
+                // responseBookings.push(element);
+                // console.log(element); 
+                return element;
+            }catch(error){
+                console.log(error)
+            }
         });
-        res.send(bookings)
-    } catch (error) {
-        // Sets up internal server error code. Database went wrong.
-        res.status(500).send()
-    }
-    // console.log(req.data);
-})
+        const results = await Promise.all(promises)
+        res.send(results);
+    }catch(error){
+        console.log(error);
+        res.status(500).send();
+}})
+
+//Get client's pending bookings
+router.get('/unpaidBookings', async(req, res)=>{
+    try{
+        //const responseBookings= [];
+        const bookings = await Booking.find( {user:"5cd9f080c546a50b142d6ef1", state: "UNPAID"} );
+        var promises = bookings.map(async booking=>{
+            try{
+                const charger = await Charger.findById(booking.charger);
+                let element ={};
+                element.startTime = booking.timeStart;
+                element.endTime = booking.timeEnd;
+                element.cost = (charger.rate*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
+                element.address = charger.location;
+                //element.city = 
+                // responseBookings.push(element);
+                // console.log(element); 
+                return element;
+            }catch(error){
+                console.log(error)
+            }
+        });
+        const results = await Promise.all(promises)
+        res.send(results);
+    }catch(error){
+        console.log(error);
+        res.status(500).send();
+}})
+
+//Get client's pending bookings
+router.get('/paidBookings', async(req, res)=>{
+    try{
+        //const responseBookings= [];
+        const bookings = await Booking.find( {user:"5cd9f080c546a50b142d6ef1", state: "PAID"} );
+        var promises = bookings.map(async booking=>{
+            try{
+                const charger = await Charger.findById(booking.charger);
+                let element ={};
+                element.startTime = booking.timeStart;
+                element.endTime = booking.timeEnd;
+                element.cost = (charger.rate*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
+                element.address = charger.location;
+                //element.city = 
+                // responseBookings.push(element);
+                // console.log(element); 
+                return element;
+            }catch(error){
+                console.log(error)
+            }
+        });
+        const results = await Promise.all(promises)
+        res.send(results);
+    }catch(error){
+        console.log(error);
+        res.status(500).send();
+}})
+
+//Get client's pending bookings
+router.get('/paidBookings', async(req, res)=>{
+    try{
+        //const responseBookings= [];
+        const bookings = await Booking.find( {user:"5cd9f080c546a50b142d6ef1", state: "COMPLETED"} );
+        var promises = bookings.map(async booking=>{
+            try{
+                const charger = await Charger.findById(booking.charger);
+                let element ={};
+                element.startTime = booking.timeStart;
+                element.endTime = booking.timeEnd;
+                element.cost = (charger.rate*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
+                element.address = charger.location;
+                //element.city = 
+                // responseBookings.push(element);
+                // console.log(element); 
+                return element;
+            }catch(error){
+                console.log(error)
+            }
+        });
+        const results = await Promise.all(promises)
+        res.send(results);
+    }catch(error){
+        console.log(error);
+        res.status(500).send();
+}})
+
 
 //Get client's bookings
 // uUID -> [bookings]
