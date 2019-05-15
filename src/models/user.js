@@ -19,9 +19,6 @@ const userSchema = new mongoose.Schema({
         validate(value){
             // Validation to ensure email is in correct form.
             if (!validator.isEmail(value)) {
-<<<<<<< HEAD
-                throw new Error('Email is invalid!')
-=======
                 throw new Error('Email is invalid')
             }
         }
@@ -33,7 +30,6 @@ const userSchema = new mongoose.Schema({
             // Custom validator
             if (value < 0) {
                 throw new Error('phone must be a positive number')
->>>>>>> 1b5b5b50a3b136ee84332d630b2d072351c6fed9
             }
         }
     }, 

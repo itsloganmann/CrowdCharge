@@ -16,9 +16,20 @@ const updateProfile = async () => {
         header: {
             'content-type': 'application/json'
         },
-    }).then((resolve) => {
-        console.log(resolve)
-    })
+        body: JSON.stringify(data)
+    }).then((res) => res.json()
+    ).then(function(data){console.log(data)});
+
+    console.log(userID)
+
+    await fetch('/users/', {
+        method: 'POST',
+        header: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then((res) => res.json()
+    ).then(function(data){console.log(data)});
 }
 
 $("#save-btn").click( function(event){
