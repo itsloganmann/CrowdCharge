@@ -103,14 +103,13 @@ $("#reviews").click(function (event) {
 	var reviewsData;
 	fetch("/client/reviews", {
 		method: 'GET',
-		headter: {
+		headers: {
 			'content-type': 'application/json',
 			'Authorization': 'Bearer ' + jwt
 		}
 	})
 		.then((res) => {
-			console.log(res);
-			return res.json;
+			return res.json()
 		})
 		.then((db) => {
 			let data = JSON.parse(JSON.stringify(db));
