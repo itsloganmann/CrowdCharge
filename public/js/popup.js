@@ -100,10 +100,17 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Removes popup for booking
+$(document).on("click", "#popup-wrapper", (e) => {
+    if (e.target.id == "popup-wrapper") {
+        $("#popup-wrapper").remove();
+    }
+});
+
 // Creating login pop-up
 $("#login-button").on("click", () => {
 	createPopup();
-	createPopupHeader("h3", "ZapShare", "login-header");
+	createPopupHeader("h3", "Log in to your account", "login-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "popup-input-wrapper");
 	createPopupContent("popup", "div", "login-password-wrapper", "popup-input-wrapper");
 

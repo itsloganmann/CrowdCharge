@@ -36,8 +36,8 @@ function checkSelected() {
 
 
 // Removes popup for booking
-$(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+$(document).on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();
     }
 });
