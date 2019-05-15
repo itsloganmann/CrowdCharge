@@ -41,7 +41,15 @@
 	margin-top: 3vh;
 	background-color: #F3F3F3;
 }
-
+.right{
+	float: right;
+}
+.green{
+	color:#7BD389;
+}
+.red{
+	color: #F05A29;
+}
 /*jquery elements*/
 
 .h1-font-size{

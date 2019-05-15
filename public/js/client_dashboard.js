@@ -45,24 +45,23 @@ function fetchBooking(url, status) {
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
 		contentString = "<div class= 'col-10 well'>"
-		+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
-		+ "<p class='cost'>" + data.cost + "</p>"
-	    + "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
-		+ "<p class='city'>" + data.city + "</p>"
-		+ "</div>";
+			+ "<div class='right'><p class='cost'>" + data.cost + "</p></div>"
+			+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
+			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
+			+ "<p class='city'>" + data.city + "</p>"
+			+ "</div>";
 	}
 	else {
 		contentString = "<div class= 'col-10 well'>"
-			+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
-			+ "<div style='color: red; float: right'><p class='cost'>" + data.cost + "</p>";
+		+ "<div class='right'><p class='cost'>" + data.cost + "</p>";
 		if (status == "paid") {
-			contentString += "<p class='green'>" + status + "</p></div>"
+			contentString += "<p class='green'>" + status + "</p></div>";
 		}
 		else if (status == "unpaid") {
-			contentString += "<p class='red'>" + status + "</p></div>"
+			contentString += "<p class='red'>" + status + "</p></div>";
 		}
-
-		contentString += "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
+		contentString += "<p class='date'>" + grabDate(data.startTime) + "</p>"
+			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
 			+ "<p class='address'>" + data.address + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div>";
