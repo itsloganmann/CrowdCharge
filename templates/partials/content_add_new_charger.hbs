@@ -1,39 +1,37 @@
-<div id="add-charger-wrapper">
-    <h3 class="inner-header">New Charger</h3>
-    <p class="inner-subheader">Add a new charger!</p>
-    <form method="POST">
-        <div class="full-center-wrapper">
-            <label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label>
-            <input type="text" name="text" id="charger-name-input" class="form-input-full" required>
-        </div>
-        <div class="full-center-wrapper">
-            <label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label>
-            <input type="text" name="text" id="charger-address-input" class="form-input-full" required>
-        </div>
-        <div class="full-center-wrapper">
-            <label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label>
-            <input type="text" name="text" id="charger-city-input" class="form-input-full" required>
-        </div>
-        <div class="full-center-wrapper">
-            <label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label>
-            <input type="text" name="text" id="charger-type-input" class="form-input-full" required>
-        </div>
-        <div class="full-center-wrapper">
-            <label id="charger-rate-label" class="form-label-full" for="charger-rate-input">Hourly Rate</label>
-            <input type="text" name="text" id="charger-rate-input" class="form-input-full" required>
-        </div>
-        <div class="full-center-wrapper">
-            <label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details
-                (optional)</label>
-            <textarea name="text" id="charger-details-input" class="form-input-full" rows="6" cols="60"
-                placeholder="Max 80 characters"></textarea>
-        </div>
-        <select name="Type">
-            <option value="Level 1">Level 1</option>
-            <option value="Level 2">Level 2</option>
-            <option value="Level 3">Level 3</option>
-        </select>
-        <a href="host_dashboard.html">Cancel</a>
-        <input id="submit-charger" type="submit" value="Add Charger">
-    </form>
-</div>
+<h3 class="inner-header">New Charger</h3>
+<p class="inner-subheader">Add a new charger!</p>
+<form>
+    <div class="full-center-wrapper">
+        <label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label>
+        <input type="text" name="name" id="charger-name-input" class="form-input-full" required>
+    </div>
+    <div class="full-center-wrapper">
+        <label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label>
+        <input type="text" name="address" id="charger-address-input" class="form-input-full" required>
+    </div>
+    <div class="full-center-wrapper">
+        <label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label>
+        <input type="text" name="city" id="charger-city-input" class="form-input-full" required>
+    </div>
+    <div class="full-center-wrapper">
+        <label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label>
+        <input type="text" name="type" id="charger-type-input" class="form-input-full" required>
+    </div>
+    <div class="full-center-wrapper">
+        <label id="charger-rate-label" class="form-label-full" for="charger-rate-input">Hourly Rate</label>
+        <input type="number" name="rate" id="charger-rate-input" class="form-input-full" required>
+    </div>
+    <div class="full-center-wrapper">
+        <label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details
+            (optional)</label>
+        <textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"
+            placeholder="Max 80 characters"></textarea>
+    </div>
+    <select name="Type">
+        <option value="Level 1">Level 1</option>
+        <option value="Level 2">Level 2</option>
+        <option value="Level 3">Level 3</option>
+    </select>
+    <a href="host_dashboard.html">Cancel</a>
+    <input id="submit-charger" type="submit" value="Add Charger">
+</form>

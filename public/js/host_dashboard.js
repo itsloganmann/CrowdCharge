@@ -1,6 +1,6 @@
 console.log("js file loaded successfullly");
 
-window.onload = function(){
+(function(){
 	//highlight active tab
 	$('#chargers').css({'color':'#f05a29'});
 	$('#bookings').css({'color':'black'});
@@ -8,7 +8,7 @@ window.onload = function(){
 	$('#earnings').css({'color':'black'});
 
 	//clear old content
-	$('#content').html('');
+	$('#content').children().remove();
 
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
@@ -18,11 +18,11 @@ window.onload = function(){
 
 	$('#content').append(header);
 	$('#content').append(chargerContainer);
-	$('#chargerContainer').append(newCharger);
 	$('#chargerContainer').append(yourCharger);
-	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
+	$('#chargerContainer').append(newCharger);
+		$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
 
-};
+})();
 
 $('#chargers').click(function(event) {
 	$('#chargers').css({'color':'#f05a29'});
@@ -30,7 +30,7 @@ $('#chargers').click(function(event) {
 	$('#reviews').css({'color':'black'});
 	$('#earnings').css({'color':'black'});
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -51,7 +51,7 @@ $('#bookings').click(function(event){
 	$('#reviews').css({'color':'black'});
 	$('#earnings').css({'color':'black'});
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here are all your bookings.</p>");
 	var pendingContainer = $("<div id='pendingContainer'></div>");

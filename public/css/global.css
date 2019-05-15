@@ -508,3 +508,7 @@ footer ul {
       font-size: 12pt;
   }
 }
+
+button:focus {
+  outline: 0px;
+}
