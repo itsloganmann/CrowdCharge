@@ -111,8 +111,8 @@ $(document).on("click", "#popup-wrapper", (e) => {
 $("#login-button").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "Log in to your account", "login-header");
-	createPopupContent("popup", "div", "login-email-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "login-password-wrapper", "popup-input-wrapper");
+	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "login-password-wrapper", "full-center-wrapper");
 
 	createPopupLabel("login-email-wrapper", "login-email-input", "Email", "login-email-label", "form-label");
 	createPopupLabel("login-password-wrapper", "login-password-input", "Password", "login-password-label", "form-label");
@@ -135,11 +135,11 @@ $('body').on("click", "#popup-signup-here", () => {
 	signInPage = $("#popup").children().detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header");
 
-	createPopupContent("popup", "div", "signup-email-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-name-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-phone-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-password-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-confirm-password-wrapper", "popup-input-wrapper");
+	createPopupContent("popup", "div", "signup-email-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-phone-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-password-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-confirm-password-wrapper", "full-center-wrapper");
 
 	createPopupLabel("signup-email-wrapper", "signup-email-input", "Email", "signup-email-label", "form-label");
 	createPopupLabel("signup-name-wrapper", "signup-name-input", "Name", "signup-name-label", "form-label");

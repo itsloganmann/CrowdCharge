@@ -322,9 +322,35 @@ main {
   outline: none;
 }
 .form-input:focus {
-  border-bottom: 2px solid #1DBF73;
+  padding: 0px 8px 5.6px;
+  border-bottom: 1.4px solid #1DBF73;
 }
-
+.form-input-full {
+  width: 100%;
+  border: 0px;
+  border-radius: 4px;
+  padding: 3px 8px 3px;
+  border: 1px solid #464648;
+  outline: none;
+}
+.form-input-full:focus {
+  padding: 2.6px 8px 2.6px;
+  border: 1.4px solid #1DBF73;
+}
+.form-label {
+  width: 100%;
+  text-align: left;   
+  padding: 0px 6px;
+  margin: 8px 0px 0px;
+  font-size: 10pt;
+}
+.form-label-full {
+  width: 100%;
+  text-align: left;   
+  padding: 0px 6px 4px;
+  margin: 8px 0px 0px;
+  font-size: 10pt;
+}
 
 /* ------------------------- Footer Style ----------------------------- */
 footer {
@@ -434,19 +460,10 @@ footer ul {
   font-size: 10pt;
 }
 
-.popup-input-wrapper {
+.full-center-wrapper {
   width: 100%;
   margin: 8px auto;
 }
-
-.form-label {
-  width: 100%;
-  text-align: left;   
-  padding: 0px 6px;
-  margin: 8px 0px 0px;
-  font-size: 10pt;
-}
-
 #popup-signup-here {
   cursor: pointer;
   color: #F05A29;
