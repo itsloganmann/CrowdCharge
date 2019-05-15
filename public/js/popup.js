@@ -177,13 +177,13 @@ $('body').on('click', '#login-popup-button', (event) => {
 	}).then(res => res.json())
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
-			localStorage.setItem('jwt', JSON.stringify(response.token))
+			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
 
-// Sign up button listener
+// Signup button listener
 $('body').on('click', '#signup-popup-button', (event) => {
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
@@ -193,7 +193,8 @@ $('body').on('click', '#signup-popup-button', (event) => {
 	const data = {
 		name: username,
 		email: useremail,
-		password: userpassword
+		password: userpassword,
+		phone: userphone
 	}
 	console.log(data);
 	fetch(url, {
@@ -205,16 +206,16 @@ $('body').on('click', '#signup-popup-button', (event) => {
 	}).then(res => res.json())
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
-			localStorage.setItem('jwt', JSON.stringify(response.token))
-			window.location.replace(window.location.href);
+			localStorage.setItem('jwt', response.token)
+			// window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
 
-// Log out button listener
+// Logout button listener
 $('body').on('click', '#logout-button', (event) => {
 	const url = '/users/logout'
-	const jwt = JSON.parse(localStorage.getItem('jwt'))
+	const jwt = localStorage.getItem('jwt')
 
 	fetch(url, {
 		method: 'POST',

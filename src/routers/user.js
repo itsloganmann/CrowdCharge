@@ -37,6 +37,7 @@ router.post('/users/logout', auth, async (req, res) => {
             // Checks if the token is the same and removes it if it is
             return token.token !== req.token
         })
+        // Saves user profile after removing tokens
         await req.user.save()
 
         res.send()
@@ -45,7 +46,7 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 
-// Route handler for logging out all users
+// Route handler for logging out all users (destroys all web tokens)
 router.post('/users/logoutAll', auth, async (req, res) => {
     try {
         req.user.tokens = []
@@ -71,24 +72,6 @@ router.get('/users', async (req, res) => {
 // Sets up auth middleware first before getting data.
 router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
-})
-
-// GET request endpoint for fetching individual user by ID.
-router.get('/users/:id', async (req, res) => {
-    const _id = req.params.id
-    
-    try {
-        // Mongoose automatically converts mongodb string id into object id's
-        const user = await User.findById(_id) 
-
-        if (!user) {
-            return res.status(404).send()
-        }
-        // If found, send back the user
-        res.send(user)
-    } catch (error) {
-        res.status(500).send()
-    }
 })
 
 // Updates a user's own profile
