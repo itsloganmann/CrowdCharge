@@ -194,8 +194,8 @@ let getChargerHistory = function(cUID, callback){
 
 //-- charger availaibility
 //get charger's user set unavail times (in paid, under hosts name)
-let getChargerAvailability = function(cUID, callback) {
-    entity.Charger.findById(cUID, (err, charger)=>{
+let getChargerAvailability = function(cUID, callback){
+    let cUID = entity.Charger.findById(cUID, (err, charger)=>{
         entity.paidBooking.find({charger:cUID, user: charger.owner}, (err,paidBookings)=>{
             callback(null, paidBookings);
         });

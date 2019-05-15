@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const Charger = require('../models/charger')
+const auth = require('../middleware/auth')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -18,8 +19,10 @@ router.get('/chargers', auth, async (req, res) => {
 // REST API for creating resources. Sets up routing for POST requests to retrieve charger json object from client
 router.post('/chargers', auth, async (req, res) => {
     const charger = new Charger(req.body)
-
+    charger.owner = req.user
+    
     try {
+        console.log(req.body)
         await charger.save()
         res.status(201).send(charger)
     } catch (error) {
