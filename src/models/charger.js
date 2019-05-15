@@ -8,7 +8,22 @@ const Charger = mongoose.model('Charger', {
         required: true,
         trim: true
     },
-    location: {
+    address: {
+        type: String,
+       required: true,
+       trim: true
+    },
+    city: {
+        type: String,
+       required: true,
+        trim: true
+    },
+    province: {
+        type: String,
+       required: true,
+        trim: true
+    },
+    country: {
         type: String,
        required: true,
         trim: true
@@ -17,6 +32,22 @@ const Charger = mongoose.model('Charger', {
         type: Number,
         required: true,
         trim: true
+    },
+    name: {
+        type: String,
+        required: true,
+        trim: true 
+    },
+    level: {
+        type: Number,
+        required: true,
+        trim: true,
+        validate(value){
+            // Validation to level is 1 or 2
+            if (value !== 1 && value !== 2) {
+                throw new Error('Charger level is invalid')
+            }
+        }
     },
     type: {
         type: String,
