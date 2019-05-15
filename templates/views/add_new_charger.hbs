@@ -30,18 +30,12 @@
 			const chargerdetails = $('#charger-details-input').val();
 			const url = '/chargers'
 			const data = {
-				/*
 				name: chargername,
 				address: chargeraddress,
 				city: chargercity,
 				type: chargertype,
 				rate: chargerrate,
 				details: chargerdetails
-				*/
-				owner: "Hi im the owner",
-				location: chargeraddress,
-				rate: chargerrate,
-				type: chargertype
 			}
 			console.log(data);
 			fetch(url, {

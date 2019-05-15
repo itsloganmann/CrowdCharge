@@ -70,11 +70,11 @@ function fetchBooking(url, status) {
 };
 
 //tab's eventListener
-$("#bookings").click(function (event) {
-	$("#bookings").css({ "color": "#F05A29" });
-	$("#payment").css({ "color": "black" });
-	$("#reviews").css({ "color": "black" });
-	$("#subContent").html("");
+$("#bookings-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "#F05A29" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "black" });
+	$("#tab-content").html("");
 
 	/*
 	CONFIRMED BOOKING
@@ -117,17 +117,18 @@ $("#bookings").click(function (event) {
 	pendingContainer.append(bookingSubHeading2);
 	pendingContainer.append(pendingBookingData);
 
-	$("#subContent").append(confirmContainer);
-	$("#subContent").append(pendingContainer);
+	$("#tab-content").append(confirmContainer);
+	$("#tab-content").append(pendingContainer);
 
 });
 //payment tab click; build elements for payment details
-$("#payment").click(function (event) {
-	$("#bookings").css({ "color": "black" });
-	$("#payment").css({ "color": "#F05A29" });
-	$("#reviews").css({ "color": "black" });
+$("#payment-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "#F05A29" });
+	$("#reviews-tab").css({ "color": "black" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
+
 
 	//container hold all payment details for user
 	var paymentContainer = $("<div class='col-12'></div>");
@@ -147,17 +148,17 @@ $("#payment").click(function (event) {
 	paymentContainer.append(paymentSubHeading1);
 	paymentContainer.append(paymentData);
 
-	$("#subContent").append(paymentContainer);
+	$("#tab-content").append(paymentContainer);
 
 });
 
 //reviews tab click; build elements for reviews details
-$("#reviews").click(function (event) {
-	$("#bookings").css({ "color": "black" });
-	$("#payment").css({ "color": "black" });
-	$("#reviews").css({ "color": "#F05A29" });
+$("#reviews-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "#F05A29" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
 
 	//container hold all review details for user
 	var reviewContainer = $("<div class='col-12'></div>");
@@ -187,6 +188,6 @@ $("#reviews").click(function (event) {
 	reviewContainer.append(reviewSubHeading1);
 	reviewContainer.append(reviewsData);
 
-	$("#subContent").append(reviewContainer);
+	$("#tab-content").append(reviewContainer);
 
 });
