@@ -308,8 +308,8 @@ main {
 }
 
 .disabled-button {
-  background-color: #F0825E !important;
-  color: #EEEEEE !important;
+  background-color: #CCCCCC !important;
+  color: #777777 !important;
   box-shadow: none !important;
 }
 
@@ -511,4 +511,18 @@ footer ul {
 
 button:focus {
   outline: 0px;
+}
+
+.form-error-text {
+  float: left;
+  color: red;
+  font-size: 9pt;
+  height: 0px;
+}
+.invalid-input-label {
+  color: red !important;
+}
+.invalid-input-underline {
+  padding: 0px 8px 5.6px;
+  border-bottom: 1.4px solid red !important;
 }
