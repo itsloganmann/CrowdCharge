@@ -202,17 +202,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 	const userpassword = $('#signup-password-input').val();
 	const userconfirmpassword = $('#signup-password-input').val();
 
-	if ($('#signup-password-input').val() != "" &&
-		$('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
-		$('#signup-popup-button').prop('disabled', 'true');
-		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
-		$('#signup-confirm-password-input').addClass('invalid-input-underline');
-		$('#signup-confirm-password-label').addClass('invalid-input-label');
-		$('#signup-confirm-password-input').keypress(() => {
-			$('#signup-confirm-password-input').removeClass('invalid-input-underline');
-			$('#signup-confirm-password-label').removeClass('invalid-input-label');
-		});
-	}
 	const url = '/users/signup'
 	const data = {
 		name: username,
@@ -259,10 +248,10 @@ $('body').on('click', '#logout-button', (event) => {
 // Enables sign up button if all fields are filled
 $('body').on('keyup', '.form-input', (event) => {
 	var formFilled = false;
-	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val() 
+	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
-			formFilled = true;
-		}
+		formFilled = true;
+	}
 	if (formFilled) {
 		$('#signup-popup-button').removeAttr('disabled');
 		$('#signup-popup-button').removeClass('disabled-button');
@@ -275,15 +264,32 @@ $('body').on('keyup', '.form-input', (event) => {
 // Enables log in button if all fields are filled
 $('body').on('keyup', '.form-input', (event) => {
 	var formFilled = false;
-	if ($('#login-email-input').val() && $('#login-password-input').val()){
-			formFilled = true;
-		}
+	if ($('#login-email-input').val() && $('#login-password-input').val()) {
+		formFilled = true;
+	}
 	if (formFilled) {
 		$('#login-popup-button').removeAttr('disabled');
 		$('#login-popup-button').removeClass('disabled-button');
 	} else {
 		$('#login-popup-button').prop('disabled', true);
 		$('#login-popup-button').addClass('disabled-button');
+	}
+});
+
+// Error message and disables sign up button if passwords do not match.
+$('body').on('focusout', '#signup-confirm-password-input', () => {
+	if ($('#signup-password-input').val() != "" &&
+		$('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
+		$('#signup-popup-button').prop('disabled', true);
+		$('#signup-popup-button').addClass('disabled-button');
+		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
+		$('#signup-confirm-password-input').addClass('invalid-input-underline');
+		$('#signup-confirm-password-label').addClass('invalid-input-label');
+		$('#signup-confirm-password-input').keypress(() => {
+			$('#signup-confirm-password-input').removeClass('invalid-input-underline');
+			$('#signup-confirm-password-label').removeClass('invalid-input-label');
+			$("#password-validation").remove();
+		});
 	}
 });
 
