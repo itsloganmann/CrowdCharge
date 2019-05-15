@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
-// Middleware for auth before calling next function
+// Middleware for auth before proceeding. Requires proper web token.
 const auth = async (req, res, next) => {
     try {
         // Stores incoming token from the header and gets rid of Bearer in the string

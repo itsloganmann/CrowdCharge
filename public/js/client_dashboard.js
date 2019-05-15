@@ -2,11 +2,11 @@ console.log("js file loaded successfullly");
 const jwt = JSON.parse(localStorage.getItem('jwt'));
 
 //tab's eventListener
-$("#bookings").click(function (event) {
-	$("#bookings").css({ "color": "#F05A29" });
-	$("#payment").css({ "color": "black" });
-	$("#reviews").css({ "color": "black" });
-	$("#subContent").html("");
+$("#bookings-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "#F05A29" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "black" });
+	$("#tab-content").html("");
 
 	/*
 	CONFIRMED BOOKING
@@ -52,18 +52,19 @@ $("#bookings").click(function (event) {
 	confirmContainer.append(confirmedBookingData);
 	pendingContainer.append(pendingBookingData);
 
-	$("#subContent").append(confirmContainer);
-	$("#subContent").append(pendingContainer);
+	$("#tab-content").append(confirmContainer);
+	$("#tab-content").append(pendingContainer);
 
 });
 
 //payment tab click; build elements for payment details
-$("#payment").click(function (event) {
-	$("#bookings").css({ "color": "black" });
-	$("#payment").css({ "color": "#F05A29" });
-	$("#reviews").css({ "color": "black" });
+$("#payment-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "#F05A29" });
+	$("#reviews-tab").css({ "color": "black" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
+
 
 	//container hold all payment details for user
 	var paymentContainer = createContentContainer("paymentHeading1", "Payment", "paymentSubHeading1"
@@ -84,17 +85,18 @@ $("#payment").click(function (event) {
 
 	//appending
 	paymentContainer.append(paymentData);
-	$("#subContent").append(paymentContainer);
+
+	$("#tab-content").append(paymentContainer);
 
 });
 
 //reviews tab click; build elements for reviews details
-$("#reviews").click(function (event) {
-	$("#bookings").css({ "color": "black" });
-	$("#payment").css({ "color": "black" });
-	$("#reviews").css({ "color": "#F05A29" });
+$("#reviews-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "#F05A29" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
 
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("reviewHeading1", "Reviews for You", "reviewSubHeading1"
@@ -124,6 +126,7 @@ $("#reviews").click(function (event) {
 
 	//appending
 	reviewContainer.append(reviewsData);
-	$("#subContent").append(reviewContainer);
+
+	$("#tab-content").append(reviewContainer);
 
 });

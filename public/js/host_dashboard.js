@@ -158,16 +158,16 @@ function chargerInfo(chargerNumber) {
 	console.log("clicked!");
 	$('#content').html('');
 	createInput("content", "text", true, "name", "charger-name", "chargerInput", chargers[chargerNumber].name);
-	createInput("content", "text", true, "address", "charger-address", "chargerInput", chargers[chargerNumber].address);
-	createInput("content", "text", true, "city", "charger-city", "chargerInput", chargers[chargerNumber].city);
-	createInput("content", "text", true, "province", "charger-province", "chargerInput", chargers[chargerNumber].province);
-	createInput("content", "text", true, "type", "charger-type", "chargerInput", chargers[chargerNumber].type);
-	createInput("content", "text", true, "name", "charger-type", "chargerInput", chargers[chargerNumber].type);
+	createInput("content", "text", true,"address", "charger-address", "chargerInput", chargers[chargerNumber].address);
+	createInput("content", "text", true,"city", "charger-city", "chargerInput", chargers[chargerNumber].city);
+	createInput("content", "text", true,"province", "charger-province", "chargerInput", chargers[chargerNumber].province);
+	createInput("content", "text", true,"type", "charger-type", "chargerInput", chargers[chargerNumber].type);
+	createInput("content", "text", true,"level", "charger-type", "chargerInput", chargers[chargerNumber].type);
 
 	//var nameString = "<h1>"+chargers[chargerNumber].name+"</h1></br>";
 	//var locationString = "<h3>" + chargers[chargerNumber].address + ", "
 	//	+ chargers[chargerNumber].city + " " + chargers[chargerNumber].province + "</h3></br>";
-	//var typeString = "<span>charger type: " + chargers[chargerNumber].type + "</span></br>";
+	var typeString = "<span>charger type: " + chargers[chargerNumber].type + "</span></br>";
 	var levelString = "<span>charger level: " + chargers[chargerNumber].level + "</span></br>";
 	var priceString = "<span>price: $" + chargers[chargerNumber].hourly_rate + "/hour</span></br>";
 	var detailString = "<span>additional detail: " + chargers[chargerNumber].details + "</span></br>";
