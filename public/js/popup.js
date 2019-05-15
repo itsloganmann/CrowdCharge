@@ -100,6 +100,14 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+var createErrorMessage = (targetId, message, className) => {
+	let element = document.createElement("div");
+	element.className = className;
+	element.innerText = message;
+	$('#' + targetId).prepend(element);
+
+}
+
 // Removes popup for booking
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
@@ -152,8 +160,7 @@ $('body').on("click", "#popup-signup-here", () => {
 	createPopupInput("signup-email-wrapper", "email", "email", "signup-email-input", "form-input");
 	createPopupInput("signup-name-wrapper", "text", "name", "signup-name-input", "form-input");
 	createPopupInput("signup-phone-wrapper", "tel", "phoneNumber", "signup-phone-input", "form-input");
-	$("#signup-phone-input").attr("pattern", "[0-9]{3} [0-9]{3} [0-9]{4}");
-	$("#signup-phone-input").attr("maxlength", "12");
+	$("#signup-phone-input").attr("maxlength", "10");
 	createPopupInput("signup-password-wrapper", "password", "password", "signup-password-input", "form-input");
 	createPopupInput("signup-confirm-password-wrapper", "password", "password2", "signup-confirm-password-input", "form-input");
 
@@ -196,6 +203,8 @@ $('body').on('click', '#login-popup-button', (event) => {
 
 // Signup button listener
 $('body').on('click', '#signup-popup-button', (event) => {
+	if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
+
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
 	const userphone = $('#signup-phone-input').val();
@@ -216,16 +225,24 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
-			if (response.errors) {
-				console.log(response.errors);
-			} else {
-				
+			if (response.errors.email) {
+				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
+				$('#signup-email-input').addClass('invalid-input-underline');
+				$('#signup-email-label').addClass('invalid-input-label');
+			} 
+			if (response.errors.phone) {
+				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
+				$('#signup-phone-input').addClass('invalid-input-underline');
+				$('#signup-phone-label').addClass('invalid-input-label');
+			} 
+			if (!response.errors) {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
 			}
 		})
 		.catch(error => console.error('Error:', error));
+	}
 });
 
 
@@ -292,8 +309,6 @@ $('body').on('input', '.form-input', (event) => {
 $('body').on('focusout', '#signup-confirm-password-input', () => {
 	if ($('#signup-password-input').val() != "" &&
 		$('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
-		$('#signup-popup-button').prop('disabled', true);
-		$('#signup-popup-button').addClass('disabled-button');
 		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
 		$('#signup-confirm-password-input').addClass('invalid-input-underline');
 		$('#signup-confirm-password-label').addClass('invalid-input-label');
@@ -305,3 +320,13 @@ $('body').on('focusout', '#signup-confirm-password-input', () => {
 	}
 });
 
+$('body').on('keypress', '#signup-phone-input', (evt) => {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+
+$('body').on('keypress', '.form-input', (e) => {
+	console.log(e.target.id);
+});
