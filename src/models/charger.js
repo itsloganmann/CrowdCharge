@@ -29,4 +29,4 @@ const Charger = mongoose.model('Charger', {
     }
 })
 
-module.exports = Booking
+module.exports = Charger

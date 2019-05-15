@@ -2,20 +2,56 @@
 <!DOCTYPE html>
 
 <html>
-	<head>
-		<title>Add New Charger Form</title>
-		<meta charset = "utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{{>imports}}
-		{{>style_add_new_charger}}
-		
-	</head>
-	<body>
-		{{>sidenav}}
-    	{{>topnav}}
-		{{>content_add_new_charger}}
-		{{>javascripts}}
-		{{>footer}}
 
-	</body>
+<head>
+	<title>Add New Charger Form</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{{>imports}}
+	{{>style_add_new_charger}}
+
+</head>
+
+<body>
+	{{>sidenav}}
+	{{>topnav}}
+	<main>
+		{{>content_add_new_charger}}
+	</main>
+	{{>javascripts}}
+	<script>
+		$("#submit-charger").on('click', (e) => {
+			e.preventDefault();
+			const chargername = $('#charger-name-input').val();
+			const chargeraddress = $('#charger-address-input').val();
+			const chargercity = $('#charger-city-input').val();
+			const chargertype = $('#charger-type-input').val();
+			const chargerrate = $('#charger-rate-input').val();
+			const chargerdetails = $('#charger-details-input').val();
+			const url = '/chargers'
+			const data = {
+				name: chargername,
+				address: chargeraddress,
+				city: chargercity,
+				type: chargertype,
+				rate: chargerrate,
+				details: chargerdetails
+			}
+			console.log(data);
+			fetch(url, {
+				method: 'POST',
+				body: JSON.stringify(data),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}).then(res => console.log(res))
+				.then((response) => {
+					console.log('Success:', (response))
+				})
+				.catch(error => console.error('Error:', error));
+		});
+	</script>
+	{{>footer}}
+</body>
+
 </html>

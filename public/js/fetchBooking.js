@@ -30,7 +30,7 @@ function fetchBooking(url, status) {
 	let contentString = "";
 	fetch(url, {
 		method: 'GET',
-		headter : {
+		headers : {
 			'content-type': 'application/json',
 			'Authorization': 'Bearer ' + jwt
 		}

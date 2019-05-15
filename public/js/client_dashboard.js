@@ -53,8 +53,8 @@ $("#bookings").click(function (event) {
 	confirmContainer.append(confirmedBookingData);
 	pendingContainer.append(pendingBookingData);
 
-	$("#subContent").append(confirmContainer);
-	$("#subContent").append(pendingContainer);
+	$("#tab-content").append(confirmContainer);
+	$("#tab-content").append(pendingContainer);
 
 });
 
@@ -65,7 +65,6 @@ $("#payment").click(function (event) {
 	$("#reviews").css({ "color": "black" });
 	$("#history").css({ "color": "black" });
 
-	$("#subContent").html("");
 
 	//container hold all payment details for user
 	var paymentContainer = createContentContainer("paymentHeading1", "Payment", "paymentSubHeading1"
@@ -86,7 +85,8 @@ $("#payment").click(function (event) {
 
 	//appending
 	paymentContainer.append(paymentData);
-	$("#subContent").append(paymentContainer);
+
+	$("#tab-content").append(paymentContainer);
 
 });
 
@@ -97,7 +97,7 @@ $("#reviews").click(function (event) {
 	$("#reviews").css({ "color": "#F05A29" });
 	$("#history").css({ "color": "black" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
 
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("reviewHeading1", "Reviews for You", "reviewSubHeading1"
@@ -106,14 +106,13 @@ $("#reviews").click(function (event) {
 	var reviewsData;
 	fetch("/client/reviews", {
 		method: 'GET',
-		headter: {
+		headers: {
 			'content-type': 'application/json',
 			'Authorization': 'Bearer ' + jwt
 		}
 	})
 		.then((res) => {
-			console.log(res);
-			return res.json;
+			return res.json()
 		})
 		.then((db) => {
 			let data = JSON.parse(JSON.stringify(db));
@@ -128,7 +127,8 @@ $("#reviews").click(function (event) {
 
 	//appending
 	reviewContainer.append(reviewsData);
-	$("#subContent").append(reviewContainer);
+
+	$("#tab-content").append(reviewContainer);
 
 });
 

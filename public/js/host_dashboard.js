@@ -1,76 +1,53 @@
 console.log("js file loaded successfullly");
 //fetch to get all chargers' id that belong to the host
 const jwt = JSON.parse(localStorage.getItem('jwt'));
-const chargers;
-const listingReq = {
-	user_id: ""
-}
-const listingURL = "/host/chargers?" + $.param(listingReq);
-fetch(listingURL, {
+let chargers = [];
+
+
+//fetch to get all charger info from a host
+fetch("/chargers", {
 	method: 'GET',
-	headter: {
+	headers: {
 		'content-type': 'application/json',
 		'Authorization': 'Bearer ' + jwt
 	}
 })
 	.then((res) => {
-		return res.json();
+		return res.json()
 	})
 	.then((db) => {
-		chargers = JSON.parse(JSON.stringify(db));
-		///////////////////TEMP DATA
-		chargers = [
-			{
-				id: "A000",
-				name: "MINE",
-				address: "1234 myplace st.",
-				city: "Vancouver",
-				province: "BC",
-				country: "Canada",
-				type: "LEVEL2",
-				hourly_rate: "5.00",
-				details: "no detail"
-			}, {
-				id: "A001",
-				name: "YOURS",
-				address: "1234 yourplace st.",
-				city: "Vancouver",
-				province: "BC",
-				country: "Canada",
-				type: "LEVEL1",
-				hourly_rate: "4.00",
-				details: "no detail"
-			}
-		];
-		///////////////////TO BE REMOVE
+		console.log(db);
+		//chargers = JSON.parse(JSON.stringify(db));
+
 	});
 
-function fetchCharger(chargerID) {
-	let data = {};
-	let req = { charger: chargerID };
-	let chargerURL = "/charger?" + $.param(req);
-	fetch(chargerURL)
-		.then((res) => {
-			return res.json()
-		})
-		.then((db) => {
-			data = JSON.parse(JSON.stringify(db));
-		});
-	///////////////////TEMP DATA
-	data = {
+///////////////////TEMP DATA
+chargers = [
+	{
 		id: "A000",
 		name: "MINE",
 		address: "1234 myplace st.",
 		city: "Vancouver",
 		province: "BC",
 		country: "Canada",
-		type: "LEVEL2",
-		hourly_rate: "5.00",
+		level: "2",
+		type: "Tesla HPWC",
+		hourly_rate: "10.00",
+		details: "no detail"
+	}, {
+		id: "A001",
+		name: "YOURS",
+		address: "1234 yourplace st.",
+		city: "Vancouver",
+		province: "BC",
+		country: "Canada",
+		type: "Tesla HPWC",
+		hourly_rate: "4.00",
 		details: "no detail"
 	}
-	///////////////////TO BE REMOVE
-	return data;
-}
+];
+///////////////////TO BE REMOVE
+
 window.onload = function () {
 	//highlight active tab
 	$('#chargers').css({ 'color': '#f05a29' });
@@ -85,12 +62,22 @@ window.onload = function () {
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
 	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-	var yourCharger = $("<button class='chargerButton'>Your Charger</button>");
+
+	//populating all chargers owned from database
+	var yourCharger = [];
+	for (i = 0; i < chargers.length; i++) {
+		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
+			i + "'>" + chargers[i].name + "</br>"
+			+ chargers[i].id + "</br>" + chargers[i].address + "</br>" + "</button>";
+		yourCharger[i] = $(chargerString);
+	}
 
 	$('#content').append(header);
 	$('#content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
-	$('#chargerContainer').append(yourCharger);
+	for (i = 0; i < chargers.length; i++) {
+		$('#chargerContainer').append(yourCharger[i]);
+	}
 	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
 
 };
@@ -166,3 +153,37 @@ $('#earnings').click(function (event) {
 	$('#content').append(header);
 	$('#content').append(earningsContainer);
 })
+
+function chargerInfo(chargerNumber) {
+	console.log("clicked!");
+	$('#content').html('');
+	createInput("content", "text", true, "name", "charger-name", "chargerInput", chargers[chargerNumber].name);
+	createInput("content", "text", true,"address", "charger-address", "chargerInput", chargers[chargerNumber].address);
+	createInput("content", "text", true,"city", "charger-city", "chargerInput", chargers[chargerNumber].city);
+	createInput("content", "text", true,"province", "charger-province", "chargerInput", chargers[chargerNumber].province);
+	createInput("content", "text", true,"type", "charger-type", "chargerInput", chargers[chargerNumber].type);
+	createInput("content", "text", true,"level", "charger-type", "chargerInput", chargers[chargerNumber].type);
+
+	//var nameString = "<h1>"+chargers[chargerNumber].name+"</h1></br>";
+	//var locationString = "<h3>" + chargers[chargerNumber].address + ", "
+	//	+ chargers[chargerNumber].city + " " + chargers[chargerNumber].province + "</h3></br>";
+	var typeString = "<span>charger type: " + chargers[chargerNumber].type + "</span></br>";
+	var levelString = "<span>charger level: " + chargers[chargerNumber].level + "</span></br>";
+	var priceString = "<span>price: $" + chargers[chargerNumber].hourly_rate + "/hour</span></br>";
+	var detailString = "<span>additional detail: " + chargers[chargerNumber].details + "</span></br>";
+	var chargerName = $(nameString);
+	var chargerLocation = $(locationString);
+	var chargerType = $(typeString);
+	var chargerLevel = $(levelString);
+	var chargerPrice = $(priceString);
+	var chargerDetail = $(detailString);
+	var chargerInfoContainer = $("<div></div>");
+
+	chargerInfoContainer.append(chargerName);
+	chargerInfoContainer.append(chargerLocation);
+	chargerInfoContainer.append(chargerType);
+	chargerInfoContainer.append(chargerLevel);
+	chargerInfoContainer.append(chargerPrice);
+	chargerInfoContainer.append(chargerDetail);
+	$('#content').append(chargerInfoContainer);
+}
