@@ -10,16 +10,21 @@ $("#edit-btn").click( function(event){
     $("#save-btn").css({"display" : "block"});
 });
 
+const updateProfile = async () => {
+    const userID = await fetch('/users/me', {
+        method: 'GET',
+        header: {
+            'content-type': 'application/json'
+        },
+    }).then((resolve) => {
+        console.log(resolve)
+    })
+}
+
 $("#save-btn").click( function(event){
-    var name = $("#name").val();
-    var phone = $("#phone").val();
-    var email = $("#email").val();
+    event.preventDefault();
 
-
-    //      post/fetch methods
-
-    
-    console.log(name, phone, email);
+    updateProfile();
     $("#name").css({"background-color" : "#EBEBE4"});
     $("#phone").css({"background-color" : "#EBEBE4"});
     $("#email").css({"background-color" : "#EBEBE4"});
@@ -29,4 +34,19 @@ $("#save-btn").click( function(event){
     $("#email").attr("readonly", "true");
     $("#save-btn").css({"display" : "none"});
     $("#edit-btn").css({"display" : "block"});
+
+
+    //POST
+    event.preventDefault();
+    var name = $("#name").val();
+    var phone = $("#phone").val();
+    var email = $("#email").val();
+    const data = {
+        name: name,
+        phone: phone,
+        email: email
+    }
+
+    
+
 });

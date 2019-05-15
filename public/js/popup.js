@@ -100,12 +100,19 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Removes popup for booking
+$(document).on("click", "#popup-wrapper", (e) => {
+	if (e.target.id == "popup-wrapper") {
+		$("#popup-wrapper").remove();
+	}
+});
+
 // Creating login pop-up
 $("#login-button").on("click", () => {
 	createPopup();
-	createPopupHeader("h3", "ZapShare", "login-header");
-	createPopupContent("popup", "div", "login-email-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "login-password-wrapper", "popup-input-wrapper");
+	createPopupHeader("h3", "Log in to your account", "login-header");
+	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "login-password-wrapper", "full-center-wrapper");
 
 	createPopupLabel("login-email-wrapper", "login-email-input", "Email", "login-email-label", "form-label");
 	createPopupLabel("login-password-wrapper", "login-password-input", "Password", "login-password-label", "form-label");
@@ -114,6 +121,8 @@ $("#login-button").on("click", () => {
 	createPopupInput("login-password-wrapper", "password", "password", "login-password-input", "form-input");
 
 	createPopupConfirmButton("login-popup-button", "LOGIN");
+	$("#login-popup-button").addClass("disabled-button");
+
 
 	createPopupContent("popup", "div", "popup-signup-text");
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
@@ -128,11 +137,11 @@ $('body').on("click", "#popup-signup-here", () => {
 	signInPage = $("#popup").children().detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header");
 
-	createPopupContent("popup", "div", "signup-email-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-name-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-phone-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-password-wrapper", "popup-input-wrapper");
-	createPopupContent("popup", "div", "signup-confirm-password-wrapper", "popup-input-wrapper");
+	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-email-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-password-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-confirm-password-wrapper", "full-center-wrapper");
+	createPopupContent("popup", "div", "signup-phone-wrapper", "full-center-wrapper");
 
 	createPopupLabel("signup-email-wrapper", "signup-email-input", "Email", "signup-email-label", "form-label");
 	createPopupLabel("signup-name-wrapper", "signup-name-input", "Name", "signup-name-label", "form-label");
@@ -149,6 +158,8 @@ $('body').on("click", "#popup-signup-here", () => {
 	createPopupInput("signup-confirm-password-wrapper", "password", "password2", "signup-confirm-password-input", "form-input");
 
 	createPopupConfirmButton("signup-popup-button", "SIGN UP");
+	$("#signup-popup-button").addClass("disabled-button");
+	$("#signup-popup-button").prop("disabled", "true");
 	createPopupCancelButton("signup-popup-back-button", "BACK TO SIGN IN");
 	$("#signup-popup-back-button").on('click', () => {
 		$("#popup").children().remove();
@@ -175,7 +186,7 @@ $('body').on('click', '#login-popup-button', (event) => {
 			'Content-Type': 'application/json'
 		}
 	}).then(res => res.json())
-		.then( (response) => {
+		.then((response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
@@ -205,12 +216,18 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
+			if (response.errors) {
+				console.log(response.errors);
+			} else {
+				
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
+			}
 		})
 		.catch(error => console.error('Error:', error));
 });
+
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
@@ -224,10 +241,67 @@ $('body').on('click', '#logout-button', (event) => {
 			'Authorization': 'Bearer ' + jwt
 		}
 	}).then(res => console.log(res))
-		.then( (response) => {
+		.then((response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.removeItem('jwt')
 			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });
+
+// Enables sign up button if all fields are filled
+$('body').on('input', '.form-input', (event) => {
+	var formFilled = false;
+	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
+		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
+		formFilled = true;
+	}
+	if (formFilled) {
+		if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
+
+		$('#signup-popup-button').removeAttr('disabled');
+		$('#signup-popup-button').removeClass('disabled-button');
+		}
+	} else {
+		if ($('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
+
+		$('#signup-popup-button').prop('disabled', true);
+		$('#signup-popup-button').addClass('disabled-button');
+		}
+	}
+});
+
+// Enables log in button if all fields are filled
+$('body').on('input', '.form-input', (event) => {
+	var formFilled = false;
+	if ($('#login-email-input').val() && $('#login-password-input').val()) {
+		formFilled = true;
+	}
+	if (formFilled) {
+			console.log("enabled");
+			$('#login-popup-button').removeAttr('disabled');
+			$('#login-popup-button').removeClass('disabled-button');
+	} else {
+			console.log("disabled");
+			$('#login-popup-button').prop('disabled', true);
+			$('#login-popup-button').addClass('disabled-button');
+	}
+});
+
+// Error message and disables sign up button if passwords do not match.
+$('body').on('focusout', '#signup-confirm-password-input', () => {
+	if ($('#signup-password-input').val() != "" &&
+		$('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
+		$('#signup-popup-button').prop('disabled', true);
+		$('#signup-popup-button').addClass('disabled-button');
+		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
+		$('#signup-confirm-password-input').addClass('invalid-input-underline');
+		$('#signup-confirm-password-label').addClass('invalid-input-label');
+		$('#signup-confirm-password-input').keypress(() => {
+			$('#signup-confirm-password-input').removeClass('invalid-input-underline');
+			$('#signup-confirm-password-label').removeClass('invalid-input-label');
+			$("#password-validation").remove();
+		});
+	}
+});
+
