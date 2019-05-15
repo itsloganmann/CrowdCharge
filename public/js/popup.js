@@ -207,7 +207,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		.then( (response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
-			// window.location.replace(window.location.href);
+			window.location.replace(window.location.href);
 		})
 		.catch(error => console.error('Error:', error));
 });

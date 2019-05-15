@@ -6,6 +6,7 @@ const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
 const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
+const chargerRouter = require('./routers/charger')
 require('./db/mongoose')
 
 // Variable for the current directory is __dirname.
@@ -26,6 +27,7 @@ const port = process.env.PORT || 3000
 // Registers routers, allowing us to refactor routes into separate files
 app.use(userRouter)
 app.use(bookingRouter)
+app.use(chargerRouter)
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
