@@ -200,8 +200,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 	const username = $('#signup-name-input').val();
 	const userphone = $('#signup-phone-input').val();
 	const userpassword = $('#signup-password-input').val();
-	const userconfirmpassword = $('#signup-password-input').val();
-
 	const url = '/users/signup'
 	const data = {
 		name: username,
@@ -217,13 +215,19 @@ $('body').on('click', '#signup-popup-button', (event) => {
 			'Content-Type': 'application/json'
 		}
 	}).then(res => res.json())
-		.then((response) => {
+		.then( (response) => {
+			if (response.errors) {
+				console.log(response.errors);
+			} else {
+				
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
+			}
 		})
 		.catch(error => console.error('Error:', error));
 });
+
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
@@ -246,33 +250,41 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('keyup', '.form-input', (event) => {
+$('body').on('input', '.form-input', (event) => {
 	var formFilled = false;
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
 	}
 	if (formFilled) {
+		if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
+
 		$('#signup-popup-button').removeAttr('disabled');
 		$('#signup-popup-button').removeClass('disabled-button');
+		}
 	} else {
+		if ($('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
+
 		$('#signup-popup-button').prop('disabled', true);
 		$('#signup-popup-button').addClass('disabled-button');
+		}
 	}
 });
 
 // Enables log in button if all fields are filled
-$('body').on('keyup', '.form-input', (event) => {
+$('body').on('input', '.form-input', (event) => {
 	var formFilled = false;
 	if ($('#login-email-input').val() && $('#login-password-input').val()) {
 		formFilled = true;
 	}
 	if (formFilled) {
-		$('#login-popup-button').removeAttr('disabled');
-		$('#login-popup-button').removeClass('disabled-button');
+			console.log("enabled");
+			$('#login-popup-button').removeAttr('disabled');
+			$('#login-popup-button').removeClass('disabled-button');
 	} else {
-		$('#login-popup-button').prop('disabled', true);
-		$('#login-popup-button').addClass('disabled-button');
+			console.log("disabled");
+			$('#login-popup-button').prop('disabled', true);
+			$('#login-popup-button').addClass('disabled-button');
 	}
 });
 
