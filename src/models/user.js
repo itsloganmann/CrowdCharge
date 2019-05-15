@@ -17,18 +17,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         validate(value){
+            // Validation to ensure email is in correct form.
             if (!validator.isEmail(value)) {
-                throw new Error('Email is invalid')
-            }
-        }
-    },
-    phone: {
-        type: Number,
-        default: 0,
-        validate(value) {
-            // Custom validator
-            if (value < 0) {
-                throw new Error('phone must be a positive number')
+                throw new Error('Email is invalid!')
             }
         }
     }, 
@@ -37,14 +28,35 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         validate(value) {
+            // Validation for password.
             if (value.includes('password')) {
-                throw new Error('Password cannot contain the word password')
+                throw new Error('Password cannot contain the word password!')
             }
 
             if (value.length < 7) {
-                throw new Error('Password is shorter than the minimum allowed length (7)')
+                throw new Error('Password is shorter than the minimum allowed length (7)!')
             }
         }
+    },
+    phone: {
+        type: String,
+        required: true,
+        trim: true,
+        validate(value) {
+            // Validation for phone numbers.
+            if (!validator.isNumeric(value)) {
+                throw new Error('Phone number cannot contain characters!')
+            }
+
+            if (value.length !== 10) {
+                throw new Error('Phone number must have 10 digits!')
+            }
+        }
+    },
+    balance: {
+        type: Number,
+        default: 0,
+        required: true
     },
     tokens: [{
         token: {

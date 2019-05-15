@@ -13,6 +13,9 @@
             zoom: 11 // starting zoom
         });
 
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
         // Declares long and lat variables to be used
         let long = undefined
         let lat = undefined 
@@ -73,13 +76,19 @@
                 }
                 map.flyTo({
                     center: [coordinates[0], coordinates[1]],
-                    zoom: 15
+                    zoom: 15,
+                    bearing: 0,
+                    speed: 0.7, // make the flying slow
+                    
+                    // This can be any easing function: it takes a number between
+                    // 0 and 1 and returns another number between 0 and 1.
+                    easing: function (t) { return t; }
                 });
 
                 // Builds the popup when user clicks on a host marker.
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
-                    .setHTML('<img class="host-marker-img" src="https://image.flaticon.com/icons/svg/1579/1579928.svg" alt="host"> <span class="host-marker-title">'
+                    .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
                              + description + '</span>')
                     .addTo(map);
             });
@@ -154,6 +163,43 @@
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
+        });
+
+        // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
+
+        map.on('mouseenter', 'places', function(e) {
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = 'pointer';
+        
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var description = e.features[0].properties.description;
+        
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+        
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            if (!popup) {
+                popup.setLngLat(coordinates)
+                .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                + description + '</span>')
+                .addTo(map);
+            }
+
+        });
+        
+        // On mouse leave, remove the popup.
+        map.on('mouseleave', 'places', function() {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
         });
     </script>
 </div>
