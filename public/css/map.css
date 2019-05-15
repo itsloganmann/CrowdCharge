@@ -1,5 +1,5 @@
 .marker {
-    background-image: url('https://image.flaticon.com/icons/svg/1783/1783838.svg');
+    background-image: url('../images/hostmarker.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -8,7 +8,7 @@
 }
 
 .currentmarker {
-    background-image: url('https://image.flaticon.com/icons/svg/1673/1673221.svg');
+    background-image: url('../images/currentmarker.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -46,13 +46,8 @@
 }
 
 #map {
-    position: block;
     height: 100%;
     width: 100%;
-}
-
-#map-side-expansion-button {
-    float: right;
 }
 
 #map-drawer-expansion-button {
@@ -66,21 +61,21 @@
     height: 216px;
     background-color: #FFFFFF;
     transition: height 0.5s ease;
-    width: 100vw;
-    position: fixed;
+    width: 100%;
+    position: absolute;
     z-index: 1;
     bottom: 0;
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh - 84px);
 }
 
 #map-wrapper {
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 84px);
     background-color: #FFFFFF;
 }
 
 
-.map-drawer-button {
+.ui-button-custom {
     font-size: 18pt;
     color: #356859;
     padding: 4px;
@@ -110,22 +105,21 @@
     float: right;
 }
 #request-booking-button {
-    width: 100%;
-    margin: 0 auto;
-    display: block;
-    border-radius: 8px;
-    color: #FFFFFF;
-    background-color: #F05A29;
-    border: 0px;
-    padding: 8px 14px;
-    box-shadow: 0px 4px 4px 0px #000000;
+    width: 80%;
+    bottom: 24px;
+    position: absolute;
     cursor: pointer;
 
 }
 #map-drawer-details-wrapper {
     display: none;
     height: 120px;
-    background-color: hotpink;
+}
+#booking-confirmation-text {
+    font-size: 1.25rem;
+}
+#booking-finish-text {
+    font-size: 1.25rem;
 }
 
 @media only screen and (min-width: 0px) {
@@ -133,19 +127,18 @@
         width: initial;
         max-width: initial;
         height: 336px !important;
-        max-height: calc(100vh - 64px) !important;
+        max-height: calc(100vh - 84px) !important;
     }
 }
 
 @media only screen and (min-width: 768px) {
     .map-side-expanded {
-        height: calc(100vh - 64px) !important;
-        max-height: calc(100vh - 64px) !important;
+        height: calc(100vh - 84px) !important;
     }
 
     #map-drawer {
         width: 368px;
-        height: calc(100vh - 64px);
+        height: calc(100vh - 84px);
         transition: width 0.5s ease;
     }
 

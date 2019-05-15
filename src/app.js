@@ -4,9 +4,9 @@ const express = require('express')
 const hbs = require('hbs')
 const geocode = require ('./utils/geocode')
 const forecast = require('./utils/forecast')
-
-//the database
-const db = require('./database/database')
+const userRouter = require('./routers/user')
+const bookingRouter = require('./routers/booking')
+require('./db/mongoose')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -17,8 +17,15 @@ const publicDirectoryPath =  path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
+// Customizes server, automatically parse incoming json into an object
+app.use(express.json())
+
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
+
+// Registers routers, allowing us to refactor routes into separate files
+app.use(userRouter)
+app.use(bookingRouter)
 
 // Get handlebars set up to create dynamic templates.
 app.set('view engine', 'hbs')
@@ -66,15 +73,15 @@ app.get('/weather', (req, res) => {
     })
 })
 
-app.get('/user_profile', (req, res) => {
-    res.render('user_profile', {
+app.get('/profile_details', (req, res) => {
+    res.render('profile_details', {
         title: 'ZapShare - User Profile',
         name: ''
     })
 })
 
-app.get('/host_setting', (req, res) => {
-    res.render('host_setting', {
+app.get('/host_dashboard', (req, res) => {
+    res.render('host_dashboard', {
         title: 'ZapShare - Host Settings',
         name: ''
     })
@@ -87,8 +94,8 @@ app.get('/add_new_charger', (req, res) => {
     })
 })
 
-app.get('/user_setting', (req, res) => {
-    res.render('user_setting', {
+app.get('/client_dashboard', (req, res) => {
+    res.render('client_dashboard', {
         title: 'ZapShare - User Settings',
         name: ''
     })
@@ -161,7 +168,22 @@ app.get('*', (req, res) => {
     })
 })
 
+// app.route("/createUser", (req,res) =>{
+//     console.log("in create user");
+//     let wuviv = {
+//         "firstName": "Vivian",
+//         "lastName" : "Wu"
+//     };
+
+//     db.createUser(wuviv)
+// });
+
+// app.listen(4000, () => {
+//     console.log('Server is up on port 4000.')
+// });
+
 // Starts up the web server.
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
+
