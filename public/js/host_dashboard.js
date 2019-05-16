@@ -17,36 +17,9 @@ fetch("/chargers", {
 	})
 	.then((db) => {
 		console.log(db);
-		//chargers = JSON.parse(JSON.stringify(db));
+		chargers = JSON.parse(JSON.stringify(db));
 
 	});
-
-///////////////////TEMP DATA
-chargers = [
-	{
-		id: "A000",
-		name: "MINE",
-		address: "1234 myplace st.",
-		city: "Vancouver",
-		province: "BC",
-		country: "Canada",
-		level: "2",
-		type: "Tesla HPWC",
-		rate: "10.00",
-		details: "no detail"
-	}, {
-		id: "A001",
-		name: "YOURS",
-		address: "1234 yourplace st.",
-		city: "Vancouver",
-		province: "BC",
-		country: "Canada",
-		type: "Tesla HPWC",
-		rate: "4.00",
-		details: "no detail"
-	}
-];
-///////////////////TO BE REMOVE
 
 window.onload = function () {
 	//highlight active tab
@@ -57,7 +30,6 @@ window.onload = function () {
 
 	//clear old content
 	$('#content').children().remove();
-
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -123,17 +95,28 @@ $('#bookings').click(function (event) {
 
 	$('#content').children().remove();
 
-	var header = $("<p class='boxHeader'>Here are all your bookings.</p>");
-	var pendingContainer = $("<div id='pendingContainer'></div>");
-	var pendingHeader = $("<h3>Pending</h3>");
-	var historyContainer = $("<div id='historyContainer'></div>");
-	var historyHeader = $("<h3>History</h3>");
+	createContent("content", "div", "requestContainer", "card-panel col-md-5");
+	createContent("content", "div", "requestContainer", "card-panel col-md-5");
 
-	$('#content').append(header);
-	$('#content').append(pendingContainer);
-	$(pendingContainer).append(pendingHeader);
-	$('#content').append(historyContainer);
-	$(historyContainer).append(historyHeader);
+	createContent("content", "div", "unpaidContainer", "card-panel col-md-5");
+	createContent("content", "div", "paidContainer", "card-panel col-md-5");
+	createButton("content", "history-btn", "BOOKING HISTORY", "orange-button");
+
+	let pendingData = fetchGET('/bookings', jwt);
+	let count = 0;
+	pendingData.forEach((pendingBooking)=> {
+		
+		console.log(pendingBooking);
+		createContent("requestContainer", "div", "pendingCard" + count, "card-panel col-md-5");
+		createContent("pendingCard" + i, "span", "pendingDate" + count, "");
+		("#pendingDate" + count).text(pendingData);
+
+
+		count++;
+
+	}
+	);
+
 })
 
 $('#reviews').click(function (event) {
