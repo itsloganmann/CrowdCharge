@@ -85,3 +85,14 @@ main {
 }
 
 /** Client page */
+
+
+/** Card stuff */
+.green-card {
+    background-color: #1DBF73;
+    color: #FFFFFF;
+}
+.orange-card {
+    background-color: #F05A29;
+    color: #FFFFFF;
+}
