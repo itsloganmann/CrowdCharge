@@ -83,22 +83,34 @@ window.onload = function () {
 };
 
 $('#chargers').click(function (event) {
+	//highlight active tab
 	$('#chargers').css({ 'color': '#f05a29' });
 	$('#bookings').css({ 'color': 'black' });
 	$('#reviews').css({ 'color': 'black' });
 	$('#earnings').css({ 'color': 'black' });
 
+	//clear old content
 	$('#content').children().remove();
-
+	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
 	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-	var yourCharger = $("<button class='chargerButton'>Your Charger</button>");
+
+	//populating all chargers owned from database
+	var yourCharger = [];
+	for (i = 0; i < chargers.length; i++) {
+		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
+			i + "'>" + chargers[i].name + "</br>"
+			+ chargers[i].id + "</br>" + chargers[i].address + "</br>" + "</button>";
+		yourCharger[i] = $(chargerString);
+	}
 
 	$('#content').append(header);
 	$('#content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
-	$('#chargerContainer').append(yourCharger);
+	for (i = 0; i < chargers.length; i++) {
+		$('#chargerContainer').append(yourCharger[i]);
+	}
 	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
 
 });
@@ -219,11 +231,11 @@ function chargerInfo(chargerNumber) {
 			},
 			body: JSON.stringify(dataToSent)
 		})
-		.then(res => console.log(res))
-		.then((response) => {
-			console.log('Success:', (response))
-		})
-		.catch(error => console.error('Error:', error));;
+			.then(res => console.log(res))
+			.then((response) => {
+				console.log('Success:', (response))
+			})
+			.catch(error => console.error('Error:', error));;
 	});
 }
 
