@@ -528,8 +528,8 @@ button:focus {
 }
 
 .error-message {
-  background-color: wheat;
-  position: absolute;
-  padding: 8px 20px;
-  
+  text-align: left;
+  padding: 0px;
+  position: absolute;  
+  color: red;
 }

@@ -176,7 +176,7 @@ $('body').on("click", "#popup-signup-here", () => {
 
 // Login button listener
 $('body').on('click', '#login-popup-button', (event) => {
-
+	$("#login-validation").remove();
 	const useremail = $('#login-email-input').val();
 	const userpassword = $('#login-password-input').val();
 	const url = '/users/login'
@@ -194,9 +194,13 @@ $('body').on('click', '#login-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then((response) => {
-			console.log('Success:', JSON.stringify(response))
-			localStorage.setItem('jwt', response.token)
-			window.location.replace(window.location.href);
+			if (response.error){
+				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
+			} else {
+				console.log('Success:', JSON.stringify(response))
+				localStorage.setItem('jwt', response.token)
+				window.location.replace(window.location.href);
+			}
 		})
 		.catch(error => console.error('Error:', error));
 });
@@ -225,6 +229,8 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
+			console.log(response);
+			if (response.errors) {
 			if (response.errors.email) {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
@@ -239,12 +245,11 @@ $('body').on('click', '#signup-popup-button', (event) => {
 			} 
 			if (response.errors.password) {
 				$("#password-validation").remove();
-				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Minimum at least 7 characters!</div>")
+				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
 				$('#signup-confirm-password-input').addClass('invalid-input-underline');
 				$('#signup-confirm-password-label').addClass('invalid-input-label');
 			} 
-			console.log(response.errors);
-			if (!response.errors) {
+		} else if (!response.errors) {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
