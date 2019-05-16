@@ -53,8 +53,8 @@ function fetchBooking(url, status) {
 	if (status == "pending") {
 		contentString = "<div class= 'col-10 well'>"
 			+ "<div class='right'><p class='cost'>" + data.cost + "</p></div>"
-			+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
-			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
+			+ "<p class='date'>" + data.startTime.split("T")[0] + "</p>"
+			+ "<p class='time'>" + data.startTime.split("T")[1] + "-" + data.endTime.split("T")[1] + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div>";
 	}
