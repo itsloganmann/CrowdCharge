@@ -412,7 +412,11 @@ footer ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-
+@media only screen and (max-width: 427px) {
+  .footercolumns{
+    grid-template-columns: 1fr;
+  }
+}
 #popup-wrapper {
   position: fixed;
   width: 100vw;
