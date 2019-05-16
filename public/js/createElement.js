@@ -30,3 +30,12 @@ var createButton = (targetId, id, text, className) => {
 	$('#' + targetId).append(button);
 	$('#' + id).html(text);
 }
+
+var createContent = (targetId, type, id, className) => {
+	var Content = document.createElement(type);
+	if (className != undefined) {
+		Content.className = className;
+	}
+	Content.id = id;
+	$('#' + targetId).append(Content);
+}

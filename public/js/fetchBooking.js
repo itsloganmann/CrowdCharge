@@ -1,29 +1,3 @@
-function grabDate(time) {
-	let result = "";
-
-	let count = 0;
-	let c = "";
-	while (c != "T") {
-		result += c;
-		c = time[count++];
-	}
-	return result;
-};
-
-function grabTime(time) {
-	let result = "";
-	let c = "";
-	let count = 0;
-	while (c != "T") {
-		c = time[count];
-		count++;
-	}
-	for (i = count; i < time.length; i++) {
-		result += time[i];
-	}
-	return result;
-};
-
 function fetchBooking(url, status) {
 	const jwt = localStorage.getItem('jwt');
 	let data = {};
@@ -43,20 +17,24 @@ function fetchBooking(url, status) {
 		});
 	//////////////////////////////////////temp data
 	data = {
-		startTime: "2019-01-01T00:00:00",
-		endTime: "2019-01-01T23:00:00",
+		startTime: "2019-01-01T00:00:00Z",
+		endTime: "2019-01-01T23:00:00Z",
 		cost: "$15.00",
 		address: "12345 MyHome St.",
-		city: "Vancouver, BC"
+		city: "Vancouver, BC",
+		host: "Louis Lu"
 	}
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
 		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
 			+ "<div class='right'><p class='cost'>" + data.cost + "</p></div>"
-			+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
-			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
+			+ "<p class='date'>" + data.startTime.split("T")[0] + "</p>"
+			+ "<p class='time'>" + data.startTime.split("T")[1] + "-" + data.endTime.split("T")[1] + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div></div>";
+	}
+	else if (status == "complete"){
+
 	}
 	else {
 		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
@@ -67,8 +45,9 @@ function fetchBooking(url, status) {
 		else if (status == "unpaid") {
 			contentString += "<div class='price-card-text-sm'>" + status + "</div></div>";
 		}
-		contentString += "<div class='card-text-lg'>" + grabDate(data.startTime) + "</div>"
-			+ "<div class='card-text-md'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</div>"
+		console.log(data.startTime);
+		contentString += "<div class='card-text-lg'>" + data.startTime.split("T")[0] + "</div>"
+			+ "<div class='card-text-md'>" + data.startTime.split("T")[1] + "-" + data.endTime.split("T")[1] + "</div>"
 			+ "<div class='card-text-sm'>" + data.address + "</div>"
 			+ "<div class='card-text-sm'>" + data.city + "</div>"
 			+ "</div></div>";

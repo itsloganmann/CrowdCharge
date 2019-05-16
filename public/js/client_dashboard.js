@@ -6,7 +6,8 @@ $("#bookings-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "#F05A29" });
 	$("#payment-tab").css({ "color": "black" });
 	$("#reviews-tab").css({ "color": "black" });
-	$("#tab-content").html("");
+	$("#history-tab").css({ "color": "black" });
+	$("#tab-content").children().remove();
 
 	/*
 	CONFIRMED BOOKING
@@ -62,9 +63,8 @@ $("#payment-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "black" });
 	$("#payment-tab").css({ "color": "#F05A29" });
 	$("#reviews-tab").css({ "color": "black" });
-
-	$("#tab-content").html("");
-
+	$("#history-tab").css({ "color": "black" });
+	$("#tab-content").children().remove();
 
 	//container hold all payment details for user
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
@@ -95,8 +95,9 @@ $("#reviews-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "black" });
 	$("#payment-tab").css({ "color": "black" });
 	$("#reviews-tab").css({ "color": "#F05A29" });
+	$("#history-tab").css({ "color": "black" });
 
-	$("#tab-content").html("");
+	$("#tab-content").children().remove();
 
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
@@ -130,3 +131,16 @@ $("#reviews-tab").click(function (event) {
 	$("#tab-content").append(reviewContainer);
 
 });
+
+$("#history-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "black" });
+	$("#history-tab").css({ "color": "#F05A29" });
+
+	$("#tab-content").children().remove();
+
+	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
+
+	$("#tab-content").append(historyContainer);
+})

@@ -7,10 +7,10 @@
 #summary-text {
     font-size: 0.9em;
     color: #383838;
-    width: 90%;
+    width: 70%;
     text-align: center;
     margin: 0 auto;
-    padding-top: 2vh;
+    padding-top: 5vh;
     padding-bottom: 3vh;
 }
 
@@ -19,6 +19,7 @@
     padding-bottom: 2vh;
     border-top: 2px solid #32CD32;
     border-bottom: 2px solid #32CD32;
+    line-height: 2em;
 }
 
 #adoption {
@@ -26,7 +27,7 @@
 }
 
 .homebox {
-    height: 42vh;
+    /* height: 42vh; */
     width: 75%;
     margin-left: auto;
     margin-right: auto;
@@ -42,6 +43,7 @@
 .homeicons {
     height: 15vh;
     width: 15vw;
+    margin-top: 3vh;
 }
 
 .boxheading {
@@ -61,7 +63,6 @@
     border-bottom: 2px solid #32CD32;
     margin: 0 auto;
 }
-
 .boxparagraph {
     font-size: 0.8em;
     text-align: center;
@@ -70,10 +71,11 @@
     padding-top: 2vh;
     line-height: 3vh;
     padding-bottom: 3vh;
+    line-height: 1.5em;
 }
 
 .wrapper3 {
-    width: 95%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -103,3 +105,26 @@
 	text-shadow: 2px 2px black;
 	display:none;
 }
+
+@media only screen and (max-width: 426px) {
+    .onecolumn{
+        display:grid;
+        grid-template-columns: 1fr;
+    }
+    .wrapper3{
+        width: 90%;
+    }
+    #summary-text{
+        width:90%;
+    }
+    .homebox{
+        width:100%;
+    }
+}
+@media only screen and (min-width: 426px) {
+    .threecolumns{
+        display:grid;
+        grid-template-columns:1fr 1fr 1fr;
+    }
+    
+} 
