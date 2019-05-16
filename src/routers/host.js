@@ -54,8 +54,34 @@ router.get('/paidChargerBookings', async(req,res)=>{
 //Gets charger's completed bookings
 // cUID -> [booking]
 router.get('/completedChargerBookings', async(req,res)=>{
-    res.send(await getChargerBookings(null,"COMPLETED"));
+    res.send(await getChargerBookings(req.query.cUID,"COMPLETED"));
 })
+
+router.get('/chargerReviews', async(req,res)=>{
+   res.send(await getChargerReviews(req.query.cUID));
+})
+
+router.get('/allChargerReviews', async(req,res)=>{
+    try{
+        const chargers = await Charger.find({owner: req.user});
+        var promises = chargers.map(async(charger)=>{return await getChargerReviews(charger._id,state)});
+        const results = await Promise.all(promises)
+        var merged = [].concat.apply([], results);
+        return(merged);
+    }catch(error){
+        console.log(error)
+    }
+})
+
+let getChargerReviews = async function(cUID){
+    try{
+        const reviews = await reviews.find({reviewee:cUID});
+        return reviews;
+    }catch(error){
+        console.log(error)
+        res.send("Error, could not get reviews")
+    }
+}
 
 //Gets owners(uUID)'s charger's bookings of state as an array
 let getHostBookings = async function(uUID, state){
