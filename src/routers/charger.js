@@ -18,52 +18,32 @@ router.post('/charger/new', auth, async (req, res) => {
     }
 })
 
-// Gets a charger by id
-router.get('/chargers/:id', auth, async (req, res) => {
-    const _id = req.params.id
-
-    try {
-        const charger = await Charger.findById(_id)
-
-        // If it doesn't find any matching booking id's, then send back 404
-        if (!charger) {
-            return res.status(404).send()
-        }
-
-        // Send back the matching booking if found
-        res.send(charger)
-    } catch (error) {
-        res.status(500).send()
-    }
-})
-
-// Updates a charger
-router.patch('/chargers/:id', auth, async (req, res) => {
+// Updates a charger's own profile
+router.patch('/chargers', async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['rate', 'type', 'details']
-    const isValidOperation = updates.every((update) => {
-        return allowedUpdates.includes(update)
-    })
+    const allowedUpdates = ['name', 'address', 'city', 'type','rate' , 'details']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    // Checks if the update is valid operation
 
     if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid updates!' })
     }
 
     try {
-        // req.body lets us access the data from front-end. new: true lets us get the updated user back.
-        const charger = await Charger.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
 
-        // If no booking is found.
-        if (!charger) {
-            return res.status(404).send()
-        }
+        // Small adjustment required to use middleware. Updates charger data.
+        updates.forEach((update) => {
+            req.charger[update] = req.body[update]
+        })
 
-        // Sends back the found booking data back after updating it
-        res.send(booking)
+        await req.charger.save()
 
-    } catch (error) {
-        res.status(400).send(error)
+        // Sends back the found charger data back after updating it
+        res.send(req.charger)
+    }catch(error){
+        console.log(error)
     }
 })
 
@@ -78,7 +58,8 @@ router.delete('/chargers/:id', auth, async (req, res) => {
 
         res.send(charger)
     } catch (error) {
-        res.status(500).send()
+        console.log('error!')
+        res.status(400).send(error)
     }
 })
 

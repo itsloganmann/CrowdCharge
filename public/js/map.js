@@ -36,8 +36,8 @@ function checkSelected() {
 
 
 // Removes popup for booking
-$(document).on("click", "#popup-wrapper, #popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+$(document).on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();
     }
 });
@@ -76,7 +76,7 @@ var setPopupBookingPageOne = () => {
 	createPopupHeader("h3", "Book a Time", "booking-header");
 	createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
 	$("#datepicker").datepicker();
-	createPopupContent("popup", "div", "popup-time-slots", "popup-input-wrapper");
+	createPopupContent("popup", "div", "popup-time-slots", "full-center-wrapper");
 	createPopupConfirmButton("popup-confirm", "Request Booking");
 	createPopupCancelButton("popup-cancel", "Cancel");
 }
