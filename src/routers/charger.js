@@ -1,7 +1,6 @@
 // Imports
 const express = require('express')
 const Charger = require('../models/charger')
-const auth = require('../middleware/auth')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 

@@ -74,34 +74,11 @@ router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
-<<<<<<< HEAD
-// GET request endpoint for fetching individual user by ID. Dynamic route handler.
-router.get('/users/:id', auth, async (req, res) => {
-    const _id = req.params.id
-    
-    try {
-        // Mongoose automatically converts mongodb string id into object id's
-        const user = await User.findById(_id) 
-
-        if (!user) {
-            return res.status(404).send()
-        }
-        // If found, send back the user
-        res.send(user)
-    } catch (error) {
-        res.status(500).send()
-    }
-})
-
-// Updates a user
-router.patch('/users/:id', auth, async (req, res) => {
-=======
 // Updates a user's own profile
 router.patch('/users/me', auth, async (req, res) => {
->>>>>>> 139240480139570cb75db3bbbf6b2b50df7fc060
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password']
+    const allowedUpdates = ['name', 'email', 'password','phone']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     // Checks if the update is valid operation
@@ -126,13 +103,8 @@ router.patch('/users/me', auth, async (req, res) => {
     }
 })
 
-<<<<<<< HEAD
-// Route handler for deleting resources
-router.delete('/users/:id', auth, async (req, res) => {
-=======
 // Route handler for deleting own profile
 router.delete('/users/me', auth, async (req, res) => {
->>>>>>> 139240480139570cb75db3bbbf6b2b50df7fc060
     try {
         await req.user.remove()
         res.send(req.user)
@@ -141,18 +113,5 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 })
 
-<<<<<<< HEAD
-// Route handler for users login using email and password, generate an auth token
-router.post('/users/login', auth, async (req, res) => {
-    try {
-        const user = await User.findByCredentials(req.body.email, req.body.password)
-        const token = await user.generateAuthToken()
-        res.send({ user, token })
-    } catch (e) {
-        res.status(400).send()
-    }
-})
 
-=======
->>>>>>> 139240480139570cb75db3bbbf6b2b50df7fc060
 module.exports = router

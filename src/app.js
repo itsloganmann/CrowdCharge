@@ -6,8 +6,9 @@ const bookingRouter = require('./routers/booking')
 const chargerRouter = require('./routers/charger')
 const pagesRouter = require('./routers/pages')
 const clientRouter = require('./routers/client')
+const markerRouter = require('./routers/marker')
 const hbs = require('hbs')
-require('./db/mongoose')
+require('./db/mongooseInit')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -35,12 +36,15 @@ app.use(express.json())
 const port = process.env.PORT || 3000
 
 // Registers routers, allowing us to refactor routes into separate files
+app.use('/client',clientRouter);
 app.use(userRouter)
 app.use(bookingRouter)
 app.use(chargerRouter)
-app.use(pagesRouter)
-app.use('client', clientRouter);
+app.use(markerRouter);
 
+
+//LEAVE THIS AT THE END
+app.use(pagesRouter)
 // Starts up the web server.
 app.listen(port, () => {
     console.log('Server is up on port ' + port)

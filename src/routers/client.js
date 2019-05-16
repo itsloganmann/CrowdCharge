@@ -19,8 +19,8 @@ router.get('/pendingBookings', async(req, res)=>{
                 element.startTime = booking.timeStart;
                 element.endTime = booking.timeEnd;
                 element.cost = (charger.rate*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
-                element.address = charger.location;
-                //element.city = 
+                element.address = charger.address;
+                element.city = charger.city;
                 // responseBookings.push(element);
                 // console.log(element); 
                 return element;
@@ -29,6 +29,7 @@ router.get('/pendingBookings', async(req, res)=>{
             }
         });
         const results = await Promise.all(promises)
+        console.log(results)
         res.send(results);
     }catch(error){
         console.log(error);
@@ -122,7 +123,7 @@ router.get('/paidBookings', async(req, res)=>{
 
 //Get client's bookings
 // uUID -> [bookings]
-router.get('/client/Reviews', auth, async(req, res)=>{
+router.get('/Reviews', auth, async(req, res)=>{
     try {
         const reviews = await Review.find( {user:req.uUID} )
         res.send(reviews)
