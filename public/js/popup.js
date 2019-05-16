@@ -11,6 +11,9 @@ if (token) {
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
+	// Temperarily disables scrolling when popup is created.
+	$('body').addClass('stop-scrolling')
+	$('body').bind('touchmove', function(e){e.preventDefault()})
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
@@ -122,7 +125,10 @@ var createErrorMessage = (targetId, message, className) => {
 // Removes popup for booking
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
+		$('body').removeClass('stop-scrolling')
+		// Handles the reenabling of scrolling
 		$("#popup-wrapper").remove();
+		$('body').unbind('touchmove')
 	}
 });
 
