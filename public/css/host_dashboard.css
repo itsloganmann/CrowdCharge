@@ -16,6 +16,9 @@
     font-weight:bold;
     font-size:1.0em;
 }
+#content{
+    padding: 20px 3%;
+}
 #outerBox{
     background:#F3F3F3;
     margin:0 auto;

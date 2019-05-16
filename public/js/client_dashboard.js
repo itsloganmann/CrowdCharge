@@ -1,37 +1,60 @@
 console.log("js file loaded successfullly");
-//booking tab click; build elements for booking details
-$("#bookings").click(function(event) {
-	$("#bookings").css({"color" : "#F05A29"});
-	$("#payment").css({"color" : "black"});
-	$("#reviews").css({"color" : "black"});
 
-	$("#subContent").html("");
+const jwt = JSON.parse(localStorage.getItem('jwt'));
 
-	//container hold all confirmed bookings for user
-	var confirmContainer = $("<div class='col-12'></div>");
-	var bookingHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='bookingHeading1'><b>Confirmed Bookings</b></h3>");
-	var bookingSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading1'> "
-		+ "These bookings have been confirmed by the host and are ready to go!</h6>");
-	// var confirmedBookingData = $("<div class='col-10 well' id='confirmedBookingData'>"
-	// 	+ "Some info from firebase</div>");
+//tab's eventListener
+$("#bookings-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "#F05A29" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "black" });
+	$("#tab-content").html("");
 
-	//container hold all pending bookings for user
-	var pendingContainer =$("<div class='col-12'></div>");
-	var bookingHeading2 = $("<h3 class='col-10  content-margin h1-font-size' id= 'bookingHeading2'><b>Pending Bookings</b></h3>");
-	var bookingSubHeading2 = $("<h6 class='col-10 content-margin h2-font-size' id='bookingSubHeading2'>"
-		+"These bookings have not been confirmed by the host yet, we’ll notify you when they do!</h6>");
-	var pendingBookingData = $("<div class='col-10 well' id='pendingBookingData'>Some info from firebase</div>");
+	/*
+	CONFIRMED BOOKING
+	*/
+	var confirmContainer = createContentContainer("bookingHeading1", "Confirmed Bookings", "bookingSubHeading1",
+		"These bookings have been confirmed by the host and are ready to go!");
+
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+	const confirmedBookingReq = {
+		user_id: "",
+		booking_type: "paid"
+	}
+	const confirmedBookingURL = "/bookings?" + $.param(confirmedBookingReq);
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+
+	//const confirmedBookingURL = "/client/paidBookings";
+	let cBData = fetchBooking(confirmedBookingURL, "paid");
+	var confirmedBookingData = $(cBData);
+
+	/*
+	PENDING BOOKING
+	*/
+	var pendingContainer = createContentContainer("bookingHeading2", "Pending Bookings", "bookingSubHeading2"
+		, "These bookings have not been confirmed by the host yet, we’ll notify you when they do!")
+
+
+
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+	//URL param
+	const pendingBookingReq = {
+		user_id: "",
+		booking_type: "pending"
+	}
+	const pendingBookingURL = "/bookings?" + $.param(pendingBookingReq);
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+
+
+	//const pendingBookingURL = "/client/pendingBookings"
+	var pbData = fetchBooking(pendingBookingURL, "pending");
+	var pendingBookingData = $(pbData);
 
 	//appending
-	confirmContainer.append(bookingHeading1);
-	confirmContainer.append(bookingSubHeading1);
 	confirmContainer.append(confirmedBookingData);
-	pendingContainer.append(bookingHeading2);
-	pendingContainer.append(bookingSubHeading2);
 	pendingContainer.append(pendingBookingData);
 
-	$("#subContent").append(confirmContainer);
-	$("#subContent").append(pendingContainer);
+	$("#tab-content").append(confirmContainer);
+	$("#tab-content").append(pendingContainer);
 
 	var request = new Request('/client/bookings', {
 		method: 'POST',
@@ -55,50 +78,77 @@ $("#bookings").click(function(event) {
     });
 
 });
+
 //payment tab click; build elements for payment details
-$("#payment").click(function(event) {
-	$("#bookings").css({"color" : "black"});
-	$("#payment").css({"color" : "#F05A29"});
-	$("#reviews").css({"color" : "black"});	
-	
-	$("#subContent").html("");
+$("#payment-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "#F05A29" });
+	$("#reviews-tab").css({ "color": "black" });
+
+	$("#tab-content").html("");
+
 
 	//container hold all payment details for user
-	var paymentContainer = $("<div class='col-12'></div>");
-	var paymentHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='paymentHeading1'><b>Payment</b></h3>");
-	var paymentSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='paymentSubHeading1'>" +
-		"These bookings are unpaid for. Pay before the booking date!</h6>");
-	var paymentData = $("<div class='col-10 well' id='paymentData'>Some info from firebase</div>");
+	var paymentContainer = createContentContainer("paymentHeading1", "Payment", "paymentSubHeading1"
+		, "These bookings are unpaid for. Pay before the booking date!");
+
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+	//fetch request
+	const unpaidBookingReq = {
+		user_id: "",
+		booking_type: "unpaid"
+	}
+	const unpaidBookingURL = "/bookings?" + $.param(unpaidBookingReq);
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+
+	//const unpaidBookingURL = "/client/pendingBookings"
+	const ubData = fetchBooking(unpaidBookingURL, "unpaid");
+	var paymentData = $(ubData);
 
 	//appending
-	paymentContainer.append(paymentHeading1);
-	paymentContainer.append(paymentSubHeading1);
 	paymentContainer.append(paymentData);
 
-	$("#subContent").append(paymentContainer);
+	$("#tab-content").append(paymentContainer);
 
 });
 
 //reviews tab click; build elements for reviews details
-$("#reviews").click(function(event) {
-	$("#bookings").css({"color" : "black"});
-	$("#payment").css({"color" : "black"});
-	$("#reviews").css({"color" : "#F05A29"});	
+$("#reviews-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "#F05A29" });
 
-	$("#subContent").html("");
+	$("#tab-content").html("");
 
 	//container hold all review details for user
-	var reviewContainer = $("<div class='col-12'></div>");
-	var reviewHeading1 = $("<h3 class='col-10 content-margin h1-font-size' id='reviewHeading1'><b>Reviews for You</b></h3>");
-	var reviewSubHeading1 = $("<h6 class='col-10 content-margin h2-font-size' id='reviewSubHeading1'>" +
-		"These are the comments of hosts that you’ve charged with.</h6>");
-	var reviewsData = $("<div class='col-10 well' id='reviewsData'>Some info from firebase</div>");
-	
+	var reviewContainer = createContentContainer("reviewHeading1", "Reviews for You", "reviewSubHeading1"
+		, "These are the comments of hosts that you’ve charged with.");
+	//fetch request
+	var reviewsData;
+	fetch("/client/reviews", {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	})
+		.then((res) => {
+			return res.json()
+		})
+		.then((db) => {
+			let data = JSON.parse(JSON.stringify(db));
+			reviewsData = $("<div class='col-10 well' id='reviewsData'>"
+				+ "<p id='rv-reviewer'>" + data.user + "</p>"
+				+ "<p id='rv-rating'>" + data.rating + "</p>"
+				+ "<p id='rv-comment'>" + data.comment + "</p>"
+				+ "</div>");
+		})
+		.catch(error => console.error('Error:', error));
+
+
 	//appending
-	reviewContainer.append(reviewHeading1);
-	reviewContainer.append(reviewSubHeading1);
 	reviewContainer.append(reviewsData);
 
-	$("#subContent").append(reviewContainer);
+	$("#tab-content").append(reviewContainer);
 
 });

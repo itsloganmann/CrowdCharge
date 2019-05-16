@@ -7,6 +7,10 @@ const auth = require('../middleware/auth')
 // GET request endpoint for fetching all bookings
 router.get('/bookings', auth, async (req, res) => {
     try {
+        const user_id = req.query.user_id;
+        const booking_type = req.query.booking_type;
+        console.log(user_id + booking_type);
+
         const bookings = await Booking.find( {} )
         res.send(bookings)
     } catch (error) {

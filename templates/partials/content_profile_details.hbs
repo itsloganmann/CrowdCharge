@@ -6,21 +6,24 @@
     </div>
     <div class="margin-setting content" id="subContent">
         <div id="user-img">
-            <img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon" /> <br>
+            <img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon" />
+            <br>
             <button id="img-btn">Upload</button>
         </div>
 
         <div class="col-12 inner-margin-setting" id="form">
             <div id="input-field">
-                <label class="">Name</label>
-                <input type="text" id="name" readonly class="input-style input-disable">
-                <label class="">Contact number</label>
-                <input type="text" id="phone" readonly class="input-style input-disable">
-                <label class="">Email</label>
-                <input type="eamil" id="email" readonly class="input-style input-disable">
-                <br>
-                <button id= "edit-btn">Edit</button>
-                <button type= "submit" id= "save-btn">Save</button>
+                <form>
+                    <label class="">Name</label>
+                    <input type="text" id="name" readonly class="input-style input-disable">
+                    <label class="">Contact number</label>
+                    <input type="text" id="phone" readonly class="input-style input-disable">
+                    <label class="">Email</label>
+                    <input type="eamil" id="email" readonly class="input-style input-disable">
+                    <br>
+                    <input type="submit" id="save-btn" value="save">
+                </form>
+                <button id="edit-btn">Edit</button>
             </div>
             <div id="checkbox-field">
                 <h2>Notification Setting</h2>
@@ -30,4 +33,3 @@
         </div>
     </div>
 </div>
-	<script src="../../js/user_setting.js"></script>
