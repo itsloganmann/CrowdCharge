@@ -32,7 +32,7 @@ chargers = [
 		country: "Canada",
 		level: "2",
 		type: "Tesla HPWC",
-		hourly_rate: "10.00",
+		rate: "10.00",
 		details: "no detail"
 	}, {
 		id: "A001",
@@ -42,7 +42,7 @@ chargers = [
 		province: "BC",
 		country: "Canada",
 		type: "Tesla HPWC",
-		hourly_rate: "4.00",
+		rate: "4.00",
 		details: "no detail"
 	}
 ];
@@ -56,7 +56,7 @@ window.onload = function () {
 	$('#earnings').css({ 'color': 'black' });
 
 	//clear old content
-	$('#content').html('');
+	$('#content').children().remove();
 
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
@@ -88,7 +88,7 @@ $('#chargers').click(function (event) {
 	$('#reviews').css({ 'color': 'black' });
 	$('#earnings').css({ 'color': 'black' });
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -109,7 +109,7 @@ $('#bookings').click(function (event) {
 	$('#reviews').css({ 'color': 'black' });
 	$('#earnings').css({ 'color': 'black' });
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here are all your bookings.</p>");
 	var pendingContainer = $("<div id='pendingContainer'></div>");
@@ -130,7 +130,7 @@ $('#reviews').click(function (event) {
 	$('#reviews').css({ 'color': '#f05a29' });
 	$('#earnings').css({ 'color': 'black' });
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here are all your reviews.</p>");
 	var reviewsContainer = $("<div id='reviewsContainer'></div>");
@@ -145,7 +145,7 @@ $('#earnings').click(function (event) {
 	$('#reviews').css({ 'color': 'black' });
 	$('#earnings').css({ 'color': '#f05a29' });
 
-	$('#content').html('');
+	$('#content').children().remove();
 
 	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
 	var earningsContainer = $("<div id='earningsContainer'></div>");
@@ -155,35 +155,75 @@ $('#earnings').click(function (event) {
 })
 
 function chargerInfo(chargerNumber) {
-	console.log("clicked!");
-	$('#content').html('');
-	createInput("content", "text", true, "name", "charger-name", "chargerInput", chargers[chargerNumber].name);
-	createInput("content", "text", true,"address", "charger-address", "chargerInput", chargers[chargerNumber].address);
-	createInput("content", "text", true,"city", "charger-city", "chargerInput", chargers[chargerNumber].city);
-	createInput("content", "text", true,"province", "charger-province", "chargerInput", chargers[chargerNumber].province);
-	createInput("content", "text", true,"type", "charger-type", "chargerInput", chargers[chargerNumber].type);
-	createInput("content", "text", true,"level", "charger-type", "chargerInput", chargers[chargerNumber].type);
+	//rebuild content div
+	$('#content').children().remove();
+	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].name);
+	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
+	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
+	createLabel("content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
+	createInput("content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
+	createLabel("content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
+	createInput("content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
+	createLabel("content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
+	createInput("content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
+	createLabel("content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
+	createInput("content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
+	createLabel("content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
+	createInput("content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
+	createLabel("content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
+	createInput("content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
+	createButton("content", "edit-btn", "Edit", "white-button");
+	createButton("content", "save-btn", "Save", "orange-button");
+	$("#save-btn").css({ "display": "none" });
 
-	//var nameString = "<h1>"+chargers[chargerNumber].name+"</h1></br>";
-	//var locationString = "<h3>" + chargers[chargerNumber].address + ", "
-	//	+ chargers[chargerNumber].city + " " + chargers[chargerNumber].province + "</h3></br>";
-	var typeString = "<span>charger type: " + chargers[chargerNumber].type + "</span></br>";
-	var levelString = "<span>charger level: " + chargers[chargerNumber].level + "</span></br>";
-	var priceString = "<span>price: $" + chargers[chargerNumber].hourly_rate + "/hour</span></br>";
-	var detailString = "<span>additional detail: " + chargers[chargerNumber].details + "</span></br>";
-	var chargerName = $(nameString);
-	var chargerLocation = $(locationString);
-	var chargerType = $(typeString);
-	var chargerLevel = $(levelString);
-	var chargerPrice = $(priceString);
-	var chargerDetail = $(detailString);
-	var chargerInfoContainer = $("<div></div>");
+	//event listener
+	$('#edit-btn').click(function (event) {
+		console.log("clicked");
+		$('#edit-btn').css({ "display": "none" });
+		$('#save-btn').css({ "display": "block" });;
+		$('.readonly-input').removeAttr("readonly");
+		$('.readonly-input').removeClass("readonly-input");
+	});
 
-	chargerInfoContainer.append(chargerName);
-	chargerInfoContainer.append(chargerLocation);
-	chargerInfoContainer.append(chargerType);
-	chargerInfoContainer.append(chargerLevel);
-	chargerInfoContainer.append(chargerPrice);
-	chargerInfoContainer.append(chargerDetail);
-	$('#content').append(chargerInfoContainer);
+	$('#save-btn').click(function (event) {
+		$('#save-btn').css({ "display": "none" });
+		$('#edit-btn').css({ "display": "block" });;
+		$('.form-input').attr("readonly", true);
+		$('.form-input').addClass("readonly-input");
+		var cname = $("#charger-name").val();
+		var caddress = $("#charger-address").val();
+		var ccity = $("#charger-city").val();
+		var cprovince = $("#charger-province").val();
+		var ctype = $("#charger-type").val();
+		var clevel = $("#charger-level").val();
+		var crate = $("#charger-rate").val();
+		var cdetails = $("#charger-details").val();
+		let dataToSent = {
+			name: cname,
+			address: caddress,
+			city: ccity,
+			type: ctype,
+			rate: crate,
+			details: cdetails
+		}
+		const paramForServer = {
+			cuid: chargers[chargerNumber].id
+		}
+		chargerUpdateURL = "/chargers?" + $.param(paramForServer);
+		fetch(chargerUpdateURL, {
+			method: 'PATCH',
+			headers: {
+				'content-type': 'application/json',
+				'Authorization': 'Bearer ' + jwt
+			},
+			body: JSON.stringify(dataToSent)
+		})
+		.then(res => console.log(res))
+		.then((response) => {
+			console.log('Success:', (response))
+		})
+		.catch(error => console.error('Error:', error));;
+	});
 }
+
