@@ -7,6 +7,8 @@ const Charger = require('../models/charger.js')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
+
+
 //Get client's pending bookings
 router.get('/pendingBookings', async(req, res)=>{
     try{
@@ -30,7 +32,8 @@ router.get('/pendingBookings', async(req, res)=>{
         });
         const results = await Promise.all(promises)
         console.log(results)
-        res.send(results);
+        //res.send(results);
+        return results;
     }catch(error){
         console.log(error);
         res.status(500).send();
@@ -125,7 +128,7 @@ router.get('/paidBookings', async(req, res)=>{
 // uUID -> [bookings]
 router.get('/Reviews', auth, async(req, res)=>{
     try {
-        const reviews = await Review.find( {user:req.uUID} )
+        const reviews = await Review.find( {user:req.uUID} );
         res.send(reviews)
     } catch (error) {
         // Sets up internal server error code. Database went wrong.

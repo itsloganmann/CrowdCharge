@@ -7,6 +7,7 @@ const chargerRouter = require('./routers/charger')
 const pagesRouter = require('./routers/pages')
 const clientRouter = require('./routers/client')
 const markerRouter = require('./routers/marker')
+const hostRouter = require('./routers/host')
 const hbs = require('hbs')
 require('./db/mongooseInit')
 
@@ -37,10 +38,12 @@ const port = process.env.PORT || 3000
 
 // Registers routers, allowing us to refactor routes into separate files
 app.use('/client',clientRouter);
+app.use('/host',hostRouter)
 app.use(userRouter)
 app.use(bookingRouter)
 app.use(chargerRouter)
 app.use(markerRouter);
+
 
 
 //LEAVE THIS AT THE END

@@ -4,19 +4,8 @@ const Charger = require('../models/charger')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
-// GET request endpoint for fetching all chargers
-router.get('/chargers', auth, async (req, res) => {
-    try {
-        const chargers = await Charger.find( {} )
-        res.send(chargers)
-    } catch (error) {
-        //Send back error code
-        res.status(500).send()
-    }
-})
-
-// REST API for creating resources. Sets up routing for POST requests to retrieve charger json object from client
-router.post('/chargers', auth, async (req, res) => {
+// Creates a new charger
+router.post('/charger/new', auth, async (req, res) => {
     const charger = new Charger(req.body)
     charger.owner = req.user
     
@@ -29,7 +18,7 @@ router.post('/chargers', auth, async (req, res) => {
     }
 })
 
-// GET request endpoint for fetching charger by id
+// Gets a charger by id
 router.get('/chargers/:id', auth, async (req, res) => {
     const _id = req.params.id
 
@@ -78,7 +67,7 @@ router.patch('/chargers/:id', auth, async (req, res) => {
     }
 })
 
-// Route handler for deleting chargers
+// Deletes a charger
 router.delete('/chargers/:id', auth, async (req, res) => {
     try {
         const charger = await Charger.findByIdAndDelete(req.params.id)
@@ -93,4 +82,17 @@ router.delete('/chargers/:id', auth, async (req, res) => {
     }
 })
 
+// Sets a unavailable block for a charger
+router.post('/charger/setUnavailable/:id', auth, async (req, res) => {
+    const charger = new Charger(req.body)
+    charger.owner = req.user
+    
+    try {
+        console.log(req.body)
+        await charger.save()
+        res.status(201).send(charger)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 module.exports = router

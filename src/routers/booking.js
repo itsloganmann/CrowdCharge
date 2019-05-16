@@ -1,48 +1,71 @@
 // Imports
 const express = require('express')
 const Booking = require('../models/booking')
+const Charger = require('../models/charger')
+const Notification = require('../models/notification')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
-// GET request endpoint for fetching all bookings
-router.get('/bookings', auth, async (req, res) => {
-    try {
-        const bookings = await Booking.find( {} )
-        res.send(bookings)
-    } catch (error) {
-        // Sets up internal server error code. Database went wrong.
-        res.status(500).send()
-    }
-})
 
-// GET request endpoint for fetching booking by id
-router.get('/bookings/:id', auth, async (req, res) => {
-    const _id = req.params.id
-
-    try {
-        const booking = await Booking.findById(_id)
-
-        // If it doesn't find any matching booking id's, then send back 404
-        if (!booking) {
-            return res.status(404).send()
-        }
-
-        // Send back the matching booking if found
-        res.send(booking)
-    } catch (error) {
-        res.status(500).send()
-    }
-})
-
-// REST API for creating resources. Sets up routing for POST requests to retrieve booking json object from client
-router.post('/bookings', auth, async (req, res) => {
+// Creates a new booking from booking information
+router.post('/newBooking', auth, async (req, res) => {
     const booking = new Booking(req.body)
-
     try {
+        let charger = await Charger.findById(booking.charger);
+        booking.cost = (charger.cost*(booking.timeEnd-booking.timeStart)*2.777e-7).toFixed(2);
         await booking.save()
+
+        let notification = new Notification({
+            booking : booking,
+            user : charger.owner,
+            type : 'NEWREQ',
+            read : false
+        })
+        await notification.save()
+        res.send("successfully requested booking");
+
         res.status(201).send(booking)
     } catch (error) {
         res.status(400).send(error)
+    }
+})
+//Accepts a booking
+router.post('/acceptBooking', auth, async (req,res) =>{
+    try{
+        const booking = await Booking.findByIdAndUpdate(req.bUID,{state: "UNPAID"});
+        let notification = new Notification({
+            booking : booking,
+            user : booking.client,
+            type : 'ACCEPTED',
+            read : false
+        })
+        await notification.save()
+        res.send("successfully accepted booking");
+    }catch(error){
+        console.log(error)
+        res.status(400).send(error)
+    }
+})
+//Declines a booking
+router.delete('/declineBooking', async (req,res) =>{
+    try {
+        const booking = await Booking.findByIdAndRemove(req.bUID);
+        if (!booking) {
+            console.log("Booking not found, could not delete.")
+            return res.status(404).send()
+        }else{
+            let notification = new Notification({
+                booking : booking,
+                user : booking.client,
+                type : 'DECLINED',
+                read : false
+            })
+            await notification.save()
+            res.send("successfully declined booking");
+        }
+        res.send(booking)
+    } catch (error) {
+        res.status(500).send()
     }
 })
 
@@ -76,19 +99,5 @@ router.patch('/bookings/:id', auth, async (req, res) => {
     }
 })
 
-// Route handler for deleting bookings
-router.delete('/bookings/:id', auth, async (req, res) => {
-    try {
-        const booking = await Booking.findByIdAndDelete(req.params.id)
-
-        if (!booking) {
-            return res.status(404).send()
-        }
-
-        res.send(booking)
-    } catch (error) {
-        res.status(500).send()
-    }
-})
 
 module.exports = router
