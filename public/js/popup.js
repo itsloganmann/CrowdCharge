@@ -301,7 +301,7 @@ $('body').on('input', '#signup-name-input, #signup-email-input, #signup-password
 });
 
 // Enables log in button if all fields are filled
-$('body').on('keyup', '#login-email-input, #login-password-input', (event) => {
+$('body').on('input', '#login-email-input, #login-password-input', (event) => {
 	var formFilled = false;
 	if ($('#login-email-input').val() && $('#login-password-input').val()) {
 		formFilled = true;

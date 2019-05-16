@@ -533,3 +533,10 @@ button:focus {
   position: absolute;  
   color: red;
 }
+.readonly-input{
+  background-color: inherit;
+  border-bottom: 0;
+}
+.readonly-label{
+  font-weight: bold;
+}
