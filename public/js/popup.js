@@ -1,8 +1,19 @@
-var months = ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"];
+var token = localStorage.getItem('jwt');
+if (token) {
+	console.log("logged in");
+	$("#login-button").remove();
+} else {
+	console.log("not logged in");
+	$("#bell-wrapper").remove();
+	$("#user-menu-button").remove();
+
+}
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
+	// Temperarily disables scrolling when popup is created.
+	$('body').addClass('stop-scrolling')
+	$('body').bind('touchmove', function(e){e.preventDefault()})
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
@@ -62,6 +73,9 @@ var createFormButton = (id, text) => {
 }
 */
 
+var months = ["January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"];
+
 var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
@@ -111,7 +125,10 @@ var createErrorMessage = (targetId, message, className) => {
 // Removes popup for booking
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
+		$('body').removeClass('stop-scrolling')
+		// Handles the reenabling of scrolling
 		$("#popup-wrapper").remove();
+		$('body').unbind('touchmove')
 	}
 });
 
@@ -266,6 +283,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
+	event.preventDefault();
 	const url = '/users/logout'
 	const jwt = localStorage.getItem('jwt')
 

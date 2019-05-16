@@ -1,6 +1,6 @@
 console.log("js file loaded successfullly");
 //fetch to get all chargers' id that belong to the host
-const jwt = JSON.parse(localStorage.getItem('jwt'));
+const jwt = localStorage.getItem('jwt');
 let chargers = [];
 
 
@@ -17,36 +17,9 @@ fetch("/chargers", {
 	})
 	.then((db) => {
 		console.log(db);
-		//chargers = JSON.parse(JSON.stringify(db));
+		chargers = JSON.parse(JSON.stringify(db));
 
 	});
-
-///////////////////TEMP DATA
-chargers = [
-	{
-		id: "A000",
-		name: "MINE",
-		address: "1234 myplace st.",
-		city: "Vancouver",
-		province: "BC",
-		country: "Canada",
-		level: "2",
-		type: "Tesla HPWC",
-		rate: "10.00",
-		details: "no detail"
-	}, {
-		id: "A001",
-		name: "YOURS",
-		address: "1234 yourplace st.",
-		city: "Vancouver",
-		province: "BC",
-		country: "Canada",
-		type: "Tesla HPWC",
-		rate: "4.00",
-		details: "no detail"
-	}
-];
-///////////////////TO BE REMOVE
 
 window.onload = function () {
 	//highlight active tab
@@ -57,7 +30,6 @@ window.onload = function () {
 
 	//clear old content
 	$('#content').children().remove();
-
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -83,22 +55,34 @@ window.onload = function () {
 };
 
 $('#chargers').click(function (event) {
+	//highlight active tab
 	$('#chargers').css({ 'color': '#f05a29' });
 	$('#bookings').css({ 'color': 'black' });
 	$('#reviews').css({ 'color': 'black' });
 	$('#earnings').css({ 'color': 'black' });
 
+	//clear old content
 	$('#content').children().remove();
-
+	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
 	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-	var yourCharger = $("<button class='chargerButton'>Your Charger</button>");
+
+	//populating all chargers owned from database
+	var yourCharger = [];
+	for (i = 0; i < chargers.length; i++) {
+		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
+			i + "'>" + chargers[i].name + "</br>"
+			+ chargers[i].id + "</br>" + chargers[i].address + "</br>" + "</button>";
+		yourCharger[i] = $(chargerString);
+	}
 
 	$('#content').append(header);
 	$('#content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
-	$('#chargerContainer').append(yourCharger);
+	for (i = 0; i < chargers.length; i++) {
+		$('#chargerContainer').append(yourCharger[i]);
+	}
 	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
 
 });
@@ -111,17 +95,28 @@ $('#bookings').click(function (event) {
 
 	$('#content').children().remove();
 
-	var header = $("<p class='boxHeader'>Here are all your bookings.</p>");
-	var pendingContainer = $("<div id='pendingContainer'></div>");
-	var pendingHeader = $("<h3>Pending</h3>");
-	var historyContainer = $("<div id='historyContainer'></div>");
-	var historyHeader = $("<h3>History</h3>");
+	createContent("content", "div", "requestContainer", "card-panel col-md-5");
+	createContent("content", "div", "requestContainer", "card-panel col-md-5");
 
-	$('#content').append(header);
-	$('#content').append(pendingContainer);
-	$(pendingContainer).append(pendingHeader);
-	$('#content').append(historyContainer);
-	$(historyContainer).append(historyHeader);
+	createContent("content", "div", "unpaidContainer", "card-panel col-md-5");
+	createContent("content", "div", "paidContainer", "card-panel col-md-5");
+	createButton("content", "history-btn", "BOOKING HISTORY", "orange-button");
+
+	let pendingData = fetchGET('/bookings', jwt);
+	let count = 0;
+	pendingData.forEach((pendingBooking)=> {
+		
+		console.log(pendingBooking);
+		createContent("requestContainer", "div", "pendingCard" + count, "card-panel col-md-5");
+		createContent("pendingCard" + i, "span", "pendingDate" + count, "");
+		("#pendingDate" + count).text(pendingData);
+
+
+		count++;
+
+	}
+	);
+
 })
 
 $('#reviews').click(function (event) {
@@ -219,11 +214,11 @@ function chargerInfo(chargerNumber) {
 			},
 			body: JSON.stringify(dataToSent)
 		})
-		.then(res => console.log(res))
-		.then((response) => {
-			console.log('Success:', (response))
-		})
-		.catch(error => console.error('Error:', error));;
+			.then(res => console.log(res))
+			.then((response) => {
+				console.log('Success:', (response))
+			})
+			.catch(error => console.error('Error:', error));;
 	});
 }
 
