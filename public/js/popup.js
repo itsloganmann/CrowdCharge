@@ -1,5 +1,13 @@
-var months = ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"];
+var token = localStorage.getItem('jwt');
+if (token) {
+	console.log("logged in");
+	$("#login-button").remove();
+} else {
+	console.log("not logged in");
+	$("#bell-wrapper").remove();
+	$("#user-menu-button").remove();
+
+}
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
@@ -61,6 +69,9 @@ var createFormButton = (id, text) => {
 	$('#popup').append(button);
 }
 */
+
+var months = ["January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"];
 
 var getCurrentDate = () => {
 	var today = new Date();
@@ -266,6 +277,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
+	event.preventDefault();
 	const url = '/users/logout'
 	const jwt = localStorage.getItem('jwt')
 
