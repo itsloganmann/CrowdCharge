@@ -60,17 +60,17 @@ function fetchBooking(url, status) {
 	}
 	else {
 		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
-		+ "<div class='right'><p class='cost'>" + data.cost + "</p>";
+		+ "<div class='price-card-text-wrapper'><div class='price-card-text-lg'>" + data.cost + "</div>";
 		if (status == "paid") {
-			contentString += "<p class='green'>" + status + "</p></div>";
+			contentString += "<div class='price-card-text-sm'>" + status + "</div></div>";
 		}
 		else if (status == "unpaid") {
-			contentString += "<p class='red'>" + status + "</p></div>";
+			contentString += "<div class='price-card-text-sm'>" + status + "</div></div>";
 		}
-		contentString += "<p class='date'>" + grabDate(data.startTime) + "</p>"
-			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
-			+ "<p class='address'>" + data.address + "</p>"
-			+ "<p class='city'>" + data.city + "</p>"
+		contentString += "<div class='card-text-lg'>" + grabDate(data.startTime) + "</div>"
+			+ "<div class='card-text-md'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</div>"
+			+ "<div class='card-text-sm'>" + data.address + "</div>"
+			+ "<div class='card-text-sm'>" + data.city + "</div>"
 			+ "</div></div>";
 	}
 	return contentString;

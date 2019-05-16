@@ -63,12 +63,11 @@ main {
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 1% 2%;
+    padding: 3% 2% 5%;
     border-radius: 8px;
-    min-height: 160px;
-    min-width: 140px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px #000000;
+    line-height: 1.5em;
 }
 .card-header {
     font-size: 1.5rem;
@@ -95,4 +94,29 @@ main {
 .orange-card {
     background-color: #F05A29;
     color: #FFFFFF;
+}
+.price-card-text-wrapper {
+    float: right;
+    line-height: 1.2em;
+}
+.price-card-text-lg {
+    font-size: 1.25em;
+    font-weight: 700;
+}
+.price-card-text-sm {
+    font-size: 1em;
+    font-weight: 500;
+    text-align: right;
+}
+.card-text-lg {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+.card-text-md {
+    font-size: 1em;
+    font-weight: 500;
+}
+.card-text-sm {
+    font-size: 1em;
+    font-weight: 400;
 }
