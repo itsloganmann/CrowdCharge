@@ -33,7 +33,7 @@ router.get('/completedBookings', auth, async(req, res)=>{
 // uUID -> [bookings]
 router.get('/Reviews', auth, async(req, res)=>{
     try {
-        const reviews = await Review.find( {user:req.user} );
+        const reviews = await Review.find( {reviewee: req.user} );
         res.send(reviews)
     } catch (error) {
         // Sets up internal server error code. Database went wrong.
