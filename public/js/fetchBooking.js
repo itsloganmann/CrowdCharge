@@ -25,7 +25,7 @@ function grabTime(time) {
 };
 
 function fetchBooking(url, status) {
-	const jwt = JSON.parse(localStorage.getItem('jwt'));
+	const jwt = localStorage.getItem('jwt');
 	let data = {};
 	let contentString = "";
 	fetch(url, {
@@ -51,15 +51,15 @@ function fetchBooking(url, status) {
 	}
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
-		contentString = "<div class= 'col-10 well'>"
+		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
 			+ "<div class='right'><p class='cost'>" + data.cost + "</p></div>"
 			+ "<p class='date'>" + grabDate(data.startTime) + "</p>"
 			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
-			+ "</div>";
+			+ "</div></div>";
 	}
 	else {
-		contentString = "<div class= 'col-10 well'>"
+		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
 		+ "<div class='right'><p class='cost'>" + data.cost + "</p>";
 		if (status == "paid") {
 			contentString += "<p class='green'>" + status + "</p></div>";
@@ -71,7 +71,7 @@ function fetchBooking(url, status) {
 			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
 			+ "<p class='address'>" + data.address + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
-			+ "</div>";
+			+ "</div></div>";
 	}
 	return contentString;
 };
