@@ -28,7 +28,12 @@ const Charger = mongoose.model('Charger', {
         required: true,
         trim: true
     },
-    rate: {
+    rating: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    cost: {
         type: Number,
         required: true,
         trim: true

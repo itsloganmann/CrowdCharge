@@ -10,11 +10,12 @@ router.get('/markers', async(req, res)=>{
         const chargers = await Charger.find();
         let promises = chargers.map(async charger=>{
             try{
-                let geoJSON = await geocode(charger.location+" "+charger.city+" "+charger.province+" "+charger.country);
+                let geoJSON = await geocode(charger.address+" "+charger.city+" "+charger.province+" "+charger.country);
                 let properties = {
                     "name" : charger.name,
-                    "rate" : charger.rate,
-                    "rating" : charger.rating
+                    "cost" : charger.cost,
+                    "rating" : charger.rating,
+                    "icon" : "marker"
                 }
     
                 let geometry = {
@@ -24,7 +25,7 @@ router.get('/markers', async(req, res)=>{
     
                 let element = {
                     "type" : "Feature",
-                    "Properties" : properties,
+                    "properties" : properties,
                     "geometry" : geometry
                 };
                 console.log(element);

@@ -6,7 +6,7 @@ const Notification = mongoose.model('Notification', {
     booking: {
         type: Object,
         required: true
-    }
+    },
     user: {
         type: String,
         required: true
