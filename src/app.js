@@ -96,39 +96,37 @@ app.get('/add_new_charger', (req, res) => {
     })
 })
 
-app.get('/client_dashboard', (req, res) => {
-    res.render('client_dashboard', {
-        title: 'ZapShare - User Settings',
-        name: ''
-    })
-})
+app.get('/about', (req, res) => {
+    let wuviv = {
+                "firstName": "Vivian",
+                "lastName" : "Wu"
+            };
+    db.createUser(wuviv);
+//    console.log(db.getUserChargers("5cd5fbb2eaa7db46388a0860"));
+// db.getUserChargers("5cd5fbb2eaa7db46388a0860", function(err, chargers) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log(chargers);
 
-app.get('/wallet', (req, res) => {
-    res.render('wallet', {
-        title: 'ZapShare - Wallet',
-        name: ''
-    })
-})
+// });
+// db.getAllChargerPending("5cd5fbb2eaa7db46388a0860", function(err, ChargerPending) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log(ChargerPending);
 
-app.get('/contact', (req, res) => {
-    res.render('contact', {
-        title: 'ZapShare - Contact',
-        name: ''
-    })
-})
-app.get('/index', (req, res) => {
-    res.render('index', {
-        title: 'ZapShare - Peer-to-peer Electric Charging Network',
-        name: ''
-    })
-})
-
-app.get('/notification', (req, res) => {
-    res.render('notification', {
-        title: 'ZapShare - Notification',
-        name: ''
-    })
-})
+// });
+// db.payBooking("5cd620c680e91e04d040851f", function(err, booking){
+//     console.log(booking);
+// });
+// db.getChargerPending("5cd5e014996246647c04cd58", function(err,pending){
+//     if(err)
+//         console.log(err);
+//     console.log(pending);
+// });
+    // db.getAllChargerPending("5cd5fbb2eaa7db46388a0860");
+    // db.getPendingBookings("5cd5de69f8fdd863c8a5e96d");
 
 app.get('/about', (req, res) => {
     res.render('about', {
@@ -188,4 +186,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
-

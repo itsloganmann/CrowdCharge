@@ -47,7 +47,8 @@ function fetchBooking(url, status) {
 		endTime: "2019-01-01T23:00:00",
 		cost: "$15.00",
 		address: "12345 MyHome St.",
-		city: "Vancouver, BC"
+		city: "Vancouver, BC",
+		host: "Louis"
 	}
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
@@ -57,6 +58,13 @@ function fetchBooking(url, status) {
 			+ "<p class='time'>" + grabTime(data.startTime) + "-" + grabTime(data.endTime) + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div>";
+	}
+	else if (status=="complete") {
+		contentString = "<div class = 'col-10 well'>" + "<div class='right'><p class='cost'>" 
+		+ data.cost + "</p>" + "<p class = 'date'>" + data.startTime.split("T")[0] + "</p>" 
+		+ "<p class = 'address'>" + data.address + "</p>" + "<p class = 'city'>" + data.city 
+		+ "<p class = 'province'>" + data.province + "</p>" + "<p class = 'hostName'>" 
+		+ data.host + "</p>" + "</div>" 
 	}
 	else {
 		contentString = "<div class= 'col-10 well'>"

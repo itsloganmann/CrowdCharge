@@ -142,5 +142,10 @@ $("#history").click(function (event) {
 
 	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
 
+	let hData = fetchBooking("/client/completeBookings", "complete");
+	var historyData = $(hData);
+
 	$("#subContent").append(historyContainer);
+	$(historyContainer).append(historyData);
 })
+
