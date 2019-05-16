@@ -29,10 +29,6 @@ main {
         display:grid;
         grid-template-columns:1fr 1fr;
     }
-    .threecolumns {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    }
 }
 @media only screen and (min-width: 768px) {
 	#bell-icon{
@@ -126,7 +122,7 @@ main {
     color: #ffffff;
     background-color: #F05A29;
     opacity: 0.8;
-}
+}b
 
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
@@ -412,6 +408,7 @@ footer ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
 @media only screen and (max-width: 427px) {
   .footercolumns{
     grid-template-columns: 1fr;

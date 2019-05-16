@@ -20,15 +20,11 @@
                 </div>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
-                <button class="dropdown-item" type="button"
-                    onclick="window.location.href = './client_dashboard';">Client Dashboard</button>
-                <button class="dropdown-item" type="button" onclick="window.location.href = './host_dashboard';">Host
-                    Dashboard</button>
-                <button class="dropdown-item" type="button"
-                    onclick="window.location.href = './profile_details';">Profile Details</button>
-                <button class="dropdown-item" type="button" onclick="window.location.href = './wallet';">Your
-                    Wallet</button>
-                <button class="dropdown-item" type="button" id="logout-button">Sign Out</button>
+                <a class="dropdown-item" href="/client_dashboard">Client Dashboard</a>
+                <a class="dropdown-item" href="/host_dashboard">Host Dashboard</a>
+                <a class="dropdown-item" href="/profile_details">Client Dashboard</a>
+                <a class="dropdown-item" href="/wallet">Your Wallet</a>
+                <a class="dropdown-item" href="/" id="logout-button">Sign out</a>
             </div>
         </div>
         <button id="login-button" class="nav-bar-icon">Login</button>
