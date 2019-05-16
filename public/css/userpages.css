@@ -1,41 +1,44 @@
+main {
+    background-color: #FFFFFF;
+}
 .col-10, .col-11, .col-12 {
     margin: 0 auto;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #wrapper {
-    padding: 16px 24px;
     background-color: #FFFFFF;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 .outer-header {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: 700;
     margin: 0px;
 }
 .outer-subheader {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin: 0px;
 }
 .inner-header {
     font-size: 1.5rem;
+    margin: 3px auto;
 }
 .inner-subheader {
     font-size: 0.85rem;
     font-weight: 400;
+    margin: 3px auto;
 }
 .header-number {
     font-size: 1.85rem;
     color: #999999;
 }
 #tabs-wrapper {
-    float: left;
     width: 100%;
-    margin: 12px auto 0px;
+    margin: 12px auto 12px;
 }
 .tab-button {
-    padding: 4px 3.33333%;
+    padding: 4px 4.1666667%;
     color: #555555;
     cursor: pointer;
 }
@@ -43,16 +46,28 @@
     color: #F05A29;
 }
 #tab-content {
-    padding: 12px;
+    padding: 24px 12px;
     border-radius: 8px;
     background-color: #F3F3F3;
-    float: left;
+}
+.tab-section-content {
+    margin-bottom: 24px;
+}
+.tab-section-data {
+    margin: 12px auto;
+    max-width: 93.333333%;
 }
 
 
 .card-panel {
-    padding: 4px;
+    box-sizing: content-box;
+    margin: 8px 1%;
+    padding: 0 3%;
     border-radius: 8px;
+    min-height: 160px;
+    min-width: 140px;
+    background-color: white;
+    box-shadow: 0px 0px 2px 0px #000000;
 }
 .card-header {
     font-size: 1.5rem;
@@ -60,6 +75,5 @@
 
 @media only screen and (min-width: 768px){
     #wrapper {
-        padding: 16px 88px;
     }
 }

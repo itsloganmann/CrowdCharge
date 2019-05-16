@@ -100,6 +100,14 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+var createErrorMessage = (targetId, message, className) => {
+	let element = document.createElement("div");
+	element.className = className;
+	element.innerText = message;
+	$('#' + targetId).prepend(element);
+
+}
+
 // Removes popup for booking
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
@@ -152,8 +160,7 @@ $('body').on("click", "#popup-signup-here", () => {
 	createPopupInput("signup-email-wrapper", "email", "email", "signup-email-input", "form-input");
 	createPopupInput("signup-name-wrapper", "text", "name", "signup-name-input", "form-input");
 	createPopupInput("signup-phone-wrapper", "tel", "phoneNumber", "signup-phone-input", "form-input");
-	$("#signup-phone-input").attr("pattern", "[0-9]{3} [0-9]{3} [0-9]{4}");
-	$("#signup-phone-input").attr("maxlength", "12");
+	$("#signup-phone-input").attr("maxlength", "10");
 	createPopupInput("signup-password-wrapper", "password", "password", "signup-password-input", "form-input");
 	createPopupInput("signup-confirm-password-wrapper", "password", "password2", "signup-confirm-password-input", "form-input");
 
@@ -169,7 +176,7 @@ $('body').on("click", "#popup-signup-here", () => {
 
 // Login button listener
 $('body').on('click', '#login-popup-button', (event) => {
-
+	$("#login-validation").remove();
 	const useremail = $('#login-email-input').val();
 	const userpassword = $('#login-password-input').val();
 	const url = '/users/login'
@@ -187,15 +194,21 @@ $('body').on('click', '#login-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then((response) => {
-			console.log('Success:', JSON.stringify(response))
-			localStorage.setItem('jwt', response.token)
-			window.location.replace(window.location.href);
+			if (response.error){
+				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
+			} else {
+				console.log('Success:', JSON.stringify(response))
+				localStorage.setItem('jwt', response.token)
+				window.location.replace(window.location.href);
+			}
 		})
 		.catch(error => console.error('Error:', error));
 });
 
 // Signup button listener
 $('body').on('click', '#signup-popup-button', (event) => {
+	if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
+
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
 	const userphone = $('#signup-phone-input').val();
@@ -216,18 +229,40 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
+			console.log(response);
 			if (response.errors) {
-				console.log(response.errors);
-			} else {
-				
+			if (response.errors.email) {
+				$("#email-validation").remove();
+				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
+				$('#signup-email-input').addClass('invalid-input-underline');
+				$('#signup-email-label').addClass('invalid-input-label');
+			} 
+			if (response.errors.phone) {
+				$("#phone-validation").remove();
+				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
+				$('#signup-phone-input').addClass('invalid-input-underline');
+				$('#signup-phone-label').addClass('invalid-input-label');
+			} 
+			if (response.errors.password) {
+				$("#password-validation").remove();
+				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
+				$('#signup-confirm-password-input').addClass('invalid-input-underline');
+				$('#signup-confirm-password-label').addClass('invalid-input-label');
+			} 
+		} else if (!response.errors) {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
 			window.location.replace(window.location.href);
 			}
 		})
 		.catch(error => console.error('Error:', error));
+	} else {
+		$("#password-validation").remove();
+		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
+		$('#signup-confirm-password-input').addClass('invalid-input-underline');
+		$('#signup-confirm-password-label').addClass('invalid-input-label');
+	}
 });
-
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
@@ -250,58 +285,68 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '.form-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-iput, #signup-phone-input', (event) => {
 	var formFilled = false;
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
 	}
 	if (formFilled) {
-		if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
-
 		$('#signup-popup-button').removeAttr('disabled');
 		$('#signup-popup-button').removeClass('disabled-button');
-		}
 	} else {
-		if ($('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
-
 		$('#signup-popup-button').prop('disabled', true);
 		$('#signup-popup-button').addClass('disabled-button');
-		}
 	}
 });
 
 // Enables log in button if all fields are filled
-$('body').on('input', '.form-input', (event) => {
+$('body').on('input', '#login-email-input, #login-password-input', (event) => {
 	var formFilled = false;
 	if ($('#login-email-input').val() && $('#login-password-input').val()) {
 		formFilled = true;
 	}
 	if (formFilled) {
-			console.log("enabled");
 			$('#login-popup-button').removeAttr('disabled');
 			$('#login-popup-button').removeClass('disabled-button');
 	} else {
-			console.log("disabled");
 			$('#login-popup-button').prop('disabled', true);
 			$('#login-popup-button').addClass('disabled-button');
 	}
 });
 
-// Error message and disables sign up button if passwords do not match.
+// Displays error message if passwords do not match upon leaving Confirm Password field.
 $('body').on('focusout', '#signup-confirm-password-input', () => {
-	if ($('#signup-password-input').val() != "" &&
-		$('#signup-confirm-password-input').val() != $('#signup-password-input').val()) {
-		$('#signup-popup-button').prop('disabled', true);
-		$('#signup-popup-button').addClass('disabled-button');
+	if ($('#signup-password-input').val() != "" && $('#signup-password-input').val() != "" &&
+		$('#signup-confirm-password-input').val() != $('#signup-password-input').val() && $('#password-validation').length === 0) {
 		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
 		$('#signup-confirm-password-input').addClass('invalid-input-underline');
 		$('#signup-confirm-password-label').addClass('invalid-input-label');
-		$('#signup-confirm-password-input').keypress(() => {
-			$('#signup-confirm-password-input').removeClass('invalid-input-underline');
-			$('#signup-confirm-password-label').removeClass('invalid-input-label');
-			$("#password-validation").remove();
-		});
 	}
 });
 
+// Prevents users from entering non-digit values in the phone input field
+$('body').on('keypress', '#signup-phone-input', (evt) => {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
+
+
+// Removes error messages when typing in the input fields
+$('body').on('keyup', '#signup-confirm-password-input', (evt) => {
+	$('#signup-confirm-password-input').removeClass('invalid-input-underline');
+	$('#signup-confirm-password-label').removeClass('invalid-input-label');
+	$("#password-validation").remove();
+});
+$('body').on('keyup', '#signup-email-input', (evt) => {
+	$('#signup-email-input').removeClass('invalid-input-underline');
+	$('#signup-email-label').removeClass('invalid-input-label');
+	$("#email-validation").remove();
+});
+$('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
+	$('#signup-phone-input').removeClass('invalid-input-underline');
+	$('#signup-phone-label').removeClass('invalid-input-label');
+	$("#phone-validation").remove();
+});
