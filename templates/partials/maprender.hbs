@@ -1,7 +1,22 @@
 <div id="map-wrapper">
+    <!-- Map Script and Style Imports -->
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
+    <style>
+        .geocoder {
+        position:absolute;
+        z-index: 19;
+        width: 340px;
+        left: 50%;
+        margin-left: -170px;
+        top: 100px;
+        }
+        .mapboxgl-ctrl-geocoder { min-width:100%; }
+    </style>
+
+    <!-- Div map elements -->
     <div id='map'></div>
+    <div id='geocoder' class='geocoder'></div>
 
     <script>
         // MapBox API Access Token
@@ -15,7 +30,7 @@
             zoom: 11 // starting zoom
         });
 
-        let geocoder = new MapboxGeocoder({
+        var geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             flyTo: {
             bearing: 0,
@@ -30,7 +45,8 @@
             },
             mapboxgl: mapboxgl
         });
-        map.addControl(geocoder);
+
+        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
         // Declares default long and lat variables to be used
         let long = undefined
