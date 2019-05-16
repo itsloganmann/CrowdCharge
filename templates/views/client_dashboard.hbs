@@ -11,11 +11,13 @@
 <body>
 	{{>sidenav}}
 	{{>topnav}}
+	<main>
     {{>content_client_dashboard}}	
+	</main>
     {{>javascripts}}
-	{{<footer}}
-	<script src='../../js/client_dashboard.js'></script>
-
-
+	<script src='js/contentCreater.js'></script>
+	<script src='js/fetchBooking.js'></script>
+	<script src='js/client_dashboard.js'></script>
+	{{>footer}}
 </body>
 </html>

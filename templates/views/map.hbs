@@ -54,41 +54,6 @@
         <button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>
       </div>
     </div>
-
-      Name: <input type="text" id="name" name="name"><br>
-      Email: <input type="text" id="email" name="email"><br>
-      Password <input type="password" id="password" name="password"><br>
-      <button id="submit-fetch">>Submit</button>
-
-    <script>
-      $("#submit-fetch").on("click", function (event) {
-        const username = $('#name').val();
-        const useremail = $('#email').val();
-        const userpassword = $('#password').val();
-        const url = '/users'
-        const data = {
-          name: username,
-          email: useremail,
-          password: userpassword
-        }
-
-        console.log(data)
-
-        event.preventDefault()
-
-        fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then(res => res.json())
-          .then(response => console.log('Success:', JSON.stringify(response)))
-          .catch(error => console.error('Error:', error));
-
-      });
-    </script>
-
   </main>
   {{>javascripts}}
   {{<footer}}

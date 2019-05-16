@@ -24,9 +24,9 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({ user, token })
-    } catch (e) {
-        res.status(400).send()
+        res.send({ user, token })        
+    } catch (error) {
+        res.status(400).send({"error" : "" + error});
     }
 })
 
@@ -70,7 +70,7 @@ router.get('/users', async (req, res) => {
 
 // GET request endpoint for fetching own user data. 
 // Sets up auth middleware first before getting data.
-router.get('/users/me', auth, async (req, res) => {
+router.get('/users/me', async (req, res) => {
     res.send(req.user)
 })
 

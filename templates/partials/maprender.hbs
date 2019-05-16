@@ -1,4 +1,6 @@
 <div id="map-wrapper">
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
     <div id='map'></div>
 
     <script>
@@ -13,7 +15,24 @@
             zoom: 11 // starting zoom
         });
 
-        // Declares long and lat variables to be used
+        let geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            flyTo: {
+            bearing: 0,
+            // These options control the flight curve, making it move
+            // slowly and zoom out almost completely before starting
+            // to pan.
+            speed: 1.5, // make the flying slow
+            curve: 1.5, // change the speed at which it zooms out
+            // This can be any easing function: it takes a number between
+            // 0 and 1 and returns another number between 0 and 1.
+            easing: function (t) { return t; }
+            },
+            mapboxgl: mapboxgl
+        });
+        map.addControl(geocoder);
+
+        // Declares default long and lat variables to be used
         let long = undefined
         let lat = undefined 
 
@@ -63,7 +82,7 @@
             // location of the feature, with description HTML from its properties.
             map.on('click', 'places', function (e) {
                 let coordinates = e.features[0].geometry.coordinates.slice();
-                let description = e.features[0].properties.description;
+                let name = e.features[0].properties.name;
 
                 // Ensure that if the map is zoomed out such that multiple
                 // copies of the feature are visible, the popup appears
@@ -73,14 +92,20 @@
                 }
                 map.flyTo({
                     center: [coordinates[0], coordinates[1]],
-                    zoom: 15
+                    zoom: 15,
+                    bearing: 0,
+                    speed: 1.5, // make the flying slow
+                    
+                    // This can be any easing function: it takes a number between
+                    // 0 and 1 and returns another number between 0 and 1.
+                    easing: function (t) { return t; }
                 });
 
                 // Builds the popup when user clicks on a host marker.
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
-                    .setHTML('<img class="host-marker-img" src="https://image.flaticon.com/icons/svg/1579/1579928.svg" alt="host"> <span class="host-marker-title">'
-                             + description + '</span>')
+                    .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                             + name + '</span>')
                     .addTo(map);
             });
 
@@ -100,7 +125,7 @@
         {
             "type": "Feature",
             "properties": {
-                "description": "UBC Charger",
+                "name": "UBC Charger",
                 "icon": "marker"
             },
             "geometry": {
@@ -111,7 +136,7 @@
         {
             "type": "Feature",
             "properties": {
-                "description": "Edwin's Charger",
+                "name": "Edwin's Charger",
                 "icon": "marker"
             },
             "geometry": {
@@ -122,7 +147,7 @@
         {
             "type": "Feature",
             "properties": {
-                "description": "BCIT Downtown Charger",
+                "name": "BCIT Downtown Charger",
                 "icon": "marker"
             },
             "geometry": {
@@ -133,7 +158,7 @@
         {
             "type": "Feature",
             "properties": {
-                "description": "BCIT Burnaby Charger",
+                "name": "BCIT Burnaby Charger",
                 "icon": "marker"
             },
             "geometry": {
@@ -154,6 +179,41 @@
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
+        });
+
+        // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
+
+        map.on('mouseenter', 'places', function(e) {
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = 'pointer';
+        
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var name = e.features[0].properties.name;
+        
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+        
+            // Populate the popup and set its coordinates
+            // based on the feature found.
+            popup.setLngLat(coordinates)
+                .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                + name + '</span>')
+                .addTo(map);
+
+        });
+        
+        // On mouse leave, remove the popup.
+        map.on('mouseleave', 'places', function() {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
         });
     </script>
 </div>
