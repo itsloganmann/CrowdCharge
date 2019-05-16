@@ -87,6 +87,13 @@ $('#chargers').click(function (event) {
 
 });
 
+
+//to be move to other js file
+function getTime(timeObject){
+	return timeObject.split("T")[1].split("Z")[0];
+}
+
+//to be move to mother js file if needed
 $('#bookings').click(function (event) {
 	$('#chargers').css({ 'color': 'black' });
 	$('#bookings').css({ 'color': '#f05a29' });
@@ -95,23 +102,37 @@ $('#bookings').click(function (event) {
 
 	$('#content').children().remove();
 
-	createContent("content", "div", "requestContainer", "card-panel col-md-5");
-	createContent("content", "div", "requestContainer", "card-panel col-md-5");
+	createContent("content", "div", "request-container", "card-panel col-md-5");
+	createContent("content", "div", "request-container", "card-panel col-md-5");
 
-	createContent("content", "div", "unpaidContainer", "card-panel col-md-5");
-	createContent("content", "div", "paidContainer", "card-panel col-md-5");
+	createContent("content", "div", "unpaid-container", "card-panel col-md-5");
+	createContent("content", "div", "paid-container", "card-panel col-md-5");
 	createButton("content", "history-btn", "BOOKING HISTORY", "orange-button");
 
-	let pendingData = fetchGET('/bookings', jwt);
+	let pendingData = fetchGET('/host/pendingBookings', jwt);
 	let count = 0;
-	pendingData.forEach((pendingBooking)=> {
-		
-		console.log(pendingBooking);
-		createContent("requestContainer", "div", "pendingCard" + count, "card-panel col-md-5");
-		createContent("pendingCard" + i, "span", "pendingDate" + count, "");
-		("#pendingDate" + count).text(pendingData);
+	pendingData.forEach((booking) => {
+			//pending booking information for the host
+			createContent("request-container", "div", "pending-card" + count, "card-panel col-md-5");
+			createContent("pending-card" + i, "span", "pending-charger-name" + count, "card-text-lg");
+			$("#pending-charger-name" + count).text(booking.cName);
+			createContent("pending-card" + i, "span", "pending-date" + count, "card-text-md");
+			$("#pending-date" + count).text(booking.startTime.split("T")[0]);
+			createContent("pending-card" + i, "span", "pending-client" + count, "card-text-sm");
+			$("#pending-client" + count).text(booking.client + count);
+			createContent("pending-card" + i, "span", "pending-hourly-cost" + count, "card-text-sm");
+			$("#pending-price" + count).text(booking.client + count);
+			createContent("pending-card" + i, "span", "pending-period" + count, "card-text-md");
+			$("#pending-period" + count).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+			createContent("pending-card" + i, "span", "pending-address" + count, "card-text-md");
+			$("#pending-address" + count).text(booking.address);			
+			createContent("pending-card" + i, "span", "pending-area" + count, "card-text-md");
+			$("#pending-area" + count).text(booking.city + ", " + booking.province);
 
-
+			//accept or reject 
+			createContent("request-container", "div", "acc-rej-container" + count, "right");
+			createContent("acc-rej-container", "i", "accept" + count, "fas fa-check-circle accept-icon");
+			createContent("acc-rej-container", "i", "reject" + count, "fas fa-times-circle reject-icon");
 		count++;
 
 	}
@@ -153,6 +174,7 @@ function chargerInfo(chargerNumber) {
 	//rebuild content div
 	$('#content').children().remove();
 	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	//name we only want 20 characters
 	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].name);
 	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
 	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);

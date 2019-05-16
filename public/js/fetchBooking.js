@@ -29,7 +29,7 @@ function fetchBooking(url, status) {
 		contentString = "<div class= 'col-10 well'>"
 			+ "<div class='right'><p class='cost'>" + data.cost + "</p></div>"
 			+ "<p class='date'>" + data.startTime.split("T")[0] + "</p>"
-			+ "<p class='time'>" + data.startTime.split("T")[1] + "-" + data.endTime.split("T")[1] + "</p>"
+			+ "<p class='time'>" + data.startTime.split("T")[1].split("Z")[0] + "-" + data.endTime.split("T")[1].split("Z")[0] + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div>";
 	}
@@ -46,7 +46,7 @@ function fetchBooking(url, status) {
 			contentString += "<p class='red'>" + status + "</p></div>";
 		}
 		contentString += "<p class='date'>" + data.startTime.split("T")[0] + "</p>"
-			+ "<p class='time'>" + data.startTime.split("T")[1] + "-" + data.endTime.split("T")[1] + "</p>"
+			+ "<p class='time'>" + data.startTime.split("T")[1].split("Z")[0] + "-" + data.endTime.split("T")[1].split("Z")[0] + "</p>"
 			+ "<p class='address'>" + data.address + "</p>"
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div>";
