@@ -1,33 +1,32 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-const Booking = mongoose.model('Booking', {
-    charger: {
+// Creates mongoose data model for a review object and adds validator to data
+const Review = mongoose.model('Review', {
+    reviewer: {
         type: String,
         required: true,
         trim: true
     },
-    user: {
+    reviewee: {
         type: String,
         required: true,
         trim: true
     },
-    timeStart: {
+    details: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    date: {
         type: Date,
-        required: true,
-        trim: true
-    },
-    timeEnd: {
-        type: Date,
-        required: true,
-        trim: true
-    },
-    
-    state: {
-        type: String,
-        enum : ['PENDING','UNPAID','PAID','COMPLETED'],
-        default: 0
+        required: true,        
     }
 })
 
-module.exports = Booking;
+module.exports = Review

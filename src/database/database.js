@@ -1,11 +1,12 @@
 //import entity definitions + connection to db
 const entity = require('./database-schema');
-
+//mongoDB object modelling module
+const mongoose = require('mongoose');
 
 //ALL CREATION METHODS
 //push new user to database
 let createUser = function(userInfo) {
-    let user = new entity.user(userInfo);//JSON.parse(userInfo));
+    let user = new entity.User(userInfo);//JSON.parse(userInfo));
     user.save()
         .then(()=>{
             console.log(user);
@@ -123,10 +124,6 @@ let getUserChargers = function(uUID, callback) {
     let chargers = entity.Charger.find({owner: uUID}, (err, Chargers)=>{
         if(err)
             return console.log("Error cannot find User: " + uUID + ".");
-        // console.log(Chargers)
-        // return Chargers;
-        // output = Chargers;
-        // console.log(output);
         callback(Chargers);
     });
 };
@@ -137,8 +134,6 @@ let getChargerPending = function(cUID, callback) {
     entity.pendingBooking.find({charger: cUID}, (err, pendingBookings)=>{
         if(err)
             return console.log("Error cannot find User: " + uUID + ".");
-        // console.log(pendingBookings);
-        // return pendingBookings;
         callback(null,pendingBookings);
     });
 };
@@ -180,18 +175,6 @@ let getChargerUnpaid = function(cUID, callback){
 //get charger's scheduled/confirmed bookings (unpaid + paid(includes host set unavail times))
 let getChargerConfirmed = function(cUID, callback){
     let confirmedBookings = [];
-    // entity.paidBooking.find({charger: cUID}, (err, paidBookings)=>{
-    //     if(err)
-    //         return console.log("Error cannot find Charger: " + cUID + ".");
-    //     confirmedBookings = confirmedBookings.concat(paidBookings);
-    //     entity.unpaidBooking.find({charger: cUID}, (err, unpaidBookings)=>{
-    //         if(err)
-    //             return console.log("Error cannot find Charger: " + cUID + ".");
-    //         confirmedBookings = confirmedBookings.concat(unpaidBookings);
-
-    //         callback(null, confirmedBookings);
-    //     });
-    // });
     getChargerPaid(cUID, function(err, paidBookings){
         confirmedBookings = confirmedBookings.concat(paidBookings);
         getChargerUnpaid(cUID, function(err, unpaidBookings){
@@ -199,7 +182,6 @@ let getChargerConfirmed = function(cUID, callback){
             callback(null, confirmedBookings);
         });
     });
-    
 };
 //get charger's booking history
 let getChargerHistory = function(cUID, callback){
@@ -219,33 +201,163 @@ let getChargerAvailability = function(cUID, callback){
         });
     });
     
-}
+};
 
 //--charger reviews
 //get charger's reviews
-let getChargerReview
+let getChargerReview = function(cUID, callback){
+    entity.Review.find({reviewee:cUID}, (err, reviews)=>{
+        callback(null, reviews);
+    });
+};
+
 //get all of host's charger reviews
-let getAllChargerReviews
+let getAllChargerReviews = function( uUID, callback){
+    let AllReviews = [];
+    getUserChargers(uUID, (err, chargers)=>{
+        chargers.forEach((charger)=>{
+           getChargerReview(uUID, (err, reviews)=>{
+               AllReviews = AllReviews.concat(reviews);
+               if(chargers.indexOf(charger) == chargers.length-1)
+                    callback(null, AllReviews);
+            });
+        });
+    }); 
+};
+   
 
 
 //BOOKING FUNCTIONALITIES
 //-- HOST (charger management)
 //confirm a booking (move from pending to unpaid)
+let confirmBooking = function(bUID, callback){
+    entity.pendingBooking.findById(bUID, (err, booking)=>{
+        if(err)
+            return console.log(err);
+
+        // booking._id = mongoose.Types.ObjectId(booking._id);
+        booking=booking.toObject();
+        let confBooking = new entity.unpaidBooking(booking);//JSON.parse(userInfo));
+        
+        // console.log(confBooking);
+        confBooking.save()
+            .then(()=>{
+                entity.pendingBooking.deleteOne({ _id: bUID }, function (err) {if(err)console.log(err)});
+                callback(null, confBooking);
+            }).catch((err)=>{
+                console.log(err)
+            });  
+    });
+};
 //reject a booking (send a notification to user, delete booking from unpaid)
+let rejectBooking = function (bUID, callback){
+    entity.pendingBooking.findById(bUID, (err, booking)=>{
+        entity.pendingBooking.deleteOne({ _id: bUID }, function (err) {if(err)console.log(err)});
+        let notif = {
+            "user" : booking.user,
+            "booking" : booking.toObject(),
+            "type" : "declined",
+            "read" : false
+        }
+
+        let newNotif = new entity.Notification(notif);//JSON.parse(userInfo));
+        newNotif.save()
+            .then(()=>{
+                // console.log(newNotif);
+                callback(newNotif);
+            }).catch((err)=>{
+                console.log(err)
+            });
+    });
+}
 //set unavailable time (create a confirmed booking under host's own name)
+let setUnavail = function (bookingInfo){
+    let booking = new entity.paidBooking(bookingInfo);//JSON.parse(userInfo));
+    booking.save()
+        .then(()=>{
+            console.log(booking);
+        }).catch((err)=>{
+            console.log(err)
+        });
+}
 
 //-- USER (booking)
 //view host reviews/details
 //create a booking (check if time/date ok, push to pending, await host response)
+let bookingRequest = function(bookingInfo, callback) {
+    getChargerConfirmed(bookingInfo.charger, (err, bookings)=>{
+        bookings.forEach((booking)=>{
+            if(booking.startTime >= bookingInfo.startTime && booking.startTime <= bookingInfo.endTime){
+                callback("Time unavailable, could not make booking.", null);
+            }else if (booking.endTime >= bookingInfo.startTime && booking.endTime <= bookingInfo.endTime){
+                callback("Time unavailable, could not make booking.", null);
+            }
+            if(bookings.indexOf(booking) == bookings.length-1){
+                createBooking(bookingInfo);
+                callback(null,"Booking Created")
+            }   
+        }); 
+    });
+}
+
 //pay for a booking (move from unpaid to paid collection)
+let payBooking = function(bUID, callback){
+    entity.unpaidBooking.findById(bUID, (err, booking)=>{
+        if(err)
+            return console.log(err);
+
+        // booking._id = mongoose.Types.ObjectId(booking._id);
+        booking=booking.toObject();
+        let confBooking = new entity.paidBooking(booking);//JSON.parse(userInfo));
+        
+        // console.log(confBooking);
+        confBooking.save()
+            .then(()=>{
+                entity.unpaidBooking.deleteOne({ _id: bUID }, function (err) {if(err)console.log(err)});
+                callback(null, confBooking);
+            }).catch((err)=>{
+                console.log(err)
+            });  
+    });
+}
 
 //-- SYSTEM (booking maintenance)
 //move all paid/confirmed bookings passed date to history
+let updatePaidBookings = function(){
+    var today = new Date();
+    var tomorrow = new Date();
+    tomorrow.setDate(today.getDate()+1);
+    let passedStream = entity.PaidBookings.find({"endTime" : {"$gte":today, "$lt": tomorrow}}).stream();
+    passedStream.on('data', (booking)=>{
+        let newHistory = new entity.BookingHistory(booking);
+        newHistory.save()
+        .then(()=>{
+            entity.PaidBookings.deleteOne({ _id: booking._id });
+            callback(null, newHistory);
+        }).catch((err)=>{
+            console.log(err)
+        });
+    });
+}
+
 //delete all unpaid bookings passed date
+let updateUnpaidBookings = function(){
+    var today = new Date();
+    var yesterday = new Date();
+    yesterday.setDate(today.getDate()-1);
+    entity.unpaidBooking.deleteMany({"endTime" : {"$gte":yesterday, "$lt": today}});
+}
 //delete all pending bookings passed date
+let updatePendingBookings = function(){
+    var today = new Date();
+    var tomorrow = new Date();
+    tomorrow.setDate(today.getDate()+1);
+    entity.pendingBooking.deleteMany({"endTime" : {"$gte":today, "$lt": tomorrow}});
+}
 
 //MAP THINGS
 //Get all chargers for map population
+
 
 module.exports = {
     createUser : createUser,
@@ -256,43 +368,8 @@ module.exports = {
     getPendingBookings : getPendingBookings,
     getChargerPending: getChargerPending,
     getAllChargerPending : getAllChargerPending,
-    getUserChargers : getUserChargers
+    getUserChargers : getUserChargers,
+    confirmBooking : confirmBooking,
+    payBooking : payBooking
 };
 
-// const {MongoClient, ObjectID} = require('mongodb');
-// const connectionURL ='mongodb://127.0.0.1:27017';
-// const databaseName = 'ZapShare';
-// let wuviv = new entity.user({
-//     firstName : "Vivian",
-//     lastName: "Wu"
-// });
-
-// wuviv.save()
-//     .then(()=>{
-//         console.log(wuviv)
-//     }).catch((err)=>{
-//         console.log(err)
-//     });
-// let UserModel =  require('./database-schema');//databaseSchema.user;
-
-// let wuviv = new UserModel({
-//     firstName : "Vivian",
-//     lastName: "Wu"
-// })
-// MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error,client)=>{
-//     if(error){
-//         return console.log("Unable to connect to database!")
-//     }
-
-//     const db = client.db(databaseName);
-
-//     db.collection('Users').insertOne({
-//         wuviv
-//     }, (error, result) =>{
-//         if(error){
-//             return console.log('Unable to insert user');
-//         }
-
-//         console.log(result.ops)
-//     });
-// });
