@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
+const mongoose = require('mongoose')
+const validator = require('validator')
 
 // Creates mongoose data model for a charger object and adds validator to data
 const Charger = mongoose.model('Charger', {
@@ -25,10 +25,15 @@ const Charger = mongoose.model('Charger', {
     },
     country: {
         type: String,
-       required: true,
+        required: true,
         trim: true
     },
-    rate: {
+    rating: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    cost: {
         type: Number,
         required: true,
         trim: true

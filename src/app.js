@@ -5,6 +5,8 @@ const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
 const chargerRouter = require('./routers/charger')
 const pagesRouter = require('./routers/pages')
+const clientRouter = require('./routers/client')
+const markerRouter = require('./routers/marker')
 const hbs = require('hbs')
 require('./db/mongoose')
 
@@ -34,9 +36,13 @@ app.use(express.json())
 const port = process.env.PORT || 3000
 
 // Registers routers, allowing us to refactor routes into separate files
+app.use('/client',clientRouter);
 app.use(userRouter)
 app.use(bookingRouter)
 app.use(chargerRouter)
+app.use(markerRouter);
+
+// Page router, do not move order, needs to come last.
 app.use(pagesRouter)
 
 // Starts up the web server.

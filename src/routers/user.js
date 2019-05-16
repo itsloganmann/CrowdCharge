@@ -78,7 +78,7 @@ router.get('/users/me', async (req, res) => {
 router.patch('/users/me', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password']
+    const allowedUpdates = ['name', 'email', 'password','phone']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     // Checks if the update is valid operation
@@ -112,5 +112,6 @@ router.delete('/users/me', auth, async (req, res) => {
         res.status(500).send()
     }
 })
+
 
 module.exports = router
