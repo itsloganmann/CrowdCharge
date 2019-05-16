@@ -56,6 +56,27 @@ $("#bookings-tab").click(function (event) {
 	$("#tab-content").append(confirmContainer);
 	$("#tab-content").append(pendingContainer);
 
+	var request = new Request('/client/bookings', {
+		method: 'POST',
+		body: {"uUID" : "hello", "bookingType" : "PENDING"}
+	});
+
+	fetch(request)
+    .then((res)=> {return res.json()})
+    .then((db) => {
+		// console.log(db);
+        // const data = JSON.stringify(db);
+        // let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
+        // +"<p id='cb-date'>" + data.date + "</p>"
+        // +"<p id='cb-cost'>" + data.cost + "</p>"
+        // +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
+        // +"<p id='cb-address'>" + data.address + "</p>"
+        // +"<p id='cb-city'>" + data.city + "</p>"
+		// +"</div>");
+		// confirmContainer.append(confirmedBookingData);
+		console.log("returned");
+    });
+
 });
 
 //payment tab click; build elements for payment details

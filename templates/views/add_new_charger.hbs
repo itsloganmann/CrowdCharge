@@ -20,22 +20,32 @@
 	</main>
 	{{>javascripts}}
 	<script>
+			const jwt = localStorage.getItem('jwt');
 		$("#submit-charger").on('click', (e) => {
 			e.preventDefault();
-
-			const chargername = $('#charger-name-input').val();
+			const chargerowner = "Hi";
 			const chargeraddress = $('#charger-address-input').val();
 			const chargercity = $('#charger-city-input').val();
+			const chargerprovince = "BC";
+			const chargercountry = "Canada";
+			const chargerrating = 0;
+			const chargercost = parseFloat($('#charger-rate-input').val());
+			const chargername = $('#charger-name-input').val();
+			const chargerlevel = 1;
 			const chargertype = $('#charger-type-input').val();
-			const chargerrate = $('#charger-rate-input').val();
 			const chargerdetails = $('#charger-details-input').val();
 			const url = '/chargers'
 			const data = {
-				name: chargername,
+				owner: chargerowner,
 				address: chargeraddress,
 				city: chargercity,
+				province: chargerprovince,
+				country: chargercountry,
+				rating: chargerrating,
+				cost: chargercost,
+				name: chargername,
+				level: chargerlevel,
 				type: chargertype,
-				rate: chargerrate,
 				details: chargerdetails
 			}
 			console.log(data);
@@ -43,7 +53,8 @@
 				method: 'POST',
 				body: JSON.stringify(data),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + jwt
 				}
 			}).then(res => console.log(res))
 				.then((response) => {
