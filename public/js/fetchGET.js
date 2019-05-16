@@ -19,7 +19,9 @@ function fetchGET(url, jwt) {
         "endTime": "2019-05-14T16:00:00.000Z",
         "cost": "19.99",
         "address": "3341 Wellington Ave",
-        "city": "Vancouver", "cName": "my charger",
+        "city": "Vancouver", 
+        "province": "BC",
+        "cName": "my charger",
         "client": "client"
     }, {
         "startTime": "2019-05-14T12:00:00.000Z",
@@ -27,6 +29,7 @@ function fetchGET(url, jwt) {
         "cost": "19.99",
         "address": "3341 Wellington Ave",
         "city": "Vancouver",
+        "province": "BC",
         "cName": "your Charger",
         "client": "client"
     }]

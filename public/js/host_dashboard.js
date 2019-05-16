@@ -1,6 +1,6 @@
 console.log("js file loaded successfullly");
 //fetch to get all chargers' id that belong to the host
-const jwt = JSON.parse(localStorage.getItem('jwt'));
+const jwt = localStorage.getItem('jwt');
 let chargers = [];
 
 
@@ -89,7 +89,7 @@ $('#chargers').click(function (event) {
 
 
 //to be move to other js file
-function getTime(timeObject){
+function getTime(timeObject) {
 	return timeObject.split("T")[1].split("Z")[0];
 }
 
@@ -102,42 +102,100 @@ $('#bookings').click(function (event) {
 
 	$('#content').children().remove();
 
-	createContent("content", "div", "request-container", "card-panel col-md-5");
-	createContent("content", "div", "request-container", "card-panel col-md-5");
+	createContent("content", "div", "request-container", "col-11 tab-section-data row");
+	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
+	createSubheader("request-container", "h6", "These are user requests to use your charger. "
+		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
-	createContent("content", "div", "unpaid-container", "card-panel col-md-5");
-	createContent("content", "div", "paid-container", "card-panel col-md-5");
-	createButton("content", "history-btn", "BOOKING HISTORY", "orange-button");
+	createContent("content", "div", "unpaid-container",  "col-11 tab-section-data row");
+	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
+	createSubheader("unpaid-container", "h6", "You accepted these requests. "
+		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 
+	createContent("content", "div", "paid-container",  "col-11 tab-section-data row");
+	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
+	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
+		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
+	createButton("content", "history-btn", "BOOKING HISTORY");
+
+	//pending booking data render!
 	let pendingData = fetchGET('/host/pendingBookings', jwt);
-	let count = 0;
+	let countPending = 0;
 	pendingData.forEach((booking) => {
-			//pending booking information for the host
-			createContent("request-container", "div", "pending-card" + count, "card-panel col-md-5");
-			createContent("pending-card" + i, "span", "pending-charger-name" + count, "card-text-lg");
-			$("#pending-charger-name" + count).text(booking.cName);
-			createContent("pending-card" + i, "span", "pending-date" + count, "card-text-md");
-			$("#pending-date" + count).text(booking.startTime.split("T")[0]);
-			createContent("pending-card" + i, "span", "pending-client" + count, "card-text-sm");
-			$("#pending-client" + count).text(booking.client + count);
-			createContent("pending-card" + i, "span", "pending-hourly-cost" + count, "card-text-sm");
-			$("#pending-price" + count).text(booking.client + count);
-			createContent("pending-card" + i, "span", "pending-period" + count, "card-text-md");
-			$("#pending-period" + count).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-			createContent("pending-card" + i, "span", "pending-address" + count, "card-text-md");
-			$("#pending-address" + count).text(booking.address);			
-			createContent("pending-card" + i, "span", "pending-area" + count, "card-text-md");
-			$("#pending-area" + count).text(booking.city + ", " + booking.province);
+		//pending booking information for the host
 
-			//accept or reject 
-			createContent("request-container", "div", "acc-rej-container" + count, "right");
-			createContent("acc-rej-container", "i", "accept" + count, "fas fa-check-circle accept-icon");
-			createContent("acc-rej-container", "i", "reject" + count, "fas fa-times-circle reject-icon");
-		count++;
 
+		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
+		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
+		$("#pending-charger-name" + countPending).text(booking.cName);
+		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
+		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
+		//accept or reject 
+		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
+		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
+		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+
+		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
+		$("#pending-client" + countPending).text(booking.client + countPending);
+		createContent("pending-card" + countPending, "p", "pending-hourly-cost" + countPending, "card-text-sm");
+		$("#pending-price" + countPending).text(booking.client + countPending);
+		createContent("pending-card" + countPending, "p", "pending-period" + countPending, "card-text-md");
+		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+		createContent("pending-card" + countPending, "p", "pending-address" + countPending, "card-text-md");
+		$("#pending-address" + countPending).text(booking.address);
+		createContent("pending-card" + countPending, "p", "pending-area" + countPending, "card-text-md");
+		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
+		countPending++;
 	}
 	);
+	//unpaid booking data render!
+	let unpaidData = fetchGET('/host/unpaidBookings', jwt);
+	let countUnpaid = 0;
+	unpaidData.forEach((booking) => {
+		//unpaid booking information for the host
 
+
+		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-charger-name" + countUnpaid, "card-text-lg");
+		$("#unpaid-charger-name" + countUnpaid).text(booking.cName);
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-date" + countUnpaid, "card-text-md");
+		$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-client" + countUnpaid, "card-text-sm");
+		$("#unpaid-client" + countUnpaid).text(booking.client + countUnpaid);
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-hourly-cost" + countUnpaid, "card-text-sm");
+		$("#unpaid-price" + countUnpaid).text(booking.client + countUnpaid);
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-period" + countUnpaid, "card-text-md");
+		$("#unpaid-period" + countUnpaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-address" + countUnpaid, "card-text-md");
+		$("#unpaid-address" + countUnpaid).text(booking.address);
+		createContent("unpaid-card" + countUnpaid, "p", "unpaid-area" + countUnpaid, "card-text-md");
+		$("#unpaid-area" + countUnpaid).text(booking.city + ", " + booking.province);
+		countUnpaid++;
+	}
+	);
+	//paid booking data render!
+	let paidData = fetchGET('/host/paidBookings', jwt);
+	let countPaid = 0;
+	paidData.forEach((booking) => {
+		//paid booking information for the host
+		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
+		createContent("paid-card" + countPaid, "p", "paid-charger-name" + countPaid, "card-text-lg");
+		$("#paid-charger-name" + countPaid).text(booking.cName);
+		createContent("paid-card" + countPaid, "p", "paid-date" + countPaid, "card-text-md");
+		$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
+		createContent("paid-card" + countPaid, "p", "paid-client" + countPaid, "card-text-sm");
+		$("#paid-client" + countPaid).text(booking.client + countPaid);
+		createContent("paid-card" + countPaid, "p", "paid-hourly-cost" + countPaid, "card-text-sm");
+		$("#paid-price" + countPaid).text(booking.client + countPaid);
+		createContent("paid-card" + countPaid, "p", "paid-period" + countPaid, "card-text-md");
+		$("#paid-period" + countPaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+		createContent("paid-card" + countPaid, "p", "paid-address" + countPaid, "card-text-md");
+		$("#paid-address" + countPaid).text(booking.address);
+		createContent("paid-card" + countPaid, "p", "paid-area" + countPaid, "card-text-md");
+		$("#paid-area" + countPaid).text(booking.city + ", " + booking.province);
+		countPaid++;
+	}
+	);
 })
 
 $('#reviews').click(function (event) {

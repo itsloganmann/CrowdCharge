@@ -119,10 +119,10 @@ main {
 }
 
 #logout-button:hover {
-    color: #bf331d;
+    color: #ffffff;
     background-color: #F05A29;
     opacity: 0.8;
-}
+}b
 
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
@@ -408,7 +408,8 @@ footer ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-@media only screen and (max-width: 426px) {
+
+@media only screen and (max-width: 427px) {
   .footercolumns{
     grid-template-columns: 1fr;
   }
@@ -528,10 +529,10 @@ button:focus {
 }
 
 .error-message {
-  background-color: wheat;
-  position: absolute;
-  padding: 8px 20px;
-  
+  text-align: left;
+  padding: 0px;
+  position: absolute;  
+  color: red;
 }
 .readonly-input{
   background-color: inherit;
