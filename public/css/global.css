@@ -119,7 +119,7 @@ main {
 }
 
 #logout-button:hover {
-    color: #bf331d;
+    color: #ffffff;
     background-color: #F05A29;
     opacity: 0.8;
 }b
@@ -408,7 +408,8 @@ footer ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-@media only screen and (max-width: 426px) {
+
+@media only screen and (max-width: 427px) {
   .footercolumns{
     grid-template-columns: 1fr;
   }
