@@ -2,11 +2,12 @@ console.log("js file loaded successfullly");
 const jwt = JSON.parse(localStorage.getItem('jwt'));
 
 //tab's eventListener
-$("#bookings-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "#F05A29" });
-	$("#payment-tab").css({ "color": "black" });
-	$("#reviews-tab").css({ "color": "black" });
-	$("#tab-content").html("");
+$("#bookings").click(function (event) {
+	$("#bookings").css({ "color": "#F05A29" });
+	$("#payment").css({ "color": "black" });
+	$("#reviews").css({ "color": "black" });
+	$("#history").css({ "color": "black" });
+	$("#subContent").html("");
 
 	/*
 	CONFIRMED BOOKING
@@ -58,12 +59,11 @@ $("#bookings-tab").click(function (event) {
 });
 
 //payment tab click; build elements for payment details
-$("#payment-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "black" });
-	$("#payment-tab").css({ "color": "#F05A29" });
-	$("#reviews-tab").css({ "color": "black" });
-
-	$("#tab-content").html("");
+$("#payment").click(function (event) {
+	$("#bookings").css({ "color": "black" });
+	$("#payment").css({ "color": "#F05A29" });
+	$("#reviews").css({ "color": "black" });
+	$("#history").css({ "color": "black" });
 
 
 	//container hold all payment details for user
@@ -91,10 +91,11 @@ $("#payment-tab").click(function (event) {
 });
 
 //reviews tab click; build elements for reviews details
-$("#reviews-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "black" });
-	$("#payment-tab").css({ "color": "black" });
-	$("#reviews-tab").css({ "color": "#F05A29" });
+$("#reviews").click(function (event) {
+	$("#bookings").css({ "color": "black" });
+	$("#payment").css({ "color": "black" });
+	$("#reviews").css({ "color": "#F05A29" });
+	$("#history").css({ "color": "black" });
 
 	$("#tab-content").html("");
 
@@ -130,3 +131,16 @@ $("#reviews-tab").click(function (event) {
 	$("#tab-content").append(reviewContainer);
 
 });
+
+$("#history").click(function (event) {
+	$("#bookings").css({ "color": "black" });
+	$("#payment").css({ "color": "black" });
+	$("#reviews").css({ "color": "black" });
+	$("#history").css({ "color": "#F05A29" });
+
+	$("#subContent").html("");
+
+	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
+
+	$("#subContent").append(historyContainer);
+})
