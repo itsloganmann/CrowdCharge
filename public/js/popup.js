@@ -11,7 +11,7 @@ if (token) {
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
-	$('body').css('position','fixed');
+	$('body').css({'position': 'fixed', 'width': '100vw'});
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
