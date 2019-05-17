@@ -2,8 +2,8 @@
 var createInput = (targetId, type, readonlyBooleanValue, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
-    input.setAttribute("name", name);
-	input.setAttribute("readonly" , readonlyBooleanValue);
+	input.setAttribute("name", name);
+	input.setAttribute("readonly", readonlyBooleanValue);
 	if (value !== undefined) {
 		input.setAttribute("value", value);
 	}
@@ -32,10 +32,28 @@ var createButton = (targetId, id, text, className) => {
 }
 
 var createContent = (targetId, type, id, className) => {
-	var Content = document.createElement(type);
+	var content = document.createElement(type);
 	if (className != undefined) {
-		Content.className = className;
+		content.className = className;
 	}
-	Content.id = id;
-	$('#' + targetId).append(Content);
+	content.id = id;
+	$('#' + targetId).append(content);
+}
+
+var createHeader = (targetId, size, text, className) => {
+	var header = document.createElement(size);
+	header.innerText = text;
+	if (className != undefined) {
+		header.className = className;
+	} 
+	$('#' + targetId).append(header);
+}
+
+var createSubheader = (targetId, size, text, className) => {
+	var subheader = document.createElement(size);
+	subheader.innerText = text;
+	if (className != undefined) {
+		subheader.className = className;
+	}
+	$('#' + targetId).append(subheader);
 }
