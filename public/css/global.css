@@ -374,6 +374,7 @@ footer a {
 
 footer a:hover {
   color: #1DBF73;
+  text-decoration: none;
 }
 
 #footer-p {
@@ -385,9 +386,9 @@ footer a:hover {
   background-color: #333;
 }
 
-.footercolumns {
+.footerwrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 75%;
   margin: 0 auto;
   padding: 25px 0;
@@ -401,7 +402,7 @@ footer a:hover {
 .footertitle {
   color: #fff;
   font-size: 15px;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -411,20 +412,29 @@ footer ul {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
-@media only screen and (min-width: 768px) {
-  .footercolumns {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+@media only screen and (max-width: 1191px) {
+  .footerwrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footercolumn{
+    margin: 10px 50px;
   }
 }
 
 @media only screen and (max-width: 427px) {
-  .footercolumns{
+  .footerwrapper{
     grid-template-columns: 1fr;
   }
+
+  .footercolumn{
+    margin: 10px 50px;
+  }
 }
+
 #popup-wrapper {
   position: fixed;
   width: 100vw;
@@ -457,11 +467,9 @@ footer ul {
 .popup-header {
   font-size: 1.5rem;
 }
+
 .popup-subheader {
   font-size: 1.0rem;
-}
-.popup-content {
-
 }
 
 /** Login */
