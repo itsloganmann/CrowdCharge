@@ -22,7 +22,7 @@
 	<script>
 		const jwt = localStorage.getItem('jwt');
 		// Enables add new charger button if all fields are filled
-		$('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input', '#charger-cost-input', (event) => {
+		$('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input, #charger-cost-input', (event) => {
 			var formFilled = false;
 			if ($('#charger-name-input').val() && $('#charger-address-input').val() && $('#charger-city-input').val()
 				&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
@@ -48,15 +48,14 @@
 			const chargerlevel = parseFloat($('#charger-level-input').val());
 			const chargertype = $('#charger-type-input').val();
 			const chargerdetails = $('#charger-details-input').val();
-			const url = '/chargers'
+			const url = '/charger/new'
 			const data = {
 				address: chargeraddress,
 				city: chargercity,
 				province: chargerprovince,
 				country: chargercountry,
-				rating: chargerrating,
 				cost: chargercost,
-				name: chargername,
+				chargername: chargername,
 				level: chargerlevel,
 				type: chargertype,
 				details: chargerdetails
@@ -71,7 +70,8 @@
 				}
 			}).then(res => console.log(res))
 				.then((response) => {
-					console.log('Success:', (response))
+					console.log('Success: charger added to db!', (response))
+					window.location.replace('/host_dashboard');
 				})
 				.catch(error => console.error('Error:', error));
 		});

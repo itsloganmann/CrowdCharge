@@ -12,7 +12,7 @@ router.get('/markers', async(req, res)=>{
             try{
                 let geoJSON = await geocode(charger.address+" "+charger.city+" "+charger.province+" "+charger.country);
                 let properties = {
-                    "name" : charger.name,
+                    "name" : charger.chargername,
                     "cost" : charger.cost,
                     "rating" : charger.rating,
                     "icon" : "marker"

@@ -18,7 +18,6 @@ fetch("/chargers", {
 	.then((db) => {
 		console.log(db);
 		chargers = JSON.parse(JSON.stringify(db));
-
 	});
 
 window.onload = function () {
@@ -39,7 +38,7 @@ window.onload = function () {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
+			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
 
@@ -246,6 +245,7 @@ $('#earnings').click(function (event) {
 
 	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
 	var earningsContainer = $("<div id='earningsContainer'></div>");
+	$('#content').css({ 'height': '500px'});
 
 	$('#content').append(header);
 	$('#content').append(earningsContainer);
@@ -258,7 +258,7 @@ function chargerInfo(chargerNumber) {
 
 	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
-	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].name);
+	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
 	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
 	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
 	createLabel("content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
@@ -303,13 +303,14 @@ function chargerInfo(chargerNumber) {
 		var cdetails = $("#charger-details").val();
 
 		let dataToSent = {
-			name: cname,
+			chargername: cname,
 			address: caddress,
 			city: ccity,
 			type: ctype,
 			rate: crate,
 			details: cdetails
 		}
+
 		const paramForServer = {
 			cuid: chargers[chargerNumber].id
 		}
