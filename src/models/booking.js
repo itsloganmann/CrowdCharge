@@ -7,7 +7,7 @@ const Booking = mongoose.model('Booking', {
         required: true,
         trim: true
     },
-    user: {
+    client: {
         type: String,
         required: true,
         trim: true
@@ -31,6 +31,12 @@ const Booking = mongoose.model('Booking', {
         type: String,
         enum : ['PENDING','UNPAID','PAID','COMPLETED'],
         default: 0
+    },
+
+    cost: {
+        type: Number,
+        required: true,
+        trim: true
     }
 })
 

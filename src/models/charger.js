@@ -38,7 +38,7 @@ const Charger = mongoose.model('Charger', {
         required: true,
         trim: true
     },
-    name: {
+    cName: {
         type: String,
         required: true,
         trim: true,
