@@ -110,7 +110,7 @@
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
                     map.flyTo({
-                        center: [coordinates[0], coordinates[1]],
+                        center: [coordinates[0], coordinates[1]-0.001],
                         zoom: 15,
                         bearing: 0,
                         speed: 1.5, // make the flying slow
@@ -191,7 +191,6 @@
                 .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
                                 + name + '</span>')
                 .addTo(map);
-
         });
         
         // On mouse leave, remove the popup.

@@ -21,23 +21,21 @@ router.post('/newBooking', auth, async (req, res) => {
             type: 'NEWREQ',
             read: false
         })
+        
         await notification.save()
-        res.send("successfully requested booking");
+        res.send("Successfully requested a new booking!");
 
         res.status(201).send(booking)
     } catch (error) {
         res.status(400).send(error)
     }
 })
+
 //Accepts a booking
-router.post('/acceptBooking', auth, async (req, res) => {
-    const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "UNPAID" });
-    if (!booking) {
-        return res.status(400).send({ error: "Cannot be found" });
-    }
-    try {
 
-
+router.post('/acceptBooking', auth, async (req,res) =>{
+    try{
+        const booking = await Booking.findByIdAndUpdate(req.body.bUID,{state: "UNPAID"});
         let notification = new Notification({
             booking: booking,
             user: booking.client,
@@ -52,6 +50,7 @@ router.post('/acceptBooking', auth, async (req, res) => {
         res.status(400).send(error)
     }
 })
+
 //Declines a booking
 router.delete('/declineBooking', async (req, res) => {
     try {
@@ -75,6 +74,7 @@ router.delete('/declineBooking', async (req, res) => {
         res.status(500).send()
     }
 })
+
 //Pays for a booking
 router.post('/payBooking', auth, async (req, res) => {
     try {
