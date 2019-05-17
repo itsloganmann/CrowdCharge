@@ -10,11 +10,6 @@
     margin-top: 8px;
 }
 
-.stop-scrolling {
-    height: 100%;
-    overflow: hidden;
-}
-
 .time-slot-button {
     background-color: #999999;
     font-size: 12pt;
@@ -37,6 +32,7 @@
     transform: translateX(calc(50vw - 50%));
     left: 0px !important;
 }
+
 #datepicker {
     font-size: 1.25rem;
 }
