@@ -107,12 +107,12 @@ $('#bookings').click(function (event) {
 	createSubheader("request-container", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
-	createContent("content", "div", "unpaid-container",  "col-11 tab-section-data row");
+	createContent("content", "div", "unpaid-container", "col-11 tab-section-data row");
 	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("unpaid-container", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 
-	createContent("content", "div", "paid-container",  "col-11 tab-section-data row");
+	createContent("content", "div", "paid-container", "col-11 tab-section-data row");
 	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
@@ -203,14 +203,39 @@ $('#reviews').click(function (event) {
 	$('#bookings').css({ 'color': 'black' });
 	$('#reviews').css({ 'color': '#f05a29' });
 	$('#earnings').css({ 'color': 'black' });
-
 	$('#content').children().remove();
+	//container box and its headers
+	createContent("content", "div", "review-container", "col-11 tab-section-data row");
+	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
+	createSubheader("review-container", "h6", "These are the comments of hosts that you’ve charged with."
+		, "col-11 inner-subheader");
 
-	var header = $("<p class='boxHeader'>Here are all your reviews.</p>");
-	var reviewsContainer = $("<div id='reviewsContainer'></div>");
+	let reviewData = fetchGET("host/reviews", jwt);
+	reviewData = [{
+		reviewer: "Jane Doe",
+		comment: "This is great!",
+		rating: "5.00"
+	}, {
+		reviewer: "William Smith",
+		comment: "This is bad!",
+		rating: "1.00"
+	}, {
+		reviewer: "Kevin Woo",
+		comment: "Great location!",
+		rating: "4.00"
+	}];
+	let countReview = 0;
+	reviewData.forEach(review => {
+		createContent("review-container", "div", "review-card" + countReview, "card-panel col-md-11");
+		createContent("review-card" + countReview, "p", "reviewer" + countReview, "card-text-lg");
+		$("#reviewer" + countReview).text(review.reviewer);
+		createContent("review-card" + countReview, "p", "comment" + countReview, "card-text-md");
+		$("#comment" + countReview).text(review.comment);
+		createContent("review-card" + countReview, "p", "rating" + countReview, "card-text-lg");
+		$("#rating" + countReview).text(review.rating);
 
-	$('#content').append(header);
-	$('#content').append(reviewsContainer);
+		countReview++;
+	});
 })
 
 $('#earnings').click(function (event) {
@@ -228,9 +253,11 @@ $('#earnings').click(function (event) {
 	$('#content').append(earningsContainer);
 })
 
+//click event listener on each charger
 function chargerInfo(chargerNumber) {
-	//rebuild content div
+	//rebuild content div with charger information that a user clicked
 	$('#content').children().remove();
+
 	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
 	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].name);
@@ -248,11 +275,13 @@ function chargerInfo(chargerNumber) {
 	createInput("content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
 	createLabel("content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
 	createInput("content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
+	//switch between two buttons for clicked
+	//edit -> save; save->edit
 	createButton("content", "edit-btn", "Edit", "white-button");
 	createButton("content", "save-btn", "Save", "orange-button");
 	$("#save-btn").css({ "display": "none" });
 
-	//event listener
+	//event listener for save/edit button clicked
 	$('#edit-btn').click(function (event) {
 		console.log("clicked");
 		$('#edit-btn').css({ "display": "none" });
@@ -274,6 +303,7 @@ function chargerInfo(chargerNumber) {
 		var clevel = $("#charger-level").val();
 		var crate = $("#charger-rate").val();
 		var cdetails = $("#charger-details").val();
+
 		let dataToSent = {
 			name: cname,
 			address: caddress,
@@ -285,6 +315,7 @@ function chargerInfo(chargerNumber) {
 		const paramForServer = {
 			cuid: chargers[chargerNumber].id
 		}
+		//update calls to the database
 		chargerUpdateURL = "/chargers?" + $.param(paramForServer);
 		fetch(chargerUpdateURL, {
 			method: 'PATCH',
