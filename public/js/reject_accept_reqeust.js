@@ -1,8 +1,9 @@
 console.log("file loaded success");
-function addEventListenerOnAccept(element){
-    element.onclick= accept;
-}
+function addEventListenerOnAccept(element, chargerId) {
+    console.log(element);
+    element.click(async event => {
 
-function accept(){
-    console.log("accept clicked");
+    await fetch();    
+    
+    })
 }
