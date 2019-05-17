@@ -1,12 +1,4 @@
-/*general margin-setting to mobile first*/
-
-#contentContainer{
-	margin-top: 3vh 0;
-}
-.content{
-	margin-top: 30px;
-	background-color: #F3F3F3;
-}
+/** Unused */
 #profile-icon{
 	width: 70px;
 	height: 70px;
@@ -14,53 +6,10 @@
 	display: block;
 	border-radius:25px;
 }
-#img-upload-btn{
-	margin:0 auto;
-	display: block;
-	width: auto;
-}
-
 #user-img{
 	display: block;
 	width: 100%;
 	padding: 2vh;
-}
-.margin-setting{
-	margin: 10px;
-	border-radius:10px;
-}
-.inner-margin-setting{
-	margin: 0 auto;
-}
-
-.input-style{
-	width: 100%;
-}
-.input-disable{
-	background-color:#EBEBE4;
-}
-#edit-btn{
-	width: 100px;
-	margin: 0 auto;
-	display: block;
-	margin-top: 50px;
-}
-#save-btn{
-	width: 100px;
-	margin: 0 auto;
-	display: block;
-	margin-top: 50px;
-	display: none;
-}
-#checkbox-field{
-	padding: 10px 20px 40px;
-	margin-top: 30px;
-}
-@media only screen and (min-width: 500px) {
-.margin-setting{
-	margin-left: 15%;
-	margin-right: 15%;
-}
 }
 
 /** Restyled */
@@ -72,4 +21,15 @@
 }
 .form-label {
 	width: unset;
+}
+.small-btn {
+	width: 50%;
+	margin: 36px auto 18px;
+}
+#save-btn {
+	display: none;
+}
+.tab-section-content {
+	margin-bottom: 36px;
+	padding-top: 18px;
 }

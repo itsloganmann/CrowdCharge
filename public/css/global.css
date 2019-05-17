@@ -293,6 +293,7 @@ main {
 }
 
 .orange-button {
+  display: block;
   background-color: #F05A29;
   margin: 24px auto 8px;
   color: #FFFFFF;
@@ -304,6 +305,7 @@ main {
 }
 
 .white-button {
+  display: block;
   background-color: #FFFFFF;
   margin: 24px auto 8px;
   color: #F05A29;

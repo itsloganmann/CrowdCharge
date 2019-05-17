@@ -6,7 +6,7 @@
         <div id="tab-content" class="col-11">
             <div id="profile-details" class="tab-section-content col-12">
                 <h3 class="col-11 inner-header" id="profile-details-header"><b>Profile Details</b></h3>
-                <form>
+                <form class="col-11 tab-section-data row" id="profile-details-form">
                     <div class="full-center-wrapper" id="profile-name-wrapper">
                         <label id="profile-name-label" class="form-label" for="profile-name-input">Name</label>
                         <input type="text" name="name" id="profile-name-input" class="form-input" readonly>
@@ -19,25 +19,25 @@
                         <label id="profile-phone-label" class="form-label" for="profile-phone-input">Phone</label>
                         <input type="text" name="phone" id="profile-phone-input" class="form-input" readonly>
                     </div>
-                    <input type="submit" id="save-btn" class="orange-button" value="Save">
-                    <button id="edit-btn" class="white-button">Edit</button>
+                    <input type="submit" id="save-btn" class="orange-button small-btn" value="Save">
+                    <button id="edit-btn" class="white-button small-btn">Edit</button>
                 </form>
             </div>
             <hr>
             <div id="notif-settings" class="tab-section-content col-12">
                 <h3 class="col-11 inner-header" id="notif-settings-header"><b>Notification Settings</b></h3>
-                <div id="notif-settings">
+                <div class="col-11 tab-section-data row" id="notif-settings-form">
                     <div class="full-center-wrapper">
-                    <input type="checkbox" class="notif-checkbox" id="notif-requests-checkbox" checked>
-                    <label id="notif-requests-checkbox" class="form-label" for="notif-requests-checkbox">Receive
-                        notifications for booking requests</label>
+                        <input type="checkbox" class="notif-checkbox" id="notif-requests-checkbox" checked disabled>
+                        <label id="notif-requests-checkbox" class="form-label" for="notif-requests-checkbox">Receive
+                            notifications for booking requests</label>
                     </div>
                     <div class="full-center-wrapper">
-                    <input type="checkbox" class="notif-checkbox" id="notif-unpaid-checkbox" checked>
-                    <label id="notif-unpaid-checkbox" class="form-label" for="notif-unpaid-checkbox">Receive
-                        notifications for booking requests</label>
+                        <input type="checkbox" class="notif-checkbox" id="notif-unpaid-checkbox" checked disabled>
+                        <label id="notif-unpaid-checkbox" class="form-label" for="notif-unpaid-checkbox">Receive
+                            notifications for booking requests</label>
                     </div>
-                    <button id="notif-button" class="orange-button disabled-button" disabled>Save</button>
+                    <button id="notif-button" class="orange-button disabled-button small-btn" disabled>Save</button>
                 </div>
             </div>
         </div>

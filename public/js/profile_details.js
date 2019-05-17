@@ -1,9 +1,9 @@
 
 $("#edit-btn").click((event) => {
     event.preventDefault();
-    $("#profile-name-input").css({"background-color" : "white"});
-    $("#profile-phone-input").css({"background-color" : "white"});
-    $("#profile-email-input").css({"background-color" : "white"});
+    $("#profile-name-input").css({"background-color" : "#FFFFFF"});
+    $("#profile-phone-input").css({"background-color" : "#FFFFFF"});
+    $("#profile-email-input").css({"background-color" : "#FFFFFF"});
     $("#profile-name-input").removeAttr("readonly");
     $("#profile-phone-input").removeAttr("readonly");
     $("#profile-email-input").removeAttr("readonly");
@@ -37,9 +37,9 @@ $("#save-btn").click((event) => {
     event.preventDefault();
 
     updateProfile();
-    $("#profile-name-input").css({"background-color" : "#EBEBE4"});
-    $("#profile-email-input").css({"background-color" : "#EBEBE4"});
-    $("#profile-phone-input").css({"background-color" : "#EBEBE4"});
+    $("#profile-name-input").css({"background-color" : "inherit"});
+    $("#profile-email-input").css({"background-color" : "inherit"});
+    $("#profile-phone-input").css({"background-color" : "inherit"});
 
     $("#profile-name-input").attr("readonly", "true");
     $("#profile-email-input").attr("readonly", "true");

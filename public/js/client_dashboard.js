@@ -84,7 +84,7 @@ $("#bookings-tab").click(function (event) {
 });
 
 //payment tab click; build elements for payment details
-$("#payment-tab").click(function (event) {
+$("#payments-tab").click(function (event) {
 	//container hold all payment details for user
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
