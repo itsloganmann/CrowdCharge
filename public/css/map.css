@@ -55,16 +55,15 @@
     float: left;
 }
 
-
 #map-drawer {
     display: none;
-    box-shadow: 0px 0px 4px 0px #356859;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     height: 216px;
     background-color: #FFFFFF;
     transition: height 0.5s ease;
     width: 100%;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     bottom: 0;
     max-height: calc(100vh - 84px);
 }
