@@ -442,17 +442,12 @@ footer ul {
 }
 
 
-/** Map Page **/
 .popup-header {
   font-size: 1.5rem;
 }
 .popup-subheader {
   font-size: 1.0rem;
 }
-.popup-content {
-
-}
-
 
 /** Login */
 #login-popup-button {

@@ -28,7 +28,9 @@
 				&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
 				formFilled = true;
 			}
+			console.log(formFilled);
 			if (formFilled) {
+				console.log('remove');
 				$('#submit-charger').removeAttr('disabled');
 				$('#submit-charger').removeClass('disabled-button');
 			} else {
