@@ -3,6 +3,14 @@ console.log("js file loaded successfullly");
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
 
+// Changes tab colours and clears tab contents
+// Clearing done when switching tabs to allow for new data population
+$('.tab-button').on('click', (e) => {
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$("#tab-content").children().remove();
+});
+
 
 //fetch to get all charger info from a host
 fetch("/chargers", {
@@ -21,15 +29,7 @@ fetch("/chargers", {
 
 	});
 
-window.onload = function () {
-	//highlight active tab
-	$('#chargers').css({ 'color': '#f05a29' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
-
-	//clear old content
-	$('#content').children().remove();
+$('#chargers-tab').click(function (event) {
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -42,41 +42,7 @@ window.onload = function () {
 			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
-
-	$('#content').append(header);
-	$('#content').append(chargerContainer);
-	$('#chargerContainer').append(newCharger);
-	for (i = 0; i < chargers.length; i++) {
-		$('#chargerContainer').append(yourCharger[i]);
-	}
-	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-
-};
-
-$('#chargers').click(function (event) {
-	//highlight active tab
-	$('#chargers').css({ 'color': '#f05a29' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
-
-	//clear old content
-	$('#content').children().remove();
-	//create new content
-	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
-	var chargerContainer = $("<div id='chargerContainer'></div>")
-	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-
-	//populating all chargers owned from database
-	var yourCharger = [];
-	for (i = 0; i < chargers.length; i++) {
-		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
-		yourCharger[i] = $(chargerString);
-	}
-
-	$('#content').append(header);
-	$('#content').append(chargerContainer);
+	$('#tab-content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
 	for (i = 0; i < chargers.length; i++) {
 		$('#chargerContainer').append(yourCharger[i]);
@@ -92,13 +58,7 @@ function getTime(timeObject) {
 }
 
 //to be move to mother js file if needed
-$('#bookings').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': '#f05a29' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
-
-	$('#content').children().remove();
+$('#bookings-tab').click(function (event) {
 
 	createContent("content", "div", "request-container", "col-11 tab-section-data row");
 	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
@@ -196,12 +156,7 @@ $('#bookings').click(function (event) {
 	);
 })
 
-$('#reviews').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': '#f05a29' });
-	$('#earnings').css({ 'color': 'black' });
-	$('#content').children().remove();
+$('#reviews-tab').click(function (event) {
 	//container box and its headers
 	createContent("content", "div", "review-container", "col-11 tab-section-data row");
 	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
@@ -236,14 +191,7 @@ $('#reviews').click(function (event) {
 	});
 })
 
-$('#earnings').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': '#f05a29' });
-
-	$('#content').children().remove();
-
+$('#earnings-tab').click(function (event) {
 	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
 	var earningsContainer = $("<div id='earningsContainer'></div>");
 
@@ -254,7 +202,7 @@ $('#earnings').click(function (event) {
 //click event listener on each charger
 function chargerInfo(chargerNumber) {
 	//rebuild content div with charger information that a user clicked
-	$('#content').children().remove();
+	$('#tab-content').children().remove();
 
 	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
