@@ -20,23 +20,36 @@
 	</main>
 	{{>javascripts}}
 	<script>
-			const jwt = localStorage.getItem('jwt');
+		const jwt = localStorage.getItem('jwt');
+		// Enables add new charger button if all fields are filled
+		$('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input', '#charger-cost-input', (event) => {
+			var formFilled = false;
+			if ($('#charger-name-input').val() && $('#charger-address-input').val() && $('#charger-city-input').val()
+				&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
+				formFilled = true;
+			}
+			if (formFilled) {
+				$('#submit-charger').removeAttr('disabled');
+				$('#submit-charger').removeClass('disabled-button');
+			} else {
+				$('#submit-charger').prop('disabled', true);
+				$('#submit-charger').addClass('disabled-button');
+			}
+		});
 		$("#submit-charger").on('click', (e) => {
 			e.preventDefault();
-			const chargerowner = "Hi";
 			const chargeraddress = $('#charger-address-input').val();
 			const chargercity = $('#charger-city-input').val();
 			const chargerprovince = "BC";
 			const chargercountry = "Canada";
 			const chargerrating = 0;
-			const chargercost = parseFloat($('#charger-rate-input').val());
+			const chargercost = parseFloat($('#charger-cost-input').val());
 			const chargername = $('#charger-name-input').val();
-			const chargerlevel = 1;
+			const chargerlevel = parseFloat($('#charger-level-input').val());
 			const chargertype = $('#charger-type-input').val();
 			const chargerdetails = $('#charger-details-input').val();
 			const url = '/chargers'
 			const data = {
-				owner: chargerowner,
 				address: chargeraddress,
 				city: chargercity,
 				province: chargerprovince,
@@ -64,10 +77,6 @@
 		});
 	</script>
 	{{>footer}}
-<<<<<<< HEAD
-=======
-
->>>>>>> 4926f39898c62ac211aefbaa769eb9741f3d1077
 </body>
 
 </html>

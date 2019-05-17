@@ -22,8 +22,8 @@
         <input type="text" name="level" id="charger-level-input" class="form-input-full" required>
     </div>
     <div class="full-center-wrapper">
-        <label id="charger-rate-label" class="form-label-full" for="charger-rate-input">Hourly Rate</label>
-        <input type="number" name="rate" id="charger-rate-input" class="form-input-full" required>
+        <label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label>
+        <input type="number" name="rate" id="charger-cost-input" class="form-input-full" required>
     </div>
     <div class="full-center-wrapper">
         <label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details
@@ -37,6 +37,6 @@
         <option value="Level 2">Level 2</option>
         <option value="Level 3">Level 3</option>
     </select> -->
-    <a href="host_dashboard.html">Cancel</a>
-    <input id="submit-charger" type="submit" value="Add Charger">
+    <input class="white-button" id="cancel-charger" type="button" value="Cancel">
+    <input class="orange-button disabled-button" id="submit-charger" type="submit" value="Add Charger" disabled>
 </form>

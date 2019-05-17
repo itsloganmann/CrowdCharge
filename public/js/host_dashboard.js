@@ -39,8 +39,7 @@ window.onload = function () {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>"
-			+ chargers[i].id + "</br>" + chargers[i].address + "</br>" + "</button>";
+			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
 
@@ -72,8 +71,7 @@ $('#chargers').click(function (event) {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>"
-			+ chargers[i].id + "</br>" + chargers[i].address + "</br>" + "</button>";
+			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
 
