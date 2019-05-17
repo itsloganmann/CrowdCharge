@@ -97,6 +97,22 @@ router.get('/privacy', (req, res) => {
     })
 })
 
+router.get('/disclaimer', (req, res) => {
+    res.render('Disclaimer', {
+        message: 'Disclaimer page contents',
+        title: 'Disclaimer',
+        name: ''
+    })
+})
+
+router.get('/terms', (req, res) => {
+    res.render('terms', {
+        message: 'TOS page contents',
+        title: 'Terms of Service',
+        name: ''
+    })
+})
+
 router.get('/help/*', (req, res) => {
     
     res.render('404', {
