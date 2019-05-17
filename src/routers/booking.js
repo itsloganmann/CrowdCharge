@@ -55,7 +55,7 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 router.delete('/declineBooking', async (req, res) => {
     try {
         console.log(req.bUID);
-        const booking = await Booking.findByIdAndRemove(req.bUID);
+        const booking = await Booking.findByIdAndRemove(req.body.bUID);
         if (!booking) {
             console.log("Booking not found, could not delete.")
             return res.status(404).send("not found")
