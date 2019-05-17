@@ -89,6 +89,14 @@ router.get('/help', (req, res) => {
     })
 })
 
+router.get('/privacy', (req, res) => {
+    res.render('Privacy', {
+        message: 'Privacy page contents',
+        title: 'Privacy',
+        name: ''
+    })
+})
+
 router.get('/help/*', (req, res) => {
     
     res.render('404', {
