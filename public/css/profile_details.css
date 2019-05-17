@@ -1,17 +1,3 @@
-/** Unused */
-#profile-icon{
-	width: 70px;
-	height: 70px;
-	margin:0 auto;
-	display: block;
-	border-radius:25px;
-}
-#user-img{
-	display: block;
-	width: 100%;
-	padding: 2vh;
-}
-
 /** Restyled */
 .outer-header {
 	margin-bottom: 20px;
@@ -35,4 +21,7 @@
 }
 #wrapper {
 	width: 60%;
+}
+.inner-header, #notif-settings-form {
+	text-align: center;
 }
