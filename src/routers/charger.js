@@ -4,10 +4,27 @@ const Charger = require('../models/charger')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
+// Gets the user's chargers
+router.get('/chargers', auth, async (req, res) => {
+    try {
+        const ownerid = req.user._id
+        const charger = await Charger.find({owner: ownerid})
+        console.log(charger)
+        if (!charger) {
+            return res.status(400).send({ error: 'Could not find any user chargers!' })
+        }
+
+        res.send(charger)
+    } catch (error) {
+        console.log(error)
+        res.status(400).send("Error, could not get charger.")
+    }
+})
+
 // Creates a new charger
 router.post('/charger/new', auth, async (req, res) => {
     const charger = new Charger(req.body)
-    charger.owner = req.user
+    charger.owner = req.user._id
     
     try {
         console.log(req.body)

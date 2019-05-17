@@ -293,7 +293,7 @@ $('body').on('click', '#logout-button', (event) => {
 		.then((response) => {
 			console.log('Success:', JSON.stringify(response))
 			localStorage.removeItem('jwt')
-			window.location.replace(window.location.href);
+			window.location.replace('/index');
 		})
 		.catch(error => console.error('Error:', error));
 });
