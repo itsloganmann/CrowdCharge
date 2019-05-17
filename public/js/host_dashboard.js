@@ -1,4 +1,3 @@
-console.log("js file loaded successfullly");
 //fetch to get all chargers' id that belong to the host
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
@@ -134,6 +133,7 @@ $('#bookings').click(function (event) {
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+		addEventListenerOnAccept($("#accept" + countPending));
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -283,7 +283,6 @@ function chargerInfo(chargerNumber) {
 
 	//event listener for save/edit button clicked
 	$('#edit-btn').click(function (event) {
-		console.log("clicked");
 		$('#edit-btn').css({ "display": "none" });
 		$('#save-btn').css({ "display": "block" });;
 		$('.readonly-input').removeAttr("readonly");

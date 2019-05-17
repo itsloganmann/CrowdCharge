@@ -1,3 +1,8 @@
 console.log("file loaded success");
-var accept = document.getElementsByClassName("accept-icon");
-console.log(accept);
+function addEventListenerOnAccept(element){
+    element.onclick= accept;
+}
+
+function accept(){
+    console.log("accept clicked");
+}
