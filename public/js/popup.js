@@ -122,8 +122,8 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$(document).on("click", "#popup-wrapper", (e) => {
-	if (e.target.id == "popup-wrapper") {
+$(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
+	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
 		$('body').css('position','initial');
 	}
