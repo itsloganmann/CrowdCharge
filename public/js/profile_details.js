@@ -1,11 +1,12 @@
 
-$("#edit-btn").click( function(event){
-    $("#name").css({"background-color" : "white"});
-    $("#phone").css({"background-color" : "white"});
-    $("#email").css({"background-color" : "white"});
-    $("#name").removeAttr("readonly");
-    $("#phone").removeAttr("readonly");
-    $("#email").removeAttr("readonly");
+$("#edit-btn").click((event) => {
+    event.preventDefault();
+    $("#profile-name-input").css({"background-color" : "white"});
+    $("#profile-phone-input").css({"background-color" : "white"});
+    $("#profile-email-input").css({"background-color" : "white"});
+    $("#profile-name-input").removeAttr("readonly");
+    $("#profile-phone-input").removeAttr("readonly");
+    $("#profile-email-input").removeAttr("readonly");
     $("#edit-btn").css({"display" : "none"});
     $("#save-btn").css({"display" : "block"});
 });
@@ -32,26 +33,25 @@ const updateProfile = async () => {
     ).then(function(data){console.log(data)});
 }
 
-$("#save-btn").click( function(event){
+$("#save-btn").click((event) => {
     event.preventDefault();
 
     updateProfile();
-    $("#name").css({"background-color" : "#EBEBE4"});
-    $("#phone").css({"background-color" : "#EBEBE4"});
-    $("#email").css({"background-color" : "#EBEBE4"});
+    $("#profile-name-input").css({"background-color" : "#EBEBE4"});
+    $("#profile-email-input").css({"background-color" : "#EBEBE4"});
+    $("#profile-phone-input").css({"background-color" : "#EBEBE4"});
 
-    $("#name").attr("readonly", "true");
-    $("#phone").attr("readonly", "true");
-    $("#email").attr("readonly", "true");
+    $("#profile-name-input").attr("readonly", "true");
+    $("#profile-email-input").attr("readonly", "true");
+    $("#profile-phone-input").attr("readonly", "true");
     $("#save-btn").css({"display" : "none"});
     $("#edit-btn").css({"display" : "block"});
 
 
     //POST
-    event.preventDefault();
-    var name = $("#name").val();
-    var phone = $("#phone").val();
-    var email = $("#email").val();
+    var name = $("#profile-name-input").val();
+    var phone = $("#profile-phone-input").val();
+    var email = $("#profile-email-input").val();
     const data = {
         name: name,
         phone: phone,

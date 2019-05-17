@@ -1,11 +1,10 @@
 body{
 	background-image: linear-gradient(#F05A29 0%, #FF9F10 80%); 
 }
-
-#wrapper {
+#wrapper, main {
 	background-color: rgb(0, 0, 0 ,0);
 }
-#notif-outer-header {
+.outer-header {
 	color: #FFFFFF;
 	margin-bottom: 20px;
 }

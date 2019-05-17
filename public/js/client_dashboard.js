@@ -1,13 +1,17 @@
 console.log("js file loaded successfullly");
 const jwt = localStorage.getItem('jwt');
 
+// Changes tab colours and clears tab contents
+// Clearing done when switching tabs to allow for new data population
+$('.tab-button').on('click', (e) => {
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$("#tab-content").children().remove();
+});
+
+
 //tab's eventListener
 $("#bookings-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "#F05A29" });
-	$("#payment-tab").css({ "color": "black" });
-	$("#reviews-tab").css({ "color": "black" });
-	$("#history-tab").css({ "color": "black" });
-	$("#tab-content").children().remove();
 
 	/*
 	CONFIRMED BOOKING
@@ -81,12 +85,6 @@ $("#bookings-tab").click(function (event) {
 
 //payment tab click; build elements for payment details
 $("#payment-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "black" });
-	$("#payment-tab").css({ "color": "#F05A29" });
-	$("#reviews-tab").css({ "color": "black" });
-	$("#history-tab").css({ "color": "black" });
-	$("#tab-content").children().remove();
-
 	//container hold all payment details for user
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
@@ -113,12 +111,6 @@ $("#payment-tab").click(function (event) {
 
 //reviews tab click; build elements for reviews details
 $("#reviews-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "black" });
-	$("#payment-tab").css({ "color": "black" });
-	$("#reviews-tab").css({ "color": "#F05A29" });
-	$("#history-tab").css({ "color": "black" });
-
-	$("#tab-content").children().remove();
 
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
@@ -154,12 +146,6 @@ $("#reviews-tab").click(function (event) {
 });
 
 $("#history-tab").click(function (event) {
-	$("#bookings-tab").css({ "color": "black" });
-	$("#payment-tab").css({ "color": "black" });
-	$("#reviews-tab").css({ "color": "black" });
-	$("#history-tab").css({ "color": "#F05A29" });
-
-	$("#tab-content").children().remove();
 
 	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
 
