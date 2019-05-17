@@ -1,6 +1,3 @@
-$(".acceptIcon").click(event => {
-    console.log("accepted");
-});
-$(".rejectIcon").click(event => {
-    console.log("rejected");
-});
+console.log("file loaded success");
+var accept = document.getElementsByClassName("accept-icon");
+console.log(accept);

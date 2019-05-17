@@ -117,7 +117,7 @@ $("#reviews-tab").click(function (event) {
 		, "These are the comments of hosts that you’ve charged with.");
 	//fetch request
 	var reviewsData;
-	fetch("/client/reviews", {
+	fetch("/bookings", {
 		method: 'GET',
 		headers: {
 			'content-type': 'application/json',
@@ -149,5 +149,22 @@ $("#history-tab").click(function (event) {
 
 	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
 
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+	//URL param
+	const completeBooking = {
+		user_id: "",
+		booking_type: "complete"
+	}
+	const completeBookingURL = "/bookings?" + $.param(completeBooking);
+	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
+
+	// let hData = fetchBooking("/client/completeBookings", "complete");
+	let hData = fetchBooking(completeBookingURL, "complete");
+	console.log("Sent?");
+	let historyData = $(hData);
+
+	$(historyContainer).append(historyData);
 	$("#tab-content").append(historyContainer);
+	
 })
+
