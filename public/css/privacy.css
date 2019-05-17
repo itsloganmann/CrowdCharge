@@ -1,0 +1,40 @@
+.wrapper4{
+    width:90%;
+    margin: 0 auto;
+    text-align:left;
+}
+
+.headerimagecontainer{
+    position:relative;
+}
+.headerimage{
+    max-width:100%;
+    max-height:100%;
+}
+.headertext{
+    position:absolute;
+    margin:0 auto;
+    z-index:1;
+    left: 0;
+    right: 0;
+    top: 40%; /* Adjust this value to move the positioned div up and down */
+    text-align: center;
+    color:white;
+    font-size: 3em;
+    text-shadow: 2px 2px black;
+    display:none;
+}
+
+.privacyText{
+    margin-top: 5vh;
+}
+
+h1, h2, h3, h4{
+    margin:3vh 0;
+}
+
+@media only screen and (min-width: 1024px) {
+    .wrapper3{
+        width: 70%;
+    }
+}
