@@ -21,8 +21,14 @@ function fetchBooking(url, status) {
 		endTime: "2019-01-01T23:00:00Z",
 		cost: "$15.00",
 		address: "12345 MyHome St.",
+<<<<<<< HEAD
+		city: "Vancouver",
+		province: "BC",
+		host: "Louis"
+=======
 		city: "Vancouver, BC",
 		host: "Louis Lu"
+>>>>>>> ad0d644b3a9e88e522a5d68d4ae2c6658fffc968
 	}
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
@@ -33,8 +39,14 @@ function fetchBooking(url, status) {
 			+ "<p class='city'>" + data.city + "</p>"
 			+ "</div></div>";
 	}
-	else if (status == "complete"){
-
+	else if (status == "complete") {
+		console.log("Hey");
+		contentString = "<div class = 'col-10 well'>" + "<div class='right'><p class='cost'>" 
+		+ data.cost + "</p>" + "<p class = 'date'>" + data.startTime.split("T")[0] + "</p>" 
+		+ "<p class = 'address'>" + data.address + "</p>" + "<p class = 'city'>" + data.city 
+		+ "<p class = 'province'>" + data.province + "</p>" + "<p class = 'hostName'>" 
+		+ data.host + "</p>" + "</div>" + "</div>" 
+		console.log(contentString);
 	}
 	else {
 		contentString = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
