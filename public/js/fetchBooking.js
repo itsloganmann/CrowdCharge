@@ -21,14 +21,9 @@ function fetchBooking(url, status) {
 		endTime: "2019-01-01T23:00:00Z",
 		cost: "$15.00",
 		address: "12345 MyHome St.",
-<<<<<<< HEAD
 		city: "Vancouver",
 		province: "BC",
 		host: "Louis"
-=======
-		city: "Vancouver, BC",
-		host: "Louis Lu"
->>>>>>> ad0d644b3a9e88e522a5d68d4ae2c6658fffc968
 	}
 	/////////////////////////////////////To BE REMOVE
 	if (status == "pending") {
