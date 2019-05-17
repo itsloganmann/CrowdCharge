@@ -38,10 +38,16 @@ const Charger = mongoose.model('Charger', {
         required: true,
         trim: true
     },
-    name: {
+    cName: {
         type: String,
         required: true,
-        trim: true 
+        trim: true,
+        validate(value) {
+            // Validation for max length
+            if (value.length > 20) {
+                throw new Error('Max length for charger name can only be 20 characters.')
+            }
+        }
     },
     level: {
         type: Number,

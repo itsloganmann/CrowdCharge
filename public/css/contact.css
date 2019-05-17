@@ -11,7 +11,7 @@
 .headertext{
     position:absolute;
     margin:0 auto;
-    z-index:99;
+    z-index:1;
     left: 0;
     right: 0;
     top: 40%; /* Adjust this value to move the positioned div up and down */
