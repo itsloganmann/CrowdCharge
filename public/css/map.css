@@ -83,9 +83,16 @@
     cursor: pointer;
 }
 #map-drawer-close-button {
-    float: right;
+    position: absolute;
+    right: 32px;
+    top: 8px;
 }
-
+#map-drawer-charger-name {
+    font-weight: 700;
+    font-size: 16pt;
+    border-bottom: 1px solid #464648;
+    margin: 8px auto 8px;
+}
 #map-drawer-text-wrapper {
     display: block;
     width: 100%;
@@ -96,10 +103,10 @@
     display: block;
     width: 100%;
     margin: 4px 8px;
-    
 }
 .map-drawer-text-left {
     float: left;
+    font-weight: 500;
 }
 .map-drawer-text-right {
     float: right;

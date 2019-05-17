@@ -9,6 +9,7 @@ main {
 #wrapper {
     background-color: #FFFFFF;
     margin: 20px auto 28px;
+    color: #3D3D3D;
 }
 
 /** Headings */
@@ -70,7 +71,7 @@ main {
     padding: 12px 2% 14px;
     border-radius: 8px;
     background-color: white;
-    box-shadow: 0px 2px 6px 0px #000000;
+    box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);
     line-height: 1.5em;
 }
 .card-header {
@@ -80,15 +81,9 @@ main {
     background-color: #1DBF73;
     color: #FFFFFF;
 }
-.green-highlight {
-    color: #1DBF73;
-}
 .orange-card {
     background-color: #F05A29;
     color: #FFFFFF;
-}
-.orange-highlight {
-    color: #F05A29;
 }
 .price-card-text-wrapper {
     float: right;

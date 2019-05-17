@@ -18,6 +18,7 @@ var createPopup = () => {
 	popup.id = "popup";
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
+	$('#popup').prepend('<span id="popup-close-button" class="fas fa-times ui-button-custom"></span>');
 }
 
 var createPopupHeader = (size, text, id) => {

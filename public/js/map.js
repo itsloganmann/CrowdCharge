@@ -73,23 +73,23 @@ var addTimeSlot = (startTime, endTime) => {
 }
 
 var setPopupBookingPageOne = () => {
-	createPopupHeader("h3", "Book a Time", "booking-header");
-	createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
-	$("#datepicker").datepicker();
-	createPopupContent("popup", "div", "popup-time-slots", "full-center-wrapper");
-	createPopupConfirmButton("popup-confirm", "Request Booking");
-	createPopupCancelButton("popup-cancel", "Cancel");
+    createPopupHeader("h3", "Book a Time", "booking-header");
+    createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
+    $("#datepicker").datepicker();
+    createPopupContent("popup", "div", "popup-time-slots", "full-center-wrapper");
+    createPopupConfirmButton("popup-confirm", "Request Booking");
+    createPopupCancelButton("popup-cancel", "Cancel");
 }
 var setPopupBookingPageTwo = (date, time) => {
-	console.log(time);
-	createPopupSubheader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?", "booking-confirmation-text");
-	createPopupConfirmButton("popup-confirm-validate", "Confirm");
-	createPopupCancelButton("popup-back", "Back");
+    console.log(time);
+    createPopupSubheader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?", "booking-confirmation-text");
+    createPopupConfirmButton("popup-confirm-validate", "Confirm");
+    createPopupCancelButton("popup-back", "Back");
 }
 
 var setPopupBookingPageThree = (date, time) => {
-	createPopupSubheader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.", "booking-finish-text");
-	createPopupCancelButton("popup-finish", "Close");
+    createPopupSubheader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.", "booking-finish-text");
+    createPopupCancelButton("popup-finish", "Close");
 }
 
 // Colour change for time slot button
@@ -103,11 +103,44 @@ $(document).on("click", ".time-slot-button", (e) => {
     e.stopPropagation();
 });
 
-$(document).on("click", ".marker", (e) => {
-    //var clickedMarkerName = (document.getElementsByClassName('host-marker-title')[0]).innerHTML;
-    $("#map-drawer").show();
-    //$("#map-drawer-text-wrapper").prepend(clickedMarkerName);
+$('body').on("click", ".marker", async (e) => {
+    console.log(e.target.id);
+    e.preventDefault();
+    try {
+        const url = '/charger/query?charger_id=' + e.target.id;
+        console.log(url);
+        const response = await fetch(url);
+        const json = await response.json();
+        const data = json['0'];
+        const chargername = data['chargername']
+        const city = data['city']
+        const cost = data['cost']
+        const details = data['details']
+        const level = data['level']
+        const type = data['type']
+        const rating = data['rating']
+        console.log(data);
+        $("#map-drawer").show();
+        populateChargerInfo(chargername, city, cost, details, level, type, rating);
+    } catch (error) {
+        console.log("Error: " + error)
+    }
 });
+
+const populateChargerInfo = (chargername, city, cost, details, level, type, rating) => {
+    //console.log(chargername, city, cost, details, level, type, rating);
+    $('#map-drawer-text-wrapper').children().remove();
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-charger-name">' + chargername + '</div>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">City</div><div class="map-drawer-text-right">' + city + '</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Level</div><div class="map-drawer-text-right">' + level + '</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Type</div><div class="map-drawer-text-right">' + type + '</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Hourly Rate</div><div class="map-drawer-text-right">$' + cost + '</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + rating + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + details +'</div></div>');
+    $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')++
+
+    console.log("added");
+}
 
 
 $('body').on("click", "#popup-confirm-validate", (e) => {
@@ -116,7 +149,7 @@ $('body').on("click", "#popup-confirm-validate", (e) => {
     date = new Date();
     const url = '/bookings'
     const data = {
-        bookingDate : date
+        bookingDate: date
     }
     fetch(url, {
         method: 'POST',
