@@ -1,11 +1,10 @@
-/** Restyled */
 .outer-header {
 	margin-bottom: 20px;
 }
-.form-input {
+.profile-input {
 	background-color: inherit;
 }
-.form-label {
+.profile-label {
 	width: unset;
 }
 .small-btn {
