@@ -11,6 +11,7 @@ if (token) {
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
+	$('body').css({'position': 'fixed', 'width': '100vw'});
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
@@ -119,10 +120,11 @@ var createErrorMessage = (targetId, message, className) => {
 
 }
 
-// Removes popup for booking
+// Removes popup
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
 		$("#popup-wrapper").remove();
+		$('body').css('position','initial');
 	}
 });
 

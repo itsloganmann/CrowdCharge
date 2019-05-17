@@ -14,7 +14,7 @@
 	display: block;
 	border-radius:25px;
 }
-#img-btn{
+#img-upload-btn{
 	margin:0 auto;
 	display: block;
 	width: auto;
@@ -63,35 +63,13 @@
 }
 }
 
-.hostHeader{
-    margin-top:5vh;
-    margin-left:5%;
+/** Restyled */
+.outer-header {
+	margin-bottom: 20px;
 }
-.hostHeader h1{
-    font-weight:bold;
+.form-input {
+	background-color: inherit;
 }
-#mainTabs{
-    margin:0 auto;
-    width:90%;
-}
-#mainTabs a{
-    padding-right:2vh;
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-    font-size:1.0em;
-}
-#outerBox{
-    background:#F3F3F3;
-    margin:0 auto;
-    margin-top: 5vh;
-	padding-top:2vh;
-    padding-bottom:5vh;
-    width:90%;
-	border-radius:10px;
-}
-
-.boxHeader{
-    font-weight:bold;
-    margin:0 3%;
+.form-label {
+	width: unset;
 }

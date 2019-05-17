@@ -6,11 +6,12 @@ main {
     padding-left: 0px;
     padding-right: 0px;
 }
-
 #wrapper {
     background-color: #FFFFFF;
-    margin: 20px auto;
+    margin: 20px auto 28px;
 }
+
+/** Headings */
 .outer-header {
     font-size: 2.5rem;
     font-weight: 700;
@@ -21,7 +22,7 @@ main {
     margin: 0px;
 }
 .inner-header {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin: 3px auto;
 }
 .inner-subheader {
@@ -30,9 +31,11 @@ main {
     margin: 3px auto;
 }
 .header-number {
-    font-size: 1.85rem;
+    font-size: 1.6rem;
     color: #999999;
 }
+
+/** Tabs */
 #tabs-wrapper {
     width: 100%;
     margin: 12px auto 12px;
@@ -60,10 +63,11 @@ main {
 }
 
 
+/** Cards */
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 3% 2% 5%;
+    padding: 12px 2% 14px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px #000000;
@@ -72,28 +76,19 @@ main {
 .card-header {
     font-size: 1.5rem;
 }
-
-@media only screen and (min-width: 768px){
-    #wrapper {
-        width: 80%;
-    }
-    .card-panel {
-        flex: 0 0 44% !important;
-        max-width: 44% !important;
-    }
-}
-
-/** Client page */
-
-
-/** Card stuff */
 .green-card {
     background-color: #1DBF73;
     color: #FFFFFF;
 }
+.green-highlight {
+    color: #1DBF73;
+}
 .orange-card {
     background-color: #F05A29;
     color: #FFFFFF;
+}
+.orange-highlight {
+    color: #F05A29;
 }
 .price-card-text-wrapper {
     float: right;
@@ -119,4 +114,15 @@ main {
 .card-text-sm {
     font-size: 1em;
     font-weight: 400;
+}
+
+/** Media queries */
+@media only screen and (min-width: 768px){
+    #wrapper {
+        width: 80%;
+    }
+    .card-panel {
+        flex: 0 0 44% !important;
+        max-width: 44% !important;
+    }
 }

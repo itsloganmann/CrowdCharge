@@ -5,13 +5,13 @@ main {
 
 #logo-img{
 	position: absolute;
-	width: 170px;
-	top: -25px;
+	width: 140px;
+	top: -24px;
 }
 
 .navbar-custom {
   border-bottom: 5px #1DBF73 solid;
-  box-shadow: 0px 0px 4px 0px #045D56;
+  box-shadow: 0px 0px 4px 0px #4B4C4C;
 }
 
 .browser-menu-item{
@@ -69,7 +69,7 @@ main {
 
 #side-menu {
     right: 0;
-    z-index: 3;
+    z-index: 4;
     display: block;
     height: 100vh;
     width: 0px;
@@ -78,7 +78,7 @@ main {
     background-color: #EEEEEE;
     transition: width 0.5s ease;
     overflow-y: auto;
-    box-shadow: 0px 0px 4px 0px #045D56;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     max-width: 100vw;
 }
 
@@ -89,6 +89,11 @@ main {
     margin: 12px auto auto;
     left: 0;
     right: 0;
+}
+
+.dropdown-item:hover {
+  color: #ffffff;
+  background-color: #F05A29;
 }
 
 .side-menu-button {
@@ -107,22 +112,21 @@ main {
     overflow: hidden;
 }
 
-#logout-button {
-    color: #F05A29;
-    background-color: #FFFFFF;
-}
-
 .side-menu-button:hover {
-    background-color: #848FA5;
+    background-color: #1DBF73;
     opacity: 0.8;
     color: #FFFFFF;
 }
 
+#logout-button {
+  background-color: #D3D3D3;
+}
+
 #logout-button:hover {
-    color: #ffffff;
-    background-color: #F05A29;
-    opacity: 0.8;
-}b
+  color: #ffffff;
+  background-color: #F05A29;
+  opacity: 1;
+}
 
 #open-side-menu-button, #bell-icon, #user-icon{
     cursor: pointer;
@@ -133,14 +137,32 @@ main {
 
 #bell-icon:hover {
   text-decoration: unset;
-  color: #7DB39D;
+  color: #1DBF73;
 }
 #user-icon:hover {
-  color: #7DB39D;
+  color: #1DBF73;
 }
 #login-button:hover {
-  color: #7DB39D;
-  border: 2px solid #7DB39D;
+  color: #1DBF73;
+  border: 2px solid #1DBF73;
+}
+
+#login-button {
+  cursor: pointer;
+  color: #595959;
+  background-color: inherit;
+  border-radius: 5px;
+  border: 2px solid #595959;
+  margin-right: 10px;
+  padding-top: 4px;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-bottom: 5px;
+}
+
+#login-button:hover {
+  color: #1DBF73;
+  border: 2px solid #1DBF73;
 }
 
 #bell-icon {
@@ -168,12 +190,12 @@ main {
 }
 
 #side-menu-hr { 
-    border-color: #045D56;
+    border-color: #4B4C4C;
 }
 
 #side-menu-close-button {
     font-size: 18pt;
-    color: #045D56;
+    color: #4B4C4C;
     cursor: pointer;
     padding: 8px;
     float: right;
@@ -193,7 +215,7 @@ main {
   justify-content: flex-end;
   background-color: #ffffff !important;
   z-index: 2;
-  height: 84px;
+  height: 80px;
   color: #464648;
 }
 
@@ -207,9 +229,8 @@ main {
   padding: 8px;
 }
 
-
 .dropdown {
-  z-index: 1;
+  z-index: 3;
 }
 
 .dropdown-toggle {
@@ -240,16 +261,6 @@ main {
   background-color: initial !important;
 }
 
-#login-button {
-  cursor: pointer;
-  color: #1DBF73;
-  background-color: inherit;
-  border-radius: 4px;
-  border: 2px solid #1DBF73;
-  margin-right: 10px;
-  padding: 2px 12px;
-}
-
 #nav-top {
   display: none;
   justify-content: space-evenly;
@@ -263,9 +274,9 @@ main {
   height: 100%;
 }
 
-
 .nav-top-link:hover {
-  color: #bf331d;
+  color: #F05A29;
+
   text-decoration: unset;
 }
 
@@ -323,7 +334,6 @@ main {
 }
 .form-input-full {
   width: 100%;
-  border: 0px;
   border-radius: 4px;
   padding: 3px 8px 3px;
   border: 1px solid #464648;
@@ -363,6 +373,7 @@ footer a {
 
 footer a:hover {
   color: #1DBF73;
+  text-decoration: none;
 }
 
 #footer-p {
@@ -374,9 +385,9 @@ footer a:hover {
   background-color: #333;
 }
 
-.footercolumns {
+.footerwrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 75%;
   margin: 0 auto;
   padding: 25px 0;
@@ -390,7 +401,7 @@ footer a:hover {
 .footertitle {
   color: #fff;
   font-size: 15px;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -400,25 +411,34 @@ footer ul {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
-@media only screen and (min-width: 768px) {
-  .footercolumns {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+@media only screen and (max-width: 1191px) {
+  .footerwrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footercolumn{
+    margin: 10px 50px;
   }
 }
 
 @media only screen and (max-width: 427px) {
-  .footercolumns{
+  .footerwrapper{
     grid-template-columns: 1fr;
   }
+
+  .footercolumn{
+    margin: 10px 50px;
+  }
 }
+
 #popup-wrapper {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  z-index: 19;
+  z-index: 5;
   background-color: rgb(0, 0, 0, 0.6);
   text-align: center;
 }
@@ -426,7 +446,7 @@ footer ul {
 #popup {
   transform: translateY(calc(50vh - 50%));
   display: none;
-  z-index: 20;
+  z-index: 6;
   margin: 0 auto;
   width: 60vw;
   min-width: 378px;
@@ -442,17 +462,13 @@ footer ul {
 }
 
 
-/** Map Page **/
 .popup-header {
   font-size: 1.5rem;
 }
+
 .popup-subheader {
   font-size: 1.0rem;
 }
-.popup-content {
-
-}
-
 
 /** Login */
 #login-popup-button {
