@@ -1,55 +1,58 @@
-console.log("js file loaded successfullly");
+
 //fetch to get all chargers' id that belong to the host
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
 
 
-//fetch to get all charger info from a host
-fetch("/chargers", {
-	method: 'GET',
-	headers: {
-		'content-type': 'application/json',
-		'Authorization': 'Bearer ' + jwt
-	}
-})
-	.then((res) => {
+
+
+window.onload = async function () {
+	
+	
+	//fetch to get all charger info from a host
+	await fetch("/chargers", {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	}).then((res) => {
 		return res.json()
-	})
-	.then((db) => {
-		console.log(db);
-		chargers = JSON.parse(JSON.stringify(db));
+	}).then((db) => {
+		chargers = db;
 	});
 
-window.onload = function () {
-	//highlight active tab
-	$('#chargers').css({ 'color': '#f05a29' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
+	function build() {
+		//highlight active tab
+		$('#chargers').css({ 'color': '#f05a29' });
+		$('#bookings').css({ 'color': 'black' });
+		$('#reviews').css({ 'color': 'black' });
+		$('#earnings').css({ 'color': 'black' });
 
-	//clear old content
-	$('#content').children().remove();
-	//create new content
-	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
-	var chargerContainer = $("<div id='chargerContainer'></div>")
-	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
+		//clear old content
+		$('#content').children().remove();
+		//create new content
+		var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
+		var chargerContainer = $("<div id='chargerContainer'></div>")
+		var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
 
-	//populating all chargers owned from database
-	var yourCharger = [];
-	for (i = 0; i < chargers.length; i++) {
-		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
-		yourCharger[i] = $(chargerString);
+		//populating all chargers owned from database
+		var yourCharger = [];
+		for (i = 0; i < chargers.length; i++) {
+			var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
+				i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
+			yourCharger[i] = $(chargerString);
+		}
+
+		$('#content').append(header);
+		$('#content').append(chargerContainer);
+		$('#chargerContainer').append(newCharger);
+		for (i = 0; i < chargers.length; i++) {
+			$('#chargerContainer').append(yourCharger[i]);
+		}
+		$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
 	}
-
-	$('#content').append(header);
-	$('#content').append(chargerContainer);
-	$('#chargerContainer').append(newCharger);
-	for (i = 0; i < chargers.length; i++) {
-		$('#chargerContainer').append(yourCharger[i]);
-	}
-	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-
+	build();
 };
 
 $('#chargers').click(function (event) {
@@ -131,6 +134,8 @@ $('#bookings').click(function (event) {
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+		addEventListenerOnAccept($("#accept" + countPending) , booking.bookingID, jwt);
+		addEventListenerOnReject($("#reject" + countPending) , booking.bookingID, jwt);
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -245,7 +250,7 @@ $('#earnings').click(function (event) {
 
 	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
 	var earningsContainer = $("<div id='earningsContainer'></div>");
-	$('#content').css({ 'height': '500px'});
+	$('#content').css({ 'height': '500px' });
 
 	$('#content').append(header);
 	$('#content').append(earningsContainer);
@@ -281,7 +286,6 @@ function chargerInfo(chargerNumber) {
 
 	//event listener for save/edit button clicked
 	$('#edit-btn').click(function (event) {
-		console.log("clicked");
 		$('#edit-btn').css({ "display": "none" });
 		$('#save-btn').css({ "display": "block" });;
 		$('.readonly-input').removeAttr("readonly");
