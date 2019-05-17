@@ -22,14 +22,15 @@
 
 .mapboxgl-popup-content {
     font-family: Arial, Helvetica, sans-serif;
-    padding: 6px 2px;
-    width: 220px;
+    padding: 2px;
+    width: 180px;
     margin: auto;
     background-color: #FFFFFF;
     color: #464648;
     border-top: 6px solid #1DBF73;
     border-radius: 10px;
     text-align: center;
+    font-size: 10px;
 }
 
 .host-marker-img {
@@ -77,7 +78,7 @@
 
 .ui-button-custom {
     font-size: 18pt;
-    color: #356859;
+    color: #464648;
     padding: 4px;
     margin: 4px;
     cursor: pointer;
@@ -122,29 +123,30 @@
     font-size: 1.25rem;
 }
 
-@media only screen and (min-width: 0px) {
+@media only screen and (max-width: 768px) {
     .map-side-expanded {
         width: initial;
-        max-width: initial;
-        height: 336px !important;
-        max-height: calc(100vh - 84px) !important;
+        max-width: 100%;
+        height: 320px !important;
+        max-height: calc(100vh - 78px) !important;
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
     .map-side-expanded {
-        height: calc(100vh - 84px) !important;
+        height: calc(100vh - 78px) !important;
     }
 
     #map-drawer {
         width: 368px;
-        height: calc(100vh - 84px);
+        height: calc(100vh - 78px);
         transition: width 0.5s ease;
     }
 
     #map-drawer-expansion-button {
         display: none;
     }
+
     #map-drawer-details-wrapper {
         display: block;
     }
