@@ -40,7 +40,7 @@ const port = process.env.PORT || 3000
 app.use('/client',clientRouter);
 app.use('/host',hostRouter)
 app.use(userRouter)
-app.use(bookingRouter)
+app.use('/booking',bookingRouter)
 app.use(chargerRouter)
 app.use(markerRouter);
 
