@@ -22,7 +22,11 @@ const Booking = mongoose.model('Booking', {
         required: true,
         trim: true
     },
-    
+    cost: {
+        type: Number,
+        required: true,
+        trime: true
+    },
     state: {
         type: String,
         enum : ['PENDING','UNPAID','PAID','COMPLETED'],

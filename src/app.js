@@ -9,7 +9,7 @@ const clientRouter = require('./routers/client')
 const markerRouter = require('./routers/marker')
 const hostRouter = require('./routers/host')
 const hbs = require('hbs')
-require('./db/mongooseInit')
+require('./db/mongoose')
 
 // Variable for the current directory is __dirname.
 console.log(__dirname)
@@ -45,9 +45,9 @@ app.use(chargerRouter)
 app.use(markerRouter);
 
 
-
-//LEAVE THIS AT THE END
+// Page router, do not move order, needs to come last.
 app.use(pagesRouter)
+
 // Starts up the web server.
 app.listen(port, () => {
     console.log('Server is up on port ' + port)

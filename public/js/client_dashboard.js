@@ -1,18 +1,18 @@
 console.log("js file loaded successfullly");
-
-const jwt = JSON.parse(localStorage.getItem('jwt'));
+const jwt = localStorage.getItem('jwt');
 
 //tab's eventListener
 $("#bookings-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "#F05A29" });
 	$("#payment-tab").css({ "color": "black" });
 	$("#reviews-tab").css({ "color": "black" });
-	$("#tab-content").html("");
+	$("#history-tab").css({ "color": "black" });
+	$("#tab-content").children().remove();
 
 	/*
 	CONFIRMED BOOKING
 	*/
-	var confirmContainer = createContentContainer("bookingHeading1", "Confirmed Bookings", "bookingSubHeading1",
+	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
 		"These bookings have been confirmed by the host and are ready to go!");
 
 	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
@@ -30,7 +30,7 @@ $("#bookings-tab").click(function (event) {
 	/*
 	PENDING BOOKING
 	*/
-	var pendingContainer = createContentContainer("bookingHeading2", "Pending Bookings", "bookingSubHeading2"
+	var pendingContainer = createContentContainer("pending-content", "bookingHeading2", "Pending Bookings", "bookingSubHeading2"
 		, "These bookings have not been confirmed by the host yet, we’ll notify you when they do!")
 
 
@@ -84,12 +84,11 @@ $("#payment-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "black" });
 	$("#payment-tab").css({ "color": "#F05A29" });
 	$("#reviews-tab").css({ "color": "black" });
-
-	$("#tab-content").html("");
-
+	$("#history-tab").css({ "color": "black" });
+	$("#tab-content").children().remove();
 
 	//container hold all payment details for user
-	var paymentContainer = createContentContainer("paymentHeading1", "Payment", "paymentSubHeading1"
+	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
 
 	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
@@ -117,11 +116,12 @@ $("#reviews-tab").click(function (event) {
 	$("#bookings-tab").css({ "color": "black" });
 	$("#payment-tab").css({ "color": "black" });
 	$("#reviews-tab").css({ "color": "#F05A29" });
+	$("#history-tab").css({ "color": "black" });
 
-	$("#tab-content").html("");
+	$("#tab-content").children().remove();
 
 	//container hold all review details for user
-	var reviewContainer = createContentContainer("reviewHeading1", "Reviews for You", "reviewSubHeading1"
+	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
 		, "These are the comments of hosts that you’ve charged with.");
 	//fetch request
 	var reviewsData;
@@ -137,7 +137,7 @@ $("#reviews-tab").click(function (event) {
 		})
 		.then((db) => {
 			let data = JSON.parse(JSON.stringify(db));
-			reviewsData = $("<div class='col-10 well' id='reviewsData'>"
+			reviewsData = $("<div class='col-11 tab-section-data row' id='reviewsData'>"
 				+ "<p id='rv-reviewer'>" + data.user + "</p>"
 				+ "<p id='rv-rating'>" + data.rating + "</p>"
 				+ "<p id='rv-comment'>" + data.comment + "</p>"
@@ -152,3 +152,16 @@ $("#reviews-tab").click(function (event) {
 	$("#tab-content").append(reviewContainer);
 
 });
+
+$("#history-tab").click(function (event) {
+	$("#bookings-tab").css({ "color": "black" });
+	$("#payment-tab").css({ "color": "black" });
+	$("#reviews-tab").css({ "color": "black" });
+	$("#history-tab").css({ "color": "#F05A29" });
+
+	$("#tab-content").children().remove();
+
+	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
+
+	$("#tab-content").append(historyContainer);
+})

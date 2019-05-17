@@ -1,8 +1,17 @@
-var months = ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"];
+var token = localStorage.getItem('jwt');
+if (token) {
+	console.log("logged in");
+	$("#login-button").remove();
+} else {
+	console.log("not logged in");
+	$("#bell-wrapper").remove();
+	$("#user-menu-button").remove();
+
+}
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
+	$('body').css({'position': 'fixed', 'width': '100vw'});
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
@@ -62,6 +71,9 @@ var createFormButton = (id, text) => {
 }
 */
 
+var months = ["January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December"];
+
 var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
@@ -108,10 +120,11 @@ var createErrorMessage = (targetId, message, className) => {
 
 }
 
-// Removes popup for booking
+// Removes popup
 $(document).on("click", "#popup-wrapper", (e) => {
 	if (e.target.id == "popup-wrapper") {
 		$("#popup-wrapper").remove();
+		$('body').css('position','initial');
 	}
 });
 
@@ -266,6 +279,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 
 // Logout button listener
 $('body').on('click', '#logout-button', (event) => {
+	event.preventDefault();
 	const url = '/users/logout'
 	const jwt = localStorage.getItem('jwt')
 
@@ -285,7 +299,7 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-iput, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {

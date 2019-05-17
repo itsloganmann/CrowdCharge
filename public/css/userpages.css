@@ -38,6 +38,7 @@ main {
     margin: 12px auto 12px;
 }
 .tab-button {
+    font-weight: 700;
     padding: 4px 4.1666667%;
     color: #555555;
     cursor: pointer;
@@ -62,12 +63,11 @@ main {
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 0 3%;
+    padding: 3% 2% 5%;
     border-radius: 8px;
-    min-height: 160px;
-    min-width: 140px;
     background-color: white;
-    box-shadow: 0px 0px 2px 0px #000000;
+    box-shadow: 0px 2px 6px 0px #000000;
+    line-height: 1.5em;
 }
 .card-header {
     font-size: 1.5rem;
@@ -75,5 +75,48 @@ main {
 
 @media only screen and (min-width: 768px){
     #wrapper {
+        width: 80%;
     }
+    .card-panel {
+        flex: 0 0 44% !important;
+        max-width: 44% !important;
+    }
+}
+
+/** Client page */
+
+
+/** Card stuff */
+.green-card {
+    background-color: #1DBF73;
+    color: #FFFFFF;
+}
+.orange-card {
+    background-color: #F05A29;
+    color: #FFFFFF;
+}
+.price-card-text-wrapper {
+    float: right;
+    line-height: 1.2em;
+}
+.price-card-text-lg {
+    font-size: 1.25em;
+    font-weight: 700;
+}
+.price-card-text-sm {
+    font-size: 1em;
+    font-weight: 500;
+    text-align: right;
+}
+.card-text-lg {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+.card-text-md {
+    font-size: 1em;
+    font-weight: 500;
+}
+.card-text-sm {
+    font-size: 1em;
+    font-weight: 400;
 }

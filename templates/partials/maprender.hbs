@@ -5,7 +5,7 @@
     <style>
         .geocoder {
         position:absolute;
-        z-index: 19;
+        z-index: 1;
         width: 340px;
         left: 50%;
         margin-left: -170px;
@@ -76,126 +76,94 @@
         // Fires the default location function which moves the map to the current location.
         defaultPosition();
 
-        map.on('load', function () {
-            // Add a layer showing the places.
-            map.addLayer({
-                "id": "places",
-                "type": "symbol",
-                "source": {
-                    "type": "geojson",
-                    "data": {
-                        "type": "FeatureCollection",
-                        "features": geojson
+        // Renders the markers on the map
+        const renderMarkers = (geojson) => {
+
+            map.on('load', function () {
+                // Add a layer showing the places.
+                map.addLayer({
+                    "id": "places",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": geojson
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "{icon}-15",
+                        "icon-allow-overlap": true
                     }
-                },
-                "layout": {
-                    "icon-image": "{icon}-15",
-                    "icon-allow-overlap": true
-                }
-            });
-
-            // When a click event occurs on a feature in the places layer, open a popup at the
-            // location of the feature, with description HTML from its properties.
-            map.on('click', 'places', function (e) {
-                let coordinates = e.features[0].geometry.coordinates.slice();
-                let name = e.features[0].properties.name;
-
-                // Ensure that if the map is zoomed out such that multiple
-                // copies of the feature are visible, the popup appears
-                // over the copy being pointed to.
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                }
-                map.flyTo({
-                    center: [coordinates[0], coordinates[1]],
-                    zoom: 15,
-                    bearing: 0,
-                    speed: 1.5, // make the flying slow
-                    
-                    // This can be any easing function: it takes a number between
-                    // 0 and 1 and returns another number between 0 and 1.
-                    easing: function (t) { return t; }
                 });
 
-                // Builds the popup when user clicks on a host marker.
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
-                             + name + '</span>')
+                // When a click event occurs on a feature in the places layer, open a popup at the
+                // location of the feature, with description HTML from its properties.
+                map.on('click', 'places', function (e) {
+                    let coordinates = e.features[0].geometry.coordinates.slice();
+                    let name = e.features[0].properties.name;
+
+                    // Ensure that if the map is zoomed out such that multiple
+                    // copies of the feature are visible, the popup appears
+                    // over the copy being pointed to.
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                    }
+                    map.flyTo({
+                        center: [coordinates[0], coordinates[1]],
+                        zoom: 15,
+                        bearing: 0,
+                        speed: 1.5, // make the flying slow
+                        
+                        // This can be any easing function: it takes a number between
+                        // 0 and 1 and returns another number between 0 and 1.
+                        easing: function (t) { return t; }
+                    });
+
+                    // Builds the popup when user clicks on a host marker.
+                    new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                + name + '</span>')
+                        .addTo(map);
+                });
+
+                // Change the cursor to a pointer when the mouse is over the places layer.
+                map.on('mouseenter', 'places', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                // Change it back to a pointer when it leaves.
+                map.on('mouseleave', 'places', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+
+            // Uses a for loop to add markers to the map page
+            geojson.forEach( (marker) => {
+
+                // Create a HTML element for each feature
+                var el = document.createElement('div');
+                el.className = 'marker';
+
+                // make a marker for each feature and add to the map
+                new mapboxgl.Marker(el)
+                    .setLngLat(marker.geometry.coordinates)
                     .addTo(map);
             });
-
-            // Change the cursor to a pointer when the mouse is over the places layer.
-            map.on('mouseenter', 'places', function () {
-                map.getCanvas().style.cursor = 'pointer';
-            });
-
-            // Change it back to a pointer when it leaves.
-            map.on('mouseleave', 'places', function () {
-                map.getCanvas().style.cursor = '';
-            });
-        });
+        }
 
         // Populates the map using geojson object
-        var geojson = [
-        {
-            "type": "Feature",
-            "properties": {
-                "name": "UBC Charger",
-                "icon": "marker"
-            },
-            "geometry": {
-            "type": "Point",
-            "coordinates": [-123.259563, 49.269246]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "name": "Edwin's Charger",
-                "icon": "marker"
-            },
-            "geometry": {
-            "type": "Point",
-            "coordinates": [-123.134504, 49.175458]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "name": "BCIT Downtown Charger",
-                "icon": "marker"
-            },
-            "geometry": {
-            "type": "Point",
-            "coordinates": [-123.115272, 49.283332]
-            }
-        },
-        {
-            "type": "Feature",
-            "properties": {
-                "name": "BCIT Burnaby Charger",
-                "icon": "marker"
-            },
-            "geometry": {
-            "type": "Point",
-            "coordinates": [-123.002025, 49.250124]
-            }
-        },
-        ]
+        const getMarkers = async () => {
+            const response = await fetch('/markers');
+            const json = await response.json();
+            console.log(json);
+            renderMarkers(json)
+            return json;
+        }
 
-        // Uses a for loop to add markers to the map page
-        geojson.forEach( (marker) => {
-
-            // Create a HTML element for each feature
-            var el = document.createElement('div');
-            el.className = 'marker';
-
-            // make a marker for each feature and add to the map
-            new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map);
-        });
+        // Get the markers from node
+        getMarkers()
 
         // Create a popup, but don't add it to the map yet.
         var popup = new mapboxgl.Popup({
