@@ -6,9 +6,11 @@
 }
 .notif-label {
 	width: unset;
+	font-size: 12pt;
+	display: inline;
 }
 .small-btn {
-	width: 50%;
+	width: 100%;
 	margin: 36px auto 18px;
 }
 #save-btn {
@@ -18,9 +20,19 @@
 	margin-bottom: 36px;
 	padding-top: 18px;
 }
-#wrapper {
-	width: 60%;
-}
 .inner-header, #notif-settings-form {
 	text-align: center;
+}
+
+/** Media queries */
+@media only screen and (min-width: 768px){
+    #wrapper {
+        width: 60%;
+	}
+	.notif-label {
+		font-size: 12pt;
+	}
+	.small-btn {
+		width: 60%;
+	}
 }
