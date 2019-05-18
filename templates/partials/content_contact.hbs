@@ -13,10 +13,11 @@
     </div>
 
     <div class="wrapper2">
-        <form action="thanks.html" method="post">
+        {{!-- <form action="index" method="post"> --}}
+        <form>
             <input type="hidden" name="recipient" id="recipient" value="Edwin">
             <input type="hidden" name="subject" id="subject" value="ZapShare Contact">
-            <input type="hidden" name="redirect" id="redirect" value="thanks.html">
+            <input type="hidden" name="redirect" id="redirect" value="index">
             <input type="hidden" name="sort" id="sort"
                 value="order:firstname,lastname,email,company,phone,type,comment">
 
@@ -53,7 +54,7 @@
                 <textarea name="comment" id="comment"></textarea>
             </fieldset>
             <div id="formsubmit">
-                <input type="submit" value="Submit" id="subbutton">
+                <input type="button" value="Submit" id="subbutton" onclick="location.href='index'">
                 <input type="reset" value="Reset" id="resetbutton">
             </div>
         </form>

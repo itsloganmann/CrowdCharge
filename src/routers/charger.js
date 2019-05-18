@@ -12,13 +12,28 @@ router.get('/chargers', auth, async (req, res) => {
         if (!charger) {
             return res.status(400).send({ error: 'Could not find any user chargers!' })
         }
-
         res.send(charger)
     } catch (error) {
         console.log(error)
         res.status(400).send("Error, could not get charger.")
     }
 })
+
+// Gets a specific charger by charger ID
+router.get('/charger/query', async (req, res) => {
+    try {
+        const charger_id = req.query.charger_id
+        const charger = await Charger.find({_id : charger_id})
+        if (!charger) {
+            return res.status(400).send({ error: 'Could not find this charger!' })
+        }
+         res.send(charger)
+    } catch (error) {
+        console.log(error)
+        res.status(400).send("Error, could not get charger.")
+    }
+})
+
 
 // Creates a new charger
 router.post('/charger/new', auth, async (req, res) => {

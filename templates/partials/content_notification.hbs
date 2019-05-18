@@ -1,10 +1,53 @@
-<div id="contentContainer">
-    <div class="row margin-setting">
-        <div class="col-12">
-            <h1 id="notification-header"><b>Notification</b></h1>
+<main>
+    <div id="wrapper">
+        <div id="header-wrapper" class="col-11">
+            <h1 class="outer-header">Notifications</h1>
+        </div>
+        <div id="tab-content" class="col-11">
+            <div id="payments-content" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="notif-payments-header"><b>Payments</b></h3>
+                <h6 class="col-11 inner-subheader" id="notif-payments-subheader">
+                    These bookings have been accepted! Make your payment before the booking day.
+                </h6>
+                <div class="col-11 tab-section-data row" id="notif-payments-data">
+                    <div class="card-panel col-md-5">
+                        <div class="price-card-text-wrapper">
+                            <div class="price-card-text-lg">$15.00</div>
+                            <div class="price-card-text-sm green-highlight">paid</div>
+                        </div>
+                        <div class="card-text-lg green-highlight">2019-01-01</div>
+                        <div class="card-text-md">00:00:00-23:00:00</div>
+                        <div class="card-text-sm">Name</div>
+                        <div class="card-text-sm">12345 MyHome St.</div>
+                        <div class="card-text-sm">Vancouver, BC</div>
+                    </div>
+                    <div class="card-panel col-md-5 green-card">A card!</div>
+                    <div class="card-panel col-md-5 orange-card">A card!</div>
+                    <div class="card-panel col-md-5">
+                        <div class="price-card-text-wrapper">
+                            <div class="price-card-text-lg">$15.00</div>
+                            <div class="price-card-text-sm orange-highlight">unpaid</div>
+                        </div>
+                        <div class="card-text-lg orange-highlight">2019-01-01</div>
+                        <div class="card-text-md">00:00:00-23:00:00</div>
+                        <div class="card-text-sm">12345 MyHome St.</div>
+                        <div class="card-text-sm">Vancouver, BC</div>
+                    </div>
+                </div>
+            </div>
+            <div id="requests-content" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="notif-requests-header"><b>Requests</b></h3>
+                <h6 class="col-11 inner-subheader" id="notif-requests-subheader">
+                    These are user requests to use your charger. Please reject or accept them by the date of the
+                    booking.
+                </h6>
+                <div class="col-11 tab-section-data row" id="notif-requests-data">
+                    <div class="card-panel col-md-5">A card!</div>
+                    <div class="card-panel col-md-5">A card!</div>
+                    <div class="card-panel col-md-5">A card!</div>
+                    <div class="card-panel col-md-5">A card!</div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row margin-setting content" id="subContent">
-
-    </div>
-</div>
+</main>     
