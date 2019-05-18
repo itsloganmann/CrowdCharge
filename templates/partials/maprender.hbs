@@ -109,8 +109,19 @@
                     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
+
+                    // Customizes the center when a marker is clicked.
+                    let yoffset = 0
+                    let xoffset = 0
+
+                    if (window.innerWidth < 500){
+                        yoffset = 0.00125
+                    } else if (window.innerWidth > 500) {
+                        xoffset = 0.00325
+                    }
+
                     map.flyTo({
-                        center: [coordinates[0], coordinates[1]-0.001],
+                        center: [coordinates[0] - xoffset, coordinates[1] - yoffset],
                         zoom: 15,
                         bearing: 0,
                         speed: 1.5, // make the flying slow
@@ -172,6 +183,7 @@
         closeOnClick: false
         });
 
+        // On hover, display markers.
         map.on('mouseenter', 'places', function(e) {
             // Change the cursor style as a UI indicator.
             map.getCanvas().style.cursor = 'pointer';
