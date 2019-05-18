@@ -10,6 +10,10 @@ main {
   color: #F05A29;
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 #logo-img{
 	position: absolute;
 	width: 140px;
@@ -30,7 +34,6 @@ main {
 }
 
 /* Go Mobile first */
-
 @media only screen and (min-width: 590px) {
     .twocolumns{
         display:grid;
@@ -156,12 +159,12 @@ main {
 
 #login-button {
   cursor: pointer;
-  color: #595959;
+  color: #848FA5;
   background-color: inherit;
   border-radius: 5px;
-  border: 2px solid #595959;
+  border: 2px solid #848FA5;
   margin-right: 10px;
-  padding-top: 4px;
+  padding-top: 5px;
   padding-left: 18px;
   padding-right: 18px;
   padding-bottom: 5px;

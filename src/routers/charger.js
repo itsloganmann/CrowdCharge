@@ -9,7 +9,6 @@ router.get('/chargers', auth, async (req, res) => {
     try {
         const ownerid = req.user._id
         const charger = await Charger.find({owner: ownerid})
-        console.log(charger)
         if (!charger) {
             return res.status(400).send({ error: 'Could not find any user chargers!' })
         }

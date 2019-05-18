@@ -117,7 +117,7 @@ $("#reviews-tab").click(function (event) {
 		, "These are the comments of hosts that you’ve charged with.");
 	//fetch request
 	var reviewsData;
-	fetch("/bookings", {
+	fetch("/client/reviews", {
 		method: 'GET',
 		headers: {
 			'content-type': 'application/json',

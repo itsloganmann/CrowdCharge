@@ -15,6 +15,7 @@ function fetchGET(url, jwt) {
         });
 
     hostData = [{
+        "bookingID": "B000000001",
         "startTime": "2019-05-14T12:00:00.000Z",
         "endTime": "2019-05-14T16:00:00.000Z",
         "cost": "19.99",
@@ -24,6 +25,7 @@ function fetchGET(url, jwt) {
         "cName": "my charger",
         "client": "client"
     }, {
+        "bookingID": "B000000001",
         "startTime": "2019-05-14T12:00:00.000Z",
         "endTime": "2019-05-14T16:00:00.000Z",
         "cost": "19.99",

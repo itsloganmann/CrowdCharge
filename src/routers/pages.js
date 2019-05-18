@@ -14,14 +14,14 @@ router.get('', (req, res) => {
 
 router.get('/profile_details', (req, res) => {
     res.render('profile_details', {
-        title: 'ZapShare - User Profile',
+        title: 'ZapShare - Your Profile',
         name: ''
     })
 })
 
 router.get('/host_dashboard', (req, res) => {
     res.render('host_dashboard', {
-        title: 'ZapShare - Host Settings',
+        title: 'ZapShare - Charger Dashboard',
         name: ''
     })
 })
@@ -35,7 +35,7 @@ router.get('/add_new_charger', (req, res) => {
 
 router.get('/client_dashboard', (req, res) => {
     res.render('client_dashboard', {
-        title: 'ZapShare - User Settings',
+        title: 'ZapShare - User Dashboard',
         name: ''
     })
 })
@@ -49,7 +49,7 @@ router.get('/wallet', (req, res) => {
 
 router.get('/contact', (req, res) => {
     res.render('contact', {
-        title: 'ZapShare - Contact',
+        title: 'ZapShare - Contact Us',
         name: ''
     })
 })
@@ -62,14 +62,14 @@ router.get('/index', (req, res) => {
 
 router.get('/notification', (req, res) => {
     res.render('notification', {
-        title: 'ZapShare - Notification',
+        title: 'ZapShare - Notifications',
         name: ''
     })
 })
 
 router.get('/about', (req, res) => {
     res.render('about', {
-        title: 'ZapShare - About',
+        title: 'ZapShare - About Us',
         name: ''
     })
 })
@@ -89,8 +89,31 @@ router.get('/help', (req, res) => {
     })
 })
 
+router.get('/privacy', (req, res) => {
+    res.render('Privacy', {
+        message: 'Privacy page contents',
+        title: 'Privacy',
+        name: ''
+    })
+})
+
+router.get('/disclaimer', (req, res) => {
+    res.render('Disclaimer', {
+        message: 'Disclaimer page contents',
+        title: 'Disclaimer',
+        name: ''
+    })
+})
+
+router.get('/terms', (req, res) => {
+    res.render('terms', {
+        message: 'TOS page contents',
+        title: 'Terms of Service',
+        name: ''
+    })
+})
+
 router.get('/help/*', (req, res) => {
-    
     res.render('404', {
         title: 'Help',
         name: '',
