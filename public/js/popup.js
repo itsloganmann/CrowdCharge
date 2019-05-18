@@ -79,9 +79,8 @@ var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
 	var month = today.getMonth() + 1;
-	var monthFmt = months[today.getMonth()];
 	var year = today.getFullYear();
-	return (monthFmt + " " + day + ", " + year);
+	return (year + "-" + (month >= 10 ? month : "0" + month) + "-" + day);
 }
 /*
 var addPopupHiddenField = (name, value) => {
