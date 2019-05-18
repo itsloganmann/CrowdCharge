@@ -1,62 +1,37 @@
 <main>
-    <div class="headerimagecontainer">
-        <img src="../images/homeImg.jpeg" class="headerimage" alt="logo">
-        <div class="headertext">
-            Contact Us
-        </div>
-    </div>
-
-    <div id="summary-text">
-        <div id="summary-lines">
-            Please fill out the form below to reach the ZapShare team!
-        </div>
-    </div>
-
-    <div class="wrapper2">
-        {{!-- <form action="index" method="post"> --}}
-        <form>
-            <input type="hidden" name="recipient" id="recipient" value="Edwin">
-            <input type="hidden" name="subject" id="subject" value="ZapShare Contact">
-            <input type="hidden" name="redirect" id="redirect" value="index">
-            <input type="hidden" name="sort" id="sort"
-                value="order:firstname,lastname,email,company,phone,type,comment">
-
-            <fieldset>
-                <legend>Contact Info</legend>
-                <div class="formrow">
-                    <input type="text" name="firstname" id="firstname" placeholder="First Name">
-                </div>
-                <div class="formrow">
-                    <input type="text" name="lastname" id="lastname" placeholder="Last Name">
-                </div>
-                <div class="formrow">
-                    <input type="email" name="email" id="email" placeholder="Email">
-                </div>
-                <div class="formrow">
-                    <input type="text" name="company" id="company" placeholder="Company">
-                </div>
-                <div class="formrow">
-                    <input type="text" name="phone" id="phone" placeholder='Phone'>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend>Select a Category You Are Inquiring About</legend>
-                <select size="5" name="type" id="type">
-                    <option value="directory">Business Inquiries</option>
-                    <option value="exchanges">Feature Request</option>
-                    <option value="resources">Technical Support</option>
-                    <option value="policies">Service Feedback</option>
-                    <option value="business">Report a Bug</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Message</legend>
-                <textarea name="comment" id="comment"></textarea>
-            </fieldset>
-            <div id="formsubmit">
-                <input type="button" value="Submit" id="subbutton" onclick="location.href='index'">
-                <input type="reset" value="Reset" id="resetbutton">
+    <div id="summary-background">
+        <img src="../images/homeImg.jpeg" id="adoption-image" alt="logo">
+        <div id="summary-text">
+            <div id="summary-lines">
+                Our mission is to increase <span id="adoption">electric vehicle adoption</span> by improving charger
+                availability anytime and anywhere. We offer a peer-to-peer network of private chargers, viewable on a real-time map. 
+                Find a charger near you by visiting our Map page. Sign-up for an account today to request a charger or
+                offer your own home charger on the ZapShare network.
             </div>
-        </form>
+        </div>
+    </div>
+    <div class="wrapper3 threecolumns onecolumn whitebackground">
+        <div class="homebox" onclick="window.location.href='about'">
+            <div class="boxheading">Save Time</div>
+            <div class="boximage"><img class="homeicons" src="../images/savetime.svg" alt="homeicon1"></div>
+            <div class="boxparagraph">Your time is valuable, keep your electric vehicle charged anywhere you go. Search for chargers 
+            near you by heading over to our Map page.</div>
+        </div>
+
+        <div class="homebox" onclick="window.location.href='about'">
+            <div class="boxheading">Go Green</div>
+            <div class="boximage"><img class="homeicons" src="../images/community.svg" alt="homeicon2"></div>
+            <div class="boxparagraph">Support other electric vehicle owners and join our growing community. Sign-up for a ZapShare
+                account to enjoy reservation and review features.</div>
+        </div>
+
+        <div class="homebox" onclick="window.location.href='about'">
+            <div class="boxheading">Earn Cash</div>
+            <div class="boximage"><img class="homeicons" src="../images/getpaid.svg" alt="homeicon3"></div>
+            <div class="boxparagraph">Offer your own home charger on the ZapShare network and start earning extra cash. Sign-up for a 
+                ZapShare account to enter your charger details.
+            </div>
+        </div>
+
     </div>
 </main>

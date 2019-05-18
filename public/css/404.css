@@ -1,0 +1,39 @@
+.page_404 { 
+    padding: 20px 0; 
+    background:#fff;
+}
+
+.page_404 img{ 
+    width: 100%;
+}
+
+.four_zero_four_bg{
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 420px;
+    background-position: center;
+    max-width: 700px;
+    margin: auto;
+    margin-top: -10px;
+}
+
+.content_box_404{ 
+    margin-top: -60px;
+    color: #4D4D4D;
+}
+
+h1 {
+    font-size: 38px;
+    color: #4D4D4D;
+}
+
+h4 {
+    font-size: 24px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    width: 700px;
+    max-width: 80vw;
+    margin: 0 auto;
+}

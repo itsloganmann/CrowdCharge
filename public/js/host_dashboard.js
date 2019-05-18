@@ -2,6 +2,17 @@
 //fetch to get all chargers' id that belong to the host
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
+fetch('/chargers', {
+	method: 'GET',
+	headers: {
+		'content-type': 'application/json',
+		'Authorization': 'Bearer ' + jwt
+	}
+}).then((res) => {
+	return res.json()
+}).then((db) => {
+	chargers = db;
+}).catch(error => console.log(error));
 
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
@@ -23,7 +34,7 @@ $('#chargers-tab').click(function (event) {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
+			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
 	$('#tab-content').append(chargerContainer);
@@ -44,21 +55,21 @@ function getTime(timeObject) {
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {
 
-	createContent("content", "div", "request-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
 	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
 	createSubheader("request-container", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
-	createContent("content", "div", "unpaid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
 	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("unpaid-container", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 
-	createContent("content", "div", "paid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
 	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
-	createButton("content", "history-btn", "BOOKING HISTORY");
+	createButton("tab-content", "history-btn", "BOOKING HISTORY");
 
 	//pending booking data render!
 	let pendingData = fetchGET('/host/pendingBookings', jwt);
@@ -69,15 +80,15 @@ $('#bookings-tab').click(function (event) {
 
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
-		$("#pending-charger-name" + countPending).text(booking.cName);
+		$("#pending-charger-name" + countPending).text(booking.chargername);
 		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
 		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
 		//accept or reject 
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending) , booking.bookingID, jwt);
-		addEventListenerOnReject($("#reject" + countPending) , booking.bookingID, jwt);
+		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -101,7 +112,7 @@ $('#bookings-tab').click(function (event) {
 
 		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-charger-name" + countUnpaid, "card-text-lg");
-		$("#unpaid-charger-name" + countUnpaid).text(booking.cName);
+		$("#unpaid-charger-name" + countUnpaid).text(booking.chargername);
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-date" + countUnpaid, "card-text-md");
 		$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-client" + countUnpaid, "card-text-sm");
@@ -124,7 +135,7 @@ $('#bookings-tab').click(function (event) {
 		//paid booking information for the host
 		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
 		createContent("paid-card" + countPaid, "p", "paid-charger-name" + countPaid, "card-text-lg");
-		$("#paid-charger-name" + countPaid).text(booking.cName);
+		$("#paid-charger-name" + countPaid).text(booking.chargername);
 		createContent("paid-card" + countPaid, "p", "paid-date" + countPaid, "card-text-md");
 		$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
 		createContent("paid-card" + countPaid, "p", "paid-client" + countPaid, "card-text-sm");
@@ -144,7 +155,7 @@ $('#bookings-tab').click(function (event) {
 
 $('#reviews-tab').click(function (event) {
 	//container box and its headers
-	createContent("content", "div", "review-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
 	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("review-container", "h6", "These are the comments of hosts that you’ve charged with."
 		, "col-11 inner-subheader");
@@ -191,27 +202,27 @@ function chargerInfo(chargerNumber) {
 	//rebuild content div with charger information that a user clicked
 	$('#tab-content').children().remove();
 
-	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
-	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
-	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
-	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
-	createLabel("content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
-	createInput("content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
-	createLabel("content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
-	createInput("content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
-	createLabel("content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
-	createInput("content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
-	createLabel("content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
-	createInput("content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
-	createLabel("content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
-	createLabel("content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
-	createInput("content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
+	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	createLabel("tab-content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
+	createInput("tab-content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
+	createLabel("tab-content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
+	createInput("tab-content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
+	createLabel("tab-content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
+	createInput("tab-content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
+	createLabel("tab-content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
+	createInput("tab-content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
+	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
+	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
+	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
+	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
+	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
+	createInput("tab-content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
 	//switch between two buttons for clicked
 	//edit -> save; save->edit
-	createButton("content", "edit-btn", "Edit", "white-button");
-	createButton("content", "save-btn", "Save", "orange-button");
+	createButton("tab-content", "edit-btn", "Edit", "white-button");
+	createButton("tab-content", "save-btn", "Save", "orange-button");
 	$("#save-btn").css({ "display": "none" });
 
 	//event listener for save/edit button clicked
@@ -241,16 +252,17 @@ function chargerInfo(chargerNumber) {
 			address: caddress,
 			city: ccity,
 			type: ctype,
+			level: clevel,
 			rate: crate,
 			details: cdetails
 		}
+		console.log("current charger id:" + chargers[chargerNumber]._id);
 
 		const paramForServer = {
-			cuid: chargers[chargerNumber].id
+			cUID: chargers[chargerNumber]._id
 		}
 		//update calls to the database
-		chargerUpdateURL = "/chargers?" + $.param(paramForServer);
-		fetch(chargerUpdateURL, {
+		fetch('/charger?' + $.param(paramForServer), {
 			method: 'PATCH',
 			headers: {
 				'content-type': 'application/json',
@@ -260,7 +272,7 @@ function chargerInfo(chargerNumber) {
 		})
 			.then(res => console.log(res))
 			.then((response) => {
-				console.log('Success:', (response))
+				console.log('Success:', response)
 			})
 			.catch(error => console.error('Error:', error));;
 	});

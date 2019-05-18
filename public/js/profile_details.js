@@ -1,63 +1,75 @@
+const jwt = localStorage.getItem('jwt');
 
-$("#edit-btn").click((event) => {
-    event.preventDefault();
-    $("#profile-name-input").css({"background-color" : "#FFFFFF"});
-    $("#profile-phone-input").css({"background-color" : "#FFFFFF"});
-    $("#profile-email-input").css({"background-color" : "#FFFFFF"});
-    $("#profile-name-input").removeAttr("readonly");
-    $("#profile-phone-input").removeAttr("readonly");
-    $("#profile-email-input").removeAttr("readonly");
-    $("#edit-btn").css({"display" : "none"});
-    $("#save-btn").css({"display" : "block"});
-});
 
-const updateProfile = async () => {
-    const userID = await fetch('/users/me', {
-        method: 'GET',
-        header: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then((res) => res.json()
-    ).then(function(data){console.log(data)});
-
-    console.log(userID)
-
-    await fetch('/users/', {
-        method: 'POST',
-        header: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then((res) => res.json()
-    ).then(function(data){console.log(data)});
-}
-
-$("#save-btn").click((event) => {
-    event.preventDefault();
-
-    updateProfile();
-    $("#profile-name-input").css({"background-color" : "inherit"});
-    $("#profile-email-input").css({"background-color" : "inherit"});
-    $("#profile-phone-input").css({"background-color" : "inherit"});
+fetch('/users/me', {
+    method: 'GET',
+    headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + jwt
+    }
+}).then((res) => {
+    return res.json()
+}).then(async (db) => {
+    $("#profile-name-input").val(db.name);
+    $("#profile-email-input").val(db.email);
+    $("#profile-phone-input").val(db.phone);
 
     $("#profile-name-input").attr("readonly", "true");
     $("#profile-email-input").attr("readonly", "true");
     $("#profile-phone-input").attr("readonly", "true");
-    $("#save-btn").css({"display" : "none"});
-    $("#edit-btn").css({"display" : "block"});
+}).catch(error => console.log(error));
+
+
+$("#edit-btn").click(function (event) {
+    event.preventDefault();
+    $("#profile-name-input").css({ "background-color": "white" });
+    $("#profile-email-input").css({ "background-color": "white" });
+    $("#profile-phone-input").css({ "background-color": "white" });
+    $("#profile-name-input").removeAttr("readonly");
+    $("#profile-email-input").removeAttr("readonly");
+    $("#profile-phone-input").removeAttr("readonly");
+    $("#edit-btn").css({ "display": "none" });
+    $("#save-btn").css({ "display": "block" });
+});
+
+
+$("#save-btn").click((event) => {
+    event.preventDefault();
+
+    $("#profile-name-input").css({ "background-color": "inherit" });
+    $("#profile-email-input").css({ "background-color": "inherit" });
+    $("#profile-phone-input").css({ "background-color": "inherit" });
+    $("#profile-name-input").attr("readonly", "true");
+    $("#profile-email-input").attr("readonly", "true");
+    $("#profile-phone-input").attr("readonly", "true");
+
+    $("#save-btn").css({ "display": "none" });
+    $("#edit-btn").css({ "display": "block" });
 
 
     //POST
     var name = $("#profile-name-input").val();
     var phone = $("#profile-phone-input").val();
     var email = $("#profile-email-input").val();
-    const data = {
+    const dataToSend = {
         name: name,
         phone: phone,
         email: email
     }
 
-    
+
+    fetch('/users/me', {
+        method: 'PATCH',
+        body: JSON.stringify(dataToSend),
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + jwt
+        }
+    }).then(res => {
+        console.log(res)
+
+    }).then((response) => {
+    }).catch(error => console.error('Error:', error));
+
 
 });
