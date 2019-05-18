@@ -2,7 +2,7 @@ let timer = undefined;
 
 function carGo() {
     //animation pre-setting
-    $("#logo-img").css({ "position": "absolute", "top": "-25px" });
+    $("#logo-img").css({ "position": "absolute", "top": "-26px" });
     var fullWidth = window.innerWidth;
     var currentW = $("#logo-img").position();
 
