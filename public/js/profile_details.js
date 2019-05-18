@@ -1,6 +1,5 @@
 const jwt = localStorage.getItem('jwt');
 
-
 fetch('/users/me', {
     method: 'GET',
     headers: {
@@ -31,7 +30,7 @@ $('.tab-button').on('click', (e) => {
 	$('#tab-content').children().remove();
 });
 
-$('#details-tab').click(function (event) {
+function defaultTab () {
     var detailsContainer = createContentContainer('details-content', 'details-header', 'Profile Details', '', '');
 
     $(detailsContainer).append($(
@@ -55,7 +54,19 @@ $('#details-tab').click(function (event) {
                 "</form>" +
             "</div>"
     ));
+
     $('#tab-content').append(detailsContainer);
+};
+
+window.onload = function() {
+    console.log("Onload");
+    defaultTab();
+    $('#details-tab').css({ 'color': '#F05A29' });
+
+};
+
+$('#details-tab').click(function (event) {
+    defaultTab();
 })
 
 //tab's eventListener
