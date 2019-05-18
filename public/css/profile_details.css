@@ -1,97 +1,38 @@
-/*general margin-setting to mobile first*/
-
-#contentContainer{
-	margin-top: 3vh 0;
+.outer-header {
+	margin-bottom: 20px;
 }
-.content{
-	margin-top: 30px;
-	background-color: #F3F3F3;
+.profile-input {
+	background-color: inherit;
 }
-#profile-icon{
-	width: 70px;
-	height: 70px;
-	margin:0 auto;
-	display: block;
-	border-radius:25px;
+.notif-label {
+	width: unset;
+	font-size: 12pt;
+	display: inline;
 }
-#img-btn{
-	margin:0 auto;
-	display: block;
-	width: auto;
-}
-
-#user-img{
-	display: block;
+.small-btn {
 	width: 100%;
-	padding: 2vh;
+	margin: 36px auto 18px;
 }
-.margin-setting{
-	margin: 10px;
-	border-radius:10px;
-}
-.inner-margin-setting{
-	margin: 0 auto;
-}
-
-.input-style{
-	width: 100%;
-}
-.input-disable{
-	background-color:#EBEBE4;
-}
-#edit-btn{
-	width: 100px;
-	margin: 0 auto;
-	display: block;
-	margin-top: 50px;
-}
-#save-btn{
-	width: 100px;
-	margin: 0 auto;
-	display: block;
-	margin-top: 50px;
+#save-btn {
 	display: none;
 }
-#checkbox-field{
-	padding: 10px 20px 40px;
-	margin-top: 30px;
+.tab-section-content {
+	margin-bottom: 36px;
+	padding-top: 18px;
 }
-@media only screen and (min-width: 500px) {
-.margin-setting{
-	margin-left: 15%;
-	margin-right: 15%;
-}
+.inner-header, #notif-settings-form {
+	text-align: center;
 }
 
-.hostHeader{
-    margin-top:5vh;
-    margin-left:5%;
-}
-.hostHeader h1{
-    font-weight:bold;
-}
-#mainTabs{
-    margin:0 auto;
-    width:90%;
-}
-#mainTabs a{
-    padding-right:2vh;
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-    font-size:1.0em;
-}
-#outerBox{
-    background:#F3F3F3;
-    margin:0 auto;
-    margin-top: 5vh;
-	padding-top:2vh;
-    padding-bottom:5vh;
-    width:90%;
-	border-radius:10px;
-}
-
-.boxHeader{
-    font-weight:bold;
-    margin:0 3%;
+/** Media queries */
+@media only screen and (min-width: 768px){
+    #wrapper {
+        width: 60%;
+	}
+	.notif-label {
+		font-size: 12pt;
+	}
+	.small-btn {
+		width: 60%;
+	}
 }

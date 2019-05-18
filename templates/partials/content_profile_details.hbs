@@ -1,35 +1,45 @@
-<div id="contentContainer">
-    <div class="row margin-setting">
-        <div class="col-12">
-            <h1 id="notification-header"><b>Profile</b></h1>
+<main>
+    <div id="wrapper">
+        <div id="header-wrapper" class="col-11">
+            <h1 class="outer-header">Your Profile</h1>
         </div>
-    </div>
-    <div class="margin-setting content" id="subContent">
-        <div id="user-img">
-            <img alt="user profile icon" src="../../images/user_Icon.png" class="img-responsive" id="profile-icon" />
-            <br>
-            <button id="img-btn">Upload</button>
-        </div>
-
-        <div class="col-12 inner-margin-setting" id="form">
-            <div id="input-field">
-                <form>
-                    <label class="">Name</label>
-                    <input type="text" id="name" readonly class="input-style input-disable">
-                    <label class="">Contact number</label>
-                    <input type="text" id="phone" readonly class="input-style input-disable">
-                    <label class="">Email</label>
-                    <input type="eamil" id="email" readonly class="input-style input-disable">
-                    <br>
-                    <input type="submit" id="save-btn" value="save">
+        <div id="tab-content" class="col-11">
+            <div id="profile-details" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="profile-details-header"><b>Profile Details</b></h3>
+                <form class="col-11 tab-section-data row" id="profile-details-form">
+                    <div class="full-center-wrapper" id="profile-name-wrapper">
+                        <label id="profile-name-label" class="form-label profile-label" for="profile-name-input">Name</label>
+                        <input type="text" name="name" id="profile-name-input" class="form-input profile-input" readonly>
+                    </div>
+                    <div class="full-center-wrapper" id="profile-email-wrapper">
+                        <label id="profile-email-label" class="form-label profile-label" for="profile-email-input">Email</label>
+                        <input type="text" name="email" id="profile-email-input" class="form-input profile-input" readonly>
+                    </div>
+                    <div class="full-center-wrapper" id="profile-phone-wrapper">
+                        <label id="profile-phone-label" class="form-label profile-label" for="profile-phone-input">Phone</label>
+                        <input type="text" name="phone" id="profile-phone-input" class="form-input profile-input" readonly>
+                    </div>
+                    <input type="submit" id="save-btn" class="orange-button small-btn" value="Save">
+                    <button id="edit-btn" class="white-button small-btn">Edit</button>
                 </form>
-                <button id="edit-btn">Edit</button>
             </div>
-            <div id="checkbox-field">
-                <h2>Notification Setting</h2>
-                <input type="checkbox" class="">Receive notifications for booking requests<br>
-                <input type="checkbox" class="">Receive notifications for unpaid bookings<br>
+            <hr>
+            <div id="notif-settings" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="notif-settings-header"><b>Notification Settings</b></h3>
+                <div class="col-11 tab-section-data row" id="notif-settings-form">
+                    <div class="full-center-wrapper">
+                        <input type="checkbox" class="notif-checkbox" id="notif-requests-checkbox" checked disabled>
+                        <label id="notif-requests-checkbox" class="form-label notif-label" for="notif-requests-checkbox">Receive
+                            notifications for booking requests</label>
+                    </div>
+                    <div class="full-center-wrapper">
+                        <input type="checkbox" class="notif-checkbox" id="notif-unpaid-checkbox" checked disabled>
+                        <label id="notif-unpaid-checkbox" class="form-label notif-label" for="notif-unpaid-checkbox">Receive
+                            notifications for unpaid bookings</label>
+                    </div>
+                    <button id="notif-button" class="orange-button disabled-button small-btn" disabled>Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
