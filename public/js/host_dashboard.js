@@ -273,6 +273,8 @@ function chargerInfo(chargerNumber) {
 			.then(res => console.log(res))
 			.then((response) => {
 				console.log('Success:', response)
+				window.location.replace('/host_dashboard');
+
 			})
 			.catch(error => console.error('Error:', error));;
 	});
