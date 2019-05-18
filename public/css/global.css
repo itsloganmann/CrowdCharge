@@ -14,15 +14,26 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-#logo-img{
-	position: absolute;
-	width: 140px;
-	top: -24px;
+@media only screen and (max-width: 768px) {
+  #logo-img{
+    position: absolute;
+    height: 45px;
+    top: -21px;
+  }
+}
+
+/* For larger screens, move logo and menu outwards */
+@media only screen and (min-width: 768px) {
+  #logo-img{
+    position: absolute;
+    height: 55px;
+    top: -26px;
+  }
 }
 
 .navbar-custom {
   border-bottom: 5px #1DBF73 solid;
-  box-shadow: 0px 0px 4px 0px #4B4C4C;
+  box-shadow: 0px 0px 4px 0px #4D4D4D;
 }
 
 .browser-menu-item{
@@ -40,22 +51,25 @@ body {
         grid-template-columns:1fr 1fr;
     }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (min-width: 590px) {
 	#bell-icon{
 		font-size: 21pt;
-
-	}
+  }
+  
 	#userToggler{
 		font-size: 21pt;
 		width: 100px;
 		height: 100px;
-	}
+  }
+  
 	.headertext{
 		display:block;
-  	}
-  	#bell-wrapper {
-      		float: right;
-  	}
+  }
+
+  #bell-wrapper {
+    float: right;
+  }
 }
 
 @media only screen and (min-width: 1000px) {

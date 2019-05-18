@@ -120,7 +120,7 @@
 }
 
 /* Desktop Media Query */
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 959px) {
     #adoption-image {
         width:100%;
     }
@@ -261,7 +261,7 @@
 }
 
 /* Desktop media query */
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 959px) {
     .threecolumns{
         display:grid;
         grid-template-columns:1fr 1fr 1fr;
