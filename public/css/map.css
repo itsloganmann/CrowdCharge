@@ -118,6 +118,7 @@
 #map-drawer-details-wrapper {
     display: none;
     max-height: 120px;
+    word-break: break-word;
 }
 
 #booking-confirmation-text, #booking-finish-text {
