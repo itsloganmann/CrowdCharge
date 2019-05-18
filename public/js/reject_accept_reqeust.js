@@ -18,7 +18,6 @@ function addEventListenerOnAccept(element, bookingID, jwt) {
                 console.log("You've accepted the booking! We are redirecting you to charger dashboard!")
                 window.location.replace('/host_dashboard');
             } else {
-                alert("failed :/ We are redirecting ")
             }
         })
             .then((response) => {
