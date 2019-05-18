@@ -44,21 +44,21 @@ function getTime(timeObject) {
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {
 
-	createContent("content", "div", "request-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
 	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
 	createSubheader("request-container", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
-	createContent("content", "div", "unpaid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
 	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("unpaid-container", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 
-	createContent("content", "div", "paid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
 	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
-	createButton("content", "history-btn", "BOOKING HISTORY");
+	createButton("tab-content", "history-btn", "BOOKING HISTORY");
 
 	//pending booking data render!
 	let pendingData = fetchGET('/host/pendingBookings', jwt);
@@ -144,7 +144,7 @@ $('#bookings-tab').click(function (event) {
 
 $('#reviews-tab').click(function (event) {
 	//container box and its headers
-	createContent("content", "div", "review-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
 	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("review-container", "h6", "These are the comments of hosts that you’ve charged with."
 		, "col-11 inner-subheader");
@@ -191,27 +191,27 @@ function chargerInfo(chargerNumber) {
 	//rebuild content div with charger information that a user clicked
 	$('#tab-content').children().remove();
 
-	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
-	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
-	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
-	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
-	createLabel("content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
-	createInput("content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
-	createLabel("content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
-	createInput("content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
-	createLabel("content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
-	createInput("content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
-	createLabel("content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
-	createInput("content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
-	createLabel("content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
-	createLabel("content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
-	createInput("content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
+	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	createLabel("tab-content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
+	createInput("tab-content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
+	createLabel("tab-content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
+	createInput("tab-content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
+	createLabel("tab-content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
+	createInput("tab-content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
+	createLabel("tab-content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
+	createInput("tab-content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
+	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
+	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
+	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
+	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
+	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
+	createInput("tab-content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
 	//switch between two buttons for clicked
 	//edit -> save; save->edit
-	createButton("content", "edit-btn", "Edit", "white-button");
-	createButton("content", "save-btn", "Save", "orange-button");
+	createButton("tab-content", "edit-btn", "Edit", "white-button");
+	createButton("tab-content", "save-btn", "Save", "orange-button");
 	$("#save-btn").css({ "display": "none" });
 
 	//event listener for save/edit button clicked
