@@ -9,7 +9,7 @@ $("#map-drawer-close-button").on("click", () => {
 });
 
 // Generates popup for booking
-$("#request-booking-button").on("click", () => {
+$('#map-drawer').on("click", '#request-booking-button', () => {
     createPopup();
     setPopupBookingPageOne();
     $("#popup").fadeIn(200);
@@ -123,7 +123,7 @@ $('body').on("click", ".marker", async (e) => {
         $("#map-drawer").show();
         populateChargerInfo(chargername, city, cost, details, level, type, rating);
     } catch (error) {
-        console.log("Error: " + error)
+        console.log("Error: ", error)
     }
 });
 
@@ -135,11 +135,9 @@ const populateChargerInfo = (chargername, city, cost, details, level, type, rati
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Level</div><div class="map-drawer-text-right">' + level + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Type</div><div class="map-drawer-text-right">' + type + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Hourly Rate</div><div class="map-drawer-text-right">$' + cost + '</div></div><br>')
-    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + rating + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
-    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + details +'</div></div>');
-    $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')++
-
-    console.log("added");
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + (rating == 'undefined' ? rating : "No Rating") + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + details + '</div></div>');
+    $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
 }
 
 

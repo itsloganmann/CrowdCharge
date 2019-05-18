@@ -98,6 +98,7 @@
     width: 100%;
     height: 100%;
     padding: 8px 10%;    
+    overflow: auto;
 }
 #map-drawer-text-row {
     display: block;
@@ -142,7 +143,6 @@
     .map-side-expanded {
         height: calc(100vh - 84px) !important;
     }
-
     #map-drawer {
         width: 368px;
         height: calc(100vh - 84px);
