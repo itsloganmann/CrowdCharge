@@ -273,8 +273,18 @@ function chargerInfo(chargerNumber) {
 			.then(res => console.log(res))
 			.then((response) => {
 				console.log('Success:', response)
-				window.location.replace('/host_dashboard');
-
+				fetch('/chargers', {
+					method: 'GET',
+					headers: {
+						'content-type': 'application/json',
+						'Authorization': 'Bearer ' + jwt
+					}
+				}).then((res) => {
+					return res.json()
+				}).then((db) => {
+					chargers = db;
+				}).catch(error => console.log(error));
+				
 			})
 			.catch(error => console.error('Error:', error));;
 	});
