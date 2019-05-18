@@ -53,7 +53,6 @@ router.post('/charger/new', auth, async (req, res) => {
 router.patch('/charger', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const charger_id = req.query.cUID
-    let charger = await Charger.find({ _id: charger_id })
     const updates = Object.keys(req.body)
     const allowedUpdates = ['chargername', 'address', 'city', 'type', 'level', 'rate', 'details']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
@@ -63,14 +62,17 @@ router.patch('/charger', auth, async (req, res) => {
         return res.status(400).send({ error: 'Invalid updates!' })
     }
     try {
+        const charger = await Charger.findById(charger_id)
         // Small adjustment required to use middleware. Updates charger data.
         await updates.forEach((update) => {
+            console.log(update)
             charger[update] = req.body[update]
         })
-        //await charger.save()
+        console.log(charger)
+        await charger.save()
 
         // Sends back the found charger data back after updating it
-        res.send(charger)
+        res.send(JSON.stringify(charger))
     } catch (error) {
         console.log(error)
     }

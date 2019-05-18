@@ -272,7 +272,7 @@ function chargerInfo(chargerNumber) {
 		})
 			.then(res => console.log(res))
 			.then((response) => {
-				console.log('Success:', (response))
+				console.log('Success:', response)
 			})
 			.catch(error => console.error('Error:', error));;
 	});
