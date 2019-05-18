@@ -110,21 +110,24 @@
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
 
-                    // Customizes the center when a marker is clicked.
+                    // Customizes the center when a marker is clicked depending on device.
                     let yoffset = 0
                     let xoffset = 0
+                    let pitchset = 0
 
-                    if (window.innerWidth < 500){
+                    if (window.innerWidth < 962){
                         yoffset = 0.00125
-                    } else if (window.innerWidth > 500) {
+                    } else {
                         xoffset = 0.00325
+                        pitchset = 60
                     }
 
                     map.flyTo({
                         center: [coordinates[0] - xoffset, coordinates[1] - yoffset],
                         zoom: 15,
                         bearing: 0,
-                        speed: 1.5, // make the flying slow
+                        speed: 1.5,
+                        pitch: pitchset,
                         
                         // This can be any easing function: it takes a number between
                         // 0 and 1 and returns another number between 0 and 1.
@@ -185,25 +188,27 @@
 
         // On hover, display markers.
         map.on('mouseenter', 'places', function(e) {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
-        
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var name = e.features[0].properties.name;
-        
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            if (window.innerWidth >= 600) {
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = 'pointer';
+            
+                var coordinates = e.features[0].geometry.coordinates.slice();
+                var name = e.features[0].properties.name;
+            
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+            
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(coordinates)
+                    .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                    + name + '</span>')
+                    .addTo(map);
             }
-        
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            popup.setLngLat(coordinates)
-                .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
-                                + name + '</span>')
-                .addTo(map);
         });
         
         // On mouse leave, remove the popup.
