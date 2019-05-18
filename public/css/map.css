@@ -84,23 +84,31 @@
     cursor: pointer;
 }
 #map-drawer-close-button {
-    float: right;
+    position: absolute;
+    right: 32px;
+    top: 8px;
 }
-
+#map-drawer-charger-name {
+    font-weight: 700;
+    font-size: 16pt;
+    border-bottom: 1px solid #464648;
+    margin: 8px auto 8px;
+}
 #map-drawer-text-wrapper {
     display: block;
     width: 100%;
     height: 100%;
     padding: 8px 10%;    
+    overflow: auto;
 }
 #map-drawer-text-row {
     display: block;
     width: 100%;
     margin: 4px 8px;
-    
 }
 .map-drawer-text-left {
     float: left;
+    font-weight: 500;
 }
 .map-drawer-text-right {
     float: right;
@@ -136,7 +144,6 @@
     .map-side-expanded {
         height: calc(100vh - 78px) !important;
     }
-
     #map-drawer {
         width: 368px;
         height: calc(100vh - 78px);

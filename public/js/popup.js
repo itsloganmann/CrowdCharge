@@ -11,13 +11,14 @@ if (token) {
 
 // Creates initial popup with generic IDs
 var createPopup = () => {
-	$('body').css({'position': 'fixed', 'width': '100vw'});
+	$('body').css({'position': 'fixed', 'width': '100%'});
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
 	popup.id = "popup";
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
+	$('#popup').prepend('<span id="popup-close-button" class="fas fa-times ui-button-custom"></span>');
 }
 
 var createPopupHeader = (size, text, id) => {
@@ -121,8 +122,8 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$(document).on("click", "#popup-wrapper", (e) => {
-	if (e.target.id == "popup-wrapper") {
+$(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
+	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
 		$('body').css('position','initial');
 	}

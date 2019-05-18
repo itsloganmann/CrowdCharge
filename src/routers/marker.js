@@ -15,6 +15,7 @@ router.get('/markers', async(req, res)=>{
                     "name" : charger.chargername,
                     "cost" : charger.cost,
                     "rating" : charger.rating,
+                    "charger_id":charger._id,
                     "icon" : "marker"
                 }
     

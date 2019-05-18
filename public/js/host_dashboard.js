@@ -3,67 +3,17 @@
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
 
+// Changes tab colours and clears tab contents
+// Clearing done when switching tabs to allow for new data population
+$('.tab-button').on('click', (e) => {
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$("#tab-content").children().remove();
+});
 
 
 
-window.onload = async function () {
-	
-	
-	//fetch to get all charger info from a host
-	await fetch("/chargers", {
-		method: 'GET',
-		headers: {
-			'content-type': 'application/json',
-			'Authorization': 'Bearer ' + jwt
-		}
-	}).then((res) => {
-		return res.json()
-	}).then((db) => {
-		chargers = db;
-	});
-
-	function build() {
-		//highlight active tab
-		$('#chargers').css({ 'color': '#f05a29' });
-		$('#bookings').css({ 'color': 'black' });
-		$('#reviews').css({ 'color': 'black' });
-		$('#earnings').css({ 'color': 'black' });
-
-		//clear old content
-		$('#content').children().remove();
-		//create new content
-		var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
-		var chargerContainer = $("<div id='chargerContainer'></div>")
-		var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-
-		//populating all chargers owned from database
-		var yourCharger = [];
-		for (i = 0; i < chargers.length; i++) {
-			var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-				i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
-			yourCharger[i] = $(chargerString);
-		}
-
-		$('#content').append(header);
-		$('#content').append(chargerContainer);
-		$('#chargerContainer').append(newCharger);
-		for (i = 0; i < chargers.length; i++) {
-			$('#chargerContainer').append(yourCharger[i]);
-		}
-		$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-	}
-	build();
-};
-
-$('#chargers').click(function (event) {
-	//highlight active tab
-	$('#chargers').css({ 'color': '#f05a29' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
-
-	//clear old content
-	$('#content').children().remove();
+$('#chargers-tab').click(function (event) {
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -76,9 +26,7 @@ $('#chargers').click(function (event) {
 			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
-
-	$('#content').append(header);
-	$('#content').append(chargerContainer);
+	$('#tab-content').append(chargerContainer);
 	$('#chargerContainer').append(newCharger);
 	for (i = 0; i < chargers.length; i++) {
 		$('#chargerContainer').append(yourCharger[i]);
@@ -94,29 +42,23 @@ function getTime(timeObject) {
 }
 
 //to be move to mother js file if needed
-$('#bookings').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': '#f05a29' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': 'black' });
+$('#bookings-tab').click(function (event) {
 
-	$('#content').children().remove();
-
-	createContent("content", "div", "request-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
 	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
 	createSubheader("request-container", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
-	createContent("content", "div", "unpaid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
 	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("unpaid-container", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 
-	createContent("content", "div", "paid-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
 	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
-	createButton("content", "history-btn", "BOOKING HISTORY");
+	createButton("tab-content", "history-btn", "BOOKING HISTORY");
 
 	//pending booking data render!
 	let pendingData = fetchGET('/host/pendingBookings', jwt);
@@ -200,14 +142,9 @@ $('#bookings').click(function (event) {
 	);
 })
 
-$('#reviews').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': '#f05a29' });
-	$('#earnings').css({ 'color': 'black' });
-	$('#content').children().remove();
+$('#reviews-tab').click(function (event) {
 	//container box and its headers
-	createContent("content", "div", "review-container", "col-11 tab-section-data row");
+	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
 	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("review-container", "h6", "These are the comments of hosts that you’ve charged with."
 		, "col-11 inner-subheader");
@@ -240,14 +177,7 @@ $('#reviews').click(function (event) {
 	});
 })
 
-$('#earnings').click(function (event) {
-	$('#chargers').css({ 'color': 'black' });
-	$('#bookings').css({ 'color': 'black' });
-	$('#reviews').css({ 'color': 'black' });
-	$('#earnings').css({ 'color': '#f05a29' });
-
-	$('#content').children().remove();
-
+$('#earnings-tab').click(function (event) {
 	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
 	var earningsContainer = $("<div id='earningsContainer'></div>");
 	$('#content').css({ 'height': '500px' });
@@ -259,29 +189,29 @@ $('#earnings').click(function (event) {
 //click event listener on each charger
 function chargerInfo(chargerNumber) {
 	//rebuild content div with charger information that a user clicked
-	$('#content').children().remove();
+	$('#tab-content').children().remove();
 
-	createLabel("content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
-	createInput("content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
-	createLabel("content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
-	createInput("content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
-	createLabel("content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
-	createInput("content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
-	createLabel("content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
-	createInput("content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
-	createLabel("content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
-	createInput("content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
-	createLabel("content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
-	createInput("content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
-	createLabel("content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
-	createLabel("content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
-	createInput("content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
+	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	createLabel("tab-content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
+	createInput("tab-content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
+	createLabel("tab-content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
+	createInput("tab-content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
+	createLabel("tab-content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
+	createInput("tab-content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
+	createLabel("tab-content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
+	createInput("tab-content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
+	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
+	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
+	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
+	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].rate);
+	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
+	createInput("tab-content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
 	//switch between two buttons for clicked
 	//edit -> save; save->edit
-	createButton("content", "edit-btn", "Edit", "white-button");
-	createButton("content", "save-btn", "Save", "orange-button");
+	createButton("tab-content", "edit-btn", "Edit", "white-button");
+	createButton("tab-content", "save-btn", "Save", "orange-button");
 	$("#save-btn").css({ "display": "none" });
 
 	//event listener for save/edit button clicked
@@ -311,6 +241,7 @@ function chargerInfo(chargerNumber) {
 			address: caddress,
 			city: ccity,
 			type: ctype,
+			level: clevel,
 			rate: crate,
 			details: cdetails
 		}
