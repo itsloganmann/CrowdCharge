@@ -2,6 +2,17 @@
 //fetch to get all chargers' id that belong to the host
 const jwt = localStorage.getItem('jwt');
 let chargers = [];
+fetch('/chargers', {
+	method: 'GET',
+	headers: {
+		'content-type': 'application/json',
+		'Authorization': 'Bearer ' + jwt
+	}
+}).then((res) => {
+	return res.json()
+}).then((db) => {
+	chargers = db;
+}).catch(error => console.log(error));
 
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
@@ -23,7 +34,7 @@ $('#chargers-tab').click(function (event) {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
-			i + "'>" + chargers[i].name + "</br>" + chargers[i].address + "</br>" + "</button>";
+			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
 	$('#tab-content').append(chargerContainer);
@@ -69,15 +80,15 @@ $('#bookings-tab').click(function (event) {
 
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
-		$("#pending-charger-name" + countPending).text(booking.cName);
+		$("#pending-charger-name" + countPending).text(booking.chargername);
 		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
 		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
 		//accept or reject 
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending) , booking.bookingID, jwt);
-		addEventListenerOnReject($("#reject" + countPending) , booking.bookingID, jwt);
+		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -101,7 +112,7 @@ $('#bookings-tab').click(function (event) {
 
 		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-charger-name" + countUnpaid, "card-text-lg");
-		$("#unpaid-charger-name" + countUnpaid).text(booking.cName);
+		$("#unpaid-charger-name" + countUnpaid).text(booking.chargername);
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-date" + countUnpaid, "card-text-md");
 		$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
 		createContent("unpaid-card" + countUnpaid, "p", "unpaid-client" + countUnpaid, "card-text-sm");
@@ -124,7 +135,7 @@ $('#bookings-tab').click(function (event) {
 		//paid booking information for the host
 		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
 		createContent("paid-card" + countPaid, "p", "paid-charger-name" + countPaid, "card-text-lg");
-		$("#paid-charger-name" + countPaid).text(booking.cName);
+		$("#paid-charger-name" + countPaid).text(booking.chargername);
 		createContent("paid-card" + countPaid, "p", "paid-date" + countPaid, "card-text-md");
 		$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
 		createContent("paid-card" + countPaid, "p", "paid-client" + countPaid, "card-text-sm");
@@ -241,16 +252,17 @@ function chargerInfo(chargerNumber) {
 			address: caddress,
 			city: ccity,
 			type: ctype,
+			level: clevel,
 			rate: crate,
 			details: cdetails
 		}
+		console.log("current charger id:" + chargers[chargerNumber]._id);
 
 		const paramForServer = {
-			cuid: chargers[chargerNumber].id
+			cUID: chargers[chargerNumber]._id
 		}
 		//update calls to the database
-		chargerUpdateURL = "/chargers?" + $.param(paramForServer);
-		fetch(chargerUpdateURL, {
+		fetch('/charger?' + $.param(paramForServer), {
 			method: 'PATCH',
 			headers: {
 				'content-type': 'application/json',
@@ -260,7 +272,19 @@ function chargerInfo(chargerNumber) {
 		})
 			.then(res => console.log(res))
 			.then((response) => {
-				console.log('Success:', (response))
+				console.log('Success:', response)
+				fetch('/chargers', {
+					method: 'GET',
+					headers: {
+						'content-type': 'application/json',
+						'Authorization': 'Bearer ' + jwt
+					}
+				}).then((res) => {
+					return res.json()
+				}).then((db) => {
+					chargers = db;
+				}).catch(error => console.log(error));
+				
 			})
 			.catch(error => console.error('Error:', error));;
 	});

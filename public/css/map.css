@@ -51,15 +51,10 @@
     width: 100%;
 }
 
-#map-drawer-expansion-button {
-    display: unset;
-    float: left;
-}
-
 #map-drawer {
     display: none;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    height: 216px;
+    height: 256px;
     background-color: #FFFFFF;
     transition: height 0.5s ease;
     width: 100%;
@@ -75,75 +70,76 @@
     background-color: #FFFFFF;
 }
 
-
 .ui-button-custom {
     font-size: 18pt;
     color: #464648;
     padding: 4px;
     margin: 4px;
+    top: 4px;
     cursor: pointer;
-}
-#map-drawer-close-button {
     position: absolute;
-    right: 32px;
-    top: 8px;
+    display: block;
 }
+
+#map-drawer-close-button {
+    right: 0px;
+}
+
+#map-drawer-text-wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0px 10%;    
+    overflow: auto;
+}
+
 #map-drawer-charger-name {
     font-weight: 700;
     font-size: 16pt;
     border-bottom: 1px solid #464648;
     margin: 8px auto 8px;
 }
-#map-drawer-text-wrapper {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 8px 10%;    
-    overflow: auto;
-}
+
 #map-drawer-text-row {
     display: block;
     width: 100%;
     margin: 4px 8px;
 }
+
 .map-drawer-text-left {
     float: left;
     font-weight: 500;
 }
+
 .map-drawer-text-right {
     float: right;
 }
-#request-booking-button {
-    width: 80%;
-    bottom: 24px;
-    position: absolute;
-    cursor: pointer;
 
-}
 #map-drawer-details-wrapper {
     display: none;
-    height: 120px;
+    max-height: 120px;
+    word-break: break-word;
 }
-#booking-confirmation-text {
-    font-size: 1.25rem;
-}
-#booking-finish-text {
+
+#booking-confirmation-text, #booking-finish-text {
     font-size: 1.25rem;
 }
 
-@media only screen and (max-width: 768px) {
-    .map-side-expanded {
-        width: initial;
-        max-width: 100%;
-        height: 320px !important;
-        max-height: calc(100vh - 78px) !important;
-    }
+.map-side-expanded {
+    width: initial;
+    max-width: 100%;
+    height: 100% !important;
 }
 
 @media only screen and (min-width: 769px) {
+    #map-drawer-text-wrapper {
+        padding-top: 8px;
+    }
+
     .map-side-expanded {
         height: calc(100vh - 78px) !important;
     }
+
     #map-drawer {
         width: 368px;
         height: calc(100vh - 78px);
@@ -152,6 +148,11 @@
 
     #map-drawer-expansion-button {
         display: none;
+    }
+
+    #map-drawer-close-button {
+        right: 32px;
+        top: 8px;
     }
 
     #map-drawer-details-wrapper {

@@ -3,7 +3,7 @@ function addEventListenerOnAccept(element, bookingID, jwt) {
     element.click(async event => {
         var url = '/booking/acceptBooking';
         const dataToSend = {
-            bUID: '5cdf3ff5850bce10cc36f053'
+            bUID: bookingID
         }
         await fetch(url, {
             method: 'POST',
@@ -29,7 +29,7 @@ function addEventListenerOnAccept(element, bookingID, jwt) {
 function addEventListenerOnReject(element, bookingID) {
     element.click(async event => {
         const dataToSend = {
-            bUID: '5cdf3ff5850bce10cc36f053'
+            bUID: bookingID
         }
         await fetch('booking/declineBooking', {
             method: 'DELETE',
