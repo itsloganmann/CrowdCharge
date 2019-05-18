@@ -39,23 +39,52 @@ $('#password-tab').click(function (event) {
 
     // Append form content
     $(passwordContainer).append($(
-        "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
-            "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
-            "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
-        "</div>" +
-        "<div class='full-center-wrapper' id='profile-newpassword-wrapper'>" +
-            "<label id='profile-newpassword-label' class='form-label profile-label' for='profile-newpassword-input'>New password</label>" +
-            "<input type='password' name='newpassword' id='profile-newpassword-input' class='form-input profile-input' >" +
-        "</div>" +
-        "<div class='full-center-wrapper' id='profile-confirmpassword-wrapper'>" +
-            "<label id='profile-confirmpassword-label' class='form-label profile-label' for='profile-confirmpassword-input'>Confirm new password</label>" +
-            "<input type='text' name='confirmpassword' id='profile-confirmpassword-input' class='form-input profile-input' >" +
-        "</div>" +
-
-        "<input type='submit' id='save-btn' class='orange-button small-btn' value='Save'>" +
-        "<button id='edit-password-btn' class='white-button small-btn'>Edit</button>"));
+        "<form class='col-11 tab-section-data row' id='password-change-form'>" +
+            "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
+                "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
+                "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
+            "</div>" +
+            "<div class='full-center-wrapper' id='profile-newpassword-wrapper'>" +
+                "<label id='profile-newpassword-label' class='form-label profile-label' for='profile-newpassword-input'>New password</label>" +
+                "<input type='password' name='newpassword' id='profile-newpassword-input' class='form-input profile-input' >" +
+            "</div>" +
+            "<div class='full-center-wrapper' id='profile-confirmpassword-wrapper'>" +
+                "<label id='profile-confirmpassword-label' class='form-label profile-label' for='profile-confirmpassword-input'>Confirm new password</label>" +
+                "<input type='text' name='confirmpassword' id='profile-confirmpassword-input' class='form-input profile-input' >" +
+            "</div>" +
+            "<input type='submit' id='submit-btn' class='orange-button small-btn' value='Save Password'></button>" +
+        "</form>"));
     $('#tab-content').append(passwordContainer);
 });
+
+$('#notification-tab').click(function (event) {
+    var notificationContainer = createContentContainer('notification-container', 'notification-header', '', 'notification-sub', '');
+
+    $(notificationContainer).append($(
+        "<div id='notif-settings' class='tab-section-content col-12'>" +
+        "<h3 class='col-11 inner-header' id='notif-settings-header'><b>Notification Settings</b></h3>" +
+        "<div class='col-11 tab-section-data row' id='notif-settings-form'>" +
+            "<div class='full-center-wrapper'>" +
+                "<input type='checkbox' class='notif-checkbox' id='notif-requests-checkbox' checked disabled>" +
+                "<label id='notif-requests-checkbox' class='form-label notif-label' for='notif-requests-checkbox'>Receive" +
+                    " notifications for booking requests</label>" +
+            "</div>" +
+            "<div class='full-center-wrapper'>" +
+                "<input type='checkbox' class='notif-checkbox' id='notif-unpaid-checkbox' checked disabled>" +
+                "<label id='notif-unpaid-checkbox' class='form-label notif-label' for='notif-unpaid-checkbox'>Receive " +
+                    "notifications for unpaid bookings</label>" +
+            "</div>" +
+            "<button id='notif-button' class='orange-button disabled-button small-btn' disabled>Save</button>" +
+        "</div>" +
+        "</div>"
+    ));
+    $('#tab-content').append(notificationContainer);
+})
+
+$('#submit-btn').click(function (event) {
+    event.preventDefault();
+    console.log('Password save button clicked');
+})
 
 $('#edit-btn').click(function (event) {
     event.preventDefault();
