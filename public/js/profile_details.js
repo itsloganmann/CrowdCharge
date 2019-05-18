@@ -31,6 +31,33 @@ $('.tab-button').on('click', (e) => {
 	$('#tab-content').children().remove();
 });
 
+$('#details-tab').click(function (event) {
+    var detailsContainer = createContentContainer('details-content', 'details-header', 'Profile Details', '', '');
+
+    $(detailsContainer).append($(
+        "<div id='profile-details' class='tab-section-content col-12'>" +
+                "<form class='col-11 tab-section-data row' id='profile-details-form'>" +
+                    "<div class='full-center-wrapper' id='profile-name-wrapper'>" +
+                        "<label id='profile-name-label' class='form-label profile-label' for='profile-name-input'>Name</label>" +
+                        "<input type='text' name='name' id='profile-name-input' class='form-input profile-input' >" +
+                    "</div>" +
+                    "<div class='full-center-wrapper' id='profile-email-wrapper'>" +
+                        "<label id='profile-email-label' class='form-label profile-label' for='profile-email-input'>Email</label>" +
+                        "<input type='text' name='email' id='profile-email-input' class='form-input profile-input' >" +
+                    "</div>" +
+                    "<div class='full-center-wrapper' id='profile-phone-wrapper'>" +
+                        "<label id='profile-phone-label' class='form-label profile-label' for='profile-phone-input'>Phone</label>" +
+                        "<input type='text' name='phone' id='profile-phone-input' class='form-input profile-input' >" +
+                    "</div>" +
+                    
+                    "<input type='submit' id='save-btn' class='orange-button small-btn' value='Save'>" +
+                    "<button id='edit-btn' class='white-button small-btn'>Edit</button>" +
+                "</form>" +
+            "</div>"
+    ));
+    $('#tab-content').append(detailsContainer);
+})
+
 //tab's eventListener
 $('#password-tab').click(function (event) {
 
@@ -58,11 +85,10 @@ $('#password-tab').click(function (event) {
 });
 
 $('#notification-tab').click(function (event) {
-    var notificationContainer = createContentContainer('notification-container', 'notification-header', '', 'notification-sub', '');
+    var notificationContainer = createContentContainer('notification-container', 'notification-header', 'Notification Settings', 'notification-sub', '');
 
     $(notificationContainer).append($(
         "<div id='notif-settings' class='tab-section-content col-12'>" +
-        "<h3 class='col-11 inner-header' id='notif-settings-header'><b>Notification Settings</b></h3>" +
         "<div class='col-11 tab-section-data row' id='notif-settings-form'>" +
             "<div class='full-center-wrapper'>" +
                 "<input type='checkbox' class='notif-checkbox' id='notif-requests-checkbox' checked disabled>" +
