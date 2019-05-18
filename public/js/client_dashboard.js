@@ -1,5 +1,18 @@
 console.log("js file loaded successfullly");
 const jwt = localStorage.getItem('jwt');
+//fetch user's name onto the header of the page
+fetch('/users/me', {
+	method: 'GET',
+	headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+	}
+}).then((res) => {
+	return res.json()
+}).then((db) => {
+$("#user-name").text(db.name.split(" ")[0] + "'s");
+}).catch(error => console.log(error));
+
 
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
@@ -28,8 +41,10 @@ $("#bookings-tab").click(function (event) {
 	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
 
 	//const confirmedBookingURL = "/client/paidBookings";
-	let cBData = fetchBooking(confirmedBookingURL, "paid");
-	var confirmedBookingData = $(cBData);
+	let cBDatas = fetchBooking(confirmedBookingURL, "paid");
+	cBDatas.forEach(cBData => {
+		confirmContainer.append($(cBData));
+	});
 
 	/*
 	PENDING BOOKING
@@ -50,17 +65,18 @@ $("#bookings-tab").click(function (event) {
 
 
 	//const pendingBookingURL = "/client/pendingBookings"
-	var pbData = fetchBooking(pendingBookingURL, "pending");
-	var pendingBookingData = $(pbData);
+	let pbDatas = fetchBooking(pendingBookingURL, "pending");
+	pbDatas.forEach(pbData => {
+		pendingContainer.append($(pbData));
+	});
 
-	//appending
-	confirmContainer.append(confirmedBookingData);
-	pendingContainer.append(pendingBookingData);
+
 
 	$("#tab-content").append(confirmContainer);
 	$("#tab-content").append(pendingContainer);
 
-	var request = new Request('/client/bookings', {
+	//////////////////////////////////////////////////////////////to be remove
+/* 	var request = new Request('/client/bookings', {
 		method: 'POST',
 		body: {"uUID" : "hello", "bookingType" : "PENDING"}
 	});
@@ -68,19 +84,19 @@ $("#bookings-tab").click(function (event) {
 	fetch(request)
     .then((res)=> {return res.json()})
     .then((db) => {
-		// console.log(db);
-        // const data = JSON.stringify(db);
-        // let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
-        // +"<p id='cb-date'>" + data.date + "</p>"
-        // +"<p id='cb-cost'>" + data.cost + "</p>"
-        // +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
-        // +"<p id='cb-address'>" + data.address + "</p>"
-        // +"<p id='cb-city'>" + data.city + "</p>"
-		// +"</div>");
-		// confirmContainer.append(confirmedBookingData);
+		console.log(db);
+        const data = JSON.stringify(db);
+        let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
+        +"<p id='cb-date'>" + data.date + "</p>"
+        +"<p id='cb-cost'>" + data.cost + "</p>"
+        +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
+        +"<p id='cb-address'>" + data.address + "</p>"
+        +"<p id='cb-city'>" + data.city + "</p>"
+		+"</div>");
+		confirmContainer.append(confirmedBookingData);
 		console.log("returned");
-    });
-
+    }); */
+///////////////////////////////////////////////////////////////to be remove
 });
 
 //payment tab click; build elements for payment details
@@ -99,12 +115,10 @@ $("#payments-tab").click(function (event) {
 	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
 
 	//const unpaidBookingURL = "/client/pendingBookings"
-	const ubData = fetchBooking(unpaidBookingURL, "unpaid");
-	var paymentData = $(ubData);
-
-	//appending
-	paymentContainer.append(paymentData);
-
+	const ubDatas = fetchBooking(unpaidBookingURL, "unpaid");
+	ubDatas.forEach(ubData => {
+		paymentContainer.append($(ubData));
+	});
 	$("#tab-content").append(paymentContainer);
 
 });
@@ -159,11 +173,10 @@ $("#history-tab").click(function (event) {
 	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
 
 	// let hData = fetchBooking("/client/completeBookings", "complete");
-	let hData = fetchBooking(completeBookingURL, "complete");
-	console.log("Sent?");
-	let historyData = $(hData);
-
-	$(historyContainer).append(historyData);
+	let hDatas = fetchBooking(completeBookingURL, "complete");
+	hDatas.forEach(hData => {
+		$(historyContainer).append($(hData));
+	});
 	$("#tab-content").append(historyContainer);
 	
 })
