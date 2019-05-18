@@ -50,7 +50,7 @@ router.post('/charger/new', auth, async (req, res) => {
 })
 
 // Updates a charger's own profile
-router.patch('/chargers', async (req, res) => {
+router.patch('/charger', async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'address', 'city', 'type','rate' , 'details']
