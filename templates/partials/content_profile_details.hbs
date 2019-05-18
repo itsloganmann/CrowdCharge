@@ -3,6 +3,11 @@
         <div id="header-wrapper" class="col-11">
             <h1 class="outer-header">Your Profile</h1>
         </div>
+        <div id="tabs-wrapper">
+            <span class="tab-button" id="details-tab">Profile Details</span>
+            <span class="tab-button" id='password-tab'>Change Password</span>
+            <span class="tab-button" id='notification-tab'>Notification Settings</span>
+        </div>
         <div id="tab-content" class="col-11">
             <div id="profile-details" class="tab-section-content col-12">
                 <h3 class="col-11 inner-header" id="profile-details-header"><b>Profile Details</b></h3>
@@ -19,6 +24,19 @@
                         <label id="profile-phone-label" class="form-label profile-label" for="profile-phone-input">Phone</label>
                         <input type="text" name="phone" id="profile-phone-input" class="form-input profile-input" >
                     </div>
+                    <div class="full-center-wrapper" id="profile-currentpassword-wrapper">
+                        <label id="profile-currentpassword-label" class="form-label profile-label" for="profile-currentpassword-input">Current Password</label>
+                        <input type="password" name="currentpassword" id="profile-currentpassword-input" class="form-input profile-input" >
+                    </div>
+                    <div class="full-center-wrapper" id="profile-newpassword-wrapper">
+                        <label id="profile-newpassword-label" class="form-label profile-label" for="profile-newpassword-input">New password</label>
+                        <input type="password" name="newpassword" id="profile-newpassword-input" class="form-input profile-input" >
+                    </div>
+                    <div class="full-center-wrapper" id="profile-confirmpassword-wrapper">
+                        <label id="profile-confirmpassword-label" class="form-label profile-label" for="profile-confirmpassword-input">Confirm new password</label>
+                        <input type="text" name="confirmpassword" id="profile-confirmpassword-input" class="form-input profile-input" >
+                    </div>
+                    
                     <input type="submit" id="save-btn" class="orange-button small-btn" value="Save">
                     <button id="edit-btn" class="white-button small-btn">Edit</button>
                 </form>
