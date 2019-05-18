@@ -6,7 +6,6 @@ if (token) {
 	console.log("not logged in");
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
-
 }
 
 // Creates initial popup with generic IDs
@@ -61,6 +60,7 @@ var createPopupCancelButton = (id, text) => {
 	$('#popup').append(popupCancel);
 	$('#' + id).html(text);
 }
+
 /*
 var createFormButton = (id, text) => {
 	var button = document.createElement('input');
@@ -83,6 +83,7 @@ var getCurrentDate = () => {
 	var year = today.getFullYear();
 	return (monthFmt + " " + day + ", " + year);
 }
+
 /*
 var addPopupHiddenField = (name, value) => {
 	let input = document.createElement("input")
@@ -92,6 +93,7 @@ var addPopupHiddenField = (name, value) => {
 	$('#popup').append(input);
 }
 */
+
 var createPopupInput = (targetId, type, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
@@ -199,7 +201,6 @@ $('body').on('click', '#login-popup-button', (event) => {
 		password: userpassword
 	}
 
-	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -213,7 +214,7 @@ $('body').on('click', '#login-popup-button', (event) => {
 			} else {
 				console.log('Success:', JSON.stringify(response))
 				localStorage.setItem('jwt', response.token)
-				window.location.replace(window.location.href);
+				window.location.replace('/client_dashboard');
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -222,7 +223,6 @@ $('body').on('click', '#login-popup-button', (event) => {
 // Signup button listener
 $('body').on('click', '#signup-popup-button', (event) => {
 	if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
-
 	const useremail = $('#signup-email-input').val();
 	const username = $('#signup-name-input').val();
 	const userphone = $('#signup-phone-input').val();
@@ -234,7 +234,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		password: userpassword,
 		phone: userphone
 	}
-	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -243,14 +242,19 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
-			console.log(response);
-			if (response.errors) {
+			if (response.errors || response.name) {
+			if (response.name === "MongoError") {
+				$("#email-validation").remove();
+				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email, please use another email!</div>")
+				$('#signup-email-input').addClass('invalid-input-underline');
+				$('#signup-email-label').addClass('invalid-input-label');
+			}	
 			if (response.errors.email) {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
 				$('#signup-email-input').addClass('invalid-input-underline');
 				$('#signup-email-label').addClass('invalid-input-label');
-			} 
+			}
 			if (response.errors.phone) {
 				$("#phone-validation").remove();
 				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
@@ -264,9 +268,9 @@ $('body').on('click', '#signup-popup-button', (event) => {
 				$('#signup-confirm-password-label').addClass('invalid-input-label');
 			} 
 		} else if (!response.errors) {
-			console.log('Success:', JSON.stringify(response))
+			console.log('Login success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
-			window.location.replace(window.location.href);
+			window.location.replace('/client_dashboard');
 			}
 		})
 		.catch(error => console.error('Error:', error));
