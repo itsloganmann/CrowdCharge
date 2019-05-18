@@ -1,24 +1,31 @@
+const jwt = localStorage.getItem('jwt');
 
-$("#edit-btn").click( function(event){
-    $("#name").css({"background-color" : "white"});
-    $("#phone").css({"background-color" : "white"});
-    $("#email").css({"background-color" : "white"});
+fetch('/users/me', {
+    method: 'GET',
+    headers: {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer ' + jwt
+    }
+}).then((res) => {
+    return res.json()
+}).then((db) => {
+    console.log(db)
+});
+
+$("#edit-btn").click(function (event) {
+    $("#name").css({ "background-color": "white" });
+    $("#phone").css({ "background-color": "white" });
+    $("#email").css({ "background-color": "white" });
     $("#name").removeAttr("readonly");
     $("#phone").removeAttr("readonly");
     $("#email").removeAttr("readonly");
-    $("#edit-btn").css({"display" : "none"});
-    $("#save-btn").css({"display" : "block"});
+    $("#edit-btn").css({ "display": "none" });
+    $("#save-btn").css({ "display": "block" });
 });
 
 const updateProfile = async () => {
-    const userID = await fetch('/users/me', {
-        method: 'GET',
-        header: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then((res) => res.json()
-    ).then(function(data){console.log(data)});
+
+    
 
     console.log(userID)
 
@@ -29,22 +36,22 @@ const updateProfile = async () => {
         },
         body: JSON.stringify(data)
     }).then((res) => res.json()
-    ).then(function(data){console.log(data)});
+    ).then(function (data) { console.log(data) });
 }
 
-$("#save-btn").click( function(event){
+$("#save-btn").click(function (event) {
     event.preventDefault();
 
     updateProfile();
-    $("#name").css({"background-color" : "#EBEBE4"});
-    $("#phone").css({"background-color" : "#EBEBE4"});
-    $("#email").css({"background-color" : "#EBEBE4"});
+    $("#name").css({ "background-color": "#EBEBE4" });
+    $("#phone").css({ "background-color": "#EBEBE4" });
+    $("#email").css({ "background-color": "#EBEBE4" });
 
     $("#name").attr("readonly", "true");
     $("#phone").attr("readonly", "true");
     $("#email").attr("readonly", "true");
-    $("#save-btn").css({"display" : "none"});
-    $("#edit-btn").css({"display" : "block"});
+    $("#save-btn").css({ "display": "none" });
+    $("#edit-btn").css({ "display": "block" });
 
 
     //POST
@@ -58,6 +65,6 @@ $("#save-btn").click( function(event){
         email: email
     }
 
-    
+
 
 });
