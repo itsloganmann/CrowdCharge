@@ -170,13 +170,17 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                            '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00', '23:00:00'];
                 console.log(arr);
                 json.forEach((item) => {
+                    console.log(item);
                     currItemStartTimeIndex = item.startTime.split("T")[1].split(":00:00.000Z")[0];
                     delete arr[parseInt(currItemStartTimeIndex, 10)];
                 })
                 $("#popup-time-slots").children().remove();
+                let currDate = new Date();
                 arr.forEach((startTime) => {
-                    addTimeSlot( (parseInt(startTime.substring(0, 2))) + startTime.substring(2),
-                                 (parseInt(startTime.substring(0, 2)) + 1) + startTime.substring(2));
+                    if (new Date(date + " " + startTime) > currDate){
+                    addTimeSlot( (parseInt(startTime.substring(0, 2))) + startTime.substring(2, 5),
+                                 (parseInt(startTime.substring(0, 2)) + 1) + startTime.substring(2, 5));
+                    }
                 })
             } catch (error) {
                 console.log("Error: ", error)
