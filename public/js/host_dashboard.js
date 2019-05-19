@@ -34,12 +34,12 @@ $('#requests-tab').click(function (event) {
 	pendingData.forEach((booking) => {
 		//pending booking information for the host
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
+		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-lg");
 		$("#pending-charger-name" + countPending).text(booking.chargername);
 		createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-md");
 		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
 		//accept or reject 
-		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
 		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
@@ -186,11 +186,11 @@ $('#reviews-tab').click(function (event) {
 	let countReview = 0;
 	reviewData.forEach(review => {
 		createContent("review-container", "div", "review-card" + countReview, "card-panel col-md-11");
-		createContent("review-card" + countReview, "p", "reviewer" + countReview, "card-text-lg");
+		createContent("review-card" + countReview, "div", "reviewer" + countReview, "card-text-lg");
 		$("#reviewer" + countReview).text(review.reviewer);
-		createContent("review-card" + countReview, "p", "comment" + countReview, "card-text-md");
+		createContent("review-card" + countReview, "div", "comment" + countReview, "card-text-md");
 		$("#comment" + countReview).text(review.comment);
-		createContent("review-card" + countReview, "p", "rating" + countReview, "card-text-lg");
+		createContent("review-card" + countReview, "div", "rating" + countReview, "card-text-lg");
 		$("#rating" + countReview).text(review.rating);
 
 		countReview++;

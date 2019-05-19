@@ -48,7 +48,7 @@ main {
     color: #555555;
     cursor: pointer;
 }
-.tab-button:hover {
+.tab-button:first-child, .tab-button:hover {
     color: #F05A29;
 }
 #tab-content {
