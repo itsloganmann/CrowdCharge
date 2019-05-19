@@ -23,7 +23,46 @@ $('.tab-button').on('click', (e) => {
 });
 
 
+//request tab click event handler
+$('#requests-tab').click(function (event) {
+	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
+	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
+	createSubheader("request-container", "h6", "These are user requests to use your charger. "
+		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 
+	//pending booking data render!
+	let pendingData = fetchGET('/host/pendingBookings', jwt);
+	let countPending = 0;
+	pendingData.forEach((booking) => {
+		//pending booking information for the host
+		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
+		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
+		$("#pending-charger-name" + countPending).text(booking.chargername);
+		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
+		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
+		//accept or reject 
+		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
+		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
+		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
+
+		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
+		$("#pending-client" + countPending).text(booking.client + countPending);
+		createContent("pending-card" + countPending, "p", "pending-hourly-cost" + countPending, "card-text-sm");
+		$("#pending-price" + countPending).text(booking.client + countPending);
+		createContent("pending-card" + countPending, "p", "pending-period" + countPending, "card-text-md");
+		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+		createContent("pending-card" + countPending, "p", "pending-address" + countPending, "card-text-md");
+		$("#pending-address" + countPending).text(booking.address);
+		createContent("pending-card" + countPending, "p", "pending-area" + countPending, "card-text-md");
+		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
+		countPending++;
+	}
+	);
+});
+
+//charger tab click event handler
 $('#chargers-tab').click(function (event) {
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
@@ -55,11 +94,6 @@ function getTime(timeObject) {
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {
 
-	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
-	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
-	createSubheader("request-container", "h6", "These are user requests to use your charger. "
-		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
-
 	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
 	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("unpaid-container", "h6", "You accepted these requests. "
@@ -69,40 +103,8 @@ $('#bookings-tab').click(function (event) {
 	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
-	createButton("tab-content", "history-btn", "BOOKING HISTORY");
-
-	//pending booking data render!
-	let pendingData = fetchGET('/host/pendingBookings', jwt);
-	let countPending = 0;
-	pendingData.forEach((booking) => {
-		//pending booking information for the host
 
 
-		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
-		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
-		$("#pending-charger-name" + countPending).text(booking.chargername);
-		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
-		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
-		//accept or reject 
-		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
-		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
-		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
-		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
-
-		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
-		$("#pending-client" + countPending).text(booking.client + countPending);
-		createContent("pending-card" + countPending, "p", "pending-hourly-cost" + countPending, "card-text-sm");
-		$("#pending-price" + countPending).text(booking.client + countPending);
-		createContent("pending-card" + countPending, "p", "pending-period" + countPending, "card-text-md");
-		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("pending-card" + countPending, "p", "pending-address" + countPending, "card-text-md");
-		$("#pending-address" + countPending).text(booking.address);
-		createContent("pending-card" + countPending, "p", "pending-area" + countPending, "card-text-md");
-		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
-		countPending++;
-	}
-	);
 	//unpaid booking data render!
 	let unpaidData = fetchGET('/host/unpaidBookings', jwt);
 	let countUnpaid = 0;
@@ -284,7 +286,7 @@ function chargerInfo(chargerNumber) {
 				}).then((db) => {
 					chargers = db;
 				}).catch(error => console.log(error));
-				
+
 			})
 			.catch(error => console.error('Error:', error));;
 	});
