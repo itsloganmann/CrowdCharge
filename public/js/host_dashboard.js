@@ -25,11 +25,10 @@ $('.tab-button').on('click', (e) => {
 
 //request tab click event handler
 $('#requests-tab').click(function (event) {
-	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
-	createHeader("request-container", "h3", "Requests", "col-11 inner-header");
-	createSubheader("request-container", "h6", "These are user requests to use your charger. "
+	createHeader("tab-content", "h3", "Requests", "col-11 inner-header");
+	createSubheader("tab-content", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
-
+	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
 	//pending booking data render!
 	let pendingData = fetchGET('/host/pendingBookings', jwt);
 	let countPending = 0;
@@ -90,16 +89,15 @@ $('#chargers-tab').click(function (event) {
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {
 
-	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
-	createHeader("unpaid-container", "h3", "Unpaid bookings", "col-11 inner-header");
-	createSubheader("unpaid-container", "h6", "You accepted these requests. "
+	createHeader("tab-content", "h3", "Unpaid bookings", "col-11 inner-header");
+	createSubheader("tab-content", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
+	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
 
-	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
-	createHeader("paid-container", "h3", "Paid bookings", "col-11 inner-header");
-	createSubheader("paid-container", "h6", "These booking are successfully added to your schedule. "
+	createHeader("tab-content", "h3", "Paid bookings", "col-11 inner-header");
+	createSubheader("tab-content", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
-
+	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
 
 	//unpaid booking data render!
 	let unpaidData = fetchGET('/host/unpaidBookings', jwt);
@@ -153,10 +151,9 @@ $('#bookings-tab').click(function (event) {
 
 $('#reviews-tab').click(function (event) {
 	//container box and its headers
+	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
+	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
-	createHeader("review-container", "h3", "Reviews for You", "col-11 inner-header");
-	createSubheader("review-container", "h6", "These are the comments of hosts that you’ve charged with."
-		, "col-11 inner-subheader");
 
 	let reviewData = fetchGET("host/reviews", jwt);
 	reviewData = [{

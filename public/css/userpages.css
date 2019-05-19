@@ -24,6 +24,7 @@ main {
 }
 .inner-header {
     font-size: 1.6rem;
+    font-weight: 700;
     margin: 3px auto;
 }
 .inner-subheader {
