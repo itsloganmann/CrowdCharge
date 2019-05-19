@@ -3,7 +3,7 @@ const express = require('express')
 const Booking = require('../models/booking.js')
 const Review = require('../models/review.js')
 const Charger = require('../models/charger.js')
-const User = require('../models/user')
+const User = require('../models/user.js')
 
 const router = new express.Router()
 const auth = require('../middleware/auth')

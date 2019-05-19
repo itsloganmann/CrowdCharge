@@ -8,6 +8,7 @@ const pagesRouter = require('./routers/pages')
 const clientRouter = require('./routers/client')
 const markerRouter = require('./routers/marker')
 const hostRouter = require('./routers/host')
+const notificationRouter = require('./routers/notification')
 const hbs = require('hbs')
 require('./db/mongoose')
 
@@ -42,7 +43,8 @@ app.use('/host',hostRouter)
 app.use(userRouter)
 app.use('/booking',bookingRouter)
 app.use(chargerRouter)
-app.use(markerRouter);
+app.use(markerRouter)
+app.use(notificationRouter)
 
 
 // Page router, do not move order, needs to come last.

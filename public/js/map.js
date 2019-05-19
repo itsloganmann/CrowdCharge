@@ -23,7 +23,7 @@ function checkSelected() {
     if (selected[0] === undefined) {
         $('#popup-confirm').prop('disabled', true);
         $('#popup-confirm').addClass('disabled-button');
-        $('#popup-confirm').html('Please select a time slot!');
+        $('#popup-confirm').html('Please select a time!');
     } else {
         $('#popup-confirm').removeClass('disabled-button');
         $('#popup-confirm').prop('disabled', false);
@@ -96,11 +96,10 @@ var setPopupBookingPageThree = (date, time) => {
 }
 
 // Colour change for time slot button
-$(document).on("click", ".time-slot-button", (e) => {
+$('body').on("click", ".time-slot-button", (e) => {
     e.preventDefault();
-    $(".time-slot-button").removeClass("button-selected");
+    $("#" + e.target.id).toggleClass('button-selected');
     $(".time-slot-button").removeAttr("id");
-    $(e.target).addClass("button-selected");
     $(e.target).attr("id", "popup-time");
     checkSelected();
     e.stopPropagation();

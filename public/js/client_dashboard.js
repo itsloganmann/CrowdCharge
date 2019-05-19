@@ -1,4 +1,3 @@
-console.log("js file loaded successfullly");
 const jwt = localStorage.getItem('jwt');
 //fetch user's name onto the header of the page
 fetch('/users/me', {
@@ -20,37 +19,58 @@ $('.tab-button').on('click', (e) => {
 	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 	$("#tab-content").children().remove();
+
 });
 
 
+//geernal header if no booking is created
+function nothingToDisplay(container, bookingType) {
+	nothingDiv = $("<div class='nothing'>You don't have any" + bookingType + " booking!</div>");
+	$(container).append(nothingHeading);
+}
+
 //tab's eventListener
-$("#bookings-tab").click(function (event) {
+$("#bookings-tab").click(async function (event) {
 
 	/*
 	CONFIRMED BOOKING
 	*/
+	//general container to hold card
+	var paidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
 		"These bookings have been confirmed by the host and are ready to go!");
+	confirmContainer.append(paidCardContainer);
 
 	const confirmedBookingURL = "/client/paidBookings";
-	let cBDatas = fetchBooking(confirmedBookingURL, "paid");
-	cBDatas.forEach(cBData => {
-		confirmContainer.append($(cBData));
-	});
+	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
+	console.log("data:" + cBDatas);
+	if (cBDatas== "") {
+		nothingToDisplay(confirmContainer, "paid");
+	}
+	else {
+		cBDatas.forEach(cBData => {
+			paidCardContainer.append($(cBData));
+		});
+	}
 
 	/*
 	PENDING BOOKING
 	*/
+	//general container to hold card
+	var pendingCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var pendingContainer = createContentContainer("pending-content", "bookingHeading2", "Pending Bookings", "bookingSubHeading2"
 		, "These bookings have not been confirmed by the host yet, we’ll notify you when they do!")
-
+	pendingContainer.append(pendingCardContainer);
 
 	const pendingBookingURL = "/client/pendingBookings"
-	let pbDatas = fetchBooking(pendingBookingURL, "pending");
-	pbDatas.forEach(pbData => {
-		pendingContainer.append($(pbData));
-	});
-
+	let pbDatas = await fetchBooking(pendingBookingURL, "pending");
+	if (!pbDatas) {
+		nothingToDisplay(pendingCardContainer, "pending");
+	} else {
+		pbDatas.forEach(pbData => {
+			pendingCardContainer.append($(pbData));
+		});
+	}
 
 
 	$("#tab-content").append(confirmContainer);
@@ -81,23 +101,30 @@ $("#bookings-tab").click(function (event) {
 });
 
 //payment tab click; build elements for payment details
-$("#payments-tab").click(function (event) {
+$("#payments-tab").click(async function (event) {
 	//container hold all payment details for user
+	//general container to hold card
+	var unpaidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
+	paymentContainer.append(unpaidCardContainer);
 
 
-	const unpaidBookingURL = "/client/pendingBookings"
-	const ubDatas = fetchBooking(unpaidBookingURL, "unpaid");
-	ubDatas.forEach(ubData => {
-		paymentContainer.append($(ubData));
-	});
+	const unpaidBookingURL = "/client/unpaidBookings"
+	const ubDatas = await fetchBooking(unpaidBookingURL, "unpaid");
+	if (!ubDatas) {
+		nothingToDisplay(unpaidCardContainer, "paid");
+	} else {
+		ubDatas.forEach(ubData => {
+			unpaidCardContainer.append($(ubData));
+		});
+	}
 	$("#tab-content").append(paymentContainer);
 
 });
 
 //reviews tab click; build elements for reviews details
-$("#reviews-tab").click(function (event) {
+$("#reviews-tab").click(async function (event) {
 
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
@@ -132,15 +159,15 @@ $("#reviews-tab").click(function (event) {
 
 });
 
-$("#history-tab").click(function (event) {
+$("#history-tab").click(async function (event) {
 
+	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
+	historyContainer.append(historyCardContainer);
 
-
-	let hData = fetchBooking("/client/completeBookings", "complete");
-	let hDatas = fetchBooking(completeBookingURL, "complete");
+	let hDatas = await fetchBooking("/client/completeBookings", "complete");
 	hDatas.forEach(hData => {
-		$(historyContainer).append($(hData));
+		historyCardContainer.append($(hData));
 	});
 	$("#tab-content").append(historyContainer);
 

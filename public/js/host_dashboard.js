@@ -68,18 +68,15 @@ $('#chargers-tab').click(function (event) {
 	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button></div>");
 	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
 	//populating all chargers owned from database
-	console.log("Calcualitng..");
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
 			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
-	console.log("Rendering...")
 	$('#tab-content').append(header);
 	$('#tab-content').append(subheader);
 	$('#tab-content').append(content);
-	console.log('rendre')
 	console.log(yourCharger);
 	for (i = 0; i < chargers.length; i++) {
 		$('#charger-container').append(yourCharger[i]);
