@@ -23,7 +23,7 @@ $('.tab-button').on('click', (e) => {
 
 //geernal header if no booking is created
 function nothingToDisplay(container, bookingType) {
-	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + " bookings!</p></div>");
+	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
 	$(container).append(nothingDiv);
 }
 
@@ -43,7 +43,7 @@ $("#bookings-tab").click(async function (event) {
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
 	console.log("data:" + cBDatas);
 	if (cBDatas == "") {
-		nothingToDisplay(paidCardContainer, "paid");
+		nothingToDisplay(paidCardContainer, "paid bookings");
 	}
 	else {
 		cBDatas.forEach(cBData => {
@@ -63,7 +63,7 @@ $("#bookings-tab").click(async function (event) {
 	const pendingBookingURL = "/client/pendingBookings"
 	let pbDatas = await fetchBooking(pendingBookingURL, "pending");
 	if (pbDatas == "") {
-		nothingToDisplay(pendingCardContainer, "pending");
+		nothingToDisplay(pendingCardContainer, "pending bookings");
 	} else {
 		pbDatas.forEach(pbData => {
 			pendingCardContainer.append($(pbData));
@@ -111,7 +111,7 @@ $("#payments-tab").click(async function (event) {
 	const unpaidBookingURL = "/client/unpaidBookings"
 	const ubDatas = await fetchBooking(unpaidBookingURL, "unpaid");
 	if (ubDatas == "") {
-		nothingToDisplay(unpaidCardContainer, "unpaid");
+		nothingToDisplay(unpaidCardContainer, "unpaid bookings");
 	} else {
 		ubDatas.forEach(ubData => {
 			unpaidCardContainer.append($(ubData));
@@ -127,32 +127,34 @@ $("#reviews-tab").click(async function (event) {
 	//container hold all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
 		, "These are the comments of hosts that you’ve charged with.");
+	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
+	reviewContainer.append(reviewCardContainer);
+	let reviews = []
 	//fetch request
-	var reviewsData;
-	fetch("/client/reviews", {
+	await fetch("/client/Reviews", {
 		method: 'GET',
 		headers: {
 			'content-type': 'application/json',
 			'Authorization': 'Bearer ' + jwt
 		}
-	})
-		.then((res) => {
-			return res.json()
-		})
-		.then((db) => {
-			let data = JSON.parse(JSON.stringify(db));
-			reviewsData = $("<div class='col-11 tab-section-data row' id='reviewsData'>"
-				+ "<p id='rv-reviewer'>" + data.user + "</p>"
-				+ "<p id='rv-rating'>" + data.rating + "</p>"
-				+ "<p id='rv-comment'>" + data.comment + "</p>"
+	}).then((res) => {
+		return res.json()
+	}).then((db) => {
+		reviews = db;
+	}).catch(error => console.error('Error:', error));
+	if (reviews == "") {
+		nothingToDisplay(reviewCardContainer, "reviews");
+	} else {
+		reviews.forEach(review => {
+			review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+				+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
+				+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+				+ "<div class'card-text-md'>" + review.date + "</div>"
+				+ "<div class='card-text-sm'>" + review.details + "</div>"
 				+ "</div>");
-		})
-		.catch(error => console.error('Error:', error));
-
-
+		});
+	}
 	//appending
-	reviewContainer.append(reviewsData);
-
 	$("#tab-content").append(reviewContainer);
 
 });
@@ -160,12 +162,12 @@ $("#reviews-tab").click(async function (event) {
 $("#history-tab").click(async function (event) {
 
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
+	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings");
 	historyContainer.append(historyCardContainer);
 
-	let hDatas = await fetchBooking("/client/completeBookings", "complete");
+	let hDatas = await fetchBooking("/client/completedBookings", "completed");
 	if (hDatas == "") {
-		nothingToDisplay(historyCardContainer, "history");
+		nothingToDisplay(historyCardContainer, "past bookings");
 	} else {
 		hDatas.forEach(hData => {
 			historyCardContainer.append($(hData));

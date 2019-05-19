@@ -34,10 +34,12 @@ router.get('/completedBookings', auth, async(req, res)=>{
 // uUID -> [bookings]
 router.get('/Reviews', auth, async(req, res)=>{
     try {
-        const reviews = await Review.find( {reviewee: req.user} );
+
+        const reviews = await Review.find( {reviewee: req.user._id} );
         res.send(reviews)
     } catch (error) {
         // Sets up internal server error code. Database went wrong.
+        console.log(error)
         res.status(500).send()
     }
 })
@@ -58,7 +60,7 @@ let getClientBookings = async function(uUID, state){
                 element.city = charger.city;
                 element.province = charger.province;
                 element.client = client.name;
-                element.cName = charger.chargername;
+                element.chargername = charger.chargername;
                 if(state =="PENDING")
                     element.bookingID = booking._id;
                 // console.log(element)

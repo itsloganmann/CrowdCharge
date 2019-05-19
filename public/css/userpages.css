@@ -64,7 +64,6 @@ main {
     max-width: 93.333333%;
 }
 .no-data{
-    background-color: #DDDDDD;
     height: 10em;
     width: 100%;
     text-align: center;
@@ -73,7 +72,7 @@ main {
     margin: 0 auto;
 }
 .no-data p{
-    color: black;
+    color: #3D3D3D;
     font-style: italic;
 }
 
