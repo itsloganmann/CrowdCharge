@@ -150,11 +150,10 @@ $('#password-tab').click(function (event) {
             "<input type='submit' id='password-btn' class='orange-button small-btn' value='Save Password'></button>" +
         "</form>"));
     $('#tab-content').append(passwordContainer);
-
+    
     //Submit new password function
     $('#password-btn').click(function (event) {
         event.preventDefault();
-        $('#passwordfail').remove;
 
         if ($('#profile-newpassword-input').val() !== $('#profile-confirmpassword-input').val()) {
             console.log("passwords don't match");
@@ -179,7 +178,7 @@ $('#password-tab').click(function (event) {
             }).then((response) => {
             }).catch(error => console.error('Password Error:', error));
 
-            
+
         }
 
     });
