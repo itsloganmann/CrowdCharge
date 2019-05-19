@@ -40,17 +40,13 @@
 }
 
 #new-charger{
-    color:#f05a29;
-    background-color:white;
     font-size: 18pt;
 }
 .charger-button{
-    color:white;
-    background-color:#f05a29;
-    text-align:center;
-    width:30%;
-    height:30vh;
-    margin:0 5vh;
+    text-align: center;
+    height: 256px;
+    font-size: 1.15rem;
+    margin: 12px auto;
 }
 .accept-icon{
     margin: 5px;
@@ -61,5 +57,4 @@
     margin: 5px;
     color:  red;
     font-size: 30pt;
-
 }

@@ -22,7 +22,6 @@ $('.tab-button').on('click', (e) => {
 	$("#tab-content").children().remove();
 });
 
-
 //request tab click event handler
 $('#requests-tab').click(function (event) {
 	createHeader("tab-content", "h3", "Requests", "col-11 inner-header");
@@ -66,13 +65,13 @@ $('#chargers-tab').click(function (event) {
 	//create new content
 	var header = $('<h3 class="col-11 inner-header">Chargers</h3>');
 	var subheader = $('<h6 class="col-11 inner-subheader">Here are your chargers! Select them to edit details and availability.</h6>');
-	var newCharger = $("<button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button>");
+	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button></div>");
 	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
 	//populating all chargers owned from database
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
-		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
-			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
+		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
+			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
 	$('#tab-content').append(header);
@@ -94,6 +93,9 @@ const appendAddChargerPage = () => {
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
+		window.scrollTo({
+			top: 0, behavior: 'smooth' 
+		});
 	});
 }
 
