@@ -32,11 +32,12 @@ function confirmationPopup(value, charger) {
 }
 //fetch call if user confirmed to accept the request
 $(document).on("click", "#accept-btn", (e) => {
-    console.log("cliiicked");
+    //setting all require info to make a request
     var url = '/booking/acceptBooking';
     const dataToSend = {
         bUID: bookingObj.bookingID
     }
+
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(dataToSend),
@@ -62,7 +63,7 @@ $(document).on("click", "#accept-btn", (e) => {
 
             } else {
                 //if we recieve status for 404/400/500 
-                
+
             }
 
         })
@@ -71,10 +72,12 @@ $(document).on("click", "#accept-btn", (e) => {
 
 //fetch call if user confirmed to decline the request
 $(document).on("click", "#decline-btn", (e) => {
-    console.log("cliiicked");
+
+    //setting all require info to make a request
     const dataToSend = {
         bUID: bookingObj.bookingID
     }
+
     fetch('booking/declineBooking', {
         method: 'DELETE',
         body: JSON.stringify(dataToSend),
