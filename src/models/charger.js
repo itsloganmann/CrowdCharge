@@ -30,8 +30,9 @@ const Charger = mongoose.model('Charger', {
     },
     rating: {
         type: Number,
-        required: false,
+        required: true,
         trim: true,
+        default: 0
     },
     cost: {
         type: Number,
