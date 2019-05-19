@@ -74,8 +74,12 @@ var addTimeSlot = (startTime, endTime) => {
 
 var setPopupBookingPageOne = () => {
     createPopupHeader("h3", "Book a Time", "booking-header");
-    createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
-    $("#datepicker").datepicker({ dateFormat: "yy-mm-dd"});
+    createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + "Please select a day" + "'></b>", "booking-datepicker");
+    let currDate = new Date();
+    $("#datepicker").datepicker({ 
+        dateFormat: "yy-mm-dd",
+        minDate: currDate
+    });
     createPopupContent("popup", "div", "popup-time-slots", "full-center-wrapper");
 
     createPopupConfirmButton("popup-confirm", "Request Booking");
