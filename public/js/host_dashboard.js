@@ -22,7 +22,6 @@ $('.tab-button').on('click', (e) => {
 	$("#tab-content").children().remove();
 });
 
-
 //request tab click event handler
 $('#requests-tab').click(function (event) {
 	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
@@ -83,9 +82,7 @@ $('#chargers-tab').click(function (event) {
 		$('#chargerContainer').append(yourCharger[i]);
 	}
 	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-
 });
-
 
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {

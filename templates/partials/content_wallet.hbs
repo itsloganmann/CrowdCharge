@@ -1,50 +1,19 @@
 <main>
-    <div id='walletHeader'>
-        <h1>Your Wallet</h1>
-        <h3>Current Balance $</h3>
-    </div>
-    <div id='walletOuterBox'>
-
-    </div>
-</main>
-
-<main>
     <div id="wrapper">
         <div id="header-wrapper" class="col-11">
-            <h1 class="outer-header">User</h1>
-            <h3 class="outer-subheader">Dashboard</h3>
+            <h1 class="outer-header">Your Wallet</h1>
         </div>
         <div id="tabs-wrapper">
-            <span class="tab-button" id="bookings-tab">Bookings</span>
-            <span class="tab-button" id='payments-tab'>Payment</span>
-            <span class="tab-button" id='reviews-tab'>Reviews</span>
-            <span class="tab-button" id='history-tab'>History</span>
+            <span class="tab-button" id="wallet-tab">View balance</span>
+            <span class="tab-button" id='balance-tab'>Recharge balance</span>
         </div>
         <div id="tab-content" class="col-11">
-            <div id="confirmed-content" class="tab-section-content col-12">
-                <h3 class="col-11 inner-header" id="client-confirmed-header"><b>Confirmed Bookings</b></h3>
-                <h6 class="col-11 inner-subheader" id="client-confirmed-subheader">
-                    These bookings have been confirmed by the host and are ready to go!
-                </h6>
-                <div class="col-11 tab-section-data row" id="client-confirmed-data">
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
-                </div>
-            </div>
-            <div id="pending-content" class="tab-section-content col-12">
-                <h3 class="col-11 inner-header" id="client-pending-header"><b>Pending Bookings</b></h3>
-                <h6 class="col-11 inner-subheader" id="client-pending-subheader">
-                    These bookings have not been confirmed by the host yet, we’ll notify you when they do!
-                </h6>
-                <div class="col-11 tab-section-data row" id="client-pending-data">
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
-                    <div class="card-panel col-md-5">A card!</div>
+            <div id="view-balance">
+                <div class="wallet">
+                    <div class="walletheading">Current Balance</div>
+                        <div class="walletbalance"><span class="cad">CAD</span><span id="walletamount"></span></div>
+                        <div class="walletparagraph">Your available balance is displayed above. You may use this balance to pay for charger bookings. A withdrawal feature is in development to allow users to send funds back to bank accounts.</div>
                 </div>
             </div>
         </div>
-    </div>
 </main>

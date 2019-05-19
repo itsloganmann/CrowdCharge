@@ -45,8 +45,8 @@ const Charger = mongoose.model('Charger', {
         trim: true,
         validate(value) {
             // Validation for max length
-            if (value.length > 15) {
-                throw new Error('Max length for charger name can only be 15 characters.')
+            if (value.length > 14) {
+                throw new Error('Max length for charger name can only be 14 characters.')
             }
         }
     },

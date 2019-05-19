@@ -69,8 +69,7 @@ let getClientBookings = async function(uUID, state){
         const results = await Promise.all(promises)
         return results;
     }catch(error){
-        console.log(error);
-        res.status(500).send();
+        res.status(500).send(error);
     }
 }
 
