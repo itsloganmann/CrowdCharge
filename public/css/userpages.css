@@ -64,7 +64,7 @@ main {
     max-width: 93.333333%;
 }
 .no-data{
-    background-color: #d6dfda63;
+    background-color: #DDDDDD;
     height: 10em;
     width: 100%;
     text-align: center;
@@ -73,7 +73,7 @@ main {
     margin: 0 auto;
 }
 .no-data p{
-    color: white;
+    color: black;
     font-style: italic;
 }
 
@@ -81,7 +81,7 @@ main {
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 12px 2% 14px;
+    padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);

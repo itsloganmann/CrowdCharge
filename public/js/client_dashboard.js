@@ -18,8 +18,6 @@ fetch('/users/me', {
 $('.tab-button').on('click', (e) => {
 	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
-	$("#tab-content").children().remove();
-
 });
 
 
