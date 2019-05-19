@@ -21,8 +21,7 @@
 }
 
 .mapboxgl-popup-content {
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 2px;
+    padding: 1px;
     width: 180px;
     margin: auto;
     background-color: #FFFFFF;
@@ -30,20 +29,24 @@
     border-top: 6px solid #1DBF73;
     border-radius: 10px;
     text-align: center;
-    font-size: 10px;
 }
 
 .host-marker-img {
-    width: 35px;
-    height: auto;
+    width: auto;
+    height: 44px;
     margin-right: 5px;
     margin-left: 0;
+    float: left;
 }
 
 .host-marker-title {
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
     font-weight: bold;
+}
+
+.host-marker-stars {
+    font-size: 12px;
+    color: #F05A29;
 }
 
 #map {

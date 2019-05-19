@@ -102,6 +102,8 @@
                 map.on('click', 'places', function (e) {
                     let coordinates = e.features[0].geometry.coordinates.slice();
                     let name = e.features[0].properties.name;
+                    let rating = e.features[0].properties.rating;
+                    let html = undefined
 
                     // Ensure that if the map is zoomed out such that multiple
                     // copies of the feature are visible, the popup appears
@@ -109,22 +111,58 @@
                     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
+
+                    // Customizes the center when a marker is clicked depending on device.
+                    let yoffset = 0
+                    let xoffset = 0
+                    let pitchset = 0
+
+                    if (window.innerWidth < 962){
+                        yoffset = 0.00125
+                    } else {
+                        xoffset = 0.00625
+                        pitchset = 60
+                    }
+
                     map.flyTo({
-                        center: [coordinates[0], coordinates[1]-0.001],
-                        zoom: 15,
+                        center: [coordinates[0] - xoffset, coordinates[1] - yoffset],
+                        zoom: 14,
                         bearing: 0,
-                        speed: 1.5, // make the flying slow
+                        speed: 1.5,
+                        pitch: pitchset,
                         
                         // This can be any easing function: it takes a number between
                         // 0 and 1 and returns another number between 0 and 1.
                         easing: function (t) { return t; }
                     });
 
+                    // This function builds the number of stars a charger has based on ratings from the db.
+                    const buildStars = (rating) => {
+                        if (rating === 0) {
+                            html = '<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                + name + '</span><br> <span class="host-marker-stars"> No rating yet! </span>'
+                        } else {
+                            let numOfStars = ''
+
+                            for (let i = 0; i < Math.floor(rating); i++) {
+                                numOfStars = numOfStars + '<i class="fas fa-star"></i>'
+                            }
+
+                            for (let i = 0; i < 5 - Math.floor(rating); i++) {
+                                numOfStars = numOfStars + '<i class="far fa-star"></i>'
+                            }
+                            
+                            html = '<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                                + name + '</span><br> <span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
+                        }
+                    }
+
+                    buildStars(rating)
+
                     // Builds the popup when user clicks on a host marker.
                     new mapboxgl.Popup()
                         .setLngLat(coordinates)
-                        .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
-                                + name + '</span>')
+                        .setHTML(html)
                         .addTo(map);
                 });
 
@@ -172,26 +210,53 @@
         closeOnClick: false
         });
 
+        // On hover, display markers.
         map.on('mouseenter', 'places', function(e) {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
-        
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var name = e.features[0].properties.name;
-        
-            // Ensure that if the map is zoomed out such that multiple
-            // copies of the feature are visible, the popup appears
-            // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            if (window.innerWidth >= 600) {
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = 'pointer';
+            
+                var coordinates = e.features[0].geometry.coordinates.slice();
+                var name = e.features[0].properties.name;
+                var rating = e.features[0].properties.rating;
+                var html = undefined;
+            
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                // This function builds the number of stars a charger has based on ratings from the db.
+                const buildStars = (rating) => {
+                    if (rating === 0) {
+                        html = '<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                            + name + '</span><br> <span class="host-marker-stars"> No rating yet! </span>'
+                    } else {
+                        let numOfStars = ''
+
+                        for (let i = 0; i < Math.floor(rating); i++) {
+                            numOfStars = numOfStars + '<i class="fas fa-star"></i>'
+                        }
+
+                        for (let i = 0; i < 5 - Math.floor(rating); i++) {
+                            numOfStars = numOfStars + '<i class="far fa-star"></i>'
+                        }
+                        
+                        html = '<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
+                            + name + '</span><br> <span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
+                    }
+                }
+
+                buildStars(rating)
+
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(coordinates)
+                    .setHTML(html)
+                    .addTo(map);
             }
-        
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            popup.setLngLat(coordinates)
-                .setHTML('<img class="host-marker-img" src="../../images/chargericon.svg" alt="host"> <span class="host-marker-title">'
-                                + name + '</span>')
-                .addTo(map);
         });
         
         // On mouse leave, remove the popup.
