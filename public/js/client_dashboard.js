@@ -4,13 +4,13 @@ const jwt = localStorage.getItem('jwt');
 fetch('/users/me', {
 	method: 'GET',
 	headers: {
-			'content-type': 'application/json',
-			'Authorization': 'Bearer ' + jwt
+		'content-type': 'application/json',
+		'Authorization': 'Bearer ' + jwt
 	}
 }).then((res) => {
 	return res.json()
 }).then((db) => {
-$("#user-name").text(db.name.split(" ")[0] + "'s");
+	$("#user-name").text(db.name.split(" ")[0] + "'s");
 }).catch(error => console.log(error));
 
 
@@ -32,15 +32,7 @@ $("#bookings-tab").click(function (event) {
 	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
 		"These bookings have been confirmed by the host and are ready to go!");
 
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-	const confirmedBookingReq = {
-		user_id: "",
-		booking_type: "paid"
-	}
-	const confirmedBookingURL = "/bookings?" + $.param(confirmedBookingReq);
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-
-	//const confirmedBookingURL = "/client/paidBookings";
+	const confirmedBookingURL = "/client/paidBookings";
 	let cBDatas = fetchBooking(confirmedBookingURL, "paid");
 	cBDatas.forEach(cBData => {
 		confirmContainer.append($(cBData));
@@ -53,18 +45,7 @@ $("#bookings-tab").click(function (event) {
 		, "These bookings have not been confirmed by the host yet, we’ll notify you when they do!")
 
 
-
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-	//URL param
-	const pendingBookingReq = {
-		user_id: "",
-		booking_type: "pending"
-	}
-	const pendingBookingURL = "/bookings?" + $.param(pendingBookingReq);
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-
-
-	//const pendingBookingURL = "/client/pendingBookings"
+	const pendingBookingURL = "/client/pendingBookings"
 	let pbDatas = fetchBooking(pendingBookingURL, "pending");
 	pbDatas.forEach(pbData => {
 		pendingContainer.append($(pbData));
@@ -76,27 +57,27 @@ $("#bookings-tab").click(function (event) {
 	$("#tab-content").append(pendingContainer);
 
 	//////////////////////////////////////////////////////////////to be remove
-/* 	var request = new Request('/client/bookings', {
-		method: 'POST',
-		body: {"uUID" : "hello", "bookingType" : "PENDING"}
-	});
-
-	fetch(request)
-    .then((res)=> {return res.json()})
-    .then((db) => {
-		console.log(db);
-        const data = JSON.stringify(db);
-        let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
-        +"<p id='cb-date'>" + data.date + "</p>"
-        +"<p id='cb-cost'>" + data.cost + "</p>"
-        +"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
-        +"<p id='cb-address'>" + data.address + "</p>"
-        +"<p id='cb-city'>" + data.city + "</p>"
-		+"</div>");
-		confirmContainer.append(confirmedBookingData);
-		console.log("returned");
-    }); */
-///////////////////////////////////////////////////////////////to be remove
+	/* 	var request = new Request('/client/bookings', {
+			method: 'POST',
+			body: {"uUID" : "hello", "bookingType" : "PENDING"}
+		});
+	
+		fetch(request)
+			.then((res)=> {return res.json()})
+			.then((db) => {
+			console.log(db);
+					const data = JSON.stringify(db);
+					let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
+					+"<p id='cb-date'>" + data.date + "</p>"
+					+"<p id='cb-cost'>" + data.cost + "</p>"
+					+"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
+					+"<p id='cb-address'>" + data.address + "</p>"
+					+"<p id='cb-city'>" + data.city + "</p>"
+			+"</div>");
+			confirmContainer.append(confirmedBookingData);
+			console.log("returned");
+			}); */
+	///////////////////////////////////////////////////////////////to be remove
 });
 
 //payment tab click; build elements for payment details
@@ -105,16 +86,8 @@ $("#payments-tab").click(function (event) {
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
 
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-	//fetch request
-	const unpaidBookingReq = {
-		user_id: "",
-		booking_type: "unpaid"
-	}
-	const unpaidBookingURL = "/bookings?" + $.param(unpaidBookingReq);
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
 
-	//const unpaidBookingURL = "/client/pendingBookings"
+	const unpaidBookingURL = "/client/pendingBookings"
 	const ubDatas = fetchBooking(unpaidBookingURL, "unpaid");
 	ubDatas.forEach(ubData => {
 		paymentContainer.append($(ubData));
@@ -163,21 +136,13 @@ $("#history-tab").click(function (event) {
 
 	var historyContainer = createContentContainer("historyContainer", "Booking History", "historysubHeading", "These are your past bookings");
 
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
-	//URL param
-	const completeBooking = {
-		user_id: "",
-		booking_type: "complete"
-	}
-	const completeBookingURL = "/bookings?" + $.param(completeBooking);
-	///////////////////TO BE REMOVE AFTER CLIENT/XXXXBOOKING IS PULL
 
-	// let hData = fetchBooking("/client/completeBookings", "complete");
+	let hData = fetchBooking("/client/completeBookings", "complete");
 	let hDatas = fetchBooking(completeBookingURL, "complete");
 	hDatas.forEach(hData => {
 		$(historyContainer).append($(hData));
 	});
 	$("#tab-content").append(historyContainer);
-	
+
 })
 
