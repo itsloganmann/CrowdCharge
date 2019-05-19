@@ -1,6 +1,9 @@
 // Imports
 const express = require('express')
 const Charger = require('../models/charger')
+const Booking = require('../models/booking')
+const User = require('../models/user')
+
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -109,23 +112,27 @@ router.post('/charger/setUnavailable/:id', auth, async (req, res) => {
 })
 
 // Gets scheduled bookings for a charger on a day
-router.get('/charger/schedule/', auth, async (req, res) => {
+router.get('/charger/schedule', auth, async (req, res) => {
     try {
-        let schedule = await getChargerBookings(req.query.cUID, "PAID");
-        schedule = schedule.concat(await getChargerBookings(req.query.cUId, "UNPAID"));
+        let schedule = await getChargerBookings(req.query.cUID, "PAID", req.query.date);
+        schedule = schedule.concat(await getChargerBookings(req.query.cUID, "UNPAID", req.query.date));
         console.log(schedule);
         res.send(schedule);
     } catch (error) {
         console.log(error)
-        res.send("Error, could not get schedule.")
+        res.send("Error: ", error);
     }
 })
 
-let getChargerBookings = async function (cUID, state) {
-    try {
-        const bookings = await Booking.find({ charger: cUID, state: state });
-        var promises = bookings.map(async booking => {
-            try {
+let getChargerBookings = async function(cUID,state,date){
+    try{
+        const time = "00:00:00"
+        let today = new Date(date + " " + time);
+        let tomorrow = new Date(date + " " + time);
+        tomorrow = new Date(tomorrow.setDate(today.getDate() + 1));
+        const bookings = await Booking.find( {charger : cUID, state : state, timeStart : {"$gte" : today, "$lt" : tomorrow}} );
+        var promises = bookings.map(async booking=>{
+            try{
                 const charger = await Charger.findById(booking.charger);
                 const client = await User.findById(booking.client);
                 let element = {};
@@ -149,7 +156,7 @@ let getChargerBookings = async function (cUID, state) {
         return results;
     } catch (error) {
         console.log(error);
-        res.status(500).send();
+        res.status(500).send(error);
     }
 }
 module.exports = router
