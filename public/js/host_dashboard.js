@@ -34,9 +34,9 @@ $('#requests-tab').click(function (event) {
 	pendingData.forEach((booking) => {
 		//pending booking information for the host
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
-		createContent("pending-card" + countPending, "p", "pending-charger-name" + countPending, "card-text-lg");
+		createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-lg");
 		$("#pending-charger-name" + countPending).text(booking.chargername);
-		createContent("pending-card" + countPending, "p", "pending-date" + countPending, "card-text-md");
+		createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-md");
 		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
 		//accept or reject 
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
@@ -45,15 +45,15 @@ $('#requests-tab').click(function (event) {
 		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
 		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 
-		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
+		createContent("pending-card" + countPending, "div", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
-		createContent("pending-card" + countPending, "p", "pending-hourly-cost" + countPending, "card-text-sm");
+		createContent("pending-card" + countPending, "div", "pending-hourly-cost" + countPending, "card-text-sm");
 		$("#pending-price" + countPending).text(booking.client + countPending);
-		createContent("pending-card" + countPending, "p", "pending-period" + countPending, "card-text-md");
+		createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
 		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("pending-card" + countPending, "p", "pending-address" + countPending, "card-text-md");
+		createContent("pending-card" + countPending, "div", "pending-address" + countPending, "card-text-md");
 		$("#pending-address" + countPending).text(booking.address);
-		createContent("pending-card" + countPending, "p", "pending-area" + countPending, "card-text-md");
+		createContent("pending-card" + countPending, "div", "pending-area" + countPending, "card-text-md");
 		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
 		countPending++;
 	}
@@ -89,7 +89,7 @@ $('#chargers-tab').click(function (event) {
 
 const appendAddChargerPage = () => {
 	var prevPage = $("#tab-content").children().detach();
-	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3><p class="inner-subheader col-11">Add a new charger!</p><div class="col-11 tab-section-data row"><form id="new-charger-form"><div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div><div class="full-center-wrapper row"><div class="col-8"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div><div class="col-4"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details(optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3><div class="inner-subheader col-11">Add a new charger!</div><div class="col-11 tab-section-data row"><form id="new-charger-form"><div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div><div class="full-center-wrapper row"><div class="col-8"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div><div class="col-4"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details(optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -121,19 +121,19 @@ $('#bookings-tab').click(function (event) {
 
 
 		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-charger-name" + countUnpaid, "card-text-lg");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-charger-name" + countUnpaid, "card-text-lg");
 		$("#unpaid-charger-name" + countUnpaid).text(booking.chargername);
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-date" + countUnpaid, "card-text-md");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-date" + countUnpaid, "card-text-md");
 		$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-client" + countUnpaid, "card-text-sm");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-client" + countUnpaid, "card-text-sm");
 		$("#unpaid-client" + countUnpaid).text(booking.client + countUnpaid);
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-hourly-cost" + countUnpaid, "card-text-sm");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-hourly-cost" + countUnpaid, "card-text-sm");
 		$("#unpaid-price" + countUnpaid).text(booking.client + countUnpaid);
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-period" + countUnpaid, "card-text-md");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-period" + countUnpaid, "card-text-md");
 		$("#unpaid-period" + countUnpaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-address" + countUnpaid, "card-text-md");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-address" + countUnpaid, "card-text-md");
 		$("#unpaid-address" + countUnpaid).text(booking.address);
-		createContent("unpaid-card" + countUnpaid, "p", "unpaid-area" + countUnpaid, "card-text-md");
+		createContent("unpaid-card" + countUnpaid, "div", "unpaid-area" + countUnpaid, "card-text-md");
 		$("#unpaid-area" + countUnpaid).text(booking.city + ", " + booking.province);
 		countUnpaid++;
 	}
@@ -144,19 +144,19 @@ $('#bookings-tab').click(function (event) {
 	paidData.forEach((booking) => {
 		//paid booking information for the host
 		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
-		createContent("paid-card" + countPaid, "p", "paid-charger-name" + countPaid, "card-text-lg");
+		createContent("paid-card" + countPaid, "div", "paid-charger-name" + countPaid, "card-text-lg");
 		$("#paid-charger-name" + countPaid).text(booking.chargername);
-		createContent("paid-card" + countPaid, "p", "paid-date" + countPaid, "card-text-md");
+		createContent("paid-card" + countPaid, "div", "paid-date" + countPaid, "card-text-md");
 		$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
-		createContent("paid-card" + countPaid, "p", "paid-client" + countPaid, "card-text-sm");
+		createContent("paid-card" + countPaid, "div", "paid-client" + countPaid, "card-text-sm");
 		$("#paid-client" + countPaid).text(booking.client + countPaid);
-		createContent("paid-card" + countPaid, "p", "paid-hourly-cost" + countPaid, "card-text-sm");
+		createContent("paid-card" + countPaid, "div", "paid-hourly-cost" + countPaid, "card-text-sm");
 		$("#paid-price" + countPaid).text(booking.client + countPaid);
-		createContent("paid-card" + countPaid, "p", "paid-period" + countPaid, "card-text-md");
+		createContent("paid-card" + countPaid, "div", "paid-period" + countPaid, "card-text-md");
 		$("#paid-period" + countPaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("paid-card" + countPaid, "p", "paid-address" + countPaid, "card-text-md");
+		createContent("paid-card" + countPaid, "div", "paid-address" + countPaid, "card-text-md");
 		$("#paid-address" + countPaid).text(booking.address);
-		createContent("paid-card" + countPaid, "p", "paid-area" + countPaid, "card-text-md");
+		createContent("paid-card" + countPaid, "div", "paid-area" + countPaid, "card-text-md");
 		$("#paid-area" + countPaid).text(booking.city + ", " + booking.province);
 		countPaid++;
 	}

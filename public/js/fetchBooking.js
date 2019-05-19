@@ -19,19 +19,19 @@ function fetchBooking(url, status) {
 	for (i = 0; i < data.length; i++) {
 		if (status == "pending") {
 			contentStrings[i] = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
-				+ "<div class='right'><p class='cost'>" + data[i].cost + "</p></div>"
-				+ "<p class='date'>" + data[i].startTime.split("T")[0] + "</p>"
-				+ "<p class='time'>" + data[i].startTime.split("T")[1].split("Z")[0] + "-" + data[i].endTime.split("T")[1].split("Z")[0] + "</p>"
-				+ "<p class='city'>" + data[i].city + "</p>"
+				+ "<div class='right'><div class='cost'>" + data[i].cost + "</div></div>"
+				+ "<div class='date'>" + data[i].startTime.split("T")[0] + "</div>"
+				+ "<div class='time'>" + data[i].startTime.split("T")[1].split("Z")[0] + "-" + data[i].endTime.split("T")[1].split("Z")[0] + "</div>"
+				+ "<div class='city'>" + data[i].city + "</div>"
 				+ "</div></div>";
 		}
 		else if (status == "complete") {
 			contentStrings[i] = "<div class = 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
-				+ "<div class='right'><p class='cost'>" + data[i].cost + "</p></div>"
-				+ "<p class = 'date'>" + data[i].startTime.split("T")[0] + "</p>"
-				+ "<p class = 'address'>" + data[i].address + "</p>" + "<p class ='city'>" + data[i].city
-				+ "<p class = 'province'>" + data[i].province + "</p>" + "<p class='hostName'>"
-				+ data[i].host + "</p>" + "</div></div>"
+				+ "<div class='right'><div class='cost'>" + data[i].cost + "</div></div>"
+				+ "<div class = 'date'>" + data[i].startTime.split("T")[0] + "</div>"
+				+ "<div class = 'address'>" + data[i].address + "</div>" + "<div class ='city'>" + data[i].city
+				+ "<div class = 'province'>" + data[i].province + "</div>" + "<div class='hostName'>"
+				+ data[i].host + "</div>" + "</div></div>"
 		}
 		else {
 			contentStrings[i] = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
