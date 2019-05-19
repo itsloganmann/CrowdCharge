@@ -22,7 +22,6 @@ $('.tab-button').on('click', (e) => {
 	$("#tab-content").children().remove();
 });
 
-
 //request tab click event handler
 $('#requests-tab').click(function (event) {
 	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
@@ -44,8 +43,8 @@ $('#requests-tab').click(function (event) {
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
-		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
+		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -64,6 +63,7 @@ $('#requests-tab').click(function (event) {
 
 //charger tab click event handler
 $('#chargers-tab').click(function (event) {
+	var successful = false;
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")
@@ -82,14 +82,7 @@ $('#chargers-tab').click(function (event) {
 		$('#chargerContainer').append(yourCharger[i]);
 	}
 	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-
 });
-
-
-//to be move to other js file
-function getTime(timeObject) {
-	return timeObject.split("T")[1].split("Z")[0];
-}
 
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {

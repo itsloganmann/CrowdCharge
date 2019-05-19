@@ -1,3 +1,5 @@
+const jwt = localStorage.getItem('jwt');
+
 $("#map-drawer-expansion-button").on("click", () => {
     $("#map-drawer").toggleClass("map-side-expanded");
     $("#map-drawer-details-wrapper").slideToggle(350);
@@ -14,10 +16,6 @@ $('#map-drawer').on("click", '#request-booking-button', () => {
     setPopupBookingPageOne();
     $("#popup").fadeIn(200);
     checkSelected();
-    // Testing purposes
-    addTimeSlot("0:00", "1:00");
-    addTimeSlot("1:00", "2:00");
-    addTimeSlot("2:00", "3:00");
 });
 
 // Checks if any time has been selected. Disables confirm button if none are selected.
@@ -46,12 +44,12 @@ $(document).on("click", "#popup-confirm", (e) => {
     var date = $("#datepicker").val();;
     var time = $("#popup-time").html();
     console.log(time);
-    popupPageOne = $("#popup").children().detach();
+    popupPageOne = $("#popup").children().not("#popup-close-button").detach();
     setPopupBookingPageTwo(date, time);
 
 });
 $(document).on("click", "#popup-back", (e) => {
-    $("#popup").children().remove();
+    $("#popup").children().not("#popup-close-button").remove();
     $("#popup").prepend(popupPageOne);
     e.stopPropagation();
 });
@@ -59,7 +57,7 @@ $(document).on("click", "#popup-back", (e) => {
 $(document).on("click", "#popup-confirm-validate", (e) => {
     var date = $("#popup-date").html();
     var time = $("#popup-time").html();
-    $("#popup").children().remove();
+    $("#popup").children().not("#popup-close-button").remove();
     setPopupBookingPageThree(date, time);
 });
 
@@ -72,16 +70,22 @@ var addTimeSlot = (startTime, endTime) => {
     $("#popup-time-slots").append(timeSlot);
 }
 
+
+
 var setPopupBookingPageOne = () => {
     createPopupHeader("h3", "Book a Time", "booking-header");
-    createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + getCurrentDate() + "'></b>", "booking-datepicker");
-    $("#datepicker").datepicker();
+    createPopupSubheader("div", "<b id='popup-date'><input type='text' readonly class='form-input' id='datepicker' value='" + "Please select a day" + "'></b>", "booking-datepicker");
+    let currDate = new Date();
+    $("#datepicker").datepicker({ 
+        dateFormat: "yy-mm-dd",
+        minDate: currDate
+    });
     createPopupContent("popup", "div", "popup-time-slots", "full-center-wrapper");
+
     createPopupConfirmButton("popup-confirm", "Request Booking");
     createPopupCancelButton("popup-cancel", "Cancel");
 }
 var setPopupBookingPageTwo = (date, time) => {
-    console.log(time);
     createPopupSubheader("h5", "You have requested: <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b>. Do you wish to confirm this booking request?", "booking-confirmation-text");
     createPopupConfirmButton("popup-confirm-validate", "Confirm");
     createPopupCancelButton("popup-back", "Back");
@@ -103,6 +107,7 @@ $(document).on("click", ".time-slot-button", (e) => {
     e.stopPropagation();
 });
 
+// Renders charger information onto drawer
 $('body').on("click", ".marker", async (e) => {
     console.log(e.target.id);
     e.preventDefault();
@@ -121,13 +126,14 @@ $('body').on("click", ".marker", async (e) => {
         const rating = data['rating']
         console.log(data);
         $("#map-drawer").show();
-        populateChargerInfo(chargername, city, cost, details, level, type, rating);
+        populateChargerInfo(e.target.id, chargername, city, cost, details, level, type, rating);
     } catch (error) {
         console.log("Error: ", error)
     }
 });
 
-const populateChargerInfo = (chargername, city, cost, details, level, type, rating) => {
+
+const populateChargerInfo = (chargerid, chargername, city, cost, details, level, type, rating) => {
     //console.log(chargername, city, cost, details, level, type, rating);
     $('#map-drawer-text-wrapper').children().remove();
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-charger-name">' + chargername + '</div>')
@@ -137,25 +143,80 @@ const populateChargerInfo = (chargername, city, cost, details, level, type, rati
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Hourly Rate</div><div class="map-drawer-text-right">$' + cost + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + (rating !== undefined ? rating : "No Rating") + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + (details !== '' ? details : "<i>None</i>")  + '</div></div>');
-    $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
-}
-
-
-$('body').on("click", "#popup-confirm-validate", (e) => {
-    const popupDate = $('#popup-date').val();
-    const popupTime = $('#popup-time').val();
-    date = new Date();
-    const url = '/bookings'
-    const data = {
-        bookingDate: date
+    if (jwt) {
+        $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
     }
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => res.json())
-        .then(response => console.log('Success:', JSON.stringify(response)))
-        .catch(error => console.error('Error:', error));
-});
+    $('#request-booking-button').click((e) => {
+        // When changing days, display new time slots
+        $('body').on('change', '#datepicker', async (evt) => {
+            console.log($('#' + evt.target.id).val());
+            evt.preventDefault();
+            try {
+                let date = $('#' + evt.target.id).val();
+                const url = '/charger/schedule?cUID=' + chargerid + "&date=" + date;
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + jwt
+                    }
+                })
+                console.log("RESPONSE ", response);
+                let json = await response.json();
+                console.log("JSON ", json);
+                let arr = ['00:00:00', '01:00:00', '02:00:00', '03:00:00', '04:00:00', '05:00:00',
+                           '06:00:00', '07:00:00', '08:00:00', '09:00:00', '10:00:00', '11:00:00', 
+                           '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00',
+                           '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00', '23:00:00'];
+                if (json['0'] !== null) {
+                    json.forEach((item) => {
+                        console.log(item);
+                        console.log(item.startTime);
+                        let localDate = new Date(item.startTime);
+                        currItemStartTimeIndex = localDate.getHours();
+                        delete arr[parseInt(currItemStartTimeIndex, 10)];
+                    })                
+                }
+                $("#popup-time-slots").children().remove();
+                let currDate = new Date();
+                arr.forEach((startTime) => {
+                    localTime = new Date(startTime);
+                    if (new Date(date + " " + startTime) > currDate){
+                    addTimeSlot( (parseInt(startTime.substring(0, 2))) + startTime.substring(2, 5),
+                                 (parseInt(startTime.substring(0, 2)) + 1) + startTime.substring(2, 5));
+                    }
+                })
+            } catch (error) {
+                console.log("Error: ", error)
+            }
+        });
+        
+        // Sends POST request to add a new booking
+        $('body').on("click", "#popup-confirm-validate", async (evt) => {
+            const date = $('#popup-date').html();
+            var startTime = $('#popup-time').html().split(' - ')[0];
+            var endTime = $('#popup-time').html().split(' - ')[1];
+            const url = 'booking/newBooking'
+            console.log(url);
+            const data = {
+                charger: chargerid,
+                timeStart: date + " " + startTime,
+                timeEnd: date + " " + endTime
+            }
+            console.log(data);
+            try {
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + jwt
+                    }
+                }).then(response => 
+                console.log(response));
+            } catch (error) {
+                console.log("Error: ", error)
+            }
+        });
+    });
+}

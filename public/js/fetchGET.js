@@ -22,7 +22,7 @@ function fetchGET(url, jwt) {
         "address": "3341 Wellington Ave",
         "city": "Vancouver", 
         "province": "BC",
-        "cName": "my charger",
+        "chargername": "my charger",
         "client": "client"
     }, {
         "bookingID": "B000000001",
@@ -32,8 +32,12 @@ function fetchGET(url, jwt) {
         "address": "3341 Wellington Ave",
         "city": "Vancouver",
         "province": "BC",
-        "cName": "your Charger",
+        "chargername": "your Charger",
         "client": "client"
     }]
     return hostData;
+}
+
+function getTime(timeObject) {
+	return timeObject.split("T")[1].split(".000Z")[0];
 }

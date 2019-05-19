@@ -11,8 +11,9 @@ const auth = require('../middleware/auth')
 router.post('/newBooking', auth, async (req, res) => {
     try {
         const booking = new Booking(req.body)
+        booking.client = req.user._id
         let charger = await Charger.findById(booking.charger);
-        booking.cost = (charger.cost * (booking.timeEnd - booking.timeStart) * 2.777e-7).toFixed(2);
+        booking.cost = (charger.cost * (booking.timeEnd - booking.timeStart) * (25/9) * 1e-7).toFixed(2);
         await booking.save()
 
         let notification = new Notification({

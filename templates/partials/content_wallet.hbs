@@ -1,28 +1,19 @@
 <main>
-    <div id='walletHeader'>
-        <h1>Your Wallet</h1>
-        <h3>Current Balance $</h3>
-    </div>
-    <div id='walletOuterBox'>
-        <div class='fundsBox'>
-            <p class='boxTitle'><span>Add </span>CDN$ 5.00</p>
-            <button type='button' class='addFunds'>Add Funds</button>
+    <div id="wrapper">
+        <div id="header-wrapper" class="col-11">
+            <h1 class="outer-header">Your Wallet</h1>
         </div>
-        <div class='fundsBox'>
-            <p class='boxTitle'><span>Add </span>CDN$ 10.00</p>
-            <button type='button' class='addFunds'>Add Funds</button>
+        <div id="tabs-wrapper">
+            <span class="tab-button" id="wallet-tab">View balance</span>
+            <span class="tab-button" id='balance-tab'>Recharge balance</span>
         </div>
-        <div class='fundsBox'>
-            <p class='boxTitle'><span>Add </span>CDN$ 25.00</p>
-            <button type='button' class='addFunds'>Add Funds</button>
+        <div id="tab-content" class="col-11">
+            <div id="view-balance">
+                <div class="wallet">
+                    <div class="walletheading">Current Balance</div>
+                        <div class="walletbalance"><span class="cad">CAD</span><span id="walletamount"></span></div>
+                        <div class="walletparagraph">Your available balance is displayed above. You may use this balance to pay for charger bookings. A withdrawal feature is in development to allow users to send funds back to bank accounts.</div>
+                </div>
+            </div>
         </div>
-        <div class='fundsBox'>
-            <p class='boxTitle'><span>Add </span>CDN$ 50.00</p>
-            <button type='button' class='addFunds'>Add Funds</button>
-        </div>
-        <div class='fundsBox'>
-            <p class='boxTitle'><span>Add </span>CDN$ 100.00</p>
-            <button type='button' class='addFunds'>Add Funds</button>
-        </div>
-    </div>
 </main>

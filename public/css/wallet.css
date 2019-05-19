@@ -2,60 +2,66 @@ main {
 	background:white;
 }
 
-#walletOuterBox{
-	background:#F3F3F3;
-	padding-top:2vh;
-	padding-bottom:5vh;
-	margin:0 2vh;
-	border-radius:10px;
+.wallet {
+	max-width: 85vw;
+	width: 450px;
+	height: 265px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+	background-image: linear-gradient(#189b5d, #1ec778);
+	margin: 0 auto;
+	transition-duration: 0.4s;
+	border-radius: 25px;
+	color: #FFFFFF;
+	margin-top: 20px;
+	margin-bottom: 16vh;
 }
 
-.fundsBox {
-    width: 80%;
-		height:13vh;
-    margin: 3vh auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
-    background-color: #FFF;
-    transition-duration: 0.4s;
-    border-radius: 10px;
-    color: #4D4D4D;
-		position:relative;
+.wallet:hover {
+	cursor: pointer;
+	transform: translate(0%, -3%);
+	transition-duration: 0.4s;
 }
 
-#walletHeader {
-	padding:10px 5px;
-	text-align:center;
-}
-#walletHeader *{
-	font-weight:bold;
+.cad {
+	font-size: 20px;
+	padding-right: 5px;
 }
 
-.addFunds{
-	font-size:1.0em;
-	clear:right;
-	float:right;
-	position:relative;
-	transform:translate(-5vh, -50%);
-	top:50%;
-	background-color:#F05A29;
-	color:white;
-	border-radius:10px;
-	height:10vh;
-	font-weight:bold;
+.walletheading {
+	font-size: 22px;
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	width: 100%;
 }
 
-.boxTitle{
-	display:inline;
-	font-size:1.2em;
-	position:absolute;
-	transform:translate(3vh, -50%);
-	top:50%;
-	color:#32DC32;
-	font-weight:bold;
+.walletbalance {
+	margin-top: 20px;
+	font-size: 60px;
+	color: #fff;
+	text-align: center;
+	display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-@media only screen and (min-width:500px){
-	.fundsBox{
-		width:60%;
-	}
+.walletimage {
+	text-align: center;
+	width: 85%;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #FFFFFF;
+	margin: 0 auto;
+}
+
+.walletparagraph {
+	font-size: 12px;
+	text-align: center;
+	width: 85%;
+	margin: auto;
+	padding-top: 20px;
+	line-height: 1.5em;
+	padding-bottom: 5px;
+	margin-bottom: 0;
 }
