@@ -2,6 +2,7 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const bcrypt = require('bcryptjs')
 const router = new express.Router()
 
 // POST request endpoint for creating a new user.

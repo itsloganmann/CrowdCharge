@@ -15,12 +15,34 @@ const Booking = mongoose.model('Booking', {
     timeStart: {
         type: Date,
         required: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            const startDate = new Date(value)
+            const convertedStartDate = startDate.getTime()
+            const currentDate = new Date()
+            const convertedCurrentDate = currentDate.getTime()
+
+            // Validation for booking start time
+            if (convertedStartDate < convertedCurrentDate) {
+                throw new Error('Cannot book a past date.')
+            }
+        }
     },
     timeEnd: {
         type: Date,
         required: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            const startDate = new Date(value)
+            const convertedStartDate = startDate.getTime()
+            const currentDate = new Date()
+            const convertedCurrentDate = currentDate.getTime()
+
+            // Validation for booking start time
+            if (convertedStartDate < convertedCurrentDate) {
+                throw new Error('Cannot book a past date.')
+            }
+        }
     },
     cost: {
         type: Number,
