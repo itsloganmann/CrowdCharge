@@ -3,23 +3,22 @@ main {
 }
 
 .wallet {
-	max-width: 85vw;
+	max-width: 100%;
 	width: 450px;
-	height: 265px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
 	background-image: linear-gradient(#189b5d, #1ec778);
 	margin: 0 auto;
-	transition-duration: 0.4s;
 	border-radius: 25px;
 	color: #FFFFFF;
+	padding-bottom: 20px;
 	margin-top: 20px;
 	margin-bottom: 16vh;
+	transition-duration: 0.4s;
+	cursor: pointer;
 }
 
 .wallet:hover {
-	cursor: pointer;
 	transform: translate(0%, -3%);
-	transition-duration: 0.4s;
 }
 
 .cad {

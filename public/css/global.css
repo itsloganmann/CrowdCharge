@@ -88,7 +88,7 @@ body {
 }
 
 .expanded-side {
-    width: 336px !important;
+    width: 288px !important;
 }
 
 #side-menu {
@@ -97,7 +97,6 @@ body {
     display: block;
     height: 100vh;
     width: 0px;
-    max-width: 336px;
     position: fixed;
     background-color: #EEEEEE;
     transition: width 0.5s ease;
@@ -327,6 +326,9 @@ body {
   padding: 8px 16px;
   width: 100%;
 }
+.orange-button:hover {
+  background-color: #D45125;
+}
 
 .white-button {
   display: block;
@@ -338,6 +340,9 @@ body {
   border: 2px solid #CCCCCC;
   padding: 6px 14px;
   width: 100%;
+}
+.white-button:hover {
+  background-color: #EEEEEE;
 }
 
 .disabled-button {

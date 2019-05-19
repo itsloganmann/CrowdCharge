@@ -2,6 +2,7 @@
     height: 256px;
     font-size: 1.15rem;
     margin: 0px auto;
+    max-width: 328px;
 }
 .accept-icon{
     margin: 5px;

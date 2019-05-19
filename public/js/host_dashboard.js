@@ -17,7 +17,7 @@ fetch('/chargers', {
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "initial" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 	$("#tab-content").children().remove();
 });
@@ -68,15 +68,18 @@ $('#chargers-tab').click(function (event) {
 	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button></div>");
 	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
 	//populating all chargers owned from database
+	console.log("Calcualitng..");
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
 			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
+	console.log("Rendering...")
 	$('#tab-content').append(header);
 	$('#tab-content').append(subheader);
 	$('#tab-content').append(content);
+	console.log('rendre')
 	console.log(yourCharger);
 	for (i = 0; i < chargers.length; i++) {
 		$('#charger-container').append(yourCharger[i]);
@@ -197,19 +200,11 @@ $('#reviews-tab').click(function (event) {
 	});
 })
 
-$('#earnings-tab').click(function (event) {
-	var header = $("<p class='boxHeader'>Here is your earnings history.</p>");
-	var earningsContainer = $("<div id='earningsContainer'></div>");
-	$('#content').css({ 'height': '500px' });
-
-	$('#content').append(header);
-	$('#content').append(earningsContainer);
-})
 
 //click event listener on each charger
 function chargerInfo(chargerNumber) {
 	//rebuild content div with charger information that a user clicked
-	$('#tab-content').children().remove();
+	let prevPage = $('#tab-content').children().detach();
 
 	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	//name we only want 20 characters
@@ -230,10 +225,15 @@ function chargerInfo(chargerNumber) {
 	createInput("tab-content", "text", true, "details", "charger-details", "form-input readonly-input", chargers[chargerNumber].details);
 	//switch between two buttons for clicked
 	//edit -> save; save->edit
-	createButton("tab-content", "edit-btn", "Edit", "white-button");
+	createButton("tab-content", "edit-btn", "Edit", "orange-button");
 	createButton("tab-content", "save-btn", "Save", "orange-button");
+	createButton("tab-content", "back-btn", "Back", "white-button");
 	$("#save-btn").css({ "display": "none" });
 
+	$("#back-btn").click((e) => {
+		$("#tab-content").children().remove();;
+		$("#tab-content").append(prevPage);
+	});
 	//event listener for save/edit button clicked
 	$('#edit-btn').click(function (event) {
 		$('#edit-btn').css({ "display": "none" });
@@ -342,7 +342,6 @@ $("body").on('click', "#submit-charger", (e) => {
 		type: chargertype,
 		details: chargerdetails
 	}
-	console.log(data);
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -357,6 +356,8 @@ $("body").on('click', "#submit-charger", (e) => {
 		})
 		.catch(error => console.error('Error:', error));
 });
+
+// Disables non-digit entries for charger hourly rate
 $('body').on('keypress', '#charger-cost-input', (evt) => {
 	if (evt.which < 48 || evt.which > 57)
 	{

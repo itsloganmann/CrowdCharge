@@ -26,7 +26,6 @@ function confirmationPopup(value, charger) {
         + "<b>" + getTime(charger.endTime) + "</b>", "confirm-popup-subheader");
     createPopupConfirmButton(value + "-btn", value);
     createPopupCancelButton("popup-cancel", "Back");
-    $("#popup").show();
 
 
 }
@@ -56,7 +55,7 @@ $(document).on("click", "#accept-btn", (e) => {
             //////////////////
             if (successful) {
                 $("#popup").children().remove();
-                createPopupSubheader("h5", "You've accepted the booking!", "confirm-popup-subheader");
+                createPopupSubheader("h5", "You've accepted the booking!", "confirm-popup-header");
                 $(document).on("click", (e) => {
                     location.reload(true);
                 })
