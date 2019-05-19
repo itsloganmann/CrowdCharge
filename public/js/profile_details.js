@@ -154,8 +154,11 @@ $('#password-tab').click(function (event) {
     //Submit new password function
     $('#password-btn').click(function (event) {
         event.preventDefault();
-        console.log('Password save button clicked');
+        $('#passwordfail').remove;
 
+        if ($('#profile-newpassword-input').val() !== $('#profile-confirmpassword-input').val()) {
+            console.log("passwords don't match");
+        }
         // Check passwords and PATCH new password
         if ($('#profile-newpassword-input').val() == $('#profile-confirmpassword-input').val()) {
             const newpassword = $('#profile-newpassword-input').val();
@@ -203,4 +206,3 @@ $('#notification-tab').click(function (event) {
     ));
     $('#tab-content').append(notificationContainer);
 })
-
