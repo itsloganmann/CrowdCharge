@@ -141,10 +141,12 @@ $("#reviews-tab").click(async function (event) {
 		return res.json()
 	}).then((db) => {
 		reviews = db;
+		$("#tab-content").children().remove();
 	}).catch(error => console.error('Error:', error));
 	if (reviews == "") {
 		nothingToDisplay(reviewCardContainer, "reviews");
 	} else {
+		// Currently no review system in place. This code will not render anything
 		reviews.forEach(review => {
 			review = $("<div class='card-panel col-md-10' id='reviewsData'>"
 				+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
@@ -154,9 +156,7 @@ $("#reviews-tab").click(async function (event) {
 				+ "</div>");
 		});
 	}
-	//appending
 	$("#tab-content").append(reviewContainer);
-
 });
 
 $("#history-tab").click(async function (event) {

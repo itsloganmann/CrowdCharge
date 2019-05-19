@@ -99,6 +99,7 @@ main {
 }
 .price-card-text-wrapper {
     float: right;
+    text-align: right;
     line-height: 1.2em;
 }
 .price-card-text-lg {
