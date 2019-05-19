@@ -28,8 +28,7 @@ function nothingToDisplay(container, bookingType) {
 }
 
 //tab's eventListener
-$("#bookings-tab").click(async function (event) {
-
+const bookingTab = async (e) => {
 	/*
 	CONFIRMED BOOKING
 	*/
@@ -96,6 +95,11 @@ $("#bookings-tab").click(async function (event) {
 			console.log("returned");
 			}); */
 	///////////////////////////////////////////////////////////////to be remove
+}
+bookingTab();
+
+$("#bookings-tab").click(async function (event) {	
+	bookingTab();
 });
 
 //payment tab click; build elements for payment details
