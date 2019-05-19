@@ -64,6 +64,7 @@ $('#requests-tab').click(function (event) {
 
 //charger tab click event handler
 $('#chargers-tab').click(function (event) {
+	var successful = false;
 	//create new content
 	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
 	var chargerContainer = $("<div id='chargerContainer'></div>")

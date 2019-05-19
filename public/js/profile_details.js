@@ -127,7 +127,7 @@ $('#details-tab').click(function (event) {
 
 // password tab's eventListener
 $('#password-tab').click(function (event) {
-
+    var successful = false;
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
 
@@ -150,12 +150,14 @@ $('#password-tab').click(function (event) {
             "<input type='submit' id='password-btn' class='orange-button small-btn' value='Save Password'></button>" +
         "</form>"));
     $('#tab-content').append(passwordContainer);
-
+    
     //Submit new password function
     $('#password-btn').click(function (event) {
         event.preventDefault();
-        console.log('Password save button clicked');
 
+        if ($('#profile-newpassword-input').val() !== $('#profile-confirmpassword-input').val()) {
+            console.log("passwords don't match");
+        }
         // Check passwords and PATCH new password
         if ($('#profile-newpassword-input').val() == $('#profile-confirmpassword-input').val()) {
             const newpassword = $('#profile-newpassword-input').val();
@@ -172,8 +174,20 @@ $('#password-tab').click(function (event) {
                 }
             }).then(res => {
                 console.log(res)
+                if (res.status == 200) {
+                    successful = true;
+                }
+                
         
             }).then((response) => {
+                if (successful) {
+                    createPopup();
+                    createPopupSubheader("h5", "Password change successful", "confirm-popup-subheader");
+                    $('#popup').show();
+                    $(document).on("click", (e) => {
+                        location.reload(true);
+                    });
+                }
             }).catch(error => console.error('Password Error:', error));
         }
 
@@ -203,4 +217,3 @@ $('#notification-tab').click(function (event) {
     ));
     $('#tab-content').append(notificationContainer);
 })
-
