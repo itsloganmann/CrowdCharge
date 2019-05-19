@@ -153,7 +153,6 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
             evt.preventDefault();
             try {
                 let date = $('#' + evt.target.id).val();
-                console.log(date);
                 const url = '/charger/schedule?cUID=' + chargerid + "&date=" + date;
                 const response = await fetch(url, {
                     method: 'GET',
@@ -162,21 +161,26 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                         'Authorization': 'Bearer ' + jwt
                     }
                 })
-                console.log(response);
-                const json = await response.json();
+                console.log("RESPONSE ", response);
+                let json = await response.json();
+                console.log("JSON ", json);
                 let arr = ['00:00:00', '01:00:00', '02:00:00', '03:00:00', '04:00:00', '05:00:00',
                            '06:00:00', '07:00:00', '08:00:00', '09:00:00', '10:00:00', '11:00:00', 
                            '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00',
                            '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00', '23:00:00'];
-                console.log(arr);
-                json.forEach((item) => {
-                    console.log(item);
-                    currItemStartTimeIndex = item.startTime.split("T")[1].split(":00:00.000Z")[0];
-                    delete arr[parseInt(currItemStartTimeIndex, 10)];
-                })
+                if (json['0'] !== null) {
+                    json.forEach((item) => {
+                        console.log(item);
+                        console.log(item.startTime);
+                        let localDate = new Date(item.startTime);
+                        currItemStartTimeIndex = localDate.getHours();
+                        delete arr[parseInt(currItemStartTimeIndex, 10)];
+                    })                
+                }
                 $("#popup-time-slots").children().remove();
                 let currDate = new Date();
                 arr.forEach((startTime) => {
+                    localTime = new Date(startTime);
                     if (new Date(date + " " + startTime) > currDate){
                     addTimeSlot( (parseInt(startTime.substring(0, 2))) + startTime.substring(2, 5),
                                  (parseInt(startTime.substring(0, 2)) + 1) + startTime.substring(2, 5));

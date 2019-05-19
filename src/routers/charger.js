@@ -130,6 +130,7 @@ let getChargerBookings = async function(cUID,state,date){
         let today = new Date(date + " " + time);
         let tomorrow = new Date(date + " " + time);
         tomorrow = new Date(tomorrow.setDate(today.getDate() + 1));
+        console.log(today, tomorrow);
         const bookings = await Booking.find( {charger : cUID, state : state, timeStart : {"$gte" : today, "$lt" : tomorrow}} );
         var promises = bookings.map(async booking=>{
             try{

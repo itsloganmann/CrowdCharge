@@ -15,26 +15,7 @@ function fetchBooking(url, status) {
 		.then((db) => {
 			data = db
 		}).catch(error => console.log(error));
-	//////////////////////////////////////temp data
-	data = [{
-		startTime: "2019-01-01T00:00:00Z",
-		endTime: "2019-01-01T23:00:00Z",
-		cost: "$15.00",
-		address: "12345 MyHome St.",
-		city: "Vancouver",
-		province: "BC",
-		host: "Louis"
-	},
-	{
-		startTime: "2019-01-01T00:00:00Z",
-		endTime: "2019-01-01T23:00:00Z",
-		cost: "$15.00",
-		address: "12345 MyHome St.",
-		city: "Vancouver",
-		province: "BC",
-		host: "Louis"
-	}]
-	/////////////////////////////////////To BE REMOVE
+
 	for (i = 0; i < data.length; i++) {
 		if (status == "pending") {
 			contentStrings[i] = "<div class= 'col-11 tab-section-data row'><div class='card-panel col-md-5'>"
