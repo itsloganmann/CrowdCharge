@@ -59,6 +59,10 @@ $(document).on("click", "#accept-btn", (e) => {
                 $(document).on("click", (e) => {
                     location.reload(true);
                 })
+
+            } else {
+                //if we recieve status for 404/400/500 
+                
             }
 
         })
@@ -93,8 +97,9 @@ $(document).on("click", "#decline-btn", (e) => {
             $(document).on("click", (e) => {
                 location.reload(true);
             })
-        } else {
 
+        } else {
+            //if we recieve status for 404/400/500 
         }
 
     }).catch(error => console.error(error));
