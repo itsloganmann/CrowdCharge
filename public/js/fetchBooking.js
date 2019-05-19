@@ -17,6 +17,7 @@ async function fetchBooking(url, status) {
 	function build() {
 		for (i = 0; i < dataFromdb.length; i++) {
 			if (status == "pending") {
+				console.log(dataFromdb[i]);
 				contentStrings[i] = "<div class='card-panel col-md-5'>"
 					+ "<div class='right'><div class='cost'>" + dataFromdb[i].cost + "</div></div>"
 					+ "<div class='date'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
