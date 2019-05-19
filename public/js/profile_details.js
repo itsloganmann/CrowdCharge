@@ -127,7 +127,7 @@ $('#details-tab').click(function (event) {
 
 // password tab's eventListener
 $('#password-tab').click(function (event) {
-
+    var successful = false;
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
 
@@ -174,11 +174,21 @@ $('#password-tab').click(function (event) {
                 }
             }).then(res => {
                 console.log(res)
+                if (res.status == 200) {
+                    successful = true;
+                }
+                
         
             }).then((response) => {
+                if (successful) {
+                    createPopup();
+                    createPopupSubheader("h5", "Password change successful", "confirm-popup-subheader");
+                    $('#popup').show();
+                    $(document).on("click", (e) => {
+                        location.reload(true);
+                    });
+                }
             }).catch(error => console.error('Password Error:', error));
-
-
         }
 
     });
