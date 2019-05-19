@@ -3,6 +3,7 @@ const express = require('express')
 const Booking = require('../models/booking.js')
 const Review = require('../models/review.js')
 const Charger = require('../models/charger.js')
+const User = require('../models/user.js')
 
 const router = new express.Router()
 const auth = require('../middleware/auth')
@@ -10,22 +11,22 @@ const auth = require('../middleware/auth')
 
 //gets clients PENDING bookings
 router.get('/pendingBookings', auth, async(req, res)=>{
-    res.send(await getClientBookings(req.user, "PENDING"));
+    res.send(await getClientBookings(req.user._id, "PENDING"));
 })
 
 //gets clients UNPAID bookings
 router.get('/unpaidBookings', auth, async(req, res)=>{
-    res.send(await getClientBookings(req.user, "UNPAID"));
+    res.send(await getClientBookings(req.user._id, "UNPAID"));
 })
 
 //gets clients PAID bookings
 router.get('/paidBookings', auth, async(req, res)=>{
-    res.send(await getClientBookings(req.user, "PAID"));
+    res.send(await getClientBookings(req.user._id, "PAID"));
 })
 
 //gets clients COMPLETED bookings
 router.get('/completedBookings', auth, async(req, res)=>{
-    res.send(await getClientBookings(req.user, "COMPLETED"));
+    res.send(await getClientBookings(req.user._id, "COMPLETED"));
 })
 
 
