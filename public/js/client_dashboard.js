@@ -25,7 +25,7 @@ $('.tab-button').on('click', (e) => {
 
 //geernal header if no booking is created
 function nothingToDisplay(container, bookingType) {
-	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + " booking!</p></div>");
+	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + " bookings!</p></div>");
 	$(container).append(nothingDiv);
 }
 

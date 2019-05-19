@@ -66,14 +66,15 @@ main {
 .no-data{
     background-color: white;
     height: 10em;
-    width: 80%;
+    width: 100%;
     text-align: center;
     padding: 70px 0;
     border-radius: 8px;
     margin: 0 auto;
 }
 .no-data p{
-    color: grey;
+    color: white;
+    font-style: italic;
 }
 
 /** Cards */
