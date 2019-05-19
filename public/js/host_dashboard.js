@@ -63,27 +63,39 @@ $('#requests-tab').click(function (event) {
 
 //charger tab click event handler
 $('#chargers-tab').click(function (event) {
-	var successful = false;
 	//create new content
-	var header = $("<p class='boxHeader'>Here are your chargers! Select them to edit details and availability.</p>");
-	var chargerContainer = $("<div id='chargerContainer'></div>")
-	var newCharger = $("<button id='newCharger' class='chargerButton'>+</button>");
-
+	var header = $('<h3 class="col-11 inner-header">Chargers</h3>');
+	var subheader = $('<h6 class="col-11 inner-subheader">Here are your chargers! Select them to edit details and availability.</h6>');
+	var newCharger = $("<button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button>");
+	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
 	//populating all chargers owned from database
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
-		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='chargerButton' id='charger" +
+		var chargerString = "<button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
 			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button>";
 		yourCharger[i] = $(chargerString);
 	}
-	$('#tab-content').append(chargerContainer);
-	$('#chargerContainer').append(newCharger);
+	$('#tab-content').append(header);
+	$('#tab-content').append(subheader);
+	$('#tab-content').append(content);
+	console.log(yourCharger);
 	for (i = 0; i < chargers.length; i++) {
-		$('#chargerContainer').append(yourCharger[i]);
+		$('#charger-container').append(yourCharger[i]);
 	}
-	$("#newCharger").attr("onclick", "window.location.href='./add_new_charger'");
-
+	$('#charger-container').append(newCharger);
+	$("#new-charger").on('click', (e) => {
+		appendAddChargerPage();
+	});
 });
+
+const appendAddChargerPage = () => {
+	var prevPage = $("#tab-content").children().detach();
+	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3><p class="inner-subheader col-11">Add a new charger!</p><div class="col-11 tab-section-data row"><form id="new-charger-form"><div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div><div class="full-center-wrapper row"><div class="col-8"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div><div class="col-4"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details(optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+	$("#cancel-charger").on('click', (e) => {
+		$("#tab-content").children().remove();
+		$("#tab-content").append(prevPage);
+	});
+}
 
 
 //to be move to mother js file if needed
@@ -285,3 +297,67 @@ function chargerInfo(chargerNumber) {
 	});
 }
 
+
+
+// Enables add new charger button if all fields are filled
+$('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input, #charger-cost-input', (event) => {
+	var formFilled = false;
+	if ($('#charger-name-input').val() && $('#charger-address-input').val() && $('#charger-city-input').val()
+		&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
+		formFilled = true;
+	}
+	console.log(formFilled);
+	if (formFilled) {
+		console.log('remove');
+		$('#submit-charger').removeAttr('disabled');
+		$('#submit-charger').removeClass('disabled-button');
+	} else {
+		$('#submit-charger').prop('disabled', true);
+		$('#submit-charger').addClass('disabled-button');
+	}
+});
+
+$("body").on('click', "#submit-charger", (e) => {
+	e.preventDefault();
+	const chargeraddress = $('#charger-address-input').val();
+	const chargercity = $('#charger-city-input').val();
+	const chargerprovince = "BC";
+	const chargercountry = "Canada";
+	const chargercost = parseFloat($('#charger-cost-input').val());
+	const chargername = $('#charger-name-input').val();
+	const chargerlevel = parseFloat($('#charger-level-input option:selected').text());
+	const chargertype = $('#charger-type-input option:selected').text();
+	const chargerdetails = $('#charger-details-input').val();
+	const url = '/charger/new'
+	const data = {
+		address: chargeraddress,
+		city: chargercity,
+		province: chargerprovince,
+		country: chargercountry,
+		cost: chargercost,
+		chargername: chargername,
+		level: chargerlevel,
+		type: chargertype,
+		details: chargerdetails
+	}
+	console.log(data);
+	fetch(url, {
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	}).then(res => console.log(res))
+		.then((response) => {
+			console.log('Success: charger added to db!', (response))
+			//window.location.replace('/host_dashboard');
+		})
+		.catch(error => console.error('Error:', error));
+});
+$('body').on('keypress', '#charger-cost-input', (evt) => {
+	if (evt.which < 48 || evt.which > 57)
+	{
+		evt.preventDefault();
+	}
+});

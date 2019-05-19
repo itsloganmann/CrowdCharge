@@ -134,7 +134,7 @@ $('body').on("click", ".marker", async (e) => {
 
 const buildStars = (rating) => {
     if (rating === 0) {
-        html = '<span class="host-marker-stars"> No rating yet! </span>'
+        html = '<span class="host-marker-stars-drawer"> Not yet rated </span>'
     } else {
         let numOfStars = ''
 

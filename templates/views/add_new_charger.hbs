@@ -73,9 +73,15 @@
 			}).then(res => console.log(res))
 				.then((response) => {
 					console.log('Success: charger added to db!', (response))
-					window.location.replace('/host_dashboard');
+					//window.location.replace('/host_dashboard');
 				})
 				.catch(error => console.error('Error:', error));
+		});
+		$('body').on('keypress', '#signup-phone-input', (evt) => {
+			if (evt.which < 48 || evt.which > 57)
+			{
+				evt.preventDefault();
+			}
 		});
 	</script>
 	{{>footer}}

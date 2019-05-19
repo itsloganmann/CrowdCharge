@@ -33,17 +33,18 @@
     font-weight:bold;
     margin:0 3%;
 }
-#chargerContainer{
+#charger-container{
     text-align:center;
     width:90%;
     margin:3vh auto;
 }
 
-#newCharger{
+#new-charger{
     color:#f05a29;
     background-color:white;
+    font-size: 18pt;
 }
-.chargerButton{
+.charger-button{
     color:white;
     background-color:#f05a29;
     text-align:center;
