@@ -132,6 +132,24 @@ $('body').on("click", ".marker", async (e) => {
     }
 });
 
+const buildStars = (rating) => {
+    if (rating === 0) {
+        html = '<span class="host-marker-stars"> No rating yet! </span>'
+    } else {
+        let numOfStars = ''
+
+        for (let i = 0; i < Math.floor(rating); i++) {
+            numOfStars = numOfStars + '<i class="fas fa-star"></i>'
+        }
+
+        for (let i = 0; i < 5 - Math.floor(rating); i++) {
+            numOfStars = numOfStars + '<i class="far fa-star"></i>'
+        }
+        
+        html = '<span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
+    }
+    return html;
+}
 
 const populateChargerInfo = (chargerid, chargername, city, cost, details, level, type, rating) => {
     //console.log(chargername, city, cost, details, level, type, rating);
@@ -141,7 +159,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Level</div><div class="map-drawer-text-right">' + level + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Type</div><div class="map-drawer-text-right">' + type + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Hourly Rate</div><div class="map-drawer-text-right">$' + cost + '</div></div><br>')
-    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + (rating !== undefined ? rating : "No Rating") + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + buildStars(rating) + '</div><div class="map-drawer-text-right orange-highlight" id="map-drawer-see-reviews">See Reviews</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + (details !== '' ? details : "<i>None</i>")  + '</div></div>');
     if (jwt) {
         $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
