@@ -133,27 +133,51 @@ $('#password-tab').click(function (event) {
 
     // Append form content
     $(passwordContainer).append($(
+
         "<form class='col-11 tab-section-data row' id='password-change-form'>" +
-            "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
-                "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
-                "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
-            "</div>" +
+            // "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
+            //     "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
+            //     "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
+            // "</div>" +
             "<div class='full-center-wrapper' id='profile-newpassword-wrapper'>" +
                 "<label id='profile-newpassword-label' class='form-label profile-label' for='profile-newpassword-input'>New password</label>" +
                 "<input type='password' name='newpassword' id='profile-newpassword-input' class='form-input profile-input' >" +
             "</div>" +
             "<div class='full-center-wrapper' id='profile-confirmpassword-wrapper'>" +
                 "<label id='profile-confirmpassword-label' class='form-label profile-label' for='profile-confirmpassword-input'>Confirm new password</label>" +
-                "<input type='text' name='confirmpassword' id='profile-confirmpassword-input' class='form-input profile-input' >" +
+                "<input type='password' name='confirmpassword' id='profile-confirmpassword-input' class='form-input profile-input' >" +
             "</div>" +
             "<input type='submit' id='password-btn' class='orange-button small-btn' value='Save Password'></button>" +
         "</form>"));
     $('#tab-content').append(passwordContainer);
 
+    //Submit new password function
     $('#password-btn').click(function (event) {
         event.preventDefault();
         console.log('Password save button clicked');
-    })
+
+        // Check passwords and PATCH new password
+        if ($('#profile-newpassword-input').val() == $('#profile-confirmpassword-input').val()) {
+            const newpassword = $('#profile-newpassword-input').val();
+            const url = '/users/me'
+            const data = {
+                password: newpassword
+            }
+            fetch (url, {
+                method: 'PATCH',
+                body: JSON.stringify(data),
+                headers: {
+                    'content-type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                }
+            }).then(res => {
+                console.log(res)
+        
+            }).then((response) => {
+            }).catch(error => console.error('Password Error:', error));
+        }
+
+    });
 });
 
 // notification tab event listener
