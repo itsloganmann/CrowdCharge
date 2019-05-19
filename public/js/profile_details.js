@@ -178,6 +178,8 @@ $('#password-tab').click(function (event) {
         
             }).then((response) => {
             }).catch(error => console.error('Password Error:', error));
+
+            
         }
 
     });
