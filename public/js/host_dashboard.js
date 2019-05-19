@@ -44,8 +44,8 @@ $('#requests-tab').click(function (event) {
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "price-card-text-wrapper");
 		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending), booking.bookingID, jwt);
-		addEventListenerOnReject($("#reject" + countPending), booking.bookingID, jwt);
+		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 
 		createContent("pending-card" + countPending, "p", "pending-client" + countPending, "card-text-sm");
 		$("#pending-client" + countPending).text(booking.client + countPending);
@@ -85,11 +85,6 @@ $('#chargers-tab').click(function (event) {
 
 });
 
-
-//to be move to other js file
-function getTime(timeObject) {
-	return timeObject.split("T")[1].split("Z")[0];
-}
 
 //to be move to mother js file if needed
 $('#bookings-tab').click(function (event) {
