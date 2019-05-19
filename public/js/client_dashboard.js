@@ -25,8 +25,8 @@ $('.tab-button').on('click', (e) => {
 
 //geernal header if no booking is created
 function nothingToDisplay(container, bookingType) {
-	nothingDiv = $("<div class='nothing'>You don't have any" + bookingType + " booking!</div>");
-	$(container).append(nothingHeading);
+	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + " booking!</p></div>");
+	$(container).append(nothingDiv);
 }
 
 //tab's eventListener
@@ -44,8 +44,8 @@ $("#bookings-tab").click(async function (event) {
 	const confirmedBookingURL = "/client/paidBookings";
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
 	console.log("data:" + cBDatas);
-	if (cBDatas== "") {
-		nothingToDisplay(confirmContainer, "paid");
+	if (cBDatas == "") {
+		nothingToDisplay(paidCardContainer, "paid");
 	}
 	else {
 		cBDatas.forEach(cBData => {
@@ -64,7 +64,7 @@ $("#bookings-tab").click(async function (event) {
 
 	const pendingBookingURL = "/client/pendingBookings"
 	let pbDatas = await fetchBooking(pendingBookingURL, "pending");
-	if (!pbDatas) {
+	if (pbDatas == "") {
 		nothingToDisplay(pendingCardContainer, "pending");
 	} else {
 		pbDatas.forEach(pbData => {
@@ -112,8 +112,8 @@ $("#payments-tab").click(async function (event) {
 
 	const unpaidBookingURL = "/client/unpaidBookings"
 	const ubDatas = await fetchBooking(unpaidBookingURL, "unpaid");
-	if (!ubDatas) {
-		nothingToDisplay(unpaidCardContainer, "paid");
+	if (ubDatas == "") {
+		nothingToDisplay(unpaidCardContainer, "unpaid");
 	} else {
 		ubDatas.forEach(ubData => {
 			unpaidCardContainer.append($(ubData));
@@ -166,9 +166,13 @@ $("#history-tab").click(async function (event) {
 	historyContainer.append(historyCardContainer);
 
 	let hDatas = await fetchBooking("/client/completeBookings", "complete");
-	hDatas.forEach(hData => {
-		historyCardContainer.append($(hData));
-	});
+	if (hDatas == "") {
+		nothingToDisplay(historyCardContainer, "history");
+	} else {
+		hDatas.forEach(hData => {
+			historyCardContainer.append($(hData));
+		});
+	}
 	$("#tab-content").append(historyContainer);
 
 })

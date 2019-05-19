@@ -62,7 +62,18 @@ main {
     margin: 12px auto;
     max-width: 93.333333%;
 }
-
+.no-data{
+    background-color: white;
+    height: 10em;
+    width: 80%;
+    text-align: center;
+    padding: 70px 0;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+.no-data p{
+    color: grey;
+}
 
 /** Cards */
 .card-panel {
