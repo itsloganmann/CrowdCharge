@@ -1,5 +1,3 @@
-
-//fetch to get all chargers' id that belong to the host
 const jwt = localStorage.getItem('jwt');
 
 // Changes tab colours and clears tab contents
@@ -10,6 +8,7 @@ $('.tab-button').on('click', (e) => {
 	$("#tab-content").children().remove();
 });
 
+// Function to switch to the chargers tab
 const chargersTab = async (e) => {
 	let chargers = [];
 	await fetch('/chargers', {
@@ -50,6 +49,7 @@ const chargersTab = async (e) => {
 }
 chargersTab();
 //charger tab click event handler
+
 $('#chargers-tab').click(function (event) {
 	chargersTab();
 });
@@ -64,7 +64,10 @@ $('#requests-tab').click(async function (event) {
 	const pendingData = await fetchGET('/host/pendingBookings', jwt)
 	console.log("DATA ", pendingData);
 	let countPending = 0;
-	pendingData.forEach((booking) => {
+	if (pendingData.length == 1) {
+		$("#request-container").append("<div class='no-data'><p>You don't have any pending booking requests!</p></div>");
+	} else {
+		pendingData.forEach((booking) => {
 		//pending booking information for the host
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 		$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
@@ -92,9 +95,9 @@ $('#requests-tab').click(async function (event) {
 		countPending++;
 	}
 	);
-});
+}});
 
-
+// Page to add new chargers
 const appendAddChargerPage = () => {
 	var prevPage = $("#tab-content").children().detach();
 	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3><div class="inner-subheader col-11">Add a new charger!</div><div class="col-11 tab-section-data row"><form id="new-charger-form"><div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div><div class="full-center-wrapper row"><div class="col-8"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div><div class="col-4"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details(optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
@@ -125,6 +128,9 @@ $('#bookings-tab').click(async function (event) {
 	let unpaidData = await fetchGET('/host/unpaidBookings', jwt);
 	console.log(unpaidData);
 	let countUnpaid = 0;
+	if (unpaidData.length == 1) {
+		$("#unpaid-container").append("<div class='no-data'><p>You don't have any unpaid booking requests!</p></div>");
+	} else {
 	unpaidData.forEach((booking) => {
 		//unpaid booking information for the host
 		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
@@ -144,10 +150,13 @@ $('#bookings-tab').click(async function (event) {
 		$("#unpaid-area" + countUnpaid).text(booking.city + ", " + booking.province);
 		countUnpaid++;
 	}
-	);
+	)};
 	//paid booking data render!
 	let paidData = await fetchGET('/host/paidBookings', jwt);
 	let countPaid = 0;
+	if (paidData.length == 0) {
+		$("#paid-container").append("<div class='no-data'><p>You don't have any paid booking requests!</p></div>");
+	} else {
 	paidData.forEach((booking) => {
 		//paid booking information for the host
 		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
@@ -167,7 +176,7 @@ $('#bookings-tab').click(async function (event) {
 		$("#paid-area" + countPaid).text(booking.city + ", " + booking.province);
 		countPaid++;
 	}
-	);
+	)};
 })
 
 $('#reviews-tab').click(async function (event) {
@@ -176,9 +185,8 @@ $('#reviews-tab').click(async function (event) {
 	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
-
-    let reviewData = await fetchGET("host/allChargerReviews", jwt);
-	reviewData = [{
+    //let reviewData = await fetchGET("host/allChargerReviews", jwt);
+	/*reviewData = [{
 		reviewer: "Jane Doe",
 		comment: "This is great!",
 		rating: "5.00"
@@ -190,9 +198,11 @@ $('#reviews-tab').click(async function (event) {
 		reviewer: "Kevin Woo",
 		comment: "Great location!",
 		rating: "4.00"
-	}];
+	}];*/
+
 	let countReview = 0;
-	$("#tab-content").children().remove();
+	$("#review-container").append("<div class='no-data'><p>You don't have any reviews!</p></div>");
+	/*
 	reviewData.forEach(review => {
 		createContent("review-container", "div", "review-card" + countReview, "card-panel col-md-11");
 		createContent("review-card" + countReview, "div", "reviewer" + countReview, "card-text-lg");
@@ -203,6 +213,7 @@ $('#reviews-tab').click(async function (event) {
 		$("#rating" + countReview).text(review.rating);
 		countReview++;
 	});
+	*/
 })
 
 
@@ -316,6 +327,31 @@ async function chargerInfo(chargerNumber) {
 			.catch(error => console.error('Error:', error));;
 	});
 }
+
+//geernal header if no booking is created
+function nothingToDisplay(container, bookingType) {
+	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
+	$(container).append(nothingDiv);
+}
+
+
+$("#history-tab").click(async function (event) {
+	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are the past bookings that have been made with you.");
+	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
+	historyContainer.append(historyCardContainer);
+	let data = await fetchBooking("/host/completedBookings", "completed");
+	if (data == "") {
+		nothingToDisplay(historyCardContainer, "past bookings");
+	} else {
+		data.forEach(hData => {
+			historyCardContainer.append($(hData));
+		});
+	}
+	$("#tab-content").append(historyContainer);
+
+})
+
+
 
 
 
