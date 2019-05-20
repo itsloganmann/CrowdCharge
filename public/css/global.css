@@ -4,10 +4,10 @@ main {
   position: relative;
 }
 .green-highlight {
-  color: #1DBF73;
+  color: #1DBF73 !important;
 }
 .orange-highlight {
-  color: #F05A29;
+  color: #F05A29 !important;
 }
 
 body {
