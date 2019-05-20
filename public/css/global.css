@@ -594,12 +594,20 @@ button:focus {
   position: absolute;  
   color: red;
 }
-.readonly-input{
+.readonly-input, .readonly-input-full{
   background-color: inherit;
-  border-bottom: 0;
 }
 .readonly-label{
   font-weight: bold;
+  margin-top: 4px;
+}
+.readonly-input:focus {
+  padding: 3px 8px 3px;
+  border-bottom: 1px solid black
+}
+.readonly-input-full:focus {
+  padding: 3px 8px 3px;
+  border: 1px solid black;
 }
 #popup-close-button {
   position: absolute;

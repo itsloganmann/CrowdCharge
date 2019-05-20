@@ -94,7 +94,7 @@ $(document).on("click", "#decline-btn", (e) => {
         //////////////////
         if (successful) {
             $("#popup").children().remove();
-            createPopupSubheader("h5", "You've decline the booking!", "confirm-popup-subheader");
+            createPopupSubheader("h5", "You've decline the booking!", "confirm-popup-header");
             $(document).on("click", (e) => {
                 location.reload(true);
             })

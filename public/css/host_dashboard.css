@@ -1,7 +1,7 @@
 .charger-button{
     height: 256px;
     font-size: 1.15rem;
-    margin: 0px auto;
+    margin: 0px auto 16px;
     max-width: 328px;
 }
 .accept-icon{
@@ -21,4 +21,12 @@
 }
 .reject-icon:hover{
     color:  #BD0000;
+}
+.accept-decline-wrapper {
+    float: right;
+}
+@media only screen and (max-width: 576px) {
+    .charger-button {
+        height: 202px;
+    }
 }
