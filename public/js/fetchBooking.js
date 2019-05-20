@@ -1,16 +1,14 @@
 
 const jwt = localStorage.getItem('jwt');
 
-function addEventListenerOnPayNow(element, booking, jwt) {
-    $('body').on('click', element, event => {
-        bookingObj = booking;
-        console.log("clicked");
-        confirmationPopupPay("Pay Now", booking);
-	})
-	
+function addEventListenerOnPayNow(id, booking, jwt) {
+	$('body').off('click', id);
+	$('body').on('click', id, (e) =>{
+        confirmationPopupPay("Pay Now", booking, e);
+	});
 }
 
-function confirmationPopupPay(value, booking) {
+function confirmationPopupPay(value, booking, e) {
     createPopup();
     createPopupHeader("h5", "Do you wish to pay the booking for</br><b id='confirm-charger-address'>" 
     + booking.address + " " + booking.city + ", " + booking.province +"</b>"
@@ -18,9 +16,47 @@ function confirmationPopupPay(value, booking) {
         + "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"
         + "<b>" + getTime(booking.endTime) + "</b>", "confirm-popup-subheader", "popup-subheader");
     createPopupConfirmButton("pay-now-btn", value);
-    createPopupCancelButton("popup-cancel", "Back");
-
-
+	createPopupCancelButton("popup-cancel", "Cancel");
+	$("body").off('click', "#pay-now-btn");
+	$("body").on('click', "#pay-now-btn", (e) => {
+		var url = '/booking/payBooking';
+		const dataToSend = {
+			bUID: booking.bookingID
+		}
+		console.log(dataToSend);
+		fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(dataToSend),
+			headers: {
+				'content-type': 'application/json',
+				'Authorization': 'Bearer ' + jwt
+			}
+		}).then(res => {
+			console.log(res)
+			if (res.status == 200)
+				successful = true;
+		})
+			.then((response) => {
+				//to be remove
+				successful = true;
+				//////////////////
+				
+				if (successful) {
+					$("#popup").children().remove();
+					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+					$('body').on("click", (e) => {
+						location.reload(true);
+					})
+	
+				} else {
+					//if we recieve status for 404/400/500 
+	
+				}
+				console.log("success");
+	
+			})
+			.catch(error => console.error(error));
+	});
 }
 
 async function fetchBooking(url, status) {

@@ -13,8 +13,6 @@ function addEventListenerOnReject(element, booking, jwt) {
     element.click(event => {
         bookingObj = booking;
         confirmationPopup("decline", booking);
-
-
     })
 }
 
