@@ -1,9 +1,18 @@
+// Generates login and signup popup
+
+// JSON Web Token authentication
 const token = localStorage.getItem('jwt');
+
+// If token is present, user is logged in
 if (token) {
 	console.log("Logged in");
+	// Remove login button
 	$("#login-button").remove();
-} else {
+} 
+// If token is not present, user is not logged in
+else {
 	console.log("Not logged in");
+	// Remove user-only functions
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
 }
@@ -21,7 +30,7 @@ var createPopup = () => {
 	$("#popup").fadeIn(200);
 }
 
-// Creates header element
+// Function for creating header element
 var createPopupHeader = (size, text, id, className) => {
 	var popupHeader = document.createElement(size);
 	popupHeader.className = className;
@@ -30,6 +39,7 @@ var createPopupHeader = (size, text, id, className) => {
 	$(popupHeader).html(text);
 }
 
+// Function for creating popup content
 var createPopupContent = (targetId, type, id, className) => {
 	var popupContent = document.createElement(type);
 	if (className != undefined) {
@@ -39,6 +49,7 @@ var createPopupContent = (targetId, type, id, className) => {
 	$('#' + targetId).append(popupContent);
 }
 
+// Function for creating popup confirm button
 var createPopupConfirmButton = (id, text) => {
 	var popupConfirm = document.createElement('button');
 	popupConfirm.id = id;
@@ -47,6 +58,7 @@ var createPopupConfirmButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
+// Function for creating popup cancel button
 var createPopupCancelButton = (id, text) => {
 	var popupCancel = document.createElement('button');
 	popupCancel.id = id;
@@ -66,9 +78,11 @@ var createFormButton = (id, text) => {
 }
 */
 
+// Array of months
 var months = ["January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"];
 
+// Get date and return as a string
 var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
@@ -87,6 +101,7 @@ var addPopupHiddenField = (name, value) => {
 }
 */
 
+// Function for creating popup input
 var createPopupInput = (targetId, type, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
@@ -99,6 +114,7 @@ var createPopupInput = (targetId, type, name, id, className, value) => {
 	$('#' + targetId).append(input);
 }
 
+// Function for creating popup label
 var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	let label = document.createElement("label");
 	label.id = id;
@@ -108,12 +124,12 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Function for creating popup error message
 var createErrorMessage = (targetId, message, className) => {
 	let element = document.createElement("div");
 	element.className = className;
 	element.innerText = message;
 	$('#' + targetId).prepend(element);
-
 }
 
 // Removes popup
@@ -125,6 +141,7 @@ $('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 });
 
 // Creating login pop-up
+// Uses previous functions
 $("#login-button").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
@@ -148,6 +165,7 @@ $("#login-button").on("click", () => {
 });
 
 // Creating sign up pop-up
+// Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
 	signInPage = $("#popup").children().detach();
@@ -234,34 +252,45 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
+
+			// Error checking
 			if (response.errors || response.name) {
+
+			// Handle MongoDB error
 			if (response.name === "MongoError") {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email, please use another email!</div>")
 				$('#signup-email-input').addClass('invalid-input-underline');
 				$('#signup-email-label').addClass('invalid-input-label');
 			}	
+			// Handle invalid email error
 			if (response.errors.email) {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
 				$('#signup-email-input').addClass('invalid-input-underline');
 				$('#signup-email-label').addClass('invalid-input-label');
 			}
+			//Handle invalid phone number error
 			if (response.errors.phone) {
 				$("#phone-validation").remove();
 				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
 				$('#signup-phone-input').addClass('invalid-input-underline');
 				$('#signup-phone-label').addClass('invalid-input-label');
 			} 
+			// Handle invalid password error
 			if (response.errors.password) {
 				$("#password-validation").remove();
 				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
 				$('#signup-confirm-password-input').addClass('invalid-input-underline');
 				$('#signup-confirm-password-label').addClass('invalid-input-label');
 			} 
-		} else if (!response.errors) {
+		} 
+		// Success condition
+		else if (!response.errors) {
 			console.log('Login success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
+
+			// Reload to client dashboard
 			window.location.replace('/client_dashboard');
 			}
 		})
