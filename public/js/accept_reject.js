@@ -20,10 +20,10 @@ function addEventListenerOnReject(element, booking, jwt) {
 
 function confirmationPopup(value, charger) {
     createPopup();
-    createPopupSubheader("h5", "Do you wish to confirm the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
+    createPopupHeader("h3", "Do you wish to confirm the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
         + " on <b id='confirm-charger-date'>" + charger.startTime.split("T")[0] + "</b>"
         + "</br>at <b id='confirm-charger-stime'>" + getTime(charger.startTime) + "-</b>"
-        + "<b>" + getTime(charger.endTime) + "</b>", "confirm-popup-subheader");
+        + "<b>" + getTime(charger.endTime) + "</b>", "confirm-popup-subheader", "popup-header");
     createPopupConfirmButton(value + "-btn", value);
     createPopupCancelButton("popup-cancel", "Back");
 
@@ -54,8 +54,8 @@ $('body').on("click", "#accept-btn", (e) => {
             //////////////////
             if (successful) {
                 $("#popup").children().remove();
-                createPopupSubheader("h5", "You've accepted the booking!", "confirm-popup-header");
-                $(document).on("click", (e) => {
+                createPopupHeader("h3", "You've accepted the booking!", "confirm-popup-header", "popup-header");
+                $('body').on("click", (e) => {
                     location.reload(true);
                 })
 
@@ -69,7 +69,7 @@ $('body').on("click", "#accept-btn", (e) => {
 });
 
 //fetch call if user confirmed to decline the request
-$(document).on("click", "#decline-btn", (e) => {
+$('body').on("click", "#decline-btn", (e) => {
 
     //setting all require info to make a request
     const dataToSend = {
@@ -94,8 +94,8 @@ $(document).on("click", "#decline-btn", (e) => {
         //////////////////
         if (successful) {
             $("#popup").children().remove();
-            createPopupSubheader("h5", "You've decline the booking!", "confirm-popup-subheader");
-            $(document).on("click", (e) => {
+            createPopupHeader("h3", "You've decline the booking!", "confirm-popup-header", "popup-header");
+            $('body').on("click", (e) => {
                 location.reload(true);
             })
 
@@ -107,7 +107,7 @@ $(document).on("click", "#decline-btn", (e) => {
 });
 
 // Removes popup for booking
-$(document).on("click", "#popup-cancel, #popup-finish", (e) => {
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
     if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();
     }

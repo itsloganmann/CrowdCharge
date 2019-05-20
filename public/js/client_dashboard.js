@@ -16,12 +16,12 @@ fetch('/users/me', {
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 });
 
 
-//geernal header if no booking is created
+//Display user message if no bookings of the specified type are found.
 function nothingToDisplay(container, bookingType) {
 	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
 	$(container).append(nothingDiv);
@@ -69,32 +69,8 @@ const bookingTab = async (e) => {
 		});
 	}
 
-
 	$("#tab-content").append(confirmContainer);
 	$("#tab-content").append(pendingContainer);
-
-	//////////////////////////////////////////////////////////////to be remove
-	/* 	var request = new Request('/client/bookings', {
-			method: 'POST',
-			body: {"uUID" : "hello", "bookingType" : "PENDING"}
-		});
-	
-		fetch(request)
-			.then((res)=> {return res.json()})
-			.then((db) => {
-			console.log(db);
-					const data = JSON.stringify(db);
-					let confirmedBookingData = $("<div class= 'col-10 well' id='confirmedBookingData>"
-					+"<p id='cb-date'>" + data.date + "</p>"
-					+"<p id='cb-cost'>" + data.cost + "</p>"
-					+"<p id='cb-time'>" + data.startTime + "-" + data.endTime + "</p>"
-					+"<p id='cb-address'>" + data.address + "</p>"
-					+"<p id='cb-city'>" + data.city + "</p>"
-			+"</div>");
-			confirmContainer.append(confirmedBookingData);
-			console.log("returned");
-			}); */
-	///////////////////////////////////////////////////////////////to be remove
 }
 bookingTab();
 

@@ -3,7 +3,7 @@ const jwt = localStorage.getItem('jwt');
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$('.tab-button:not(#' + event.target.id + ')').css({ 'color': 'black' });
+	$('.tab-button:not(#' + event.target.id + ')').css({ 'color': 'inherit' });
 	$('#' + event.target.id).css({ 'color': '#F05A29' });
 	$('#tab-content').children().remove();
 });
@@ -182,8 +182,8 @@ $('#password-tab').click(function (event) {
             }).then((response) => {
                 if (successful) {
                     createPopup();
-                    createPopupSubheader("h5", "Password change successful", "confirm-popup-header");
-                    $(document).on("click", (e) => {
+                    createPopupHeader("h3", "Password change successful", "confirm-popup-header", "popup-header");
+                    $('body').on("click", (e) => {
                         location.reload(true);
                     });
                 }
