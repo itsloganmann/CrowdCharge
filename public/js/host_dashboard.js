@@ -363,8 +363,8 @@ $("#history-tab").click(async function (event) {
 	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are the past bookings that have been made with you.");
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	historyContainer.append(historyCardContainer);
-	/*
-	let data = await fetchBooking("/host/completedBookings", "completed");
+	
+	let data = "";
 	if (data == "") {
 		nothingToDisplay(historyCardContainer, "past bookings");
 	} else {
@@ -372,7 +372,7 @@ $("#history-tab").click(async function (event) {
 			historyCardContainer.append($(hData));
 		});
 	}
-	*/
+	
 	$("#tab-content").append(historyContainer);
 
 })
