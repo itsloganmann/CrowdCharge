@@ -164,6 +164,7 @@ $('#bookings-tab').click(function (event) {
 })
 
 $('#reviews-tab').click(function (event) {
+	console.log("click");
 	//container box and its headers
 	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
@@ -184,6 +185,8 @@ $('#reviews-tab').click(function (event) {
 		rating: "4.00"
 	}];
 	let countReview = 0;
+	$("#tab-content").children().remove();
+	console.log("hi");
 	reviewData.forEach(review => {
 		createContent("review-container", "div", "review-card" + countReview, "card-panel col-md-11");
 		createContent("review-card" + countReview, "div", "reviewer" + countReview, "card-text-lg");

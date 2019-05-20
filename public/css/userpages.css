@@ -64,23 +64,23 @@ main {
     max-width: 93.333333%;
 }
 .no-data{
-    background-color: #d6dfda63;
     height: 10em;
-    width: 80%;
+    width: 100%;
     text-align: center;
     padding: 70px 0;
     border-radius: 15px;
     margin: 0 auto;
 }
 .no-data p{
-    color: grey;
+    color: #3D3D3D;
+    font-style: italic;
 }
 
 /** Cards */
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 12px 2% 14px;
+    padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);
@@ -107,6 +107,7 @@ main {
 }
 .price-card-text-wrapper {
     float: right;
+    text-align: right;
     line-height: 1.2em;
 }
 .price-card-text-lg {

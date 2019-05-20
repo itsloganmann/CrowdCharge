@@ -30,13 +30,12 @@ function confirmationPopup(value, charger) {
 
 }
 //fetch call if user confirmed to accept the request
-$(document).on("click", "#accept-btn", (e) => {
+$('body').on("click", "#accept-btn", (e) => {
     //setting all require info to make a request
     var url = '/booking/acceptBooking';
     const dataToSend = {
         bUID: bookingObj.bookingID
     }
-
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(dataToSend),

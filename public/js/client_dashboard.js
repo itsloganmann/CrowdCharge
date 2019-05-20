@@ -18,8 +18,6 @@ fetch('/users/me', {
 $('.tab-button').on('click', (e) => {
 	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
-	$("#tab-content").children().remove();
-
 });
 
 
@@ -30,8 +28,7 @@ function nothingToDisplay(container, bookingType) {
 }
 
 //tab's eventListener
-$("#bookings-tab").click(async function (event) {
-
+const bookingTab = async (e) => {
 	/*
 	CONFIRMED BOOKING
 	*/
@@ -45,7 +42,7 @@ $("#bookings-tab").click(async function (event) {
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
 	console.log("data:" + cBDatas);
 	if (cBDatas == "") {
-		nothingToDisplay(paidCardContainer, "paid booking");
+		nothingToDisplay(paidCardContainer, "paid bookings");
 	}
 	else {
 		cBDatas.forEach(cBData => {
@@ -65,7 +62,7 @@ $("#bookings-tab").click(async function (event) {
 	const pendingBookingURL = "/client/pendingBookings"
 	let pbDatas = await fetchBooking(pendingBookingURL, "pending");
 	if (pbDatas == "") {
-		nothingToDisplay(pendingCardContainer, "pending booking");
+		nothingToDisplay(pendingCardContainer, "pending bookings");
 	} else {
 		pbDatas.forEach(pbData => {
 			pendingCardContainer.append($(pbData));
@@ -98,6 +95,11 @@ $("#bookings-tab").click(async function (event) {
 			console.log("returned");
 			}); */
 	///////////////////////////////////////////////////////////////to be remove
+}
+bookingTab();
+
+$("#bookings-tab").click(async function (event) {	
+	bookingTab();
 });
 
 //payment tab click; build elements for payment details
@@ -113,7 +115,7 @@ $("#payments-tab").click(async function (event) {
 	const unpaidBookingURL = "/client/unpaidBookings"
 	const ubDatas = await fetchBooking(unpaidBookingURL, "unpaid");
 	if (ubDatas == "") {
-		nothingToDisplay(unpaidCardContainer, "unpaid booking");
+		nothingToDisplay(unpaidCardContainer, "unpaid bookings");
 	} else {
 		ubDatas.forEach(ubData => {
 			unpaidCardContainer.append($(ubData));
@@ -143,10 +145,12 @@ $("#reviews-tab").click(async function (event) {
 		return res.json()
 	}).then((db) => {
 		reviews = db;
+		$("#tab-content").children().remove();
 	}).catch(error => console.error('Error:', error));
 	if (reviews == "") {
-		nothingToDisplay(reviewCardContainer, "review");
+		nothingToDisplay(reviewCardContainer, "reviews");
 	} else {
+		// Currently no review system in place. This code will not render anything
 		reviews.forEach(review => {
 			review = $("<div class='card-panel col-md-10' id='reviewsData'>"
 				+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
@@ -156,9 +160,7 @@ $("#reviews-tab").click(async function (event) {
 				+ "</div>");
 		});
 	}
-	//appending
 	$("#tab-content").append(reviewContainer);
-
 });
 
 $("#history-tab").click(async function (event) {
@@ -169,7 +171,7 @@ $("#history-tab").click(async function (event) {
 
 	let hDatas = await fetchBooking("/client/completedBookings", "completed");
 	if (hDatas == "") {
-		nothingToDisplay(historyCardContainer, "history booking");
+		nothingToDisplay(historyCardContainer, "past bookings");
 	} else {
 		hDatas.forEach(hData => {
 			historyCardContainer.append($(hData));

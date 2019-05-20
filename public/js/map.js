@@ -98,9 +98,10 @@ var setPopupBookingPageThree = (date, time) => {
 // Colour change for time slot button
 $('body').on("click", ".time-slot-button", (e) => {
     e.preventDefault();
-    $("#" + e.target.id).toggleClass('button-selected');
     $(".time-slot-button").removeAttr("id");
     $(e.target).attr("id", "popup-time");
+    $(e.target).toggleClass('button-selected');
+    $(".time-slot-button:not('#popup-time')").removeClass('button-selected');
     checkSelected();
     e.stopPropagation();
 });
