@@ -80,7 +80,7 @@ router.patch('/notifications/:id', auth, async (req, res) => {
 router.delete('/notifications', auth, async (req, res) => {
     try {
         const notification = await Notification.findByIdAndDelete(req.query.id)
-
+        
         if (!notification) {
             return res.status(404).send()
         }
