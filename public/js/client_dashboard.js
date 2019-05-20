@@ -27,7 +27,7 @@ function getTime(timeObject) {
 // Creates popup for payment
 function confirmationPopupPay(value, booking) {
 	createPopup();
-	createPopupHeader("h5", "Do you wish to pay the booking for</br><b id='confirm-charger-address'>"
+	createPopupHeader("h5", "Do you wish to pay for the booking at </br><b id='confirm-charger-address'>"
 		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
 		+ " on <b id='confirm-charger-date'>" + booking.startTime.split("T")[0] + "</b>"
 		+ "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"

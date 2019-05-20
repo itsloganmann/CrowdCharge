@@ -1,6 +1,5 @@
 console.log("file loaded success");
 var bookingObj;
-var successful = false;
 function addEventListenerOnAccept(element, booking, jwt) {
     element.click(event => {
         bookingObj = booking;

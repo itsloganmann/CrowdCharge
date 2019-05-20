@@ -126,7 +126,6 @@ $('#details-tab').click(function (event) {
 
 // password tab's eventListener
 $('#password-tab').click(function (event) {
-    var successful = false;
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
 
@@ -172,20 +171,13 @@ $('#password-tab').click(function (event) {
                     'Authorization': 'Bearer ' + jwt
                 }
             }).then(res => {
-                console.log(res)
-                if (res.status == 200) {
-                    successful = true;
-                }
-                
-        
+                console.log(res);        
             }).then((response) => {
-                if (successful) {
-                    createPopup();
-                    createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-header");
-                    $('body').on("click", (e) => {
-                        location.reload(true);
-                    });
-                }
+                createPopup();
+                createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-header");
+                $('body').on("click", (e) => {
+                    location.reload(true);
+                });
             }).catch(error => console.error('Password Error:', error));
         }
 
