@@ -20,7 +20,8 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 }
 
 function getTime(timeObject) {
-	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+	let time = timeObject.split("T")[1].split(":00.000Z")[0];
+	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
 }
 
 // Creates popup for payment
@@ -84,8 +85,8 @@ async function fetchBooking(url, status) {
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
 					+ "<div class='card-text-lg'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + (dataFromdb[i].startTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "-"
-					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '')
+					+ "<div class='card-text-md'>" + getTime(dataFromdb[i].startTime) + "-"
+					+ getTime(dataFromdb[i].endTime) + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
@@ -96,8 +97,8 @@ async function fetchBooking(url, status) {
 					+ "</div><div class='price-card-text-sm "
 					+ ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + status + "</div></div>"
 					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + (dataFromdb[i].startTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "-"
-					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "</div>"
+					+ "<div class='card-text-md'>" + getTime(dataFromdb[i].startTime) + " - "
+					+ getTime(dataFromdb[i].endTime) + "</div>"
 					+ ((status == "paid") ? "<div class='card-text-sm'>" + dataFromdb[i].address + "</div>" : "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>")
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ ((status == "unpaid") ? ("<button id= 'payment-" + i + "' class='pay-now-btn orange-button'>Pay Now</button>") : "")

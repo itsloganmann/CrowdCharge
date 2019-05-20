@@ -26,7 +26,8 @@ async function fetchGET(url, jwt) {
     return hostData;
 }
 function getTime(timeObject) {
-	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+	let time = timeObject.split("T")[1].split(":00.000Z")[0];
+	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
 }
 
 // Function to switch to the chargers tab
