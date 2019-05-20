@@ -91,11 +91,19 @@ main {
     font-size: 1.5rem;
 }
 .green-card {
-    background-color: #1DBF73;
+    background-color: #1ec778;
+    color: #FFFFFF;
+}
+.dark-green-card {
+    background-color: #189b5d;
     color: #FFFFFF;
 }
 .orange-card {
     background-color: #F05A29;
+    color: #FFFFFF;
+}
+.dark-orange-card {
+    background-color:  #FF9F10;
     color: #FFFFFF;
 }
 .price-card-text-wrapper {
