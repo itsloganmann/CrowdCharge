@@ -20,6 +20,10 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 	});
 }
 
+function getTime(timeObject) {
+	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+}
+
 // Creates popup for payment
 function confirmationPopupPay(value, booking) {
 	createPopup();
