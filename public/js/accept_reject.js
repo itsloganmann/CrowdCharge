@@ -20,12 +20,12 @@ function addEventListenerOnReject(element, booking, jwt) {
 
 function confirmationPopup(value, charger) {
     createPopup();
-    createPopupHeader("h3", "Do you wish to confirm the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
+    createPopupHeader("h5", "Are you sure you want to " + value + " the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
         + " on <b id='confirm-charger-date'>" + charger.startTime.split("T")[0] + "</b>"
         + "</br>at <b id='confirm-charger-stime'>" + getTime(charger.startTime) + "-</b>"
-        + "<b>" + getTime(charger.endTime) + "</b>", "confirm-popup-subheader", "popup-header");
-    createPopupConfirmButton(value + "-btn", value);
-    createPopupCancelButton("popup-cancel", "Back");
+        + "<b>" + getTime(charger.endTime) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
+    createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
+    createPopupCancelButton("popup-cancel", "Cancel");
 
 
 }
@@ -54,7 +54,7 @@ $('body').on("click", "#accept-btn", (e) => {
             //////////////////
             if (successful) {
                 $("#popup").children().remove();
-                createPopupHeader("h3", "You've accepted the booking!", "confirm-popup-header", "popup-header");
+                createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
                 })
@@ -94,7 +94,7 @@ $('body').on("click", "#decline-btn", (e) => {
         //////////////////
         if (successful) {
             $("#popup").children().remove();
-            createPopupHeader("h3", "You've decline the booking!", "confirm-popup-header", "popup-header");
+            createPopupHeader("h3", "This booking has been declined.", "confirm-popup-header", "popup-subheader");
             $('body').on("click", (e) => {
                 location.reload(true);
             })

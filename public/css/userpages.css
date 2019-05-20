@@ -80,7 +80,7 @@ main {
 /** Cards */
 .card-panel {
     box-sizing: content-box;
-    margin: 8px 1%;
+    margin: 8px 0.99999%;
     padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
@@ -123,14 +123,17 @@ main {
 .card-text-lg {
     font-size: 1.3em;
     font-weight: 500;
+    max-width: 80%;
 }
 .card-text-md {
     font-size: 1em;
     font-weight: 500;
+    max-width: 70%;
 }
 .card-text-sm {
     font-size: 1em;
     font-weight: 400;
+    max-width: 70%;
 }
 
 /** Media queries */

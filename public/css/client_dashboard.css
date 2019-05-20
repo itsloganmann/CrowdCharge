@@ -14,3 +14,6 @@
 .reject-icon:hover{
     color:  #BD0000;
 }
+.confirm-btn {
+    width: 80%;
+}

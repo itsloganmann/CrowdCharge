@@ -316,6 +316,7 @@ body {
 }
 
 .orange-button {
+  font-size: 14pt;
   display: block;
   background-color: #F05A29;
   margin: 24px auto 8px;
@@ -331,6 +332,7 @@ body {
 }
 
 .white-button {
+  font-size: 14pt;
   display: block;
   background-color: #FFFFFF;
   margin: 24px auto 8px;
