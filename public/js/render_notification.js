@@ -4,20 +4,45 @@ notifications = [];
 notifications = [
     {
         type: 'NEWREQ',
-        booking: {}
+        booking: {
+            startTime: "2019-05-14T12:00:00.000Z",
+            endTime: "2019-05-14T16:00:00.000Z",
+            chargername: "Louis's charger"
+        }
     }, {
         type: 'ACCEPTED',
-        booking: {}
+        booking: {
+            startTime: "2019-05-14T12:00:00.000Z",
+            endTime: "2019-05-14T16:00:00.000Z",
+            address: "12345 152 St.",
+            city: "Surrey",
+            province: "BC"
+        }
     }, {
         type: 'DECLINED',
-        booking: {}
+        booking: {
+            startTime: "2019-05-14T12:00:00.000Z",
+            endTime: "2019-05-14T16:00:00.000Z",
+            city: "Vancouver",
+            province: "BC",
+            chargername: "Louis's charger"
+        }
     }, {
         type: 'PAID',
-        booking: {}
+        booking: {
+            startTime: "2019-05-14T12:00:00.000Z",
+            endTime: "2019-05-14T16:00:00.000Z",
+            chargername: "Louis's charger"
+        }
+
     }
 ]
 
 //helper functions
+function getTime(timeObject) {
+    return timeObject.split("T")[1].split(":00.000Z")[0];
+}
+
 function noNotification() { }
 function buildElement(type, subheading, cardColor, content) {
     //create containers if they aren't already exist
@@ -31,8 +56,9 @@ function buildElement(type, subheading, cardColor, content) {
 
 
     //create card    
-    createContent("notif-" + type + "-data", "div", type + "-card", "card-panel col-md-5 "+ cardColor +"-card");
-    $("#" + type + "-card").text(content);
+    createContent("notif-" + type + "-data", "div", type + "-card", "card-panel col-md-5 " + cardColor + "-card");
+    var p = $("<p>" + content + "</p>");
+    $("#" + type + "-card").append(p);
 
 
 }
@@ -59,36 +85,56 @@ async function renderNotification() {
     if (notifications == "") {
         noNotification();
     } else {
+        //msg to display
         let dataInfo = "";
+
         notifications.forEach(notification => {
             switch (notification.type) {
                 //as a host
                 case "NEWREQ":
-                    dataInfo = "This is new request!";
+                    dataInfo = "charger Name: "
+                        + notification.booking.chargername
+                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
+                        + getTime(notification.booking.endTime)
+                        + "<span style= 'float: right' >...</span>";
+
                     buildElement("request"
                         , "These are user requests to use your"
                         + " charger. Please reject or accept them"
                         + " by the date of the booking."
-                        ,"orange", dataInfo);
+                        , "orange", dataInfo);
 
                     break;
                 case "PAID":
-                    dataInfo = "This is payment recieved!";
+                    dataInfo = "charger name: "
+                        + notification.booking.chargername
+                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
+                        + getTime(notification.booking.endTime)
+                        + "<span style= 'float: right' >...</span>";
+
                     buildElement("payment"
                         , "You have received your payment!"
-                        ,"dark-green", dataInfo);
+                        , "dark-green", dataInfo);
 
                     break;
                 case "CANCELLED":
                     dataInfo = "This is cancellded!";
                     buildElement("cancelled"
                         , "These pending requests are cancelled."
-                        ,"grey", dataInfo);
+                        , "grey", dataInfo);
 
                     break;
                 //as a client
                 case "ACCEPTED":
-                    dataInfo= "this is accpted!"
+                    dataInfo = "Address: "
+                        + notification.booking.address + " " + notification.booking.city + ", " + notification.booking.province
+                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
+                        + getTime(notification.booking.endTime)
+                        + "<span style= 'float: right' >...</span>";
+
                     buildElement("accepted"
                         , "These bookings have been accepted!"
                         + " Make your payment before the booking day"
@@ -96,11 +142,16 @@ async function renderNotification() {
 
                     break;
                 case "DECLINED":
-                    dataInfo= "this is declined!"
+                    dataInfo = "Location: "
+                        + notification.booking.city + ", " + notification.booking.province
+                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
+                        + getTime(notification.booking.endTime)
+                        + "<span style= 'float: right' >...</span>";
                     buildElement("declined"
                         , "these bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"
-                        ,"dark-orange", dataInfo);
+                        , "dark-orange", dataInfo);
                     break;
                 default:
                     console.log("data type not found!");
