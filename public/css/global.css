@@ -485,7 +485,6 @@ footer ul {
   z-index: 6;
   margin: 0 auto;
   width: 60vw;
-  min-width: 378px;
   max-width: 524px;
   border-radius: 8px;
   color: #464648;
@@ -495,6 +494,10 @@ footer ul {
   overflow: auto;
   border-top: 12px solid #1DBF73;
   max-height: 100vh;
+}
+
+.full-screen-modal {
+  min-width: 378px;
 }
 
 
@@ -537,12 +540,15 @@ footer ul {
 }
 
 @media only screen and (max-width: 768px){
+  .full-screen-modal {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0px !important;
+    max-width: unset !important;
+    min-width: 100vw !important;
+  }
   #popup {
-    min-width: unset;
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
-    max-width: unset;
+    width: 100vw;
   }
 }
 

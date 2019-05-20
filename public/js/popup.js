@@ -1,5 +1,5 @@
-const token = localStorage.getItem('jwt');
-if (token) {
+const jwt = localStorage.getItem('jwt');
+if (jwt) {
 	console.log("Logged in");
 	$("#login-button").remove();
 } else {
@@ -145,6 +145,7 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
+	$("#popup").addClass("full-screen-modal");
 });
 
 // Creating sign up pop-up

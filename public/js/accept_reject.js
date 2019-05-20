@@ -81,25 +81,13 @@ $('body').on("click", "#decline-btn", (e) => {
             'Authorization': 'Bearer ' + jwt
         }
     }).then(res => {
-        console.log(res)
-        if (res.status == 200) {
-            successful == true;
-        }
+        console.log(res);
     }).then((data) => {
-        //to be remove
-        successful = true;
-        //////////////////
-        if (successful) {
-            $("#popup").children().not("#popup-close-button").remove();
-            createPopupHeader("h3", "This booking has been declined.", "confirm-popup-header", "popup-subheader");
-            $('body').on("click", (e) => {
-                location.reload(true);
-            })
-
-        } else {
-            //if we recieve status for 404/400/500 
-        }
-
+        $("#popup").children().not("#popup-close-button").remove();
+        createPopupHeader("h3", "This booking has been declined.", "confirm-popup-header", "popup-subheader");
+        $('body').on("click", (e) => {
+            location.reload(true);
+        })
     }).catch(error => console.error(error));
 });
 

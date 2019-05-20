@@ -1,6 +1,5 @@
 // Sets the variables to be passed into the get balance function
 const url = '/users/me'
-const jwt = localStorage.getItem('jwt');
 const getBalance = async (url, jwt) => {
 
 	const response = await fetch(url, {

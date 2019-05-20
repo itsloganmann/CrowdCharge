@@ -1,4 +1,3 @@
-const jwt = localStorage.getItem('jwt');
 //fetch user's name onto the header of the page
 fetch('/users/me', {
 	method: 'GET',
