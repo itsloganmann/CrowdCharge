@@ -202,7 +202,6 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
             }
         });
         // Sends POST request to add a new booking
-        $('body').off('click', '#popup-confirm-validate');
         $('body').on('click', '#popup-confirm-validate', async (evt) => {
             const date = $('#popup-date').html();
             var startTime = $('#popup-time').html().split(' - ')[0];
