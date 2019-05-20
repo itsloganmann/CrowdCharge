@@ -51,7 +51,7 @@ $('body').on("click", "#accept-btn", (e) => {
             successful = true;
             //////////////////
             if (successful) {
-                $("#popup").children().remove();
+                $("#popup").children().not("#popup-close-button").remove();
                 createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
@@ -91,7 +91,7 @@ $('body').on("click", "#decline-btn", (e) => {
         successful = true;
         //////////////////
         if (successful) {
-            $("#popup").children().remove();
+            $("#popup").children().not("#popup-close-button").remove();
             createPopupHeader("h3", "This booking has been declined.", "confirm-popup-header", "popup-subheader");
             $('body').on("click", (e) => {
                 location.reload(true);

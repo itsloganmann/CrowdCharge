@@ -499,11 +499,11 @@ footer ul {
 
 
 .popup-header {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .popup-subheader {
-  font-size: 1.0rem;
+  font-size: 1.25rem;
 }
 
 /** Login */
@@ -547,12 +547,6 @@ footer ul {
 }
 
 @media only screen and (min-width: 768px) {
-  .popup-header {
-      font-size: 1.75rem;
-  }
-  .popup-subheader {
-      font-size: 1.25rem;
-  }
   .form-label {
       font-size: 12pt;
   }

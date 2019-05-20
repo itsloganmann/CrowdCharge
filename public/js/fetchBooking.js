@@ -3,22 +3,23 @@ const jwt = localStorage.getItem('jwt');
 
 function addEventListenerOnPayNow(id, booking, jwt) {
 	$('body').off('click', id);
-	$('body').on('click', id, (e) =>{
-        confirmationPopupPay("Pay Now", booking, e);
+	$('body').on('click', id, (e) => {
+		confirmationPopupPay("Pay Now", booking);
 	});
 }
 
-function confirmationPopupPay(value, booking, e) {
-    createPopup();
-    createPopupHeader("h5", "Do you wish to pay the booking for</br><b id='confirm-charger-address'>" 
-    + booking.address + " " + booking.city + ", " + booking.province +"</b>"
-        + " on <b id='confirm-charger-date'>" + booking.startTime.split("T")[0] + "</b>"
-        + "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"
-        + "<b>" + getTime(booking.endTime) + "</b>", "confirm-popup-subheader", "popup-subheader");
-    createPopupConfirmButton("pay-now-btn", value);
+// Creates popup for payment
+function confirmationPopupPay(value, booking) {
+	createPopup();
+	createPopupHeader("h5", "Do you wish to pay the booking for</br><b id='confirm-charger-address'>"
+		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
+		+ " on <b id='confirm-charger-date'>" + booking.startTime.split("T")[0] + "</b>"
+		+ "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"
+		+ "<b>" + getTime(booking.endTime) + "</b>", "confirm-popup-subheader", "popup-subheader");
+	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
 	$("body").off('click', "#pay-now-btn");
-	$("body").on('click', "#pay-now-btn", (e) => {
+	$("body").on('click', "#pay-now-btn", () => {
 		var url = '/booking/payBooking';
 		const dataToSend = {
 			bUID: booking.bookingID
@@ -33,27 +34,12 @@ function confirmationPopupPay(value, booking, e) {
 			}
 		}).then(res => {
 			console.log(res)
-			if (res.status == 200)
-				successful = true;
-		})
-			.then((response) => {
-				//to be remove
-				successful = true;
-				//////////////////
-				
-				if (successful) {
-					$("#popup").children().remove();
-					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
-					$('body').on("click", (e) => {
-						location.reload(true);
-					})
-	
-				} else {
-					//if we recieve status for 404/400/500 
-	
-				}
-				console.log("success");
-	
+		}).then((response) => {
+				$("#popup").children().not("#popup-close-button").remove();
+				createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+				$('body').on("click", (e) => {
+					location.reload(true);
+				})
 			})
 			.catch(error => console.error(error));
 	});
@@ -83,7 +69,7 @@ async function fetchBooking(url, status) {
 					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
 					+ "<div class='card-text-lg'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
 					+ "<div class='card-text-md'>" + (dataFromdb[i].startTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "-"
-					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') 
+					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '')
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
@@ -100,7 +86,7 @@ async function fetchBooking(url, status) {
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ ((status == "unpaid") ? ("<button id= 'payment-" + i + "' class='pay-now-btn orange-button'>Pay Now</button>") : "")
 					+ "</div></div>";
-					addEventListenerOnPayNow("#payment-" + i, dataFromdb[i], jwt);
+				addEventListenerOnPayNow("#payment-" + i, dataFromdb[i], jwt);
 			}
 		}
 	};
