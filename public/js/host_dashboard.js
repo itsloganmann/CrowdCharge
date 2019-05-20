@@ -3,7 +3,7 @@ const jwt = localStorage.getItem('jwt');
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "initial" });
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 	$("#tab-content").children().remove();
 });
@@ -100,39 +100,42 @@ $('#requests-tab').click(async function (event) {
 // Page to add new chargers
 const appendAddChargerPage = () => {
 	var prevPage = $("#tab-content").children().detach();
-	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3><div class="inner-subheader col-11">Add a new charger!</div><div class="col-11 tab-section-data row"><form id="new-charger-form"><div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div><div class="full-center-wrapper row"><div class="col-8"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div><div class="col-4"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div><div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details(optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3>'
+		+ '<h6 class="inner-subheader col-11">Add a new charger!</h6>'
+		+ '<div class="col-11 tab-section-data row">' 
+		+ '<form id="new-charger-form">'
+		+ '<div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="14" id="charger-name-input" class="form-input-full" required></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
-		window.scrollTo({
-			top: 0, behavior: 'smooth'
-		});
 	});
 }
 
 
-//to be move to mother js file if needed
+//Renders data from database for booking tab
 $('#bookings-tab').click(async function (event) {
-
 	createHeader("tab-content", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "You accepted these requests. "
 		+ "We are just waiting for the client to make a payment.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "unpaid-container", "col-11 tab-section-data row");
-
 	createHeader("tab-content", "h3", "Paid bookings", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
-
-	//unpaid booking data render!
+	// Fetch GET method for unpaid bookings
 	let unpaidData = await fetchGET('/host/unpaidBookings', jwt);
-	console.log(unpaidData);
 	let countUnpaid = 0;
 	if (unpaidData.length == 1) {
 		$("#unpaid-container").append("<div class='no-data'><p>You don't have any unpaid booking requests!</p></div>");
 	} else {
 	unpaidData.forEach((booking) => {
-		//unpaid booking information for the host
+		// Renders content for unpaid bookings
 		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
 		$('#unpaid-card' + countUnpaid).append('<div class="price-card-text-wrapper">'
 		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm orange-highlight">unpaid</div></div>');
@@ -151,14 +154,14 @@ $('#bookings-tab').click(async function (event) {
 		countUnpaid++;
 	}
 	)};
-	//paid booking data render!
+	// Fetch GET method for paid bookings
 	let paidData = await fetchGET('/host/paidBookings', jwt);
 	let countPaid = 0;
 	if (paidData.length == 0) {
 		$("#paid-container").append("<div class='no-data'><p>You don't have any paid booking requests!</p></div>");
 	} else {
 	paidData.forEach((booking) => {
-		//paid booking information for the host
+		// Renders content for paid bookings
 		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
 		$('#paid-card' + countPaid).append('<div class="price-card-text-wrapper">'
 		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm green-highlight">paid</div></div>');
@@ -180,7 +183,6 @@ $('#bookings-tab').click(async function (event) {
 })
 
 $('#reviews-tab').click(async function (event) {
-	console.log("click");
 	//container box and its headers
 	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
@@ -406,7 +408,7 @@ $("body").on('click', "#submit-charger", (e) => {
 	}).then(res => console.log(res))
 		.then((response) => {
 			console.log('Success: charger added to db!', (response))
-			//window.location.replace('/host_dashboard');
+			window.location.replace('/host_dashboard');
 		})
 		.catch(error => console.error('Error:', error));
 });

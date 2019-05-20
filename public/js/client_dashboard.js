@@ -16,12 +16,12 @@ fetch('/users/me', {
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "black" });
+	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 });
 
 
-//geernal header if no booking is created
+//Display user message if no bookings of the specified type are found.
 function nothingToDisplay(container, bookingType) {
 	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
 	$(container).append(nothingDiv);

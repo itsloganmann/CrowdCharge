@@ -52,6 +52,7 @@ main {
     color: #F05A29;
 }
 #tab-content {
+    min-height: 256px;
     padding: 24px 12px;
     border-radius: 8px;
     background-color: #F3F3F3;

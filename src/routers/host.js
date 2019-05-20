@@ -91,7 +91,6 @@ let getHostBookings = async function(uUID, state){
         var promises = chargers.map(async(charger)=>{return await getChargerBookings(charger._id,state)});
         const results = await Promise.all(promises)
         var merged = [].concat.apply([], results);
-        console.log("Merged ", merged);
         return(merged);
     }catch(error){
         console.log(error)
