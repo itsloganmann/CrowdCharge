@@ -39,10 +39,8 @@ async function fetchBooking(url, status) {
 					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "</div>"
 					+ ((status == "paid") ? "<div class='card-text-sm'>" + dataFromdb[i].address + "</div>" : "<div class='card-text-md'> Charger: " + dataFromdb[i].chargername + "</div>")
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
-					+ "<button id= 'payment-" + i + "' class='pay-now-btn' style ='float: right' onclick= 'payNow( "
-					+ dataFromdb[i].chargername + ")' >Pay Now</button>"
+					+ ((status == "unpaid") ? ("<button id= 'payment-" + i + "'class='pay-now-btn orange-button' onclick='payNow(" + dataFromdb[i] + ")' >Pay Now</button>") : "")
 					+ "</div></div>";
-
 			}
 		}
 	};

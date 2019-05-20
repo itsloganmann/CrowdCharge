@@ -1,5 +1,3 @@
-const jwt = localStorage.getItem('jwt');
-
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
