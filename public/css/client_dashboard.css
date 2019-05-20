@@ -14,6 +14,6 @@
 .reject-icon:hover{
     color:  #BD0000;
 }
-.confirm-btn {
-    width: 80%;
+#pay-now-btn {
+    width: 80% !important;
 }

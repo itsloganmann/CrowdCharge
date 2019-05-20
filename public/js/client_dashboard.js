@@ -257,3 +257,9 @@ $("#history-tab").click(async function (event) {
 
 })
 
+// Removes popup for booking
+$('body').on("click", "#popup-cancel", (e) => {
+    if (e.target.id == "popup-cancel") {
+        $("#popup-wrapper").remove();
+    }
+});
