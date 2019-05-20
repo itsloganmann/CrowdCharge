@@ -88,7 +88,7 @@ body {
 }
 
 .expanded-side {
-    width: 336px !important;
+    width: 288px !important;
 }
 
 #side-menu {
@@ -97,7 +97,6 @@ body {
     display: block;
     height: 100vh;
     width: 0px;
-    max-width: 336px;
     position: fixed;
     background-color: #EEEEEE;
     transition: width 0.5s ease;
@@ -327,6 +326,9 @@ body {
   padding: 8px 16px;
   width: 100%;
 }
+.orange-button:hover {
+  background-color: #D45125;
+}
 
 .white-button {
   display: block;
@@ -339,6 +341,9 @@ body {
   padding: 6px 14px;
   width: 100%;
 }
+.white-button:hover {
+  background-color: #EEEEEE;
+}
 
 .disabled-button {
   background-color: #CCCCCC !important;
@@ -350,12 +355,12 @@ body {
   width: 100%;
   border: 0px;
   border-radius: 4px 4px 0px 0px;
-  padding: 0px 8px 6px;
+  padding: 3px 8px 3px;
   border-bottom: 1px solid #464648;
   outline: none;
 }
 .form-input:focus {
-  padding: 0px 8px 5.6px;
+  padding: 3px 8px 2.6px;
   border-bottom: 1.4px solid #1DBF73;
 }
 .form-input-full {
@@ -457,6 +462,9 @@ footer ul {
 
   .footercolumn{
     margin: 10px 50px;
+  }
+  .nav-bar-icon {
+    margin: 0px 4px;
   }
 }
 

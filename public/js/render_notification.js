@@ -12,6 +12,3 @@ fetch('notification', {
 }).then((db) => {
     notifications = db;
 }).catch(error => console.log(error));
-
-
-

@@ -39,5 +39,5 @@ function fetchGET(url, jwt) {
 }
 
 function getTime(timeObject) {
-	return timeObject.split("T")[1].split(".000Z")[0];
+	return timeObject.split("T")[1].split(":00.000Z")[0];
 }

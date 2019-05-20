@@ -8,7 +8,7 @@ if (token) {
 	$("#user-menu-button").remove();
 }
 
-// Creates initial popup with generic IDs
+// Creates initial popup
 var createPopup = () => {
 	$('body').css({'position': 'fixed', 'width': '100%'});
 	var popupWrapper = document.createElement('div');
@@ -18,6 +18,7 @@ var createPopup = () => {
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
 	$('#popup').prepend('<span id="popup-close-button" class="fas fa-times ui-button-custom"></span>');
+	$("#popup").fadeIn(200);
 }
 
 var createPopupHeader = (size, text, id) => {
@@ -151,7 +152,6 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
-	$("#popup").fadeIn(100);
 });
 
 // Creating sign up pop-up
