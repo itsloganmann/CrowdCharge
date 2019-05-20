@@ -1,19 +1,19 @@
 const jwt = localStorage.getItem('jwt');
-notifications = [];
+let notifications = [];
 //mock data
-notifications = [
+/* notifications = [
     {
         type: 'NEWREQ',
         booking: {
-            startTime: "2019-05-14T12:00:00.000Z",
-            endTime: "2019-05-14T16:00:00.000Z",
+            timeStart: "2019-05-14T12:00:00.000Z",
+            timeEnd: "2019-05-14T16:00:00.000Z",
             chargername: "Louis's charger"
         }
     }, {
         type: 'ACCEPTED',
         booking: {
-            startTime: "2019-05-14T12:00:00.000Z",
-            endTime: "2019-05-14T16:00:00.000Z",
+            timeStart: "2019-05-14T12:00:00.000Z",
+            timeEnd: "2019-05-14T16:00:00.000Z",
             address: "12345 152 St.",
             city: "Surrey",
             province: "BC"
@@ -21,8 +21,8 @@ notifications = [
     }, {
         type: 'DECLINED',
         booking: {
-            startTime: "2019-05-14T12:00:00.000Z",
-            endTime: "2019-05-14T16:00:00.000Z",
+            timeStart: "2019-05-14T12:00:00.000Z",
+            timeEnd: "2019-05-14T16:00:00.000Z",
             city: "Vancouver",
             province: "BC",
             chargername: "Louis's charger"
@@ -30,13 +30,30 @@ notifications = [
     }, {
         type: 'PAID',
         booking: {
-            startTime: "2019-05-14T12:00:00.000Z",
-            endTime: "2019-05-14T16:00:00.000Z",
+            timeStart: "2019-05-14T12:00:00.000Z",
+            timeEnd: "2019-05-14T16:00:00.000Z",
             chargername: "Louis's charger"
         }
 
     }
-]
+] */
+
+//Click event Handler function
+function deleteNotification(notificationID) {
+    reqParam = {
+        id: notificationID
+    }
+    console.log(notificationID)
+    fetch('/notifications?' + $.param(reqParam), {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + jwt
+        }
+    }).then((res) => {
+        return res.json()
+    }).catch(error => console.log(error));
+}
 
 //helper functions
 function getTime(timeObject) {
@@ -44,7 +61,7 @@ function getTime(timeObject) {
 }
 
 function noNotification() { }
-function buildElement(type, subheading, cardColor, content) {
+function buildElement(notificationObj, type, subheading, cardColor, content, index) {
     //create containers if they aren't already exist
     var typeContent = document.getElementById(type + "-content");
     if (!(document.getElementById("tab-content").contains(typeContent))) {
@@ -56,11 +73,18 @@ function buildElement(type, subheading, cardColor, content) {
 
 
     //create card    
-    createContent("notif-" + type + "-data", "div", type + "-card", "card-panel col-md-5 " + cardColor + "-card");
+    createContent("notif-" + type + "-data", "div", type + "-card-" + index, "card-panel col-md-5 " + cardColor + "-card");
     var p = $("<p>" + content + "</p>");
-    $("#" + type + "-card").append(p);
-
-
+    $("#" + type + "-card-" + index).append(p);
+    $(document).on("click", "#" + type + "-card-" + index, async (e) => {
+        console.log(notificationObj._id);
+        await deleteNotification(notificationObj._id);
+        if (type == "accepted" || type == "declined") {
+           // ;
+        } else {
+           // location.replace('/host_dashboard');
+        }
+    })
 }
 //main function
 async function renderNotification() {
@@ -70,7 +94,7 @@ async function renderNotification() {
     ///////////////////////////////////////////////////
 
     //gather notification from database
-    await fetch('notification', {
+    await fetch('/notifications', {
         method: 'GET',
         headers: {
             'content-type': 'application/json',
@@ -78,86 +102,90 @@ async function renderNotification() {
         }
     }).then((res) => {
         return res.json()
-    }).then((db) => {
+    }).then(async (db) => {
+        console.log(db);
         notifications = db;
     }).catch(error => console.log(error));
+    //NOTIFICATION FETCH DONE
 
     if (notifications == "") {
         noNotification();
     } else {
         //msg to display
         let dataInfo = "";
-
-        notifications.forEach(notification => {
+        let count = 0;
+        notifications.forEach(async notification => {
+            
             switch (notification.type) {
                 //as a host
                 case "NEWREQ":
                     dataInfo = "charger Name: "
-                        + notification.booking.chargername
-                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
-                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
-                        + getTime(notification.booking.endTime)
+                        + notification.charger.chargername
+                        + "</br>Date: " + notification.booking.timeStart.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
+                        + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
 
-                    buildElement("request"
+                    buildElement(notification, "request"
                         , "These are user requests to use your"
                         + " charger. Please reject or accept them"
                         + " by the date of the booking."
-                        , "orange", dataInfo);
+                        , "orange", dataInfo, count);
 
                     break;
                 case "PAID":
                     dataInfo = "charger name: "
-                        + notification.booking.chargername
-                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
-                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
-                        + getTime(notification.booking.endTime)
+                        + notification.charger.chargername
+                        + "</br>Date: " + notification.booking.timeStart.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
+                        + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
 
-                    buildElement("payment"
+                    buildElement(notification, "payment"
                         , "You have received your payment!"
-                        , "dark-green", dataInfo);
+                        , "dark-green", dataInfo, count);
 
                     break;
                 case "CANCELLED":
                     dataInfo = "This is cancellded!";
-                    buildElement("cancelled"
+                    buildElement(notification, "cancelled"
                         , "These pending requests are cancelled."
-                        , "grey", dataInfo);
+                        , "grey", dataInfo, count);
 
                     break;
                 //as a client
                 case "ACCEPTED":
                     dataInfo = "Address: "
-                        + notification.booking.address + " " + notification.booking.city + ", " + notification.booking.province
-                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
-                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
-                        + getTime(notification.booking.endTime)
+                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
+                        + "</br>Date: " + notification.booking.timeStart.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
+                        + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
 
-                    buildElement("accepted"
+                    buildElement(notification, "accepted"
                         , "These bookings have been accepted!"
                         + " Make your payment before the booking day"
-                        , "green", dataInfo);
+                        , "green", dataInfo, count);
 
                     break;
                 case "DECLINED":
                     dataInfo = "Location: "
-                        + notification.booking.city + ", " + notification.booking.province
-                        + "</br>Date: " + notification.booking.startTime.split("T")[0]
-                        + "</br>Time: " + getTime(notification.booking.startTime) + "-"
-                        + getTime(notification.booking.endTime)
+                        + notification.charger.city + ", " + notification.charger.province
+                        + "</br>Date: " + notification.booking.timeStart.split("T")[0]
+                        + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
+                        + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
-                    buildElement("declined"
+                    buildElement(notification, "declined"
                         , "these bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"
-                        , "dark-orange", dataInfo);
+                        , "dark-orange", dataInfo, count);
                     break;
                 default:
                     console.log("data type not found!");
                     break;
-
             }
+            count++;
+
 
         });
     }
