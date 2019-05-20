@@ -337,7 +337,7 @@ $('body').on('focusout', '#signup-confirm-password-input', () => {
 
 // Prevents users from entering non-digit values in the phone input field
 $('body').on('keypress', '#signup-phone-input', (evt) => {
-    if (evt.which < 46 || evt.which > 57 || evt.which == 47)
+    if (evt.which < 48 || evt.which > 57)
     {
         evt.preventDefault();
     }

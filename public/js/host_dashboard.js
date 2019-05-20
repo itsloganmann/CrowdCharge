@@ -273,7 +273,7 @@ async function chargerInfo(chargerNumber) {
 	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
 	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
 	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", "$"+ chargers[chargerNumber].cost);
+	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
 	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
 	$("#tab-content").append("<textarea name='details' id='charger-details' class='form-input-full readonly-input-full' rows='6' cols='60' readonly>");
 	//switch between two buttons when clicked
@@ -438,7 +438,7 @@ $("body").on('click', "#submit-charger", (e) => {
 });
 
 // Disables non-digit entries for charger hourly rate
-$('body').on('keypress', '#charger-cost-input', (evt) => {
+$('body').on('keypress', '#charger-cost-input, #charger-rate', (evt) => {
 	if (evt.which < 48 || evt.which > 57) {
 		evt.preventDefault();
 	}
