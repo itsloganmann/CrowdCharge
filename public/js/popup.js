@@ -1,14 +1,14 @@
-var token = localStorage.getItem('jwt');
+const token = localStorage.getItem('jwt');
 if (token) {
-	console.log("logged in");
+	console.log("Logged in");
 	$("#login-button").remove();
 } else {
-	console.log("not logged in");
+	console.log("Not logged in");
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
 }
 
-// Creates initial popup with generic IDs
+// Creates initial popup
 var createPopup = () => {
 	$('body').css({'position': 'fixed', 'width': '100%'});
 	var popupWrapper = document.createElement('div');
@@ -18,22 +18,16 @@ var createPopup = () => {
 	popupWrapper.appendChild(popup);
 	$('body').prepend(popupWrapper);
 	$('#popup').prepend('<span id="popup-close-button" class="fas fa-times ui-button-custom"></span>');
+	$("#popup").fadeIn(200);
 }
 
-var createPopupHeader = (size, text, id) => {
+// Creates header element
+var createPopupHeader = (size, text, id, className) => {
 	var popupHeader = document.createElement(size);
-	popupHeader.className = "popup-header";
+	popupHeader.className = className;
 	popupHeader.id = id;
 	$('#popup').append(popupHeader);
-	$('.popup-header').html(text);
-}
-
-var createPopupSubheader = (size, text, id) => {
-	var popupSubheader = document.createElement(size);
-	popupSubheader.className = "popup-subheader";
-	popupSubheader.id = id;
-	$('#popup').append(popupSubheader);
-	$('.popup-subheader').html(text);
+	$(popupHeader).html(text);
 }
 
 var createPopupContent = (targetId, type, id, className) => {
@@ -123,7 +117,7 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
+$('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
 		$('body').css('position','initial');
@@ -133,7 +127,7 @@ $(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
 // Creating login pop-up
 $("#login-button").on("click", () => {
 	createPopup();
-	createPopupHeader("h3", "Log in to your account", "login-header");
+	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
 	createPopupContent("popup", "div", "login-password-wrapper", "full-center-wrapper");
 
@@ -151,14 +145,13 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
-	$("#popup").fadeIn(100);
 });
 
 // Creating sign up pop-up
 $('body').on("click", "#popup-signup-here", () => {
 	console.log("Creating account...");
 	signInPage = $("#popup").children().detach();
-	createPopupHeader("h3", "Let's Get Started!", "signup-header");
+	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
 	createPopupContent("popup", "div", "signup-email-wrapper", "full-center-wrapper");
@@ -285,7 +278,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 $('body').on('click', '#logout-button', (event) => {
 	event.preventDefault();
 	const url = '/users/logout'
-	const jwt = localStorage.getItem('jwt')
 
 	fetch(url, {
 		method: 'POST',

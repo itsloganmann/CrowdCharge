@@ -24,6 +24,7 @@ main {
 }
 .inner-header {
     font-size: 1.6rem;
+    font-weight: 700;
     margin: 3px auto;
 }
 .inner-subheader {
@@ -47,10 +48,11 @@ main {
     color: #555555;
     cursor: pointer;
 }
-.tab-button:hover {
+.tab-button:first-child, .tab-button:hover {
     color: #F05A29;
 }
 #tab-content {
+    min-height: 256px;
     padding: 24px 12px;
     border-radius: 8px;
     background-color: #F3F3F3;
@@ -62,13 +64,24 @@ main {
     margin: 12px auto;
     max-width: 93.333333%;
 }
-
+.no-data{
+    height: 10em;
+    width: 100%;
+    text-align: center;
+    padding: 70px 0;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+.no-data p{
+    color: #3D3D3D;
+    font-style: italic;
+}
 
 /** Cards */
 .card-panel {
     box-sizing: content-box;
-    margin: 8px 1%;
-    padding: 12px 2% 14px;
+    margin: 8px 0.99999%;
+    padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);
@@ -78,15 +91,24 @@ main {
     font-size: 1.5rem;
 }
 .green-card {
-    background-color: #1DBF73;
+    background-color: #1ec778;
+    color: #FFFFFF;
+}
+.dark-green-card {
+    background-color: #189b5d;
     color: #FFFFFF;
 }
 .orange-card {
     background-color: #F05A29;
     color: #FFFFFF;
 }
+.dark-orange-card {
+    background-color:  #FF9F10;
+    color: #FFFFFF;
+}
 .price-card-text-wrapper {
     float: right;
+    text-align: right;
     line-height: 1.2em;
 }
 .price-card-text-lg {
@@ -101,14 +123,17 @@ main {
 .card-text-lg {
     font-size: 1.3em;
     font-weight: 500;
+    max-width: 80%;
 }
 .card-text-md {
     font-size: 1em;
     font-weight: 500;
+    max-width: 70%;
 }
 .card-text-sm {
     font-size: 1em;
     font-weight: 400;
+    max-width: 70%;
 }
 
 /** Media queries */

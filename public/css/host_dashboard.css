@@ -1,64 +1,40 @@
-.hostHeader{
-    margin-top:5vh;
-    margin-left:5%;
-}
-.hostHeader h1{
-    font-weight:bold;
-}
-#mainTabs{
-    margin:0 auto;
-    width:90%;
-}
-#mainTabs a{
-    padding-right:2vh;
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-    font-size:1.0em;
-}
-#content{
-    padding: 20px 3%;
-}
-#outerBox{
-    background:#F3F3F3;
-    margin:0 auto;
-    margin-top: 5vh;
-	padding-top:2vh;
-    padding-bottom:5vh;
-    width:90%;
-	border-radius:10px;
-}
-
-.boxHeader{
-    font-weight:bold;
-    margin:0 3%;
-}
-#chargerContainer{
-    text-align:center;
-    width:90%;
-    margin:3vh auto;
-}
-
-#newCharger{
-    color:#f05a29;
-    background-color:white;
-}
-.chargerButton{
-    color:white;
-    background-color:#f05a29;
-    text-align:center;
-    width:30%;
-    height:30vh;
-    margin:0 5vh;
+.charger-button{
+    height: 256px;
+    font-size: 1.15rem;
+    margin: 0px auto 16px;
+    max-width: 328px;
 }
 .accept-icon{
     margin: 5px;
     color: #1DBF73;
     font-size: 30pt;
+    cursor: pointer;
+}
+.accept-icon:hover{
+    color: #149149;
 }
 .reject-icon{
     margin: 5px;
-    color:  red;
+    color:  #FF0000;
     font-size: 30pt;
+    cursor: pointer;
+}
+.reject-icon:hover{
+    color:  #BD0000;
+}
+.accept-decline-wrapper {
+    position: absolute;
+    bottom: 24px;
+    right: 4px;
+}
+@media only screen and (max-width: 576px) {
+    .charger-button {
+        height: 202px;
+    }
+}
 
+@media only screen and (max-width: 388px) {
+    .accept-icon, .reject-icon{
+        display: block;
+    }
 }
