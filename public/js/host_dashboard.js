@@ -1,3 +1,4 @@
+const jwt = localStorage.getItem('jwt');
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
@@ -5,6 +6,29 @@ $('.tab-button').on('click', (e) => {
 	$("#" + event.target.id).css({ "color": "#F05A29" });
 	$("#tab-content").children().remove();
 });
+
+// Fetches data from database 
+// Used to retrieve bookings
+async function fetchGET(url, jwt) {
+    var hostData;
+    await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + jwt
+        }
+    })
+        .then((res) => {
+            return res.json()
+        })
+        .then((db) => {
+            hostData = JSON.parse(JSON.stringify(db))
+        });
+    return hostData;
+}
+function getTime(timeObject) {
+	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+}
 
 // Function to switch to the chargers tab
 const chargersTab = async (e) => {
@@ -339,6 +363,7 @@ $("#history-tab").click(async function (event) {
 	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are the past bookings that have been made with you.");
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	historyContainer.append(historyCardContainer);
+	/*
 	let data = await fetchBooking("/host/completedBookings", "completed");
 	if (data == "") {
 		nothingToDisplay(historyCardContainer, "past bookings");
@@ -347,6 +372,7 @@ $("#history-tab").click(async function (event) {
 			historyCardContainer.append($(hData));
 		});
 	}
+	*/
 	$("#tab-content").append(historyContainer);
 
 })

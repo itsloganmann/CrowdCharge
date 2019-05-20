@@ -1,4 +1,3 @@
-const jwt = localStorage.getItem('jwt');
 let notifications = [];
 //mock data
 /* notifications = [

@@ -1,5 +1,4 @@
 const jwt = localStorage.getItem('jwt');
-
 $("#map-drawer-expansion-button").on("click", () => {
     $("#map-drawer").toggleClass("map-side-expanded");
     $("#map-drawer-details-wrapper").slideToggle(350);
@@ -144,7 +143,6 @@ const buildStars = (rating) => {
         for (let i = 0; i < 5 - Math.floor(rating); i++) {
             numOfStars = numOfStars + '<i class="far fa-star"></i>'
         }
-
         html = '<span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
     }
     return html;

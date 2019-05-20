@@ -1,4 +1,4 @@
-var token = localStorage.getItem('jwt');
+const token = localStorage.getItem('jwt');
 if (token) {
 	console.log("Logged in");
 	$("#login-button").remove();
@@ -278,7 +278,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 $('body').on('click', '#logout-button', (event) => {
 	event.preventDefault();
 	const url = '/users/logout'
-	const jwt = localStorage.getItem('jwt')
 
 	fetch(url, {
 		method: 'POST',
