@@ -212,7 +212,7 @@ $('#password-tab').click(function (event) {
                 console.log(res);        
             }).then((response) => {
                 createPopup();
-                createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-header");
+                createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
                 });

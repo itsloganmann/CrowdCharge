@@ -168,8 +168,7 @@ $("#login-button").on("click", () => {
 // Creating sign up pop-up
 // Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
-	console.log("Creating account...");
-	signInPage = $("#popup").children().detach();
+	signInPage = $("#popup").children().not("#popup-close-button").detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
