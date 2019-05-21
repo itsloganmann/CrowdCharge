@@ -17,20 +17,24 @@ main {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0px;
+    color: #3D3D3D;
 }
 .outer-subheader {
     font-size: 1.25rem;
     margin: 0px;
+    color: #3D3D3D;
 }
 .inner-header {
     font-size: 1.6rem;
     font-weight: 700;
     margin: 3px auto;
+    color: #3D3D3D;
 }
 .inner-subheader {
     font-size: 0.85rem;
     font-weight: 400;
     margin: 3px auto;
+    color: #3D3D3D;
 }
 .header-number {
     font-size: 1.6rem;

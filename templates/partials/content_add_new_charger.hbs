@@ -1,0 +1,46 @@
+<main>
+    <h3 class="inner-header">New Charger</h3>
+    <div class="inner-subheader">Add a new charger!</div>
+    <form id="new-charger-form">
+        <div class="full-center-wrapper">
+            <label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label>
+            <input type="text" name="name" maxlength="15" id="charger-name-input" class="form-input-full" required>
+        </div>
+        <div class="full-center-wrapper">
+            <label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label>
+            <input type="text" name="address" id="charger-address-input" class="form-input-full" required>
+        </div>
+        <div class="full-center-wrapper">
+            <label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label>
+            <input type="text" name="city" id="charger-city-input" class="form-input-full" required>
+        </div>
+        <div class="full-center-wrapper row">
+            <div class="col-8">
+                <label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label>
+                <select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required>
+                    <option value="tesla">Tesla</option>
+                    <option value="tesla2">Tesla 2</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label>
+                <select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required>
+                    <option value="level-1">1</option>
+                    <option value="level-2">2</option>
+                </select>
+            </div>
+        </div>
+        <div class="full-center-wrapper">
+            <label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label>
+            <input type="number" name="rate" id="charger-cost-input" class="form-input-full" required>
+        </div>
+        <div class="full-center-wrapper">
+            <label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details
+                (optional)</label>
+            <textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"
+                placeholder="Max 80 characters"></textarea>
+        </div>
+        <input class="orange-button disabled-button" id="submit-charger" type="submit" value="Add Charger" disabled>
+        <input class="white-button" id="cancel-charger" type="button" value="Cancel">
+    </form>
+</main>

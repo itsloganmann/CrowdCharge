@@ -7,117 +7,85 @@ const forecast = require ('../utils/forecast')
 // Setting up the routing for different pages.
 router.get('', (req, res) => {
     res.render('index', {
-        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network',
-        name: 'Home'
+        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network'
     })
-}) 
+})
+
+router.get('/index', (req, res) => {
+    res.render('index', {
+        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network'
+    })
+})
 
 router.get('/profile_details', (req, res) => {
     res.render('profile_details', {
-        title: 'ZapShare - Your Profile',
-        name: ''
+        title: 'ZapShare - Your Profile'
     })
 })
 
 router.get('/host_dashboard', (req, res) => {
     res.render('host_dashboard', {
-        title: 'ZapShare - Charger Dashboard',
-        name: ''
+        title: 'ZapShare - Charger Dashboard'
     })
 })
 
 router.get('/add_new_charger', (req, res) => {
     res.render('add_new_charger', {
-        title: 'ZapShare - Add a Charger',
-        name: ''
+        title: 'ZapShare - Add a Charger'
     })
 })
 
 router.get('/client_dashboard', (req, res) => {
     res.render('client_dashboard', {
-        title: 'ZapShare - User Dashboard',
-        name: ''
+        title: 'ZapShare - User Dashboard'
     })
 })
 
 router.get('/wallet', (req, res) => {
     res.render('wallet', {
-        title: 'ZapShare - Wallet',
-        name: ''
+        title: 'ZapShare - Your Wallet'
     })
 })
 
 router.get('/contact', (req, res) => {
     res.render('contact', {
-        title: 'ZapShare - Contact Us',
-        name: ''
-    })
-})
-router.get('/index', (req, res) => {
-    res.render('index', {
-        title: 'ZapShare - Peer-to-peer Electric Charging Network',
-        name: ''
+        title: 'ZapShare - Contact Us'
     })
 })
 
 router.get('/notification', (req, res) => {
     res.render('notification', {
-        title: 'ZapShare - Notifications',
-        name: ''
+        title: 'ZapShare - Notifications'
     })
 })
 
 router.get('/about', (req, res) => {
     res.render('about', {
-        title: 'ZapShare - About Us',
-        name: ''
+        title: 'ZapShare - About Us'
     })
 })
 
 router.get('/map', (req, res) => {
     res.render('map', {
-        title: 'ZapShare - Map',
-        name: ''
-    })
-})
-
-router.get('/help', (req, res) => {
-    res.render('Help', {
-        message: 'Help page contents.',
-        title: 'Help',
-        name: ''
+        title: 'ZapShare - Map'
     })
 })
 
 router.get('/privacy', (req, res) => {
-    res.render('Privacy', {
-        message: 'Privacy page contents',
-        title: 'Privacy',
-        name: ''
+    res.render('privacy', {
+        title: 'ZapShare - Privacy Policy'
     })
 })
 
 router.get('/disclaimer', (req, res) => {
-    res.render('Disclaimer', {
-        message: 'Disclaimer page contents',
-        title: 'Disclaimer',
-        name: ''
+    res.render('disclaimer', {
+        title: 'ZapShare - Disclaimer'
     })
 })
 
 router.get('/terms', (req, res) => {
     res.render('terms', {
-        message: 'TOS page contents',
-        title: 'Terms of Service',
-        name: ''
-    })
-})
-
-router.get('/help/*', (req, res) => {
-    res.render('404', {
-        title: 'Help',
-        name: '',
-        errorMessage: 'Help article not found.'
+        title: 'ZapShare - Terms of Service'
     })
 })
 
