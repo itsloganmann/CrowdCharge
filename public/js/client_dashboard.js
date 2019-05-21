@@ -35,29 +35,43 @@ function confirmationPopupPay(value, booking) {
 	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
 	$("body").off('click', "#pay-now-btn");
-	$("body").on('click', "#pay-now-btn", () => {
-		var url = '/booking/payBooking';
-		const dataToSend = {
-			bUID: booking.bookingID
-		}
-		console.log(dataToSend);
-		fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(dataToSend),
-			headers: {
-				'content-type': 'application/json',
-				'Authorization': 'Bearer ' + jwt
-			}
-		}).then(res => {
-			console.log(res)
-		}).then((response) => {
-				$("#popup").children().not("#popup-close-button").remove();
-				createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
-				$('body').on("click", (e) => {
-					location.reload(true);
-				})
+	$("body").on('click', "#pay-now-btn", async () => {
+		try {
+			await fetch('/users/pay', {
+				method: 'PATCH',
+				body: JSON.stringify({cost: booking.cost}),
+				headers: {
+					'content-type': 'application/json',
+					'Authorization': 'Bearer ' + jwt
+				}
+			}).then(res => res.json())
+			.then(async (response) => {
+				if (response.error){
+					$("#popup").children().not("#popup-close-button").remove();
+					createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
+					createPopupCancelButton("popup-cancel", "Close");
+				} else {
+					await fetch('/booking/payBooking', {
+						method: 'POST',
+						body: JSON.stringify({bUID: booking.bookingID}),
+						headers: {
+							'content-type': 'application/json',
+							'Authorization': 'Bearer ' + jwt
+						}		
+					})
+					$("#popup").children().not("#popup-close-button").remove();
+					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+					$('body').on("click", (e) => {
+						location.reload(true);
+					})
+				}
 			})
-			.catch(error => console.error(error));
+		} catch(error) {
+			console.log(error);
+		}
+		/*
+
+		*/
 	});
 }
 
@@ -141,7 +155,6 @@ const bookingTab = async (e) => {
 
 	const confirmedBookingURL = "/client/paidBookings";
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
-	console.log("data:" + cBDatas);
 	if (cBDatas == "") {
 		nothingToDisplay(paidCardContainer, "paid bookings");
 	}
@@ -175,7 +188,7 @@ const bookingTab = async (e) => {
 }
 bookingTab();
 
-$("#bookings-tab").click(async function (event) {	
+$("#bookings-tab").click(async function (event) {
 	bookingTab();
 });
 
@@ -257,10 +270,3 @@ $("#history-tab").click(async function (event) {
 	$("#tab-content").append(historyContainer);
 
 })
-
-// Removes popup for booking
-$('body').on("click", "#popup-cancel", (e) => {
-    if (e.target.id == "popup-cancel") {
-        $("#popup-wrapper").remove();
-    }
-});

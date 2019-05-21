@@ -90,10 +90,3 @@ $('body').on("click", "#decline-btn", (e) => {
         })
     }).catch(error => console.error(error));
 });
-
-// Removes popup for booking
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
-});

@@ -29,14 +29,6 @@ function checkSelected() {
     }
 }
 
-
-// Removes popup for booking
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
-});
-
 $('body').on("click", "#popup-confirm", (e) => {
     var date = $("#datepicker").val();;
     var time = $("#popup-time").html();

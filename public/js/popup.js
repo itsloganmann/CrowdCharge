@@ -361,3 +361,10 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$('#signup-phone-label').removeClass('invalid-input-label');
 	$("#phone-validation").remove();
 });
+
+// Removes popup for booking
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+        $("#popup-wrapper").remove();
+    }
+});

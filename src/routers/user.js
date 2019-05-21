@@ -67,13 +67,12 @@ router.get('/users/me', auth, async (req, res) => {
 // Updates balance after paying for booking
 router.patch('/users/pay', auth, async (req, res) => {
     try {
+        console.log(req.body.cost);
+
         const priceToPay = parseInt(req.body.cost);
-        console.log(req.body)
         const userBalance = req.user.balance;
-        console.log("Price: ", priceToPay);
-        console.log("Balance: ", userBalance);
         if (priceToPay > userBalance){
-            res.send("Error: Invalid balance.");
+            res.send({error: "Invalid balance."});
         } else {
             req.user.balance -= priceToPay;
             await req.user.save()
@@ -91,6 +90,7 @@ router.patch('/users/addBalance', auth, async (req, res) => {
         const additionalBalance = req.body.balance;
         req.user.balance += parseInt(additionalBalance);
         await req.user.save()
+        console.log(req.user);
         res.send(req.user);
     } catch(error) {
         res.status(400).send(error);
