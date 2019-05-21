@@ -246,22 +246,38 @@ $("#reviews-tab").click(async function (event) {
 	}).then((db) => {
 		reviews = db;
 		$("#tab-content").children().remove();
+		if (reviews == "") {
+			nothingToDisplay(reviewCardContainer, "reviews");
+		}else{
+			console.log(reviews)
+			reviews.forEach(review => {
+				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+					+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
+					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+					+ "<div class'card-text-md'>" + review.date + "</div>"
+					+ "<div class='card-text-sm'>" + review.details + "</div>"
+					+ "</div>");
+				reviewCardContainer.append(review)
+			});
+		}
+		$("#tab-content").append(reviewContainer);
 	}).catch(error => console.error('Error:', error));
-	if (reviews == "") {
-		nothingToDisplay(reviewCardContainer, "reviews");
-	} else {
-		// Currently no review system in place. This code will not render anything
-		reviews.forEach(review => {
-			review = $("<div class='card-panel col-md-10' id='reviewsData'>"
-				+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
-				+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
-				+ "<div class'card-text-md'>" + review.date + "</div>"
-				+ "<div class='card-text-sm'>" + review.details + "</div>"
-				+ "</div>");
-		});
-	}
+	// if (reviews == "") {
+	// 	nothingToDisplay(reviewCardContainer, "reviews");
+	// } else {
+		
+	// 	// Currently no review system in place. This code will not render anything
+	// 	reviews.forEach(review => {
+	// 		review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+	// 			+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
+	// 			+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+	// 			+ "<div class'card-text-md'>" + review.date + "</div>"
+	// 			+ "<div class='card-text-sm'>" + review.details + "</div>"
+	// 			+ "</div>");
+	// 	});
+	// }
 	// Append content to tab
-	$("#tab-content").append(reviewContainer);
+	// $("#tab-content").append(reviewContainer);
 });
 
 // History tab event listener

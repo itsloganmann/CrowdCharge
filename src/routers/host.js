@@ -113,6 +113,7 @@ let getChargerBookings = async function(cUID,state){
                 element.city = charger.city;
                 element.province = charger.province;
                 element.client = client.name;
+                element.clientID = client._id;
                 element.chargername = charger.chargername;
                 if(state =="PENDING")
                     element.bookingID = booking._id;
