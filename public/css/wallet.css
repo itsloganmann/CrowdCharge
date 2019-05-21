@@ -64,3 +64,36 @@ main {
 	padding-bottom: 5px;
 	margin-bottom: 0;
 }
+
+/** Recharge tab */
+.balance-button {
+	font-size: 28pt;
+	display: block;
+	background-image: linear-gradient(#CDCDCD, #EEEEEE);
+	margin: 8px auto 8px;
+	cursor: pointer;
+	border-radius: 12px;
+	border: 0px;
+	padding: 8px 16px;
+	width: 60%;
+}
+
+.balance-button:hover {
+	background-image: linear-gradient(#9A9A9A, #CCCCCC);
+	color: white;
+}
+.balance-button-selected {
+	background-image: linear-gradient(#189b5d, #1ec778);
+    color: white;
+}
+.balance-button-selected:hover {
+    background-image: linear-gradient(#168a54, #1cb36c);
+}
+#recharge-button {
+	margin-top: 24px;
+	width: 60%;
+	border-radius: 12px;
+}
+#recharge-balance {
+	display: none;
+}

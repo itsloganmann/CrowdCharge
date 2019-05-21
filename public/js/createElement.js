@@ -1,4 +1,8 @@
-//refactored
+// These functions create standardized content for use in ZapShare
+//
+// Contains functions for inputs, labels, buttons, headers, body, boxes, popups.
+
+// Creates an input element
 var createInput = (targetId, type, readonlyBooleanValue, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
@@ -12,6 +16,7 @@ var createInput = (targetId, type, readonlyBooleanValue, name, id, className, va
 	$('#' + targetId).append(input);
 }
 
+// Creates a label element
 var createLabel = (targetId, relatedInput, text, id, className) => {
 	let label = document.createElement("label");
 	label.id = id;
@@ -21,6 +26,7 @@ var createLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Creates a button element
 var createButton = (targetId, id, text, className) => {
 	var button = document.createElement('button');
 	button.id = id;
@@ -31,6 +37,7 @@ var createButton = (targetId, id, text, className) => {
 	$('#' + id).html(text);
 }
 
+// Creates a content card
 var createContent = (targetId, type, id, className) => {
 	var content = document.createElement(type);
 	if (className != undefined) {
@@ -40,6 +47,7 @@ var createContent = (targetId, type, id, className) => {
 	$('#' + targetId).append(content);
 }
 
+// Creates a header element
 var createHeader = (targetId, size, text, className) => {
 	var header = document.createElement(size);
 	header.innerText = text;
@@ -49,6 +57,7 @@ var createHeader = (targetId, size, text, className) => {
 	$('#' + targetId).append(header);
 }
 
+// Creates a subheader element
 var createSubheader = (targetId, size, text, className) => {
 	var subheader = document.createElement(size);
 	subheader.innerText = text;
@@ -58,6 +67,7 @@ var createSubheader = (targetId, size, text, className) => {
 	$('#' + targetId).append(subheader);
 }
 
+// Creates a content container element to append to a dashboard tab
 function createContentContainer(containerID, headingID, headingInnerText, subHeadingID, subHeadingInnerText) {
     var contentContainer = $("<div id='" + containerID + "' class='tab-section-content col-12'>");
     var h1String = "<h3 class='col-11 inner-header' id='" + headingID + "'><b>" + headingInnerText + "</b></h3>";

@@ -1,8 +1,11 @@
+// Controls the host dashboard. Lets the host add chargers,
+// view their bookings, check their reviews, and see their earnings.
+
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
-	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
 	$("#tab-content").children().remove();
 });
 
@@ -25,8 +28,11 @@ async function fetchGET(url, jwt) {
 		});
 	return hostData;
 }
+
+// Get the current time and format the object.
 function getTime(timeObject) {
-	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+	let time = timeObject.split("T")[1].split(":00.000Z")[0];
+	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
 }
 
 // Function to switch to the chargers tab
@@ -43,18 +49,22 @@ const chargersTab = async (e) => {
 	}).then((db) => {
 		chargers = db;
 	}).catch(error => console.log(error));
-	//create new content
+
+	// Create new content
 	var header = $('<h3 class="col-11 inner-header">Chargers</h3>');
 	var subheader = $('<h6 class="col-11 inner-subheader">Here are your chargers! Select them to edit details and availability.</h6>');
 	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button></div>");
 	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
-	//populating all chargers owned from database
+
+	// Populating all chargers owned from database
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
 			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
+
+	// Append new content to the tab
 	$('#tab-content').children().remove();
 	$('#tab-content').append(header);
 	$('#tab-content').append(subheader);
@@ -70,18 +80,19 @@ const chargersTab = async (e) => {
 }
 chargersTab();
 
-//charger tab click event handler
+// Charger tab event handler
 $('#chargers-tab').click(function (event) {
 	chargersTab();
 });
 
-//request tab click event handler
+// Request tab event handler
 $('#requests-tab').click(async function (event) {
 	createHeader("tab-content", "h3", "Requests", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are user requests to use your charger. "
 		+ "Please reject or accept them by the date of the booking.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "request-container", "col-11 tab-section-data row");
-	//pending booking data render!
+
+	// Pending booking data render
 	const pendingData = await fetchGET('/host/pendingBookings', jwt)
 	console.log("DATA ", pendingData);
 	let countPending = 0;
@@ -89,11 +100,11 @@ $('#requests-tab').click(async function (event) {
 		$("#request-container").append("<div class='no-data'><p>You don't have any pending booking requests!</p></div>");
 	} else {
 		pendingData.forEach((booking) => {
-			//pending booking information for the host
+
+			// Pending booking information for the host
 			createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 			$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
 				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm">pending</div></div>');
-			createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
 			createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg");
 			createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
 			$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
@@ -103,23 +114,24 @@ $('#requests-tab').click(async function (event) {
 			createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-sm");
 			$("#pending-charger-name" + countPending).text("Charger: " + booking.chargername);
 			$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
-			//accept or reject 
-			createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
-			createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-			addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
-			addEventListenerOnReject($("#reject" + countPending), booking, jwt);
-
 			createContent("pending-card" + countPending, "div", "pending-address" + countPending, "card-text-sm");
 			$("#pending-address" + countPending).text(booking.address);
 			createContent("pending-card" + countPending, "div", "pending-area" + countPending, "card-text-sm");
 			$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
+			//accept or reject 
+			createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
+			createButton("acc-rej-container" + countPending, "accept" + countPending, "Accept", "green-button booking-accept-button");
+			createButton("acc-rej-container" + countPending, "reject" + countPending, "Decline", "red-button booking-reject-button");
+			//	createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
+			//	createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+			addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
+			addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 			countPending++;
-		}
-		);
+		})
 	}
 });
 
-// Page to add new chargers
+// Charger page to add new chargers
 const appendAddChargerPage = () => {
 	var prevPage = $("#tab-content").children().detach();
 	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3>'
@@ -139,8 +151,7 @@ const appendAddChargerPage = () => {
 	});
 }
 
-
-//Renders data from database for booking tab
+// Renders data from database for booking tab
 $('#bookings-tab').click(async function (event) {
 	createHeader("tab-content", "h3", "Unpaid bookings", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "You accepted these requests. "
@@ -150,6 +161,7 @@ $('#bookings-tab').click(async function (event) {
 	createSubheader("tab-content", "h6", "These booking are successfully added to your schedule. "
 		+ "Please make sure the client can now use your charger.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "paid-container", "col-11 tab-section-data row");
+
 	// Fetch GET method for unpaid bookings
 	let unpaidData = await fetchGET('/host/unpaidBookings', jwt);
 	let countUnpaid = 0;
@@ -157,6 +169,7 @@ $('#bookings-tab').click(async function (event) {
 		$("#unpaid-container").append("<div class='no-data'><p>You don't have any unpaid booking requests!</p></div>");
 	} else {
 		unpaidData.forEach((booking) => {
+
 			// Renders content for unpaid bookings
 			createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
 			$('#unpaid-card' + countUnpaid).append('<div class="price-card-text-wrapper">'
@@ -177,6 +190,7 @@ $('#bookings-tab').click(async function (event) {
 		}
 		)
 	};
+
 	// Fetch GET method for paid bookings
 	let paidData = await fetchGET('/host/paidBookings', jwt);
 	let countPaid = 0;
@@ -184,6 +198,7 @@ $('#bookings-tab').click(async function (event) {
 		$("#paid-container").append("<div class='no-data'><p>You don't have any paid booking requests!</p></div>");
 	} else {
 		paidData.forEach((booking) => {
+
 			// Renders content for paid bookings
 			createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
 			$('#paid-card' + countPaid).append('<div class="price-card-text-wrapper">'
@@ -206,11 +221,15 @@ $('#bookings-tab').click(async function (event) {
 	};
 })
 
+// Review tab eventListener
 $('#reviews-tab').click(async function (event) {
-	//container box and its headers
+
+	// Container box and its headers
 	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
+
+	// Testing stock review data
 	//let reviewData = await fetchGET("host/allChargerReviews", jwt);
 	/*reviewData = [{
 		reviewer: "Jane Doe",
@@ -243,7 +262,7 @@ $('#reviews-tab').click(async function (event) {
 })
 
 
-//click event listener on each charger
+// Lets the user create a new charger
 async function chargerInfo(chargerNumber) {
 	let chargers = [];
 	await fetch('/chargers', {
@@ -257,12 +276,12 @@ async function chargerInfo(chargerNumber) {
 	}).then((db) => {
 		chargers = db;
 	}).catch(error => console.log(error));
-	//rebuild content div with charger information that a user clicked
+
+	// Remove old content so we can rebuild with new content
 	let prevPage = $('#tab-content').children().detach();
 
+	// Create label and input elements for the new charger form.
 	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
-	//name we only want 20 characters
-	//createContent(target id type classname)
 	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
 	createLabel("tab-content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
 	createInput("tab-content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
@@ -288,11 +307,13 @@ async function chargerInfo(chargerNumber) {
 	createButton("tab-content", "back-btn", "Back", "white-button");
 	$("#save-btn").css({ "display": "none" });
 
+	// Append new content
 	$("#back-btn").click((e) => {
 		$("#tab-content").children().remove();;
 		$("#tab-content").append(prevPage);
 	});
-	//event listener for save/edit button clicked
+
+	// Event listener for edit button click
 	$('#edit-btn').click(function (event) {
 		$('#edit-btn').css({ "display": "none" });
 		$('#save-btn').css({ "display": "block" });;
@@ -304,6 +325,7 @@ async function chargerInfo(chargerNumber) {
 
 	});
 
+	// Event listener for save button click
 	$('#save-btn').click(function (event) {
 		$('#save-btn').css({ "display": "none" });
 		$('#edit-btn').css({ "display": "block" });;
@@ -321,8 +343,8 @@ async function chargerInfo(chargerNumber) {
 		var cprovince = $("#charger-province").val();
 		var ctype = $("#charger-type").val();
 		var clevel = $("#charger-level").val();
-		if ($("#charger-rate").val() > 0){}
-			var crate = $("#charger-rate").val();
+		if ($("#charger-rate").val() > 0) { }
+		var crate = $("#charger-rate").val();
 		var cdetails = $.trim($("#charger-details").val());
 		let dataToSent = {
 			chargername: cname,
@@ -338,7 +360,8 @@ async function chargerInfo(chargerNumber) {
 		const paramForServer = {
 			cUID: chargers[chargerNumber]._id
 		}
-		//update calls to the database
+
+		// The Fetch PATCH call to the database
 		fetch('/charger?' + $.param(paramForServer), {
 			method: 'PATCH',
 			headers: {
@@ -367,13 +390,13 @@ async function chargerInfo(chargerNumber) {
 	});
 }
 
-//geernal header if no booking is created
+// General header if no booking is created
 function nothingToDisplay(container, bookingType) {
 	nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
 	$(container).append(nothingDiv);
 }
 
-
+// History tab eventListener
 $("#history-tab").click(async function (event) {
 	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are the past bookings that have been made with you.");
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
@@ -391,10 +414,6 @@ $("#history-tab").click(async function (event) {
 	*/
 	$("#tab-content").append(historyContainer);
 })
-
-
-
-
 
 // Enables add new charger button if all fields are filled
 $('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input, #charger-cost-input', (event) => {
@@ -414,6 +433,7 @@ $('body').on('input', '#charger-name-input, #charger-address-input, #charger-cit
 	}
 });
 
+// POSTS new charger data to database upon button click
 $("body").on('click', "#submit-charger", (e) => {
 	e.preventDefault();
 	const chargeraddress = $('#charger-address-input').val();
@@ -437,6 +457,8 @@ $("body").on('click', "#submit-charger", (e) => {
 		type: chargertype,
 		details: chargerdetails
 	}
+
+	// The Fetch call
 	fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(data),

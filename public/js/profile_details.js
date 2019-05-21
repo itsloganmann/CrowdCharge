@@ -1,15 +1,20 @@
+// Controls the profile details page.
+//
+// Lets the host edit their profile information, change their password, 
+// and change their notification settings.
+
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$('.tab-button:not(#' + event.target.id + ')').css({ 'color': 'inherit' });
-	$('#' + event.target.id).css({ 'color': '#F05A29' });
+    $('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
 	$('#tab-content').children().remove();
 });
 
-// named function for default tab load and on click
+// Named function for default tab load and on click
 function defaultTab () {
 
-    // fetch user data
+    // GET user data
     fetch('/users/me', {
         method: 'GET',
         headers: {
@@ -19,16 +24,15 @@ function defaultTab () {
     }).then((res) => {
         return res.json()
     }).then(async (db) => {
+        // Display user data
         $('#profile-name-input').val(db.name);
         $('#profile-email-input').val(db.email);
         $('#profile-phone-input').val(db.phone);
 
+        // Set attributes to readonly
         $('#profile-name-input').attr('readonly', 'true');
         $('#profile-email-input').attr('readonly', 'true');
         $('#profile-phone-input').attr('readonly', 'true');
-        $('#profile-currentpassword-input').attr('readonly', 'true');
-        $('#profile-newpassword-input').attr('readonly', 'true');
-        $('#profile-confirmpassword-input').attr('readonly', 'true');
 
     }).catch(error => console.log(error));
 
@@ -56,6 +60,38 @@ function defaultTab () {
             "</div>"
     ));
     $('#tab-content').append(detailsContainer);
+
+/** Change Password Validation */
+// Enables change password button if all fields are filled
+$('body').on('input', '#profile-confirmpassword-input, #profile-newpassword-input', (event) => {
+	var formFilled = false;
+	if ($('#profile-confirmpassword-input').val() && $('#profile-newpassword-input').val()) {
+		formFilled = true;
+	}
+	if (formFilled) {
+			$('#password-btn').removeAttr('disabled');
+			$('#password-btn').removeClass('disabled-button');
+	} else {
+			$('#password-btn').prop('disabled', true);
+			$('#password-btn').addClass('disabled-button');
+	}
+});
+// Displays error message if passwords do not match upon leaving Confirm Password field for Change Password tab.
+$('body').on('focusout', '#profile-confirmpassword-input', () => {
+	if ($('#profile-confirmpassword-input').val() != "" && $('#profile-newpassword-input').val() != "" &&
+		$('#profile-confirmpassword-input').val() != $('#profile-newpassword-input').val() && $('#password-validation').length === 0) {
+		$('#profile-confirmpassword-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
+		$('#profile-confirmpassword-input').addClass('invalid-input-underline');
+		$('#profile-confirmpassword-label').addClass('invalid-input-label');
+	}
+});
+// Removes error message when editing confirm password field
+$('body').on('keyup', '#profile-confirmpassword-input', (evt) => {
+	$('#profile-confirmpassword-input').removeClass('invalid-input-underline');
+	$('#profile-confirmpassword-label').removeClass('invalid-input-label');
+	$("#password-validation").remove();
+});
+
 
     // Edit Button behavior
     $('#edit-btn').click(function (event) {
@@ -88,7 +124,7 @@ function defaultTab () {
         $('#edit-btn').css({ 'display': 'block' });
     
     
-        //POST
+        //PATCH profile information
         var name = $('#profile-name-input').val();
         var phone = $('#profile-phone-input').val();
         var email = $('#profile-email-input').val();
@@ -113,17 +149,17 @@ function defaultTab () {
     });
 };
 
+// Default tab behavior. Onload go to default tab, "Detail"
 window.onload = function() {
     defaultTab();
-    $('#details-tab').css({ 'color': '#F05A29' });
 };
 
-// detail tab event listener
+// Detail tab event listener
 $('#details-tab').click(function (event) {
     defaultTab();
 })
 
-// password tab's eventListener
+// Password tab eventListener
 $('#password-tab').click(function (event) {
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
@@ -144,7 +180,7 @@ $('#password-tab').click(function (event) {
                 "<label id='profile-confirmpassword-label' class='form-label profile-label' for='profile-confirmpassword-input'>Confirm new password</label>" +
                 "<input type='password' name='confirmpassword' id='profile-confirmpassword-input' class='form-input profile-input' >" +
             "</div>" +
-            "<input type='submit' id='password-btn' class='orange-button small-btn' value='Save Password'></button>" +
+            "<input type='submit' id='password-btn' class='orange-button small-btn disabled-button' value='Save Password' readonly></button>" +
         "</form>"));
     $('#tab-content').append(passwordContainer);
     
@@ -153,7 +189,10 @@ $('#password-tab').click(function (event) {
         event.preventDefault();
 
         if ($('#profile-newpassword-input').val() !== $('#profile-confirmpassword-input').val()) {
-            console.log("passwords don't match");
+            $("#password-validation").remove();
+            $('#profile-confirmpassword-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
+            $('#profile-confirmpassword-input').addClass('invalid-input-underline');
+            $('#profile-confirmpassword-label').addClass('invalid-input-label');
         }
         // Check passwords and PATCH new password
         if ($('#profile-newpassword-input').val() == $('#profile-confirmpassword-input').val()) {
@@ -173,7 +212,7 @@ $('#password-tab').click(function (event) {
                 console.log(res);        
             }).then((response) => {
                 createPopup();
-                createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-header");
+                createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
                 });
@@ -183,7 +222,7 @@ $('#password-tab').click(function (event) {
     });
 });
 
-// notification tab event listener
+// Notification tab event listener
 $('#notification-tab').click(function (event) {
     var notificationContainer = createContentContainer('notification-container', 'notification-header', 'Notification Settings', 'notification-sub', '');
 

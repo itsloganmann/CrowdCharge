@@ -1,10 +1,18 @@
+// This script creates accept/reject buttons for the bookings popup
+// and makes fetch calls.
+
+
+// Verify the script loaded
 console.log("file loaded success");
+
+// Create the booking object
 var bookingObj;
+
+// Add event listeners
 function addEventListenerOnAccept(element, booking, jwt) {
     element.click(event => {
         bookingObj = booking;
         confirmationPopup("accept", booking);
-
     })
 }
 
@@ -15,6 +23,7 @@ function addEventListenerOnReject(element, booking, jwt) {
     })
 }
 
+// Creates a popup containing the booking
 function confirmationPopup(value, charger) {
     createPopup();
     createPopupHeader("h5", "Are you sure you want to " + value + " the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
@@ -22,13 +31,17 @@ function confirmationPopup(value, charger) {
         + "</br>at <b id='confirm-charger-stime'>" + getTime(charger.startTime) + "-</b>"
         + "<b>" + getTime(charger.endTime) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
     createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
+    if (value == "accept")
+        $("#accept-btn").removeClass('orange-button').addClass('green-button');
+    else if (value == "decline") {
+        $("#decline-btn").removeClass('orange-button').addClass('red-button');
+    }
     createPopupCancelButton("popup-cancel", "Cancel");
-
-
 }
-//fetch call if user confirmed to accept the request
+
+// The Fetch call if user accepts the request
 $('body').on("click", "#accept-btn", (e) => {
-    //setting all require info to make a request
+    // Set all required info to make a request
     var url = '/booking/acceptBooking';
     const dataToSend = {
         bUID: bookingObj.bookingID
@@ -46,9 +59,9 @@ $('body').on("click", "#accept-btn", (e) => {
             successful = true;
     })
         .then((response) => {
-            //to be remove
-            successful = true;
-            //////////////////
+            // testing; to be removed
+            // successful = true;
+            // //////////////////
             if (successful) {
                 $("#popup").children().not("#popup-close-button").remove();
                 createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
@@ -65,10 +78,10 @@ $('body').on("click", "#accept-btn", (e) => {
         .catch(error => console.error(error));
 });
 
-//fetch call if user confirmed to decline the request
+// The Fetch call if user declined the request
 $('body').on("click", "#decline-btn", (e) => {
 
-    //setting all require info to make a request
+    // Set all required info to make a request
     const dataToSend = {
         bUID: bookingObj.bookingID
     }
@@ -89,11 +102,4 @@ $('body').on("click", "#decline-btn", (e) => {
             location.reload(true);
         })
     }).catch(error => console.error(error));
-});
-
-// Removes popup for booking
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
 });

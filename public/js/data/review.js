@@ -1,3 +1,5 @@
+// Schema for a review class
+
 class review{
 	constructor(obj){
 		this.obj = obj;
@@ -8,6 +10,4 @@ class review{
 		this.rating = obj.rating; //Number
 
 	}
-
-	//rendering?
 }

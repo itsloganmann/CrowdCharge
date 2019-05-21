@@ -1,3 +1,6 @@
+// Renders notifications for users
+
+// Declare array to hold notifications
 let notifications = [];
 //mock data
 /* notifications = [
@@ -52,19 +55,23 @@ function deleteNotification(notificationID, index, cardID) {
     }).then((res) => {
         return res.json()
     }).then((data) => {
-        $("#" +cardID).toggle("drop");
+        $("#" + cardID).toggle("drop");
     }).catch(error => console.log(error));
 }
 
-//helper functions
+// Get Time object and format it
 function getTime(timeObject) {
     return timeObject.split("T")[1].split(":00.000Z")[0];
 }
 
+// Function for the case of having no notifications
 function noNotification() { }
+
+// Creates elements to build the notification card.
 function buildElement(notificationObj, type, subheading, cardColor, content, index) {
-    //create containers if they aren't already exist
     var typeContent = document.getElementById(type + "-content");
+
+    // Only builds elements that are not already present
     if (!(document.getElementById("tab-content").contains(typeContent))) {
         createContent("tab-content", "div", type + "-content", "tab-section-content col-12");
         createHeader(type + "-content", "h3", type, "col-11 inner-header");
@@ -74,7 +81,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
 
 
     //create card    
-    var cardID= type + "-card-" + index;
+    var cardID = type + "-card-" + index;
     createContent("notif-" + type + "-data", "div", cardID, "card-panel col-md-5 " + cardColor + "-card");
     var x = $("<span id='card-close-btn" + index + "' style='float: right' class='fas fa-times ui-button-custom'></span>");
     var span = $("<span>" + content + "</span>");
@@ -98,14 +105,14 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
 
 }
 
-//main function
+// Main function to render notifications
 async function renderNotification() {
 
-    //TO BE REMOVE WHEN NOTIFICATION RENDER IS FINISHED
+    //TO BE REMOVED WHEN NOTIFICATION RENDER IS FINISHED
     $("#tab-content").children().remove();
     ///////////////////////////////////////////////////
 
-    //gather notification from database
+    // Fetch notification from database
     await fetch('/notifications', {
         method: 'GET',
         headers: {
@@ -118,18 +125,18 @@ async function renderNotification() {
         console.log(db);
         notifications = db;
     }).catch(error => console.log(error));
-    //NOTIFICATION FETCH DONE
 
+    // Run the no notification function if none are present, otherwise run main script.
     if (notifications == "") {
         noNotification();
     } else {
-        //msg to display
+        // Create the message to display
         let dataInfo = "";
         let count = 0;
         notifications.forEach(async notification => {
 
             switch (notification.type) {
-                //as a host
+                // Host cases
                 case "NEWREQ":
                     dataInfo = "charger Name: "
                         //                        + notification.charger.chargername
@@ -165,7 +172,7 @@ async function renderNotification() {
                         , "grey", dataInfo, count);
 
                     break;
-                //as a client
+                // Client cases
                 case "ACCEPTED":
                     dataInfo = "Address: "
                         //                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
@@ -197,12 +204,8 @@ async function renderNotification() {
                     break;
             }
             count++;
-
-
         });
     }
-
 }
-
 
 renderNotification();

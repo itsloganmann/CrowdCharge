@@ -48,7 +48,10 @@ main {
     color: #555555;
     cursor: pointer;
 }
-.tab-button:first-child, .tab-button:hover {
+.tab-button:hover {
+    color: #FF9F10;
+}
+.tab-button:hover {
     color: #F05A29;
 }
 #tab-content {
@@ -107,33 +110,31 @@ main {
     color: #FFFFFF;
 }
 .price-card-text-wrapper {
+    margin-top: 2px;
     float: right;
     text-align: right;
-    line-height: 1.2em;
+    line-height: 1.4em;
 }
 .price-card-text-lg {
-    font-size: 1.25em;
+    font-size: 1.5em;
     font-weight: 700;
 }
 .price-card-text-sm {
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: 500;
     text-align: right;
 }
 .card-text-lg {
     font-size: 1.3em;
     font-weight: 500;
-    max-width: 80%;
 }
 .card-text-md {
     font-size: 1em;
     font-weight: 500;
-    max-width: 70%;
 }
 .card-text-sm {
     font-size: 1em;
     font-weight: 400;
-    max-width: 70%;
 }
 
 /** Media queries */
@@ -144,5 +145,15 @@ main {
     .card-panel {
         flex: 0 0 44% !important;
         max-width: 44% !important;
+    }
+    .price-card-text-wrapper {
+        margin-top: 2px;
+        line-height: 1.2em;
+    }
+    .price-card-text-lg {
+        font-size: 1.25em;
+    }
+    .price-card-text-sm {
+        font-size: 1em;
     }
 }

@@ -1,6 +1,8 @@
 // Imports
 const express = require('express')
 const User = require('../models/user')
+const Booking = require('../models/booking')
+const Charger = require('../models/charger')
 const auth = require('../middleware/auth')
 const bcrypt = require('bcryptjs')
 const router = new express.Router()
@@ -62,6 +64,45 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 // Sets up auth middleware first before getting data.
 router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
+})
+
+// Updates own balance and balance of host after paying for booking
+router.patch('/users/pay', auth, async (req, res) => {
+    try {
+        const priceToPay = parseInt(req.body.cost);
+        const userBalance = req.user.balance;
+        if (priceToPay > userBalance){
+            res.send({error: "Invalid balance."});
+        } else {
+            const booking = await Booking.findById(req.body.bookingID);
+            console.log("Booking: ", booking);
+            const charger = await Charger.findById(booking.charger);
+            console.log("Charger: ", charger);
+            const owner = await User.findById(charger.owner);
+            console.log("Owner: ", owner);
+            owner.balance += priceToPay;
+            console.log("Owner bal ", owner.balance);
+            req.user.balance -= priceToPay;
+            await owner.save();
+            await req.user.save()
+            res.send(req.user);
+        }
+    } catch(error) {
+        res.status(400).send(error);
+    }
+})
+
+// Updates balance by adding to wallet
+router.patch('/users/addBalance', auth, async (req, res) => {
+    try {
+        const additionalBalance = req.body.balance;
+        req.user.balance += parseInt(additionalBalance);
+        await req.user.save()
+        console.log(req.user);
+        res.send(req.user);
+    } catch(error) {
+        res.status(400).send(error);
+    }
 })
 
 // Updates a user's own profile

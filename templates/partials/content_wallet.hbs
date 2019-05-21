@@ -4,16 +4,30 @@
             <h1 class="outer-header">Your Wallet</h1>
         </div>
         <div id="tabs-wrapper">
-            <span class="tab-button" id="wallet-tab">View balance</span>
+            <span class="tab-button orange-highlight" id="wallet-tab">View balance</span>
             <span class="tab-button" id='balance-tab'>Recharge balance</span>
         </div>
         <div id="tab-content" class="col-11">
             <div id="view-balance">
                 <div class="wallet">
                     <div class="walletheading">Current Balance</div>
-                        <div class="walletbalance"><span class="cad">CAD</span><span id="walletamount"></span></div>
-                        <div class="walletparagraph">Your available balance is displayed above. You may use this balance to pay for charger bookings. A withdrawal feature is in development to allow users to send funds back to bank accounts.</div>
+                    <div class="walletbalance"><span class="cad">CAD</span><span id="walletamount"></span></div>
+                    <div class="walletparagraph">Your available balance is displayed above. You may use this balance to
+                        pay for charger bookings. A withdrawal feature is in development to allow users to send funds
+                        back to bank accounts.</div>
+                </div>
+            </div>
+            <div id="recharge-balance">
+                <div id="recharge">
+                    <div class="full-center-wrapper" id="balance-button-wrapper row">
+                        <button class="balance-button">$10.00</button>
+                        <button class="balance-button">$20.00</button>
+                        <button class="balance-button">$50.00</button>
+                        <button class="balance-button">$100.00</button>
+                    </div>
+                    <button id="recharge-button" class="orange-button disabled-button" disabled>Recharge
                 </div>
             </div>
         </div>
+    </div>
 </main>
