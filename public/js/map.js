@@ -1,8 +1,5 @@
 // Adds interactive map using Mapbox GL JS
 
-// JSON Web Token authentication
-const jwt = localStorage.getItem('jwt');
-
 // Opens map drawer on click
 $("#map-drawer-expansion-button").on("click", () => {
     $("#map-drawer").toggleClass("map-side-expanded");
@@ -35,13 +32,6 @@ function checkSelected() {
         $('#popup-confirm').html('Request Booking');
     }
 }
-
-// Removes booking popup upon button click
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
-});
 
 // Event listener for clicking confirm button for a booking
 $('body').on("click", "#popup-confirm", (e) => {

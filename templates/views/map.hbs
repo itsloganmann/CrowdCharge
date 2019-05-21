@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <title>{{title}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-  {{>imports}}
-  {{>style_map}}
-  {{>mapboxsetup}}
+  <head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    {{>imports}}
+    {{>style_map}}
+    {{>mapboxsetup}}
+  </head>
 
-</head>
-
-<body>
-  {{>sidenav}}
-  {{>topnav}}
-  <main>
-    {{>maprender}}
-    <div id="map-drawer">
-      <span id="map-drawer-close-button" class="fas fa-times ui-button-custom"></span>
-      <span id="map-drawer-expansion-button" class="fas fa-chevron-up ui-button-custom"></span>
-      <div id="map-drawer-text-wrapper">
+  <body>
+    {{>sidenav}}
+    {{>topnav}}
+    <main>
+      {{>maprender}}
+      <div id="map-drawer">
+        <span id="map-drawer-close-button" class="fas fa-times ui-button-custom"></span>
+        <span id="map-drawer-expansion-button" class="fas fa-chevron-up ui-button-custom"></span>
+        <div id="map-drawer-text-wrapper"></div>
       </div>
-    </div>
-  </main>
-  {{>javascripts}}
-  {{>footer}}
-  <script src="js/map.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</body>
+    </main>
+    {{>javascripts}}
+    {{>footer}}
+    <script src="js/map.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </body>
 </html>

@@ -124,7 +124,7 @@ async function renderNotification() {
                 // Host cases
                 case "NEWREQ":
                     dataInfo = "charger Name: "
-                        + notification.charger.chargername
+                        //+ notification.charger.chargername
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
@@ -139,7 +139,7 @@ async function renderNotification() {
                     break;
                 case "PAID":
                     dataInfo = "charger name: "
-                        + notification.charger.chargername
+                        //+ notification.charger.chargername
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
@@ -160,7 +160,7 @@ async function renderNotification() {
                 // Client cases
                 case "ACCEPTED":
                     dataInfo = "Address: "
-                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
+                       // + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
@@ -174,7 +174,7 @@ async function renderNotification() {
                     break;
                 case "DECLINED":
                     dataInfo = "Location: "
-                        + notification.charger.city + ", " + notification.charger.province
+                       // + notification.charger.city + ", " + notification.charger.province
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)

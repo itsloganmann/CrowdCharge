@@ -1,10 +1,10 @@
 // Generates login and signup popup
 
 // JSON Web Token authentication
-const token = localStorage.getItem('jwt');
+const jwt = localStorage.getItem('jwt');
 
 // If token is present, user is logged in
-if (token) {
+if (jwt) {
 	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
@@ -162,13 +162,13 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
+	$("#popup").addClass("full-screen-modal");
 });
 
 // Creating sign up pop-up
 // Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
-	console.log("Creating account...");
-	signInPage = $("#popup").children().detach();
+	signInPage = $("#popup").children().not("#popup-close-button").detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
@@ -324,8 +324,9 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
+	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
@@ -388,4 +389,11 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$('#signup-phone-input').removeClass('invalid-input-underline');
 	$('#signup-phone-label').removeClass('invalid-input-label');
 	$("#phone-validation").remove();
+});
+
+// Removes currently active popup when clicking elements with the specified ID
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+        $("#popup-wrapper").remove();
+    }
 });
