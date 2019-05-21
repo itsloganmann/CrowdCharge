@@ -98,7 +98,7 @@ function defaultTab () {
         $('#edit-btn').css({ 'display': 'block' });
     
     
-        //POST
+        //PATCH profile information
         var name = $('#profile-name-input').val();
         var phone = $('#profile-phone-input').val();
         var email = $('#profile-email-input').val();
@@ -123,17 +123,18 @@ function defaultTab () {
     });
 };
 
+// Default tab behavior. Onload go to default tab, "Detail"
 window.onload = function() {
     defaultTab();
     $('#details-tab').css({ 'color': '#F05A29' });
 };
 
-// detail tab event listener
+// Detail tab event listener
 $('#details-tab').click(function (event) {
     defaultTab();
 })
 
-// password tab's eventListener
+// Password tab eventListener
 $('#password-tab').click(function (event) {
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
@@ -193,7 +194,7 @@ $('#password-tab').click(function (event) {
     });
 });
 
-// notification tab event listener
+// Notification tab event listener
 $('#notification-tab').click(function (event) {
     var notificationContainer = createContentContainer('notification-container', 'notification-header', 'Notification Settings', 'notification-sub', '');
 
