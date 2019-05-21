@@ -164,8 +164,8 @@ const bookingTab = async (e) => {
 
 	// Instantiate containers for Confirmed Bookings
 	var paidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
-		"These bookings have been confirmed by the host and are ready to go!");
+	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Paid Bookings", "client-confirmed-subheader",
+		"These bookings have already been confirmed and paid for!");
 	confirmContainer.append(paidCardContainer);
 
 	// Populate containers with data
