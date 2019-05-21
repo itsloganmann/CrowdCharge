@@ -3,11 +3,11 @@
 // Contains functions for inputs, labels, buttons, headers, body, boxes, popups.
 
 // Creates an input element
-var createInput = (targetId, type, readonlyBooleanValue, name, id, className, value) => {
+var createInput = (targetId, type, disabledBool, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
 	input.setAttribute("name", name);
-	input.setAttribute("readonly", readonlyBooleanValue);
+	input.setAttribute("disabled", disabledBool);
 	if (value !== undefined) {
 		input.setAttribute("value", value);
 	}

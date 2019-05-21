@@ -99,10 +99,10 @@ async function fetchBooking(url, status) {
 	}).then((res) => {
 		return res.json()
 	}).then((db) => {
+		console.log(db.length)
 		console.log(db)
 		dataFromdb = db
 	}).catch(error => console.log(error));
-
 	// Build the HTML string
 	const build = () => {
 		for (i = 0; i < dataFromdb.length; i++) {
