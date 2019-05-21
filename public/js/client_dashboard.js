@@ -143,10 +143,8 @@ async function fetchBooking(url, status) {
 };
 
 
-// Changes tab colours and clears tab contents
-// Clearing done when switching tabs to allow for new data population
+// Changes tab colours
 $('.tab-button').on('click', (e) => {
-	$('.tab-button:not(#' + event.target.id + ')').css('color', '#555555');
 	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
 	$('#' + event.target.id).addClass('orange-highlight');
 });

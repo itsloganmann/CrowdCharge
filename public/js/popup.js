@@ -391,7 +391,7 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$("#phone-validation").remove();
 });
 
-// Removes popup for booking
+// Removes currently active popup when clicking elements with the specified ID
 $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
     if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();
