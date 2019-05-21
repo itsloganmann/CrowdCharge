@@ -1,6 +1,12 @@
 // Sets the variables to be passed into the get balance function
+
+// Set routing url
 const url = '/users/me'
+
+// JSON Web Token authorization
 const jwt = localStorage.getItem('jwt');
+
+// Fetch GET call for balance
 const getBalance = async (url, jwt) => {
 
 	const response = await fetch(url, {

@@ -1,4 +1,11 @@
+// Controls the profile details page.
+//
+// Lets the host edit their profile information, change their password, 
+// and change their notification settings.
+
+// JSON Web Token authentication
 const jwt = localStorage.getItem('jwt');
+
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
@@ -7,10 +14,10 @@ $('.tab-button').on('click', (e) => {
 	$('#tab-content').children().remove();
 });
 
-// named function for default tab load and on click
+// Named function for default tab load and on click
 function defaultTab () {
 
-    // fetch user data
+    // GET user data
     fetch('/users/me', {
         method: 'GET',
         headers: {
@@ -20,10 +27,12 @@ function defaultTab () {
     }).then((res) => {
         return res.json()
     }).then(async (db) => {
+        // Display user data
         $('#profile-name-input').val(db.name);
         $('#profile-email-input').val(db.email);
         $('#profile-phone-input').val(db.phone);
 
+        // Set attributes to readonly
         $('#profile-name-input').attr('readonly', 'true');
         $('#profile-email-input').attr('readonly', 'true');
         $('#profile-phone-input').attr('readonly', 'true');
@@ -89,7 +98,7 @@ function defaultTab () {
         $('#edit-btn').css({ 'display': 'block' });
     
     
-        //POST
+        //PATCH profile information
         var name = $('#profile-name-input').val();
         var phone = $('#profile-phone-input').val();
         var email = $('#profile-email-input').val();
@@ -114,17 +123,18 @@ function defaultTab () {
     });
 };
 
+// Default tab behavior. Onload go to default tab, "Detail"
 window.onload = function() {
     defaultTab();
     $('#details-tab').css({ 'color': '#F05A29' });
 };
 
-// detail tab event listener
+// Detail tab event listener
 $('#details-tab').click(function (event) {
     defaultTab();
 })
 
-// password tab's eventListener
+// Password tab eventListener
 $('#password-tab').click(function (event) {
     // Create a container
     var passwordContainer = createContentContainer('password-content', 'change-password-header', 'Change Password', 'change-password-subheader', '');
@@ -184,7 +194,7 @@ $('#password-tab').click(function (event) {
     });
 });
 
-// notification tab event listener
+// Notification tab event listener
 $('#notification-tab').click(function (event) {
     var notificationContainer = createContentContainer('notification-container', 'notification-header', 'Notification Settings', 'notification-sub', '');
 
