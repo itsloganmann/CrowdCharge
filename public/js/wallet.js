@@ -27,6 +27,8 @@ getBalance(url, jwt)
 $('.balance-button').on('click', (e) => {
 	$('.balance-button').removeClass('balance-button-selected')
 	e.target.className += ' balance-button-selected';
+	$('#recharge-button').removeAttr('disabled');
+	$('#recharge-button').removeClass('disabled-button');
 });
 
 // Changes tab colours and displays appropriate tab
@@ -44,12 +46,15 @@ $('.tab-button').on('click', (e) => {
 
 // Creates confirmation popup for recharging
 $('#recharge-button').on('click', (e) => {
-	let amount = $('.balance-button-selected').html().replace(/^\$+/, '');
-	createPopup();
-	createPopupHeader('h3', 'Confirmation', 'recharge-popup-header');
-	createPopupHeader('h5', 'You have selected a balance of <b>$' + amount +'</b> to recharge. Do you wish to continue?', 'recharge-popup-subheader');
-	createPopupConfirmButton('recharge-confirm', 'Confirm');
-	createPopupCancelButton("popup-cancel", "Cancel");
+	if ($('.balance-button-selected').length > 0){
+		let amount = $('.balance-button-selected').html().replace(/^\$+/, '');
+		createPopup();
+		createPopupHeader('h3', 'Confirmation', 'recharge-popup-header');
+		createPopupHeader('h5', 'You have selected a balance of <b>$' + amount +'</b> to recharge. Do you wish to continue?', 'recharge-popup-subheader');
+		createPopupConfirmButton('recharge-confirm', 'Confirm');
+		createPopupCancelButton("popup-cancel", "Cancel");
+	}
+	
 }); 
 
 // After clicking confirmation button for recharging, updates user's balance
