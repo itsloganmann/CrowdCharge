@@ -120,8 +120,8 @@ $('#requests-tab').click(async function (event) {
 		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
 		//accept or reject 
 		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
-		createButton("acc-rej-container" + countPending, "accept" + countPending, "Accept", "orange-button booking-accept-button");
-		createButton("acc-rej-container" + countPending, "reject" + countPending, "Decline", "white-button booking-reject-button");
+		createButton("acc-rej-container" + countPending, "accept" + countPending, "Accept", "green-button booking-accept-button");
+		createButton("acc-rej-container" + countPending, "reject" + countPending, "Decline", "red-button booking-reject-button");
 	//	createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
 	//	createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
 		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);

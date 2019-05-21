@@ -31,6 +31,11 @@ function confirmationPopup(value, charger) {
         + "</br>at <b id='confirm-charger-stime'>" + getTime(charger.startTime) + "-</b>"
         + "<b>" + getTime(charger.endTime) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
     createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
+    if (value == "accept")
+        $("#accept-btn").removeClass('orange-button').addClass('green-button');
+    else {
+        $("#decline-btn").removeClass('orange-button').addClass('red-button');
+    }
     createPopupCancelButton("popup-cancel", "Cancel");
 }
 
