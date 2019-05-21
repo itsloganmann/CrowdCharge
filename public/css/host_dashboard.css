@@ -26,6 +26,7 @@
 #new-charger-form {
     width: 100%;
 }
+
 @media only screen and (max-width: 576px) {
     .charger-button {
         height: 202px;
