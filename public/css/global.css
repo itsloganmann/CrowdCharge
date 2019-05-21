@@ -3,9 +3,11 @@ main {
   background: #F3F3F3;
   position: relative;
 }
+
 .green-highlight {
   color: #1DBF73;
 }
+
 .orange-highlight {
   color: #F05A29;
 }
@@ -14,21 +16,14 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-@media only screen and (max-width: 768px) {
-  #logo-img{
-    position: absolute;
-    height: 45px;
-    top: -21px;
-  }
+.fourcolumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-/* For larger screens, move logo and menu outwards */
-@media only screen and (min-width: 768px) {
-  #logo-img{
-    position: absolute;
-    height: 55px;
-    top: -26px;
-  }
+.fivecolumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .navbar-custom {
@@ -42,41 +37,6 @@ body {
 
 #user-menu-button {
   padding: 0px;
-}
-
-/* Go Mobile first */
-@media only screen and (min-width: 590px) {
-    .twocolumns{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-}
-
-@media only screen and (min-width: 590px) {
-	#bell-icon{
-		font-size: 21pt;
-  }
-  
-	#userToggler{
-		font-size: 21pt;
-		width: 100px;
-		height: 100px;
-  }
-  
-	.headertext{
-		display:block;
-  }
-
-  #bell-wrapper {
-    float: right;
-  }
-}
-
-@media only screen and (min-width: 1000px) {
-    .fourcolumns {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-	}
 }
 
 /*********************/
@@ -163,9 +123,11 @@ body {
   text-decoration: unset;
   color: #1DBF73;
 }
+
 #user-icon:hover {
   color: #1DBF73;
 }
+
 #login-button:hover {
   color: #1DBF73;
   border: 2px solid #1DBF73;
@@ -191,6 +153,7 @@ body {
 
 #bell-icon {
   padding: 8px;
+  font-size: 24px;
 }
 
 #bell-wrapper {
@@ -302,18 +265,6 @@ body {
   color: #F05A29;
 
   text-decoration: unset;
-}
-
-@media only screen and (min-width: 768px) {
-  .expanded-side {
-    width: 0 !important;
-  }
-  #side-menu, #open-side-menu-button {
-    display: none;
-  }
-  #nav-top {
-    display: flex;
-  }
 }
 
 .orange-button {
@@ -440,26 +391,6 @@ footer ul {
   padding-top: 5px;
 }
 
-@media only screen and (max-width: 1191px) {
-  .footerwrapper {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .footercolumn{
-    margin: 10px 50px;
-  }
-}
-
-@media only screen and (max-width: 427px) {
-  .footerwrapper{
-    grid-template-columns: 1fr;
-  }
-
-  .footercolumn{
-    margin: 10px 50px;
-  }
-}
-
 #popup-wrapper {
   position: fixed;
   width: 100vw;
@@ -572,9 +503,11 @@ button:focus {
   font-size: 9pt;
   height: 0px;
 }
+
 .invalid-input-label {
   color: red !important;
 }
+
 .invalid-input-underline {
   padding: 0px 8px 5.6px;
   border-bottom: 1.4px solid red !important;
@@ -586,17 +519,101 @@ button:focus {
   position: absolute;  
   color: red;
 }
+
 .readonly-input{
   background-color: inherit;
   border-bottom: 0;
 }
+
 .readonly-label{
   font-weight: bold;
 }
+
 #popup-close-button {
   position: absolute;
   top: 14px;
   right: 18px;
   font-size: 1.75rem;
   cursor: pointer;
+}
+
+/* For screens 768px or smaller */
+@media only screen and (max-width: 1191px) {
+  #logo-img{
+    position: absolute;
+    height: 45px;
+    top: -21px;
+  }
+
+  .twocolumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.policy-wrapper {
+  width: 1500px;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 590px) {
+  .onecolumn {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  
+	#userToggler{
+		font-size: 21pt;
+		width: 100px;
+		height: 100px;
+  }
+  
+	.headertext{
+		display:block;
+  }
+
+  #bell-wrapper {
+    float: right;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .expanded-side {
+    width: 0 !important;
+  }
+
+  #side-menu, #open-side-menu-button {
+    display: none;
+  }
+
+  #nav-top {
+    display: flex;
+  }
+
+  #logo-img{
+    position: absolute;
+    height: 55px;
+    top: -26px;
+  }
+}
+
+@media only screen and (max-width: 1191px) {
+  .footerwrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footercolumn{
+    margin: 10px 50px;
+  }
+}
+
+@media only screen and (max-width: 427px) {
+  .footerwrapper{
+    grid-template-columns: 1fr;
+  }
+
+  .footercolumn{
+    margin: 10px 50px;
+  }
 }
