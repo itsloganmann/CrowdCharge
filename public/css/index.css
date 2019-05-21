@@ -24,8 +24,14 @@
         line-height: 1.5em;
     }
     
-    #adoption {
+    #adoption-link {
         color: #1DBF73;
+        text-decoration: none;
+    }
+
+    #map-link {
+        color: #1DBF73;
+        text-decoration: none;   
     }
     
     .homebox {
