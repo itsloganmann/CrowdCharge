@@ -24,6 +24,7 @@ main {
 }
 .inner-header {
     font-size: 1.6rem;
+    font-weight: 700;
     margin: 3px auto;
 }
 .inner-subheader {
@@ -47,7 +48,7 @@ main {
     color: #555555;
     cursor: pointer;
 }
-.tab-button:hover {
+.tab-button:first-child, .tab-button:hover {
     color: #F05A29;
 }
 #tab-content {
@@ -62,13 +63,24 @@ main {
     margin: 12px auto;
     max-width: 93.333333%;
 }
-
+.no-data{
+    height: 10em;
+    width: 100%;
+    text-align: center;
+    padding: 70px 0;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+.no-data p{
+    color: #3D3D3D;
+    font-style: italic;
+}
 
 /** Cards */
 .card-panel {
     box-sizing: content-box;
     margin: 8px 1%;
-    padding: 12px 2% 14px;
+    padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
     box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);
@@ -87,6 +99,7 @@ main {
 }
 .price-card-text-wrapper {
     float: right;
+    text-align: right;
     line-height: 1.2em;
 }
 .price-card-text-lg {
