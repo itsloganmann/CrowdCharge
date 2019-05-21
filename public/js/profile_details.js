@@ -1,4 +1,11 @@
+// Controls the profile details page.
+//
+// Lets the host edit their profile information, change their password, 
+// and change their notification settings.
+
+// JSON Web Token authentication
 const jwt = localStorage.getItem('jwt');
+
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
@@ -7,10 +14,10 @@ $('.tab-button').on('click', (e) => {
 	$('#tab-content').children().remove();
 });
 
-// named function for default tab load and on click
+// Named function for default tab load and on click
 function defaultTab () {
 
-    // fetch user data
+    // GET user data
     fetch('/users/me', {
         method: 'GET',
         headers: {
@@ -20,10 +27,12 @@ function defaultTab () {
     }).then((res) => {
         return res.json()
     }).then(async (db) => {
+        // Display user data
         $('#profile-name-input').val(db.name);
         $('#profile-email-input').val(db.email);
         $('#profile-phone-input').val(db.phone);
 
+        // Set attributes to readonly
         $('#profile-name-input').attr('readonly', 'true');
         $('#profile-email-input').attr('readonly', 'true');
         $('#profile-phone-input').attr('readonly', 'true');
