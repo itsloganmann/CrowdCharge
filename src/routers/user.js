@@ -64,6 +64,39 @@ router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
+// Updates balance after paying for booking
+router.patch('/users/pay', auth, async (req, res) => {
+    try {
+        const priceToPay = parseInt(req.body.cost);
+        console.log(req.body)
+        const userBalance = req.user.balance;
+        console.log("Price: ", priceToPay);
+        console.log("Balance: ", userBalance);
+        if (priceToPay > userBalance){
+            res.send("Error: Invalid balance.");
+        } else {
+            req.user.balance -= priceToPay;
+            await req.user.save()
+            res.send(req.user);
+        }
+    } catch(error) {
+        res.status(400).send(error);
+    }
+})
+
+
+// Updates balance by adding to wallet
+router.patch('/users/addBalance', auth, async (req, res) => {
+    try {
+        const additionalBalance = req.body.balance;
+        req.user.balance += parseInt(additionalBalance);
+        await req.user.save()
+        res.send(req.user);
+    } catch(error) {
+        res.status(400).send(error);
+    }
+})
+
 // Updates a user's own profile
 router.patch('/users/me', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
