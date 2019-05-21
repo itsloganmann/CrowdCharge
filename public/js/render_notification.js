@@ -184,8 +184,6 @@ async function renderNotification() {
                     break;
             }
             count++;
-
-
         });
     }
 
