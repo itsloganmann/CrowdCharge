@@ -267,6 +267,7 @@ body {
 }
 
 .orange-button {
+  font-size: 14pt;
   display: block;
   background-color: #F05A29;
   margin: 24px auto 8px;
@@ -282,6 +283,7 @@ body {
 }
 
 .white-button {
+  font-size: 14pt;
   display: block;
   background-color: #FFFFFF;
   margin: 24px auto 8px;
@@ -425,11 +427,11 @@ footer ul {
 
 
 .popup-header {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .popup-subheader {
-  font-size: 1.0rem;
+  font-size: 1.25rem;
 }
 
 /** Login */
@@ -473,12 +475,6 @@ footer ul {
 }
 
 @media only screen and (min-width: 768px) {
-  .popup-header {
-      font-size: 1.75rem;
-  }
-  .popup-subheader {
-      font-size: 1.25rem;
-  }
   .form-label {
       font-size: 12pt;
   }
@@ -525,13 +521,21 @@ button:focus {
   color: red;
 }
 
-.readonly-input{
+.readonly-input, .readonly-input-full{
   background-color: inherit;
-  border-bottom: 0;
 }
 
 .readonly-label{
   font-weight: bold;
+  margin-top: 4px;
+}
+.readonly-input:focus {
+  padding: 3px 8px 3px;
+  border-bottom: 1px solid black
+}
+.readonly-input-full:focus {
+  padding: 3px 8px 3px;
+  border: 1px solid black;
 }
 
 #popup-close-button {
@@ -542,7 +546,6 @@ button:focus {
   cursor: pointer;
 }
 
-/* For screens 768px or smaller */
 @media only screen and (max-width: 1191px) {
   #logo-img{
     position: absolute;

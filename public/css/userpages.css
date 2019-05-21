@@ -52,6 +52,7 @@ main {
     color: #F05A29;
 }
 #tab-content {
+    min-height: 256px;
     padding: 24px 12px;
     border-radius: 8px;
     background-color: #F3F3F3;
@@ -79,7 +80,7 @@ main {
 /** Cards */
 .card-panel {
     box-sizing: content-box;
-    margin: 8px 1%;
+    margin: 8px 0.99999%;
     padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
@@ -90,11 +91,19 @@ main {
     font-size: 1.5rem;
 }
 .green-card {
-    background-color: #1DBF73;
+    background-color: #1ec778;
+    color: #FFFFFF;
+}
+.dark-green-card {
+    background-color: #189b5d;
     color: #FFFFFF;
 }
 .orange-card {
     background-color: #F05A29;
+    color: #FFFFFF;
+}
+.dark-orange-card {
+    background-color:  #FF9F10;
     color: #FFFFFF;
 }
 .price-card-text-wrapper {
@@ -114,14 +123,17 @@ main {
 .card-text-lg {
     font-size: 1.3em;
     font-weight: 500;
+    max-width: 80%;
 }
 .card-text-md {
     font-size: 1em;
     font-weight: 500;
+    max-width: 70%;
 }
 .card-text-sm {
     font-size: 1em;
     font-weight: 400;
+    max-width: 70%;
 }
 
 /** Media queries */

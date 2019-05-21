@@ -1,0 +1,19 @@
+.pay-button{
+    color: #1DBF73;
+    cursor: pointer;
+}
+.pay-button:hover{
+    color: #149149;
+}
+.reject-icon{
+    margin: 5px;
+    color:  #FF0000;
+    font-size: 30pt;
+    cursor: pointer;
+}
+.reject-icon:hover{
+    color:  #BD0000;
+}
+#pay-now-btn {
+    width: 80% !important;
+}
