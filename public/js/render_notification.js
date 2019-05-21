@@ -93,13 +93,19 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
         deleteNotification(notificationObj._id, index, cardID);
 
     })
-    $(document).on("click", ".fa-arrow-right", async (e) => {
-        if (type == "accepted" || type == "declined") {
-            location.replace('/client_dashboard');
-        } else {
-            location.replace('/host_dashboard');
-        }
+    $(document).on("click", "#accept-next", async (e) => {
+        location.replace('/client_dashboard');
     })
+    $(document).on("click", "#request-next", async (e) => {
+        location.replace('/host_dashboard');
+    })
+    // $(document).on("click", ".fa-arrow-right", async (e) => {
+    //     if (type == "Accepted") {
+    //         location.replace('/client_dashboard');
+    //     } else {
+    //         location.replace('/host_dashboard');
+    //     }
+    // })
 
 
 
@@ -138,14 +144,15 @@ async function renderNotification() {
             switch (notification.type) {
                 // Host cases
                 case "NEWREQ":
-                    dataInfo = "charger Name: "
-                        //                        + notification.charger.chargername
+                    dataInfo = "Charger Name: "
+                        //notification.charger.name
+                        + "Alex's charger"
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
-                        + "<span style= 'float: right' class='fas fa-arrow-right' ></span>";
+                        + "<span id= 'request-next'style= 'float: right' class='fas fa-arrow-right' ></span>";
 
-                    buildElement(notification, "request"
+                    buildElement(notification, "Request"
                         , "These are user requests to use your"
                         + " charger. Please reject or accept them"
                         + " by the date of the booking."
@@ -153,21 +160,22 @@ async function renderNotification() {
 
                     break;
                 case "PAID":
-                    dataInfo = "charger name: "
-                        //                        + notification.charger.chargername
+                    dataInfo = "Charger name: "
+                        //notification.charger.name
+                        + "Deep Cove"
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
 
-                    buildElement(notification, "payment"
+                    buildElement(notification, "Payment"
                         , "You have received your payment!"
                         , "dark-green", dataInfo, count);
 
                     break;
                 case "CANCELLED":
                     dataInfo = "This is cancellded!";
-                    buildElement(notification, "cancelled"
+                    buildElement(notification, "Cancelled"
                         , "These pending requests are cancelled."
                         , "grey", dataInfo, count);
 
@@ -175,13 +183,14 @@ async function renderNotification() {
                 // Client cases
                 case "ACCEPTED":
                     dataInfo = "Address: "
-                        //                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
+                        //notification.charger.address + notification.charger.city + notification.charger.province
+                        + "2940 Panorama Dr" + " North Vancouver" + " BC"
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
-                        + "<span style= 'float: right' >...</span>";
+                        + "<span id='accept-next' style= 'float: right' class='fas fa-arrow-right' ></span>";
 
-                    buildElement(notification, "accepted"
+                    buildElement(notification, "Accepted"
                         , "These bookings have been accepted!"
                         + " Make your payment before the booking day"
                         , "green", dataInfo, count);
@@ -190,17 +199,18 @@ async function renderNotification() {
                 case "DECLINED":
                     dataInfo = "Location: "
                         //                        + notification.charger.city + ", " + notification.charger.province
+                        + "North Vancouver" + "BC"
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
                         + "<span style= 'float: right' >...</span>";
-                    buildElement(notification, "declined"
-                        , "these bookings has been declined. "
+                    buildElement(notification, "Declined"
+                        , "These bookings have been declined. "
                         + "You can try to make another booking from the surounding area!"
                         , "dark-orange", dataInfo, count);
                     break;
                 default:
-                    console.log("data type not found!");
+                    console.log("Data type not found!");
                     break;
             }
             count++;

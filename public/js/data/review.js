@@ -8,6 +8,5 @@ class review{
 		this.cuid = obj.cuid; //FK array
 		this.comment = obj.comment; //String
 		this.rating = obj.rating; //Number
-
 	}
 }
