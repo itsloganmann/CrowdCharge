@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>my profile</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-    {{>imports}}
-	{{>style_profile_details}}
+	<head>
+		<title>{{title}}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		{{>imports}}
+		{{>style_profile_details}}
+	</head>
 
-</head>
-<body>
-	{{>sidenav}}
-	{{>topnav}}
-    {{>content_profile_details}}	
-    {{>javascripts}}
-	{{>footer}}
+	<body>
+		{{>sidenav}}
+		{{>topnav}}
+		{{>content_profile_details}}	
+		{{>javascripts}}
+		{{>footer}}
 
-	<script src="js/createElement.js"></script>
-	<script src="js/password_popup.js"></script>
-	<script src="../../js/profile_details.js"></script>
-
-</body>
+		<script src="js/createElement.js"></script>
+		<script src="js/password_popup.js"></script>
+		<script src="../../js/profile_details.js"></script>
+	</body>
 </html>
