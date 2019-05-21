@@ -69,7 +69,6 @@ router.get('/users/me', auth, async (req, res) => {
 // Updates own balance and balance of host after paying for booking
 router.patch('/users/pay', auth, async (req, res) => {
     try {
-        console.log(req.body.cost);
         const priceToPay = parseInt(req.body.cost);
         const userBalance = req.user.balance;
         if (priceToPay > userBalance){
