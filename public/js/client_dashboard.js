@@ -1,4 +1,8 @@
-//fetch user's name onto the header of the page
+// Controls the client dashboard.
+//
+// Fetches user information and generates dynamic content.
+
+// Fetch user's name onto the header of the page
 fetch('/users/me', {
 	method: 'GET',
 	headers: {
@@ -11,7 +15,7 @@ fetch('/users/me', {
 	$("#user-name").text(db.name.split(" ")[0] + "'s");
 }).catch(error => console.log(error));
 
-// Adds listener to create payment popup if pay button is clicked
+// Add listener to create payment popup if pay button is clicked
 function addEventListenerOnPayNow(id, booking, jwt) {
 	$('body').off('click', id);
 	$('body').on('click', id, (e) => {
@@ -19,6 +23,7 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 	});
 }
 
+// Gets the current time and formats the string.
 function getTime(timeObject) {
 	let time = timeObject.split("T")[1].split(":00.000Z")[0];
 	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
@@ -51,6 +56,7 @@ function confirmationPopupPay(value, booking) {
 					createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
 					createPopupCancelButton("popup-cancel", "Close");
 				} else {
+          // The Fetch call to POST payment information
 					await fetch('/booking/payBooking', {
 						method: 'POST',
 						body: JSON.stringify({bUID: booking.bookingID}),
@@ -59,6 +65,7 @@ function confirmationPopupPay(value, booking) {
 							'Authorization': 'Bearer ' + jwt
 						}		
 					})
+          // Informs user of success.
 					$("#popup").children().not("#popup-close-button").remove();
 					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
 					$('body').on("click", (e) => {
@@ -75,10 +82,13 @@ function confirmationPopupPay(value, booking) {
 	});
 }
 
-// Fetches bookings from database and returns a string of all the html to render
+// Fetches Bookings from the database and returns a string of the HTML to render
 async function fetchBooking(url, status) {
+	// Declare arrays containing fetched data
 	let dataFromdb = [];
 	let contentStrings = [];
+
+	// Make Fetch call
 	await fetch(url, {
 		method: 'GET',
 		headers: {
@@ -92,8 +102,11 @@ async function fetchBooking(url, status) {
 		dataFromdb = db
 	}).catch(error => console.log(error));
 
+	// Build the HTML string
 	const build = () => {
 		for (i = 0; i < dataFromdb.length; i++) {
+
+			// Build-case for "Completed" and "Pending" booking types
 			if (status == "completed" || status == "pending") {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
@@ -105,7 +118,9 @@ async function fetchBooking(url, status) {
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ "</div></div>";
-			} else {
+			} 
+			// Build-case for "Paid" and "Unpaid" booking types
+			else {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm "
@@ -121,6 +136,7 @@ async function fetchBooking(url, status) {
 			}
 		}
 	};
+	// Clear old content and build new content
 	$("#tab-content").children().remove();
 	build();
 	return contentStrings;
@@ -142,17 +158,18 @@ function nothingToDisplay(container, bookingType) {
 	$(container).append(nothingDiv);
 }
 
-//tab's eventListener
+// Booking tab eventListener
 const bookingTab = async (e) => {
-	/*
-	CONFIRMED BOOKING
-	*/
-	//general container to hold card
+
+	// Creates Confirmed Booking section for users to view
+
+	// Instantiate containers for Confirmed Bookings
 	var paidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
 		"These bookings have been confirmed by the host and are ready to go!");
 	confirmContainer.append(paidCardContainer);
 
+	// Populate containers with data
 	const confirmedBookingURL = "/client/paidBookings";
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
 	if (cBDatas == "") {
@@ -164,15 +181,15 @@ const bookingTab = async (e) => {
 		});
 	}
 
-	/*
-	PENDING BOOKING
-	*/
-	//general container to hold card
+	// Creates Pending Booking section for users to view
+
+	// Instantiate containers for Pending Bookings
 	var pendingCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var pendingContainer = createContentContainer("pending-content", "bookingHeading2", "Pending Bookings", "bookingSubHeading2"
 		, "These bookings have not been confirmed by the host yet, we’ll notify you when they do!")
 	pendingContainer.append(pendingCardContainer);
 
+	// Populate containers with data
 	const pendingBookingURL = "/client/pendingBookings"
 	let pbDatas = await fetchBooking(pendingBookingURL, "pending");
 	if (pbDatas == "") {
@@ -183,6 +200,7 @@ const bookingTab = async (e) => {
 		});
 	}
 
+	// Append content 
 	$("#tab-content").append(confirmContainer);
 	$("#tab-content").append(pendingContainer);
 }
@@ -192,16 +210,17 @@ $("#bookings-tab").click(async function (event) {
 	bookingTab();
 });
 
-//payment tab click; build elements for payment details
+// Payment tab click; build elements for payment details
 $("#payments-tab").click(async function (event) {
-	//container hold all payment details for user
-	//general container to hold card
+	// Container holds all payment details for user
 	var unpaidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
+	// General container to hold card
 	var paymentContainer = createContentContainer("payment-content", "paymentHeading1", "Payment", "paymentSubHeading1"
 		, "These bookings are unpaid for. Pay before the booking date!");
 	paymentContainer.append(unpaidCardContainer);
 
 
+	// Populate card with data.
 	const unpaidBookingURL = "/client/unpaidBookings"
 	const ubDatas = await fetchBooking(unpaidBookingURL, "unpaid");
 	if (ubDatas == "") {
@@ -215,16 +234,17 @@ $("#payments-tab").click(async function (event) {
 
 });
 
-//reviews tab click; build elements for reviews details
+// Reviews tab eventListener
 $("#reviews-tab").click(async function (event) {
 
-	//container hold all review details for user
+	// Container holds all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
 		, "These are the comments of hosts that you’ve charged with.");
 	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	reviewContainer.append(reviewCardContainer);
 	let reviews = []
-	//fetch request
+
+	// The Fetch request to get Review data
 	await fetch("/client/Reviews", {
 		method: 'GET',
 		headers: {
@@ -250,15 +270,19 @@ $("#reviews-tab").click(async function (event) {
 				+ "</div>");
 		});
 	}
+	// Append content to tab
 	$("#tab-content").append(reviewContainer);
 });
 
+// History tab event listener
 $("#history-tab").click(async function (event) {
 
+	// Containers for History objects
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings");
 	historyContainer.append(historyCardContainer);
 
+	// Await Fetch data of History
 	let hDatas = await fetchBooking("/client/completedBookings", "completed");
 	if (hDatas == "") {
 		nothingToDisplay(historyCardContainer, "past bookings");

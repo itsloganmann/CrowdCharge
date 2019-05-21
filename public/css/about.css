@@ -1,94 +1,159 @@
-.whitebackground h2 {
-    margin-top: 5vh;
-    text-align:center;
-}
-.wrapper3{
-    text-align:center;
-    width: 90%;
-    margin: 0 auto;
-}
-
-.wrapper4{
-    width:90%;
-    margin: 0 auto;
-    text-align:left;
-}
-.aboutUsText {
-    line-height: 2em;
-    margin-bottom: 10vh;
-    margin-top: 10vh;
-}
-
 .headerimagecontainer{
-    position:relative;
+    position: relative;
 }
+
 .headerimage{
     max-width:100%;
     max-height:100%;
 }
-.headertext{
-    position:absolute;
-    margin:0 auto;
-    z-index:1;
-    left: 0;
-    right: 0;
-    top: 40%; /* Adjust this value to move the positioned div up and down */
-    text-align: center;
-    color:white;
-    font-size: 3em;
-    text-shadow: 2px 2px black;
-    display:none;
-}
+
 .homebox {
-    /* height: 42vh; */
-    width: 75%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
     background-color: #FFF;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
     transition-duration: 0.4s;
     border-radius: 25px;
     color: #4D4D4D;
+    padding-bottom: 20px;
 }
 
-.homeicons {
-    height: 15vh;
-    width: 15vw;
-    margin-top: 10vh;
+.homebox:hover {
+    background-color: #1EBF73;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    color: #FFF;
+    text-decoration: none;
 }
 
-.boxheading {
-    font-size: 1em;
-    text-align: center;
-    margin: 0 auto;
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    width: 100%;
-    height: 5vh;
+.homebox:visited, .homebox:focus, .homebox:active {
+    text-decoration: none;
+}
+
+.homebox:hover .boximage{
+    border-bottom: 2px solid #fff;
+}
+
+.abouticons {
+    height: 100px;
 }
 
 .boximage {
     text-align: center;
     width: 85%;
-    padding-bottom: 0;
-    border-bottom: 2px solid #32CD32;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #1EBF73;
     margin: 0 auto;
 }
+
+.boxheading {
+    font-size: 18px;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 10px;
+    width: 85%;
+    height: 75px;
+    font-weight: bold;
+}
+
 .boxparagraph {
-    font-size: 0.8em;
+    font-size: 16px;
     text-align: center;
     width: 85%;
     margin: auto;
-    padding-top: 2vh;
-    line-height: 3vh;
-    padding-bottom: 3vh;
-    line-height: 1.5em;
+    line-height: 2.5vh;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-@media only screen and (min-width: 1024px) {
-    .wrapper3{
-        width: 70%;
-    }
+.page_about { 
+    padding: 20px 0; 
+    background:#fff;
+    padding-bottom: 30px;
+}
+
+.page_ecocity { 
+    padding: 20px 0;
+    background:#F0F0F0;
+    padding-bottom: 30px;
+}
+
+.page_team { 
+    padding: 20px 0; 
+    background:#fff;
+    padding-bottom: 30px;
+}
+
+.content_box_about{ 
+    color: #4D4D4D;
+    width: 1000px;
+    max-width: 85vw;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.content_box_ecocity{ 
+    color: #4D4D4D;
+    width: 1400px;
+    max-width: 100vw;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 34px;
+    color: #4D4D4D;
+    margin: 0 auto;
+    padding-bottom: 5vh;
+    font-weight: bold;
+    max-width: 90vw;
+}
+
+h4 {
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Team CSS */
+.content_box_team{ 
+    color: #4D4D4D;
+    width: 1300px;
+    max-width: 100vw;
+    margin: 0 auto;
+}
+
+.profileimage {
+    height: 200px;
+}
+
+.profileimagebox {
+    text-align: center;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.profileheading {
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    width: 85%;
+    height: 40px;
+    font-weight: bold;
+    color: #6F8AB7;
+}
+
+.profiledescription {
+    font-size: 15px;
+    width: 85%;
+    margin: auto;
+    line-height: 2.5vh;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.teambox {
+    padding-bottom: 20px;
 }
