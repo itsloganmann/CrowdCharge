@@ -277,7 +277,10 @@ async function chargerInfo(chargerNumber) {
 
 	// Remove old content so we can rebuild with new content
 	let prevPage = $('#tab-content').children().detach();
-
+	$("#tab-content").css({
+		'padding-right' : '3.33333%',
+		'padding-left' : '3.33333%'
+	});
 	// Create label and input elements for the new charger form.
 	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
