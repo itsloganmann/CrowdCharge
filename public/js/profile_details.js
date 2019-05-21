@@ -3,14 +3,12 @@
 // Lets the host edit their profile information, change their password, 
 // and change their notification settings.
 
-// JSON Web Token authentication
-const jwt = localStorage.getItem('jwt');
-
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$('.tab-button:not(#' + event.target.id + ')').css({ 'color': 'inherit' });
-	$('#' + event.target.id).css({ 'color': '#F05A29' });
+    $('.tab-button:not(#' + event.target.id + ')').css('color', '#555555');
+    $('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
 	$('#tab-content').children().remove();
 });
 

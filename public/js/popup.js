@@ -1,10 +1,10 @@
 // Generates login and signup popup
 
 // JSON Web Token authentication
-const token = localStorage.getItem('jwt');
+const jwt = localStorage.getItem('jwt');
 
 // If token is present, user is logged in
-if (token) {
+if (jwt) {
 	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
@@ -162,6 +162,7 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
+	$("#popup").addClass("full-screen-modal");
 });
 
 // Creating sign up pop-up
@@ -388,4 +389,11 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$('#signup-phone-input').removeClass('invalid-input-underline');
 	$('#signup-phone-label').removeClass('invalid-input-label');
 	$("#phone-validation").remove();
+});
+
+// Removes popup for booking
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+        $("#popup-wrapper").remove();
+    }
 });

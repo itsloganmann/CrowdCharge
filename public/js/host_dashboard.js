@@ -1,14 +1,12 @@
 // Controls the host dashboard. Lets the host add chargers,
 // view their bookings, check their reviews, and see their earnings.
 
-// JSON Web Token authentication
-const jwt = localStorage.getItem('jwt');
-
 // Changes tab colours and clears tab contents
 // Clearing done when switching tabs to allow for new data population
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
-	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$('.tab-button:not(#' + event.target.id + ')').css('color', '#555555');
+	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
 	$("#tab-content").children().remove();
 });
 
@@ -34,7 +32,8 @@ async function fetchGET(url, jwt) {
 
 // Get the current time and format the object.
 function getTime(timeObject) {
-	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
+	let time = timeObject.split("T")[1].split(":00.000Z")[0];
+	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
 }
 
 // Function to switch to the chargers tab
@@ -107,7 +106,6 @@ $('#requests-tab').click(async function (event) {
 		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 		$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
 		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm">pending</div></div>');
-		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
 		createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg");
 		createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
 		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
@@ -117,17 +115,18 @@ $('#requests-tab').click(async function (event) {
 		createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-sm");
 		$("#pending-charger-name" + countPending).text("Charger: " + booking.chargername);
 		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
-
-		// Accept or reject 
-		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
-		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
-		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
-
 		createContent("pending-card" + countPending, "div", "pending-address" + countPending, "card-text-sm");
 		$("#pending-address" + countPending).text(booking.address);
 		createContent("pending-card" + countPending, "div", "pending-area" + countPending, "card-text-sm");
 		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
+		//accept or reject 
+		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
+		createButton("acc-rej-container" + countPending, "accept" + countPending, "Accept", "orange-button booking-accept-button");
+		createButton("acc-rej-container" + countPending, "reject" + countPending, "Decline", "white-button booking-reject-button");
+	//	createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
+	//	createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
+		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 		countPending++;
 	}
 	);
