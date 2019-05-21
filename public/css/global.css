@@ -6,11 +6,11 @@ main {
 }
 
 .green-highlight {
-  color: #1DBF73;
+  color: #1DBF73 !important;
 }
 
 .orange-highlight {
-  color: #F05A29;
+  color: #F05A29 !important;
 }
 
 body {
@@ -268,9 +268,10 @@ body {
 }
 
 .orange-button {
+  font-size: 14pt;
   display: block;
   background-color: #F05A29;
-  margin: 24px auto 8px;
+  margin: 8px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
   border-radius: 4px;
@@ -283,9 +284,10 @@ body {
 }
 
 .white-button {
+  font-size: 14pt;
   display: block;
   background-color: #FFFFFF;
-  margin: 24px auto 8px;
+  margin: 8px auto 8px;
   color: #F05A29;
   cursor: pointer;
   border-radius: 4px;
@@ -412,7 +414,6 @@ footer ul {
   z-index: 6;
   margin: 0 auto;
   width: 60vw;
-  min-width: 378px;
   max-width: 524px;
   border-radius: 8px;
   color: #464648;
@@ -424,13 +425,17 @@ footer ul {
   max-height: 100vh;
 }
 
+.full-screen-modal {
+  min-width: 378px;
+}
+
 
 .popup-header {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 .popup-subheader {
-  font-size: 1.0rem;
+  font-size: 1.25rem;
 }
 
 /** Login */
@@ -464,22 +469,19 @@ footer ul {
 }
 
 @media only screen and (max-width: 768px){
+  .full-screen-modal {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0px !important;
+    max-width: unset !important;
+    min-width: 100vw !important;
+  }
   #popup {
-    min-width: unset;
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
-    max-width: unset;
+    width: 100vw;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  .popup-header {
-      font-size: 1.75rem;
-  }
-  .popup-subheader {
-      font-size: 1.25rem;
-  }
   .form-label {
       font-size: 12pt;
   }
@@ -526,13 +528,21 @@ button:focus {
   color: red;
 }
 
-.readonly-input{
+.readonly-input, .readonly-input-full{
   background-color: inherit;
-  border-bottom: 0;
 }
 
 .readonly-label{
   font-weight: bold;
+  margin-top: 4px;
+}
+.readonly-input:focus {
+  padding: 3px 8px 3px;
+  border-bottom: 1px solid black
+}
+.readonly-input-full:focus {
+  padding: 3px 8px 3px;
+  border: 1px solid black;
 }
 
 #popup-close-button {
@@ -543,7 +553,6 @@ button:focus {
   cursor: pointer;
 }
 
-/* For screens 768px or smaller */
 @media only screen and (max-width: 1191px) {
   #logo-img{
     position: absolute;

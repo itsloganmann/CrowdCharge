@@ -48,10 +48,14 @@ main {
     color: #555555;
     cursor: pointer;
 }
-.tab-button:first-child, .tab-button:hover {
+.tab-button:hover {
+    color: #FF9F10;
+}
+.tab-button:hover {
     color: #F05A29;
 }
 #tab-content {
+    min-height: 256px;
     padding: 24px 12px;
     border-radius: 8px;
     background-color: #F3F3F3;
@@ -79,7 +83,7 @@ main {
 /** Cards */
 .card-panel {
     box-sizing: content-box;
-    margin: 8px 1%;
+    margin: 8px 0.99999%;
     padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
@@ -90,24 +94,33 @@ main {
     font-size: 1.5rem;
 }
 .green-card {
-    background-color: #1DBF73;
+    background-color: #1ec778;
+    color: #FFFFFF;
+}
+.dark-green-card {
+    background-color: #189b5d;
     color: #FFFFFF;
 }
 .orange-card {
     background-color: #F05A29;
     color: #FFFFFF;
 }
+.dark-orange-card {
+    background-color:  #FF9F10;
+    color: #FFFFFF;
+}
 .price-card-text-wrapper {
+    margin-top: 2px;
     float: right;
     text-align: right;
-    line-height: 1.2em;
+    line-height: 1.4em;
 }
 .price-card-text-lg {
-    font-size: 1.25em;
+    font-size: 1.5em;
     font-weight: 700;
 }
 .price-card-text-sm {
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: 500;
     text-align: right;
 }
@@ -132,5 +145,15 @@ main {
     .card-panel {
         flex: 0 0 44% !important;
         max-width: 44% !important;
+    }
+    .price-card-text-wrapper {
+        margin-top: 2px;
+        line-height: 1.2em;
+    }
+    .price-card-text-lg {
+        font-size: 1.25em;
+    }
+    .price-card-text-sm {
+        font-size: 1em;
     }
 }

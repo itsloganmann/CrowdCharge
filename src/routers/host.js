@@ -10,27 +10,27 @@ const auth = require('../middleware/auth')
 
 //Gets all of owners's charger's pending bookings
 // uUID (from auth) -> [booking]
-router.get('/pendingBookings', async(req, res)=>{
-   res.send(await getHostBookings(null, "PENDING"));
+router.get('/pendingBookings', auth, async(req, res)=>{
+   res.send(await getHostBookings(req.user._id, "PENDING"))
 })
 
 //Gets all of owners's charger's unpaid bookings
 // uUID (from auth) -> [booking]
-router.get('/unpaidBookings', async(req, res)=>{
-    res.send(await getHostBookings(null, "UNPAID"));
+router.get('/unpaidBookings', auth, async(req, res)=>{
+    res.send(await getHostBookings(req.user._id, "UNPAID"));
  })
 
  //Gets all of owners's charger's paid bookings
 // uUID (from auth) -> [booking]
- router.get('/paidBookings', async(req, res)=>{
-    res.send(await getHostBookings(null, "PAID"));
+ router.get('/paidBookings', auth, async(req, res)=>{
+    res.send(await getHostBookings(req.user._id, "PAID"));
  })
 
 
 //Gets all of owners's charger's completed bookings
 // uUID (from auth) -> [booking]
- router.get('/completedBookings', async(req, res)=>{
-   res.send(await getHostBookings(null, "COMPLETED"));
+ router.get('/completedBookings', auth, async(req, res)=>{
+   res.send(await getHostBookings(req.user._id, "COMPLETED"));
 })
 
 //Gets charger's pending bookings
@@ -85,6 +85,7 @@ let getChargerReviews = async function(cUID){
 
 //Gets owners(uUID)'s charger's bookings of state as an array
 let getHostBookings = async function(uUID, state){
+    console.log(uUID, state);
     try{
         const chargers = await Charger.find({owner: uUID});
         var promises = chargers.map(async(charger)=>{return await getChargerBookings(charger._id,state)});
@@ -112,7 +113,7 @@ let getChargerBookings = async function(cUID,state){
                 element.city = charger.city;
                 element.province = charger.province;
                 element.client = client.name;
-                element.cName = charger.cName;
+                element.chargername = charger.chargername;
                 if(state =="PENDING")
                     element.bookingID = booking._id;
                 // console.log(element)

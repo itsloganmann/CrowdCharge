@@ -79,7 +79,9 @@ router.delete('/declineBooking', async (req, res) => {
 //Pays for a booking
 router.post('/payBooking', auth, async (req, res) => {
     try {
-        const booking = await Booking.findByIdAndUpdate(req.bUID, { state: "PAID" });
+        console.log(req.body.bUID);
+        const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "PAID" });
+        console.log(booking);
         const charger = await Charger.findById(booking.charger);
         let notification = new Notification({
             booking: booking,

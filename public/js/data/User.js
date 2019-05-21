@@ -1,3 +1,5 @@
+// Schema for a user class
+
 class user{
 	constructor(obj){
 		this.obj = obj;
@@ -9,6 +11,4 @@ class user{
 		this.reviews = obj.reviews; //FK array
 		this.bookings = obj.bookings; //FK array
 	}
-
-	//rendering?
 }

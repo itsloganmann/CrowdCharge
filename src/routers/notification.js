@@ -7,7 +7,7 @@ const auth = require('../middleware/auth')
 // GET request endpoint for fetching all notifications
 router.get('/notifications', auth, async (req, res) => {
     try {
-        const notifications = await Notification.find( {} )
+        const notifications = await Notification.find( {user : req.user._id} )
         res.send(notifications)
     } catch (error) {
         // Sets up internal server error code. Database went wrong.
@@ -77,16 +77,17 @@ router.patch('/notifications/:id', auth, async (req, res) => {
 })
 
 // Route handler for deleting notifications
-router.delete('/notifications/:id', auth, async (req, res) => {
+router.delete('/notifications', auth, async (req, res) => {
     try {
-        const notification = await Notification.findByIdAndDelete(req.params.id)
-
+        const notification = await Notification.findByIdAndDelete(req.query.id)
+        
         if (!notification) {
             return res.status(404).send()
         }
 
         res.send(notification)
     } catch (error) {
+        Console.lOG(error);
         res.status(500).send()
     }
 })

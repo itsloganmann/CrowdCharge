@@ -1,9 +1,18 @@
-var token = localStorage.getItem('jwt');
-if (token) {
-	console.log("logged in");
+// Generates login and signup popup
+
+// JSON Web Token authentication
+const jwt = localStorage.getItem('jwt');
+
+// If token is present, user is logged in
+if (jwt) {
+	console.log("Logged in");
+	// Remove login button
 	$("#login-button").remove();
-} else {
-	console.log("not logged in");
+} 
+// If token is not present, user is not logged in
+else {
+	console.log("Not logged in");
+	// Remove user-only functions
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
 }
@@ -21,22 +30,16 @@ var createPopup = () => {
 	$("#popup").fadeIn(200);
 }
 
-var createPopupHeader = (size, text, id) => {
+// Function for creating header element
+var createPopupHeader = (size, text, id, className) => {
 	var popupHeader = document.createElement(size);
-	popupHeader.className = "popup-header";
+	popupHeader.className = className;
 	popupHeader.id = id;
 	$('#popup').append(popupHeader);
-	$('.popup-header').html(text);
+	$(popupHeader).html(text);
 }
 
-var createPopupSubheader = (size, text, id) => {
-	var popupSubheader = document.createElement(size);
-	popupSubheader.className = "popup-subheader";
-	popupSubheader.id = id;
-	$('#popup').append(popupSubheader);
-	$('.popup-subheader').html(text);
-}
-
+// Function for creating popup content
 var createPopupContent = (targetId, type, id, className) => {
 	var popupContent = document.createElement(type);
 	if (className != undefined) {
@@ -46,6 +49,7 @@ var createPopupContent = (targetId, type, id, className) => {
 	$('#' + targetId).append(popupContent);
 }
 
+// Function for creating popup confirm button
 var createPopupConfirmButton = (id, text) => {
 	var popupConfirm = document.createElement('button');
 	popupConfirm.id = id;
@@ -54,6 +58,7 @@ var createPopupConfirmButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
+// Function for creating popup cancel button
 var createPopupCancelButton = (id, text) => {
 	var popupCancel = document.createElement('button');
 	popupCancel.id = id;
@@ -73,9 +78,11 @@ var createFormButton = (id, text) => {
 }
 */
 
+// Array of months
 var months = ["January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"];
 
+// Get date and return as a string
 var getCurrentDate = () => {
 	var today = new Date();
 	var day = today.getDate();
@@ -94,6 +101,7 @@ var addPopupHiddenField = (name, value) => {
 }
 */
 
+// Function for creating popup input
 var createPopupInput = (targetId, type, name, id, className, value) => {
 	let input = document.createElement("input")
 	input.setAttribute("type", type);
@@ -106,6 +114,7 @@ var createPopupInput = (targetId, type, name, id, className, value) => {
 	$('#' + targetId).append(input);
 }
 
+// Function for creating popup label
 var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	let label = document.createElement("label");
 	label.id = id;
@@ -115,16 +124,16 @@ var createPopupLabel = (targetId, relatedInput, text, id, className) => {
 	$('#' + targetId).append(label);
 }
 
+// Function for creating popup error message
 var createErrorMessage = (targetId, message, className) => {
 	let element = document.createElement("div");
 	element.className = className;
 	element.innerText = message;
 	$('#' + targetId).prepend(element);
-
 }
 
 // Removes popup
-$(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
+$('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
 		$('body').css('position','initial');
@@ -132,9 +141,10 @@ $(document).on("click", "#popup-wrapper, #popup-close-button", (e) => {
 });
 
 // Creating login pop-up
+// Uses previous functions
 $("#login-button").on("click", () => {
 	createPopup();
-	createPopupHeader("h3", "Log in to your account", "login-header");
+	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
 	createPopupContent("popup", "div", "login-password-wrapper", "full-center-wrapper");
 
@@ -152,13 +162,14 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
+	$("#popup").addClass("full-screen-modal");
 });
 
 // Creating sign up pop-up
+// Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
-	console.log("Creating account...");
-	signInPage = $("#popup").children().detach();
-	createPopupHeader("h3", "Let's Get Started!", "signup-header");
+	signInPage = $("#popup").children().not("#popup-close-button").detach();
+	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
 	createPopupContent("popup", "div", "signup-email-wrapper", "full-center-wrapper");
@@ -241,34 +252,45 @@ $('body').on('click', '#signup-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then( (response) => {
+
+			// Error checking
 			if (response.errors || response.name) {
+
+			// Handle MongoDB error
 			if (response.name === "MongoError") {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email, please use another email!</div>")
 				$('#signup-email-input').addClass('invalid-input-underline');
 				$('#signup-email-label').addClass('invalid-input-label');
 			}	
+			// Handle invalid email error
 			if (response.errors.email) {
 				$("#email-validation").remove();
 				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
 				$('#signup-email-input').addClass('invalid-input-underline');
 				$('#signup-email-label').addClass('invalid-input-label');
 			}
+			//Handle invalid phone number error
 			if (response.errors.phone) {
 				$("#phone-validation").remove();
 				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
 				$('#signup-phone-input').addClass('invalid-input-underline');
 				$('#signup-phone-label').addClass('invalid-input-label');
 			} 
+			// Handle invalid password error
 			if (response.errors.password) {
 				$("#password-validation").remove();
 				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
 				$('#signup-confirm-password-input').addClass('invalid-input-underline');
 				$('#signup-confirm-password-label').addClass('invalid-input-label');
 			} 
-		} else if (!response.errors) {
+		} 
+		// Success condition
+		else if (!response.errors) {
 			console.log('Login success:', JSON.stringify(response))
 			localStorage.setItem('jwt', response.token)
+
+			// Reload to client dashboard
 			window.location.replace('/client_dashboard');
 			}
 		})
@@ -285,7 +307,6 @@ $('body').on('click', '#signup-popup-button', (event) => {
 $('body').on('click', '#logout-button', (event) => {
 	event.preventDefault();
 	const url = '/users/logout'
-	const jwt = localStorage.getItem('jwt')
 
 	fetch(url, {
 		method: 'POST',
@@ -303,8 +324,9 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
+	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
@@ -367,4 +389,11 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$('#signup-phone-input').removeClass('invalid-input-underline');
 	$('#signup-phone-label').removeClass('invalid-input-label');
 	$("#phone-validation").remove();
+});
+
+// Removes currently active popup when clicking elements with the specified ID
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+        $("#popup-wrapper").remove();
+    }
 });
