@@ -325,8 +325,9 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
+	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
