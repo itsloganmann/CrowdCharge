@@ -1,3 +1,5 @@
+// Schema for a charger class
+
 class charger{
 	constructor(obj){
 		this.obj = obj;
@@ -13,6 +15,4 @@ class charger{
 		this.bookings = obj.bookings //FK array
 		this.history = obj.history //FK array
 	}
-
-	//rendering?
 }
