@@ -14,7 +14,29 @@ router.get('/notifications', auth, async (req, res) => {
         res.status(500).send()
     }
 })
+// router.get('/notifications', auth, async (req, res) => {
+//     try {// {user: req.user._id}
+//         const notifications = await Notification.find({user: req.user._id})
+//         let promises = notifications.map(async notif=>{
+//             try{
+//                 let charger = await Charger.findById(notif.booking.charger)
+//                 let element = notif
+//                 element.charger=charger
+//                 console.log(element)
+//                 return element;
+//             }catch(error){
+//                 console.log(error)
+//             }   
+//         })
+//         const results = await Promise.all(promises)
+//         // return results;
 
+//         res.send(results)
+//     } catch (error) {
+//         // Sets up internal server error code. Database went wrong.
+//         res.status(500).send()
+//     }
+// })
 // GET request endpoint for fetching notifications by id
 router.get('/notifications/:id', auth, async (req, res) => {
     const _id = req.params.id
