@@ -23,3 +23,10 @@ const getBalance = async (url, jwt) => {
 }
 
 getBalance(url, jwt)
+
+// Changes tab colours
+$('.tab-button').on('click', (e) => {
+	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
+});
+

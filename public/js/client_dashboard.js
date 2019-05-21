@@ -42,38 +42,39 @@ function confirmationPopupPay(value, booking) {
 	$("body").off('click', "#pay-now-btn");
 	$("body").on('click', "#pay-now-btn", async () => {
 		try {
+			// Subtracts user balance. If insufficient funds, display message
 			await fetch('/users/pay', {
 				method: 'PATCH',
-				body: JSON.stringify({cost: booking.cost}),
+				body: JSON.stringify({ cost: booking.cost, bookingID: booking.bookingID }),
 				headers: {
 					'content-type': 'application/json',
 					'Authorization': 'Bearer ' + jwt
 				}
 			}).then(res => res.json())
-			.then(async (response) => {
-				if (response.error){
-					$("#popup").children().not("#popup-close-button").remove();
-					createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
-					createPopupCancelButton("popup-cancel", "Close");
-				} else {
-          // The Fetch call to POST payment information
-					await fetch('/booking/payBooking', {
-						method: 'POST',
-						body: JSON.stringify({bUID: booking.bookingID}),
-						headers: {
-							'content-type': 'application/json',
-							'Authorization': 'Bearer ' + jwt
-						}		
-					})
-          // Informs user of success.
-					$("#popup").children().not("#popup-close-button").remove();
-					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
-					$('body').on("click", (e) => {
-						location.reload(true);
-					})
-				}
-			})
-		} catch(error) {
+				.then(async (response) => {
+					if (response.error) {
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
+						createPopupCancelButton("popup-cancel", "Close");
+					} else {
+						// Fetch POST method for an unpaid to paid booking
+						await fetch('/booking/payBooking', {
+							method: 'POST',
+							body: JSON.stringify({ bUID: booking.bookingID }),
+							headers: {
+								'content-type': 'application/json',
+								'Authorization': 'Bearer ' + jwt
+							}
+						})
+						// Informs user of success.
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+						$('body').on("click", (e) => {
+							location.reload(true);
+						})
+					}
+				})
+		} catch (error) {
 			console.log(error);
 		}
 		/*
@@ -118,7 +119,7 @@ async function fetchBooking(url, status) {
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ "</div></div>";
-			} 
+			}
 			// Build-case for "Paid" and "Unpaid" booking types
 			else {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
