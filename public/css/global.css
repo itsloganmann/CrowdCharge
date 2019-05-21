@@ -268,7 +268,7 @@ body {
 }
 
 .orange-button {
-  font-size: 14pt;
+  font-size: 13pt;
   display: block;
   background-color: #F05A29;
   margin: 8px auto 8px;
@@ -279,6 +279,7 @@ body {
   padding: 8px 16px;
   width: 100%;
 }
+
 .orange-button:hover {
   background-color: #D45125;
 }
