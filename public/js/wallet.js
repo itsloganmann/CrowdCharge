@@ -16,7 +16,6 @@ const getBalance = async (url, jwt) => {
 
 	const user = await response.json()
 	const userBalance = user.balance
-
 	const walletBalance = document.getElementById('walletamount')
 
 	walletBalance.innerHTML = '$' + userBalance.toFixed(2)
@@ -31,7 +30,6 @@ $('.balance-button').on('click', (e) => {
 	$('#recharge-button').removeAttr('disabled');
 	$('#recharge-button').removeClass('disabled-button');
 });
-
 
 // Changes tab colours and displays appropriate tab
 $('.tab-button').on('click', (e) => {
