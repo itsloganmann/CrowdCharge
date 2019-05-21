@@ -51,7 +51,7 @@ main {
 .tab-button:hover {
     color: #FF9F10;
 }
-.tab-button:first-child, .tab-button:hover {
+.tab-button:hover {
     color: #F05A29;
 }
 #tab-content {

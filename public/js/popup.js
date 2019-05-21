@@ -168,8 +168,7 @@ $("#login-button").on("click", () => {
 // Creating sign up pop-up
 // Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
-	console.log("Creating account...");
-	signInPage = $("#popup").children().detach();
+	signInPage = $("#popup").children().not("#popup-close-button").detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
@@ -325,8 +324,9 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
+	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
@@ -391,7 +391,7 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$("#phone-validation").remove();
 });
 
-// Removes popup for booking
+// Removes currently active popup when clicking elements with the specified ID
 $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
     if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
         $("#popup-wrapper").remove();

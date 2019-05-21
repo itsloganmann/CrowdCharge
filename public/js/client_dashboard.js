@@ -42,38 +42,39 @@ function confirmationPopupPay(value, booking) {
 	$("body").off('click', "#pay-now-btn");
 	$("body").on('click', "#pay-now-btn", async () => {
 		try {
+			// Subtracts user balance. If insufficient funds, display message
 			await fetch('/users/pay', {
 				method: 'PATCH',
-				body: JSON.stringify({cost: booking.cost}),
+				body: JSON.stringify({ cost: booking.cost, bookingID: booking.bookingID }),
 				headers: {
 					'content-type': 'application/json',
 					'Authorization': 'Bearer ' + jwt
 				}
 			}).then(res => res.json())
-			.then(async (response) => {
-				if (response.error){
-					$("#popup").children().not("#popup-close-button").remove();
-					createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
-					createPopupCancelButton("popup-cancel", "Close");
-				} else {
-          // The Fetch call to POST payment information
-					await fetch('/booking/payBooking', {
-						method: 'POST',
-						body: JSON.stringify({bUID: booking.bookingID}),
-						headers: {
-							'content-type': 'application/json',
-							'Authorization': 'Bearer ' + jwt
-						}		
-					})
-          // Informs user of success.
-					$("#popup").children().not("#popup-close-button").remove();
-					createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
-					$('body').on("click", (e) => {
-						location.reload(true);
-					})
-				}
-			})
-		} catch(error) {
+				.then(async (response) => {
+					if (response.error) {
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
+						createPopupCancelButton("popup-cancel", "Close");
+					} else {
+						// Fetch POST method for an unpaid to paid booking
+						await fetch('/booking/payBooking', {
+							method: 'POST',
+							body: JSON.stringify({ bUID: booking.bookingID }),
+							headers: {
+								'content-type': 'application/json',
+								'Authorization': 'Bearer ' + jwt
+							}
+						})
+						// Informs user of success.
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+						$('body').on("click", (e) => {
+							location.reload(true);
+						})
+					}
+				})
+		} catch (error) {
 			console.log(error);
 		}
 		/*
@@ -118,7 +119,7 @@ async function fetchBooking(url, status) {
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ "</div></div>";
-			} 
+			}
 			// Build-case for "Paid" and "Unpaid" booking types
 			else {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
@@ -143,10 +144,8 @@ async function fetchBooking(url, status) {
 };
 
 
-// Changes tab colours and clears tab contents
-// Clearing done when switching tabs to allow for new data population
+// Changes tab colours
 $('.tab-button').on('click', (e) => {
-	$('.tab-button:not(#' + event.target.id + ')').css('color', '#555555');
 	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
 	$('#' + event.target.id).addClass('orange-highlight');
 });
@@ -165,8 +164,8 @@ const bookingTab = async (e) => {
 
 	// Instantiate containers for Confirmed Bookings
 	var paidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
-		"These bookings have been confirmed by the host and are ready to go!");
+	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Paid Bookings", "client-confirmed-subheader",
+		"These bookings have already been confirmed and paid for!");
 	confirmContainer.append(paidCardContainer);
 
 	// Populate containers with data
