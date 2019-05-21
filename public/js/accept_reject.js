@@ -33,7 +33,7 @@ function confirmationPopup(value, charger) {
     createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
     if (value == "accept")
         $("#accept-btn").removeClass('orange-button').addClass('green-button');
-    else {
+    else if (value == "decline") {
         $("#decline-btn").removeClass('orange-button').addClass('red-button');
     }
     createPopupCancelButton("popup-cancel", "Cancel");
