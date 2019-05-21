@@ -38,7 +38,7 @@ let notifications = [];
 ] */
 
 //Click event Handler function
-function deleteNotification(notificationID) {
+function deleteNotification(notificationID, index, cardID) {
     reqParam = {
         id: notificationID
     }
@@ -51,6 +51,8 @@ function deleteNotification(notificationID) {
         }
     }).then((res) => {
         return res.json()
+    }).then((data) => {
+        $("#" +cardID).toggle("drop");
     }).catch(error => console.log(error));
 }
 
@@ -72,19 +74,30 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
 
 
     //create card    
-    createContent("notif-" + type + "-data", "div", type + "-card-" + index, "card-panel col-md-5 " + cardColor + "-card");
-    var p = $("<p>" + content + "</p>");
-    $("#" + type + "-card-" + index).append(p);
-    $(document).on("click", "#" + type + "-card-" + index, async (e) => {
+    var cardID= type + "-card-" + index;
+    createContent("notif-" + type + "-data", "div", cardID, "card-panel col-md-5 " + cardColor + "-card");
+    var x = $("<span id='card-close-btn" + index + "' style='float: right' class='fas fa-times ui-button-custom'></span>");
+    var span = $("<span>" + content + "</span>");
+    $("#" + cardID).append(x);
+    $("#" + cardID).append(span);
+
+    $(document).on("click", "#card-close-btn" + index, async (e) => {
         console.log(notificationObj._id);
-        await deleteNotification(notificationObj._id);
+        deleteNotification(notificationObj._id, index, cardID);
+
+    })
+    $(document).on("click", ".fa-arrow-right", async (e) => {
         if (type == "accepted" || type == "declined") {
-           // ;
+            location.replace('/client_dashboard');
         } else {
-           // location.replace('/host_dashboard');
+            location.replace('/host_dashboard');
         }
     })
+
+
+
 }
+
 //main function
 async function renderNotification() {
 
@@ -114,16 +127,16 @@ async function renderNotification() {
         let dataInfo = "";
         let count = 0;
         notifications.forEach(async notification => {
-            
+
             switch (notification.type) {
                 //as a host
                 case "NEWREQ":
                     dataInfo = "charger Name: "
-                        + notification.charger.chargername
+                        //                        + notification.charger.chargername
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
-                        + "<span style= 'float: right' >...</span>";
+                        + "<span style= 'float: right' class='fas fa-arrow-right' ></span>";
 
                     buildElement(notification, "request"
                         , "These are user requests to use your"
@@ -134,7 +147,7 @@ async function renderNotification() {
                     break;
                 case "PAID":
                     dataInfo = "charger name: "
-                        + notification.charger.chargername
+                        //                        + notification.charger.chargername
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
@@ -155,7 +168,7 @@ async function renderNotification() {
                 //as a client
                 case "ACCEPTED":
                     dataInfo = "Address: "
-                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
+                        //                        + notification.charger.address + " " + notification.charger.city + ", " + notification.charger.province
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)
@@ -169,7 +182,7 @@ async function renderNotification() {
                     break;
                 case "DECLINED":
                     dataInfo = "Location: "
-                        + notification.charger.city + ", " + notification.charger.province
+                        //                        + notification.charger.city + ", " + notification.charger.province
                         + "</br>Date: " + notification.booking.timeStart.split("T")[0]
                         + "</br>Time: " + getTime(notification.booking.timeStart) + "-"
                         + getTime(notification.booking.timeEnd)

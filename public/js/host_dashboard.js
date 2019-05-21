@@ -9,21 +9,21 @@ $('.tab-button').on('click', (e) => {
 // Fetches data from database 
 // Used to retrieve bookings
 async function fetchGET(url, jwt) {
-    var hostData;
-    await fetch(url, {
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json',
-            'Authorization': 'Bearer ' + jwt
-        }
-    })
-        .then((res) => {
-            return res.json()
-        })
-        .then((db) => {
-            hostData = JSON.parse(JSON.stringify(db))
-        });
-    return hostData;
+	var hostData;
+	await fetch(url, {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	})
+		.then((res) => {
+			return res.json()
+		})
+		.then((db) => {
+			hostData = JSON.parse(JSON.stringify(db))
+		});
+	return hostData;
 }
 function getTime(timeObject) {
 	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
@@ -89,41 +89,42 @@ $('#requests-tab').click(async function (event) {
 		$("#request-container").append("<div class='no-data'><p>You don't have any pending booking requests!</p></div>");
 	} else {
 		pendingData.forEach((booking) => {
-		//pending booking information for the host
-		createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
-		$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
-		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm">pending</div></div>');
-		createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
-		createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg");
-		createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
-		$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("pending-card" + countPending, "div", "pending-client" + countPending, "card-text-sm orange-highlight");
-		$("#pending-client" + countPending).text(booking.client);
+			//pending booking information for the host
+			createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
+			$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
+				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm">pending</div></div>');
+			createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
+			createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg");
+			createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
+			$("#pending-period" + countPending).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+			createContent("pending-card" + countPending, "div", "pending-client" + countPending, "card-text-sm orange-highlight");
+			$("#pending-client" + countPending).text(booking.client);
 
-		createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-sm");
-		$("#pending-charger-name" + countPending).text("Charger: " + booking.chargername);
-		$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
-		//accept or reject 
-		createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
-		createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
-		addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
-		addEventListenerOnReject($("#reject" + countPending), booking, jwt);
+			createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-sm");
+			$("#pending-charger-name" + countPending).text("Charger: " + booking.chargername);
+			$("#pending-date" + countPending).text(booking.startTime.split("T")[0]);
+			//accept or reject 
+			createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
+			createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
+			addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
+			addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 
-		createContent("pending-card" + countPending, "div", "pending-address" + countPending, "card-text-sm");
-		$("#pending-address" + countPending).text(booking.address);
-		createContent("pending-card" + countPending, "div", "pending-area" + countPending, "card-text-sm");
-		$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
-		countPending++;
+			createContent("pending-card" + countPending, "div", "pending-address" + countPending, "card-text-sm");
+			$("#pending-address" + countPending).text(booking.address);
+			createContent("pending-card" + countPending, "div", "pending-area" + countPending, "card-text-sm");
+			$("#pending-area" + countPending).text(booking.city + ", " + booking.province);
+			countPending++;
+		}
+		);
 	}
-	);
-}});
+});
 
 // Page to add new chargers
 const appendAddChargerPage = () => {
 	var prevPage = $("#tab-content").children().detach();
 	$("#tab-content").append('<h3 class="inner-header col-11">New Charger</h3>'
 		+ '<h6 class="inner-subheader col-11">Add a new charger!</h6>'
-		+ '<div class="col-11 tab-section-data row">' 
+		+ '<div class="col-11 tab-section-data row">'
 		+ '<form id="new-charger-form">'
 		+ '<div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="14" id="charger-name-input" class="form-input-full" required></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div>'
@@ -155,52 +156,54 @@ $('#bookings-tab').click(async function (event) {
 	if (unpaidData.length == 0) {
 		$("#unpaid-container").append("<div class='no-data'><p>You don't have any unpaid booking requests!</p></div>");
 	} else {
-	unpaidData.forEach((booking) => {
-		// Renders content for unpaid bookings
-		createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
-		$('#unpaid-card' + countUnpaid).append('<div class="price-card-text-wrapper">'
-		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm orange-highlight">unpaid</div></div>');
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-date" + countUnpaid, "card-text-lg orange-highlight");
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-period" + countUnpaid, "card-text-md");
-		$("#unpaid-period" + countUnpaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-client" + countUnpaid, "card-text-sm orange-highlight");
-		$("#unpaid-client" + countUnpaid).text(booking.client);
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-charger-name" + countUnpaid, "card-text-sm");
-		$("#unpaid-charger-name" + countUnpaid).text("Charger: " + booking.chargername);
-		$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-address" + countUnpaid, "card-text-sm");
-		$("#unpaid-address" + countUnpaid).text(booking.address);
-		createContent("unpaid-card" + countUnpaid, "div", "unpaid-area" + countUnpaid, "card-text-sm");
-		$("#unpaid-area" + countUnpaid).text(booking.city + ", " + booking.province);
-		countUnpaid++;
-	}
-	)};
+		unpaidData.forEach((booking) => {
+			// Renders content for unpaid bookings
+			createContent("unpaid-container", "div", "unpaid-card" + countUnpaid, "card-panel col-md-5");
+			$('#unpaid-card' + countUnpaid).append('<div class="price-card-text-wrapper">'
+				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm orange-highlight">unpaid</div></div>');
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-date" + countUnpaid, "card-text-lg orange-highlight");
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-period" + countUnpaid, "card-text-md");
+			$("#unpaid-period" + countUnpaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-client" + countUnpaid, "card-text-sm orange-highlight");
+			$("#unpaid-client" + countUnpaid).text(booking.client);
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-charger-name" + countUnpaid, "card-text-sm");
+			$("#unpaid-charger-name" + countUnpaid).text("Charger: " + booking.chargername);
+			$("#unpaid-date" + countUnpaid).text(booking.startTime.split("T")[0]);
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-address" + countUnpaid, "card-text-sm");
+			$("#unpaid-address" + countUnpaid).text(booking.address);
+			createContent("unpaid-card" + countUnpaid, "div", "unpaid-area" + countUnpaid, "card-text-sm");
+			$("#unpaid-area" + countUnpaid).text(booking.city + ", " + booking.province);
+			countUnpaid++;
+		}
+		)
+	};
 	// Fetch GET method for paid bookings
 	let paidData = await fetchGET('/host/paidBookings', jwt);
 	let countPaid = 0;
 	if (paidData.length == 0) {
 		$("#paid-container").append("<div class='no-data'><p>You don't have any paid booking requests!</p></div>");
 	} else {
-	paidData.forEach((booking) => {
-		// Renders content for paid bookings
-		createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
-		$('#paid-card' + countPaid).append('<div class="price-card-text-wrapper">'
-		+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm green-highlight">paid</div></div>');
-		createContent("paid-card" + countPaid, "div", "paid-date" + countPaid, "card-text-lg green-highlight");
-		createContent("paid-card" + countPaid, "div", "paid-period" + countPaid, "card-text-md");
-		$("#paid-period" + countPaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
-		createContent("paid-card" + countPaid, "div", "paid-client" + countPaid, "card-text-sm green-highlight");
-		$("#paid-client" + countPaid).text(booking.client);
-		createContent("paid-card" + countPaid, "div", "paid-charger-name" + countPaid, "card-text-sm");
-		$("#paid-charger-name" + countPaid).text("Charger: " + booking.chargername);
-		$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
-		createContent("paid-card" + countPaid, "div", "paid-address" + countPaid, "card-text-sm");
-		$("#paid-address" + countPaid).text(booking.address);
-		createContent("paid-card" + countPaid, "div", "paid-area" + countPaid, "card-text-sm");
-		$("#paid-area" + countPaid).text(booking.city + ", " + booking.province);
-		countPaid++;
-	}
-	)};
+		paidData.forEach((booking) => {
+			// Renders content for paid bookings
+			createContent("paid-container", "div", "paid-card" + countPaid, "card-panel col-md-5");
+			$('#paid-card' + countPaid).append('<div class="price-card-text-wrapper">'
+				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm green-highlight">paid</div></div>');
+			createContent("paid-card" + countPaid, "div", "paid-date" + countPaid, "card-text-lg green-highlight");
+			createContent("paid-card" + countPaid, "div", "paid-period" + countPaid, "card-text-md");
+			$("#paid-period" + countPaid).text(getTime(booking.startTime) + "-" + getTime(booking.endTime));
+			createContent("paid-card" + countPaid, "div", "paid-client" + countPaid, "card-text-sm green-highlight");
+			$("#paid-client" + countPaid).text(booking.client);
+			createContent("paid-card" + countPaid, "div", "paid-charger-name" + countPaid, "card-text-sm");
+			$("#paid-charger-name" + countPaid).text("Charger: " + booking.chargername);
+			$("#paid-date" + countPaid).text(booking.startTime.split("T")[0]);
+			createContent("paid-card" + countPaid, "div", "paid-address" + countPaid, "card-text-sm");
+			$("#paid-address" + countPaid).text(booking.address);
+			createContent("paid-card" + countPaid, "div", "paid-area" + countPaid, "card-text-sm");
+			$("#paid-area" + countPaid).text(booking.city + ", " + booking.province);
+			countPaid++;
+		}
+		)
+	};
 })
 
 $('#reviews-tab').click(async function (event) {
@@ -208,7 +211,7 @@ $('#reviews-tab').click(async function (event) {
 	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
-    //let reviewData = await fetchGET("host/allChargerReviews", jwt);
+	//let reviewData = await fetchGET("host/allChargerReviews", jwt);
 	/*reviewData = [{
 		reviewer: "Jane Doe",
 		comment: "This is great!",
@@ -272,9 +275,12 @@ async function chargerInfo(chargerNumber) {
 	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
 	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
 	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("tab-content", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
+	createInput("tab-content", "number", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
 	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
 	$("#tab-content").append("<textarea name='details' id='charger-details' class='form-input-full readonly-input-full' rows='6' cols='60' readonly>");
+	$("#charger-details").text(chargers[chargerNumber].details);
+	$("#charger-rate").attr("min", "0");
+	$("#charger-rate").attr("step", "0.01");
 	//switch between two buttons when clicked
 	//edit -> save; save->edit
 	createButton("tab-content", "edit-btn", "Edit", "orange-button");
@@ -291,7 +297,11 @@ async function chargerInfo(chargerNumber) {
 		$('#edit-btn').css({ "display": "none" });
 		$('#save-btn').css({ "display": "block" });;
 		$('.readonly-input').removeAttr("readonly");
+		$('.readonly-input-full').removeAttr("readonly");
 		$('.readonly-input').removeClass("readonly-input");
+		$('.readonly-input-full').removeAttr("readonly-input-full");
+		$("#charger-details").css({ "background-color": "white" });
+
 	});
 
 	$('#save-btn').click(function (event) {
@@ -299,22 +309,28 @@ async function chargerInfo(chargerNumber) {
 		$('#edit-btn').css({ "display": "block" });;
 		$('.form-input').attr("readonly", true);
 		$('.form-input').addClass("readonly-input");
+		$('.readonly-input-full').attr("readonly", true);
+		$('.readonly-input-full').addClass(".readonly-input-full");
+		$("#charger-details").css({ "background-color": "inherit" });
+
+
+
 		var cname = $("#charger-name").val();
 		var caddress = $("#charger-address").val();
 		var ccity = $("#charger-city").val();
 		var cprovince = $("#charger-province").val();
 		var ctype = $("#charger-type").val();
 		var clevel = $("#charger-level").val();
-		var crate = $("#charger-rate").val();
-		var cdetails = $("#charger-details").val();
-
+		if ($("#charger-rate").val() > 0){}
+			var crate = $("#charger-rate").val();
+		var cdetails = $.trim($("#charger-details").val());
 		let dataToSent = {
 			chargername: cname,
 			address: caddress,
 			city: ccity,
 			type: ctype,
 			level: clevel,
-			rate: crate,
+			cost: crate,
 			details: cdetails
 		}
 		console.log("current charger id:" + chargers[chargerNumber]._id);
@@ -436,9 +452,3 @@ $("body").on('click', "#submit-charger", (e) => {
 		.catch(error => console.error('Error:', error));
 });
 
-// Disables non-digit entries for charger hourly rate
-$('body').on('keypress', '#charger-cost-input, #charger-rate', (evt) => {
-	if (evt.which < 48 || evt.which > 57) {
-		evt.preventDefault();
-	}
-});

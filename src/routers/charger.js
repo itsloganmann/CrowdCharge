@@ -57,7 +57,7 @@ router.patch('/charger', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const charger_id = req.query.cUID
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['chargername', 'address', 'city', 'type', 'level', 'rate', 'details']
+    const allowedUpdates = ['chargername', 'address', 'city', 'type', 'level', 'cost', 'details']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     // Checks if the update is valid operation
