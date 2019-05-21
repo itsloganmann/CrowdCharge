@@ -300,6 +300,38 @@ body {
   background-color: #EEEEEE;
 }
 
+.green-button {
+  font-size: 14pt;
+  display: block;
+  background-color: #1DBF73;
+  margin: 8px auto 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 100%;
+}
+.green-button:hover {
+  background-color: #189b5d;
+}
+
+.red-button {
+  font-size: 14pt;
+  display: block;
+  background-color: #ff0000;
+  margin: 8px auto 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 100%;
+}
+.red-button:hover {
+  background-color: #c20000;
+}
+
 .disabled-button {
   background-color: #CCCCCC !important;
   color: #777777 !important;
