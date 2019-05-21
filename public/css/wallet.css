@@ -67,7 +67,7 @@ main {
 
 /** Recharge tab */
 .balance-button {
-	font-size: 28pt;
+	font-size: 22pt;
 	display: block;
 	background-image: linear-gradient(#CDCDCD, #EEEEEE);
 	margin: 8px auto 8px;
