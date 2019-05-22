@@ -25,9 +25,9 @@ function addEventListenerOnReject(element, booking, jwt) {
 // Creates a popup containing the booking
 function confirmationPopup(value, charger) {
     createPopup();
-    createPopupHeader("h5", "Are you sure you want to " + value + " the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
+    createPopupHeader("h5", "Are you sure you want to " + value + " the request for<br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
         + " on <b id='confirm-charger-date'>" + charger.startTime.split("T")[0] + "</b>"
-        + "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(charger.startTime)) + "-</b>"
+        + "<br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(charger.startTime)) + "-</b>"
         + "<b>" + getLocalEndTime(new Date(charger.endTime)) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
     createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
     if (value == "accept")

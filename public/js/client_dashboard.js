@@ -35,8 +35,8 @@ function confirmationPopupPay(value, booking) {
 	createPopupHeader("h5", "Do you wish to pay for the booking at </br><b id='confirm-charger-address'>"
 		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
 		+ " on <b id='confirm-charger-date'>" + getLocalDate(new Date(booking.startTime)) + "</b>"
-		+ "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + "-</b>"
-		+ "<b>" + getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
+		+ "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + " - "
+		+ getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
 	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
 	$("body").off('click', "#pay-now-btn");
@@ -113,7 +113,7 @@ async function fetchBooking(url, status) {
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
 					+ "<div class='card-text-lg'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
-					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + "-"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
 					+  getLocalEndTime(new Date(dataFromdb[i].endTime))  + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
@@ -127,7 +127,7 @@ async function fetchBooking(url, status) {
 					+ "</div><div class='price-card-text-sm "
 					+ ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + status + "</div></div>"
 					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
-					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + "-"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
 					+ getLocalEndTime(new Date(dataFromdb[i].endTime)) + "</div>"
 					+ ((status == "paid") ? "<div class='card-text-sm'>" + dataFromdb[i].address + "</div>" : "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>")
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
