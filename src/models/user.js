@@ -73,7 +73,12 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    hasNewNotifs: {
+        type: Boolean,
+        default: false,
+        required:true
+    }
 })
 
 // Creates a public profile function.

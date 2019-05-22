@@ -5,7 +5,19 @@ const Charger = require('../models/charger')
 const Notification = require('../models/notification')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const CronJob = require('cron').CronJob;
 
+//Marks past paid bookings as completed and deletes past pending bookings
+const updateCompleted = new CronJob('0 0 * * *', async function(){
+    try{
+        console.log("cron is working")
+        await Booking.updateMany({timeStart:{$lte: Date.now()}, state:"PAID"}, { $set: { state: 'COMPLETED' } });
+        await Booking.deleteMany({timeStart:{$lte: Date.now()}, state:"PENDING"});
+    }catch(error){
+        console.log(error)
+    }
+})
+updateCompleted.start();
 
 // Creates a new booking from booking information
 router.post('/newBooking', auth, async (req, res) => {

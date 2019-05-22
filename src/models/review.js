@@ -15,7 +15,7 @@ const Review = mongoose.model('Review', {
     },
     details: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     rating: {

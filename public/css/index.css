@@ -12,6 +12,7 @@
         margin: 0 auto;
         padding-top: 10px;
         padding-bottom: 10px;
+        
     }
     
     #summary-lines {
@@ -21,7 +22,7 @@
         margin-bottom: 10px;
         border-top: 2px solid #1DBF73;
         border-bottom: 2px solid #1DBF73;
-        line-height: 1.5em;
+        line-height: 1.8em;
     }
     
     #adoption-link {
@@ -29,10 +30,7 @@
         text-decoration: none;
     }
 
-    #map-link {
-        color: #1DBF73;
-        text-decoration: none;   
-    }
+
     
     .homebox {
         width: 75%;
@@ -273,4 +271,17 @@
         display:grid;
         grid-template-columns:1fr 1fr 1fr;
     }
-} 
+}
+
+#map-link {
+    color: #F05A29;
+    text-decoration:underline; 
+    /* font-size:1.2em; */
+}
+
+#signup{
+    color: #F05A29;
+    text-decoration:underline; 
+    cursor:pointer;
+    /* font-size:1.2em; */
+}

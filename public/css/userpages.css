@@ -93,6 +93,7 @@ main {
     background-color: white;
     box-shadow: 0px 2px 6px 0px rgb(0, 0, 0, 0.2);
     line-height: 1.5em;
+    text-align: left;
 }
 .card-header {
     font-size: 1.5rem;
@@ -141,11 +142,31 @@ main {
     font-weight: 400;
 }
 
+/** Review Styling */
+.form-group label{
+    float:left
+}
+#comments{
+    width: 100%;
+    height: 10vw;
+}
+
+/** Completed Booking Styling*/
+.completedBooking:hover {
+    background-color: #F05A29;
+    color:white;
+    cursor: pointer;
+}
+
 /** Media queries */
 @media only screen and (min-width: 768px){
     #wrapper {
         width: 80%;
     }
+    #reviewDetails{
+        max-width:90% !important;
+    }
+
     .card-panel {
         flex: 0 0 44% !important;
         max-width: 44% !important;

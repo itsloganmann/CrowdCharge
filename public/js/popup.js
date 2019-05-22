@@ -142,7 +142,7 @@ $('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 
 // Creating login pop-up
 // Uses previous functions
-$("#login-button").on("click", () => {
+$("#login-button, #signup").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
@@ -397,3 +397,21 @@ $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
         $("#popup-wrapper").remove();
     }
 });
+
+// Converts a number to a string, with leading zeros
+function leadingZero (digits, number){
+	var str = number + "";
+	while (str.length < digits) {
+		str = "0" + str;
+	}
+	return str;
+}
+function getLocalStartTime(dateObj){
+	return dateObj.getHours() + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalEndTime(dateObj){
+	return (dateObj.getHours() == "0" ? "24" : dateObj.getHours()) + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalDate(dateObj){
+	return dateObj.getYear() + 1900 + "-" + (leadingZero(2, dateObj.getMonth() + 1)) + "-" + leadingZero(2, dateObj.getDate());
+}
