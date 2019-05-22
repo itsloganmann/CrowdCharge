@@ -398,25 +398,6 @@ $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
     }
 });
 
-// Builds rating stars
-const buildStars = (rating) => {
-    if (rating === 0) {
-        html = '<span class="host-marker-stars-drawer"> No rating yet! </span>'
-    } else {
-        let numOfStars = ''
-
-        for (let i = 0; i < Math.floor(rating); i++) {
-            numOfStars = numOfStars + '<i class="fas fa-star"></i>'
-        }
-
-        for (let i = 0; i < 5 - Math.floor(rating); i++) {
-            numOfStars = numOfStars + '<i class="far fa-star"></i>'
-        }
-        html = '<span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
-    }
-    return html;
-}
-
 // Converts a number to a string, with leading zeros
 function leadingZero (digits, number){
 	var str = number + "";
