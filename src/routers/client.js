@@ -68,7 +68,10 @@ let getClientBookings = async function(uUID, state){
                 element.client = client.name;
                 element.chargername = charger.chargername;
                 element.bookingID = booking._id;
-                element.chargerID = booking.charger
+                element.chargerID = booking.charger;
+                if(state=="COMPLETED"){
+                    element.reviewStatus = booking.chargerReview
+                } 
                 return element;
             }catch(error){
                 console.log(error)

@@ -103,8 +103,9 @@ async function fetchBooking(url, status) {
 			if (status == "completed" || status == "pending") {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
-					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
-					+ "<div class='card-text-lg'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "</div><div class='price-card-text-sm "
+					+ ((status == "pending") ? "orange-yellow-highlight" : "") + "'>" + status + "</div></div>"
+					+ "<div class='card-text-lg " + ((status == "pending") ? "orange-yellow-highlight" : "") + "'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
 					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
 					+  getLocalEndTime(new Date(dataFromdb[i].endTime))  + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
@@ -230,7 +231,7 @@ $("#reviews-tab").click(async function (event) {
 
 	// Container holds all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
-		, "These are the comments of hosts that you’ve charged with.");
+		, "These are the comments from hosts that you’ve charged with.");
 	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	reviewContainer.append(reviewCardContainer);
 	let reviews = []
@@ -270,7 +271,7 @@ $("#history-tab").click(async function (event) {
 	
 	// Containers for History objects
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings. Click on them to");
+	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings. Click a booking to review your experience. Green cards have already been reviewed.");
 	historyContainer.append(historyCardContainer);
 	
 	// Await Fetch data of History
@@ -297,7 +298,7 @@ $("#history-tab").click(async function (event) {
 
 // Renders completed bookings
 function renderCompletedBooking(booking){
-	let container = $("<div class='card-panel col-md completedBooking'></div>")
+	let container = $("<div class='card-panel col-md'></div>")
 	let content = ""
 	//right side div
 	content+="<div class='price-card-text-wrapper'>"
@@ -313,60 +314,67 @@ function renderCompletedBooking(booking){
 	content+="<div class='card-text-sm'>"+booking.city+", "+booking.province+"</div>"
 
 	container.append(content)
-
-	$(container).on("click",function(){
-		createPopup();
-		createPopupHeader("h3", "Leave a review!", "review-header", "popup-header");
-		let reviewDetails = $("<div id='reviewDetails' class='card-panel col-md'></div>")
-		reviewDetails.append(content)
-
-		let form = $("<form></form>")
-
-		let rating = $("<div class='form-group'></div>")
-		rating.append("<label for='ratingControlRange'><b> Rate your experience: </b></label>")
-		rating.append("<input type='range' class='form-control-range' id='formControlRange' min='1'max='5' step='0.5' oninput='formControlRangeDisp.value = formControlRange.value'>")
-		rating.append("<output id='formControlRangeDisp'></output>")
-
-		let comments = $("<div class='form-group'></div>")
-		comments.append("<label for='ratingControlRange'><b> Comments (optional): </b></label> <br/>")
-		comments.append("<textarea id='comments'></textarea>")
-		
-
-		let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
-		submit.on("click", async(e)=>{
-			e.preventDefault();
-			let review = {};
-			review.reviewee = booking.chargerID;
-			review.details = $("#comments").val();
-			review.rating = $("#formControlRange").val()
-			review.date = Date.now()
-			let data ={};
-			data.review=review
-			data.type="CHARGER"
-			await fetch('/reviews',{
-				method: 'POST',
-				body: JSON.stringify(data),
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': 'Bearer ' + jwt
-				}})
-				.then(res => console.log(res))
-				.then((response) => {
-					// console.log('Success: review added to db!', (response))
-					// window.location.replace('/host_dashboard');
-					$("#popup").children().not("#popup-close-button").remove();
-					createPopupHeader("h3", "Review Submitted!", "confirm-popup-header", "popup-header");
-					$('body').on("click", (e) => {
-						location.reload(true);
+	console.log(booking.reviewStatus)
+	if(booking.reviewStatus==null){
+		$(container).addClass("completedBooking")
+		$(container).on("click",function(){
+			createPopup();
+			createPopupHeader("h3", "Leave a review!", "review-header", "popup-header");
+			let reviewDetails = $("<div id='reviewDetails' class='card-panel col-md'></div>")
+			reviewDetails.append(content)
+	
+			let form = $("<form></form>")
+	
+			let rating = $("<div class='form-group'></div>")
+			rating.append("<label for='ratingControlRange'><b> Rate your experience: </b></label>")
+			rating.append("<input type='range' class='form-control-range' id='formControlRange' min='1'max='5' step='0.5' oninput='formControlRangeDisp.value = formControlRange.value'>")
+			rating.append("<output id='formControlRangeDisp'></output>")
+	
+			let comments = $("<div class='form-group'></div>")
+			comments.append("<label for='ratingControlRange'><b> Comments (optional): </b></label> <br/>")
+			comments.append("<textarea id='comments'></textarea>")
+			
+	
+			let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
+			submit.on("click", async(e)=>{
+				e.preventDefault();
+				let review = {};
+				review.reviewee = booking.chargerID;
+				review.details = $("#comments").val();
+				review.rating = $("#formControlRange").val()
+				review.date = Date.now()
+				let data ={};
+				data.review=review
+				data.type="CHARGER"
+				data.booking=booking.bookingID
+				console.log(data)
+				await fetch('/reviews',{
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + jwt
+					}})
+					.then(res => console.log(res))
+					.then((response) => {
+						// console.log('Success: review added to db!', (response))
+						// window.location.replace('/host_dashboard');
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader("h3", "Review Submitted!", "confirm-popup-header", "popup-header");
+						$('body').on("click", (e) => {
+							location.reload(true);
+						})
 					})
-				})
-				.catch(error => console.error('Error:', error));
+					.catch(error => console.error('Error:', error));
+			})
+	
+			form.append(rating,comments,submit)
+			$("#popup").append(reviewDetails, form)	
 		})
-
-		form.append(rating,comments,submit)
-		$("#popup").append(reviewDetails, form)	
-	})
-
+	}else{
+		$(container).addClass("green-card")
+	}
+	
 	return(container);
 }
 

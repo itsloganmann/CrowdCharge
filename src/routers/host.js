@@ -121,8 +121,15 @@ let getChargerBookings = async function(cUID,state){
                 element.client = client.name;
                 element.clientID = client._id;
                 element.chargername = charger.chargername;
+
                 if(state =="PENDING")
+                element.bookingID = booking._id;
+                else if(state=="COMPLETED"){
+                    element.reviewStatus = booking.userFeedback
                     element.bookingID = booking._id;
+                }
+                    
+
                 return element;
             }catch(error){
                 console.log(error)
