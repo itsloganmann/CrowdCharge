@@ -518,19 +518,35 @@ function renderCompletedBooking(booking) {
 
 // Enables add new charger button if all fields are filled
 $('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input, #charger-cost-input', (event) => {
-	var formFilled = false;
+	let formFilled = false;
 	if ($('#charger-name-input').val() && $('#charger-address-input').val() && $('#charger-city-input').val()
 		&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
 		formFilled = true;
 	}
 	console.log(formFilled);
 	if (formFilled) {
-		console.log('remove');
 		$('#submit-charger').removeAttr('disabled');
 		$('#submit-charger').removeClass('disabled-button');
 	} else {
 		$('#submit-charger').prop('disabled', true);
 		$('#submit-charger').addClass('disabled-button');
+	}
+});
+
+// Enables save charger details button if all fields are filled
+$('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-type, #charger-level, #charger-rate', (event) => {
+	let formFilled = false;
+	if ($('#charger-name').val() && $('#charger-address').val() && $('#charger-city').val()
+		&& $('#charger-type').val() && $('#charger-level').val() && $('#charger-rate').val()) {
+		formFilled = true;
+	}
+	console.log(formFilled);
+	if (formFilled) {
+		$('#save-btn').removeAttr('disabled');
+		$('#save-btn').removeClass('disabled-button');
+	} else {
+		$('#save-btn').prop('disabled', true);
+		$('#save-btn').addClass('disabled-button');
 	}
 });
 
