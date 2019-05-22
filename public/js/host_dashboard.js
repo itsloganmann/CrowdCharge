@@ -47,7 +47,7 @@ const chargersTab = async (e) => {
 	// Create new content
 	var header = $('<h3 class="col-11 inner-header">Chargers</h3>');
 	var subheader = $('<h6 class="col-11 inner-subheader">Here are your chargers! Select them to edit details and availability.</h6>');
-	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span class='fas fa-plus'></span></button></div>");
+	var newCharger = $("<div class='col-sm-6'><button id='new-charger' class='charger-button white-button'><span id='new-charger-plus'>+</span></button></div>");
 	var content = $('<div class="col-11 tab-section-data row" id="charger-container"></div>');
 
 	// Populating all chargers owned from database
@@ -441,7 +441,7 @@ function renderCompletedBooking(booking) {
 		rating.append("<output id='formControlRangeDisp'></output>")
 
 		let comments = $("<div class='form-group'></div>")
-		comments.append("<label for='ratingControlRange'><b> Comments: </b></label> <br/>")
+		comments.append("<label for='ratingControlRange'><b> Comments (optional): </b></label> <br/>")
 		comments.append("<textarea id='comments'></textarea>")
 
 

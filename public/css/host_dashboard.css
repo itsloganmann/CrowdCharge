@@ -72,6 +72,9 @@
     border: 1.4px solid #1DBF73;
     border-right: 0px;
 }
+#new-charger-plus {
+    font-size: 56pt;
+}
 @media only screen and (max-width: 576px) {
     .charger-button {
         height: 202px;

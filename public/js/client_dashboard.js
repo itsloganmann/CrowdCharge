@@ -328,7 +328,7 @@ function renderCompletedBooking(booking){
 		rating.append("<output id='formControlRangeDisp'></output>")
 
 		let comments = $("<div class='form-group'></div>")
-		comments.append("<label for='ratingControlRange'><b> Comments: </b></label> <br/>")
+		comments.append("<label for='ratingControlRange'><b> Comments (optional): </b></label> <br/>")
 		comments.append("<textarea id='comments'></textarea>")
 		
 
