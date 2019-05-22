@@ -144,6 +144,7 @@ const appendAddChargerPage = () => {
 		+ '<div class="full-center-wrapper"><label id="charger-level-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60" placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+		$("#charger-cost-input").after("<div class='dollar-symbol-full'>$</div>");
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -315,7 +316,8 @@ async function chargerInfo(chargerNumber) {
 	$("#lb-charger-level").after(selectLevel);
 	$('#charger-level').val(chargers[chargerNumber].level);
 	createLabel("edit-chargerrate", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost.toFixed(2));
+	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input left-labelled-input-full", chargers[chargerNumber].cost.toFixed(2));
+	$("#charger-rate").after("<div class='dollar-symbol'>$</div>");
 	createLabel("edit-chargerdetails", "charger-details", "Additional details (optional)", "lb-charger-details", "form-label readonly-label");
 	$("#edit-chargerdetails").append("<textarea disabled name='details' placeholder='Max 80 characters'id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
 	$("#charger-details").html(chargers[chargerNumber].details);
@@ -337,7 +339,8 @@ async function chargerInfo(chargerNumber) {
 	$('#edit-btn').click(function (event) {
 		event.preventDefault();
 		$('#edit-btn').css({ "display": "none" });
-		$('#save-btn').css({ "display": "block" });;
+		$('#save-btn').css({ "display": "block" });
+		$('.dollar-symbol').css({ "background-color": "white" });;
 		$('.readonly-input, .readonly-input-full').removeAttr("disabled");
 		$('.readonly-input').removeClass("readonly-input");
 		$('.readonly-input-full').removeClass("readonly-input-full");
@@ -349,6 +352,7 @@ async function chargerInfo(chargerNumber) {
 		event.preventDefault();
 		$('#save-btn').css({ "display": "none" });
 		$('#edit-btn').css({ "display": "block" });;
+		$('.dollar-symbol').css({ "background-color": "inherit" });;
 		$('.form-input, .form-input-full').attr("disabled", true);
 		$('.form-input').addClass("readonly-input");
 		$('.form-input-full').addClass("readonly-input-full");

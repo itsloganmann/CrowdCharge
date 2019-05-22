@@ -568,7 +568,6 @@ button:focus {
 .readonly-input, .readonly-input-full{
   background-color: inherit;
 }
-
 .readonly-label{
   margin-top: 4px;
 }

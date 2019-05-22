@@ -161,6 +161,13 @@ main {
     cursor: pointer;
 }
 
+.left-labelled-input {
+    border-top-left-radius: 0px;
+}
+.left-labelled-input-full {
+    border-top-left-radius: 0px;
+}
+
 /** Media queries */
 @media only screen and (min-width: 768px){
     #wrapper {
