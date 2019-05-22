@@ -143,7 +143,7 @@ const appendAddChargerPage = () => {
 		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">J-1772</option><option value="type3">Tesla (Roadster)</option><option value="type4">NEMA 14-50</option><option value="type5">Tesla</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-level-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
-		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60" placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -319,7 +319,7 @@ async function chargerInfo(chargerNumber) {
 	createLabel("edit-chargerdetails", "charger-details", "Additional details (optional)", "lb-charger-details", "form-label readonly-label");
 	$("#charger-rate").attr("min", "0");
 	$("#charger-rate").attr("step", "0.01");
-	$("#edit-chargerdetails").append("<textarea disabled name='details' id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
+	$("#edit-chargerdetails").append("<textarea disabled name='details' placeholder='Max 80 characters'id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
 	$("#charger-details").html(chargers[chargerNumber].details);
 	console.log(chargers[chargerNumber].details);
 	// Edit and save buttons
@@ -476,7 +476,7 @@ function renderCompletedBooking(booking) {
 		comments.append("<textarea id='comments'></textarea>")
 
 
-		let submit = $("<button type='button' id='submitBtn'>Submit Review</button>")
+		let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
 		submit.on("click", async (e) => {
 			e.preventDefault();
 			let review = {};

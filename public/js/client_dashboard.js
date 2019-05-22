@@ -350,7 +350,7 @@ function renderCompletedBooking(booking){
 		comments.append("<textarea id='comments'></textarea>")
 		
 
-		let submit = $("<button type='button' id='submitBtn'>Submit Review</button>")
+		let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
 		submit.on("click", async(e)=>{
 			e.preventDefault();
 			let review = {};
