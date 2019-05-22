@@ -1,44 +1,7 @@
-// Renders notifications for users
+//This file renders notifications for users
 
 // Declare array to hold notifications
 let notifications = [];
-//mock data
-/* notifications = [
-    {
-        type: 'NEWREQ',
-        booking: {
-            timeStart: "2019-05-14T12:00:00.000Z",
-            timeEnd: "2019-05-14T16:00:00.000Z",
-            chargername: "Louis's charger"
-        }
-    }, {
-        type: 'ACCEPTED',
-        booking: {
-            timeStart: "2019-05-14T12:00:00.000Z",
-            timeEnd: "2019-05-14T16:00:00.000Z",
-            address: "12345 152 St.",
-            city: "Surrey",
-            province: "BC"
-        }
-    }, {
-        type: 'DECLINED',
-        booking: {
-            timeStart: "2019-05-14T12:00:00.000Z",
-            timeEnd: "2019-05-14T16:00:00.000Z",
-            city: "Vancouver",
-            province: "BC",
-            chargername: "Louis's charger"
-        }
-    }, {
-        type: 'PAID',
-        booking: {
-            timeStart: "2019-05-14T12:00:00.000Z",
-            timeEnd: "2019-05-14T16:00:00.000Z",
-            chargername: "Louis's charger"
-        }
-
-    }
-] */
 
 //Click event Handler function
 function deleteNotification(notificationID, index, cardID) {
@@ -59,6 +22,11 @@ function deleteNotification(notificationID, index, cardID) {
     }).catch(error => console.log(error));
 }
 
+// Get Header string and format it to have first character be capital
+function headerCap(header) {
+    return (header[0].toUpperCase()+ header.substring(1));
+}
+
 // Function for the case of having no notifications
 function noNotification() { }
 
@@ -69,7 +37,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
     // Only builds elements that are not already present
     if (!(document.getElementById("tab-content").contains(typeContent))) {
         createContent("tab-content", "div", type + "-content", "tab-section-content col-12");
-        createHeader(type + "-content", "h3", type, "col-11 inner-header");
+        createHeader(type + "-content", "h3", headerCap(type), "col-11 inner-header");
         createSubheader(type + "-content", "h6", subheading, "col-11 inner-subheader");
         createContent(type + "-content", "div", "notif-" + type + "-data", "col-11 tab-section-data row");
     }
@@ -78,18 +46,26 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
     //create card    
     var cardID = type + "-card-" + index;
     createContent("notif-" + type + "-data", "div", cardID, "card-panel col-md-5 " + cardColor + "-card");
-    var x = $("<span id='card-close-btn" + index + "' style='float: right' class='fas fa-times ui-button-custom'></span>");
+    var x = $("<span id='card-close-btn" + index + "' style='float: right; font-size: 30pt z-index: 2' class='fas fa-times ui-button-custom'></span>");
     var span = $("<span>" + content + "</span>");
     $("#" + cardID).append(x);
     $("#" + cardID).append(span);
-
+    $("#" + cardID).css({"z-index": 1});
+    //close notification action
     $(document).on("click", "#card-close-btn" + index, async (e) => {
         console.log(notificationObj._id);
         deleteNotification(notificationObj._id, index, cardID);
 
     })
-    $(document).on("click", "#accept-next", async (e) => {
-        location.replace('/client_dashboard');
+
+    //notification card action
+    $(document).on("click", "#" + cardID, async (e) => {
+        //request card and paid card go to charger dashboard
+        if (cardID[0] == "r" || cardID[0] == "p")
+            location.replace('/host_dashboard');
+        //accepted card go to user dashboard
+        else if (cardID[0] == "a")
+            location.replace('/client_dashboard');
     })
     $(document).on("click", "#request-next", async (e) => {
         location.replace('/host_dashboard');
@@ -101,6 +77,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
     //         location.replace('/host_dashboard');
     //     }
     // })
+
 
 
 
@@ -145,13 +122,13 @@ async function renderNotification() {
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                        + "<span id= 'request-next'style= 'float: right' class='fas fa-arrow-right' ></span>";
+                    //    + "<span id= 'request-next'style= 'float: right' class='fas fa-arrow-right' ></span>";
 
                     buildElement(notification, "Request"
                         , "These are user requests to use your"
                         + " charger. Please reject or accept them"
                         + " by the date of the booking."
-                        , "orange", dataInfo, count);
+                        , "dark-orange", dataInfo, count);
 
                     break;
                 case "PAID":
@@ -161,7 +138,7 @@ async function renderNotification() {
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                        + "<span style= 'float: right' >...</span>";
+                    //  + "<span style= 'float: right' class='fas fa-arrow-right' paid-next></span>";
 
                     buildElement(notification, "Payment"
                         , "You have received your payment!"
@@ -183,7 +160,7 @@ async function renderNotification() {
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                        + "<span id='accept-next' style= 'float: right' class='fas fa-arrow-right' ></span>";
+                    //  + "<span style= 'float: right' class='fas fa-arrow-right' accepted-next></span>";
 
                     buildElement(notification, "Accepted"
                         , "These bookings have been accepted!"
@@ -198,11 +175,11 @@ async function renderNotification() {
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                        + "<span style= 'float: right' >...</span>";
+                    //  + "<span style= 'float: right' class='fas fa-arrow-right' declined-next></span>";
                     buildElement(notification, "Declined"
                         , "These bookings have been declined. "
                         + "You can try to make another booking from the surounding area!"
-                        , "dark-orange", dataInfo, count);
+                        , "orange", dataInfo, count);
                     break;
                 default:
                     console.log("Data type not found!");
