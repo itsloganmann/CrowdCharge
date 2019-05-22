@@ -7,18 +7,18 @@
     max-height:100%;
 }
 
-.page_contact {
+.page_faq {
     padding: 20px 0;
     background:#fff;
     padding-bottom: 30px;
 }
 
-.content_box_contact {
+.content_box_faq {
     color: #4D4D4D;
     width: 850px;
     max-width: 85vw;
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 h1 {
@@ -30,12 +30,29 @@ h1 {
     max-width: 90vw;
 }
 
-#email-link {
+#faq-link {
     text-decoration: none;
     color: #1EBF73;
 }
 
-#email-link:hover {
+#faq-link:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.faq {
+    border-bottom: 1px solid #1EBF73;
+    padding-bottom: 15px;
+    line-height: 4vh;
+    margin-top: 15px;
+}
+
+.question {
+    font-size: 22px;
+    color: #F05A29;
+}
+
+.answer {
+    font-size: 22px;
+    color: #1EBF73;
 }
