@@ -370,6 +370,8 @@ function renderCompletedBooking(booking){
 			form.append(rating,comments,submit)
 			$("#popup").append(reviewDetails, form)	
 		})
+	}else{
+		$(container).addClass("green-card")
 	}
 	
 	return(container);
