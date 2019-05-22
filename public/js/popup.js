@@ -1,10 +1,10 @@
 // Generates login and signup popup
 
 // JSON Web Token authentication
-const token = localStorage.getItem('jwt');
+const jwt = localStorage.getItem('jwt');
 
 // If token is present, user is logged in
-if (token) {
+if (jwt) {
 	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
@@ -142,7 +142,7 @@ $('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 
 // Creating login pop-up
 // Uses previous functions
-$("#login-button").on("click", () => {
+$("#login-button, #signup").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
@@ -162,13 +162,13 @@ $("#login-button").on("click", () => {
 	$("#popup-signup-text").html("Don't have an account?&nbsp");
 	createPopupContent("popup-signup-text", "span", "popup-signup-here");
 	$("#popup-signup-here").html("Sign up here!");
+	$("#popup").addClass("full-screen-modal");
 });
 
 // Creating sign up pop-up
 // Uses previous functions
 $('body').on("click", "#popup-signup-here", () => {
-	console.log("Creating account...");
-	signInPage = $("#popup").children().detach();
+	signInPage = $("#popup").children().not("#popup-close-button").detach();
 	createPopupHeader("h3", "Let's Get Started!", "signup-header", "popup-header");
 
 	createPopupContent("popup", "div", "signup-name-wrapper", "full-center-wrapper");
@@ -324,8 +324,9 @@ $('body').on('click', '#logout-button', (event) => {
 });
 
 // Enables sign up button if all fields are filled
-$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #sigup-confirm-password-input, #signup-phone-input', (event) => {
+$('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
+	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
@@ -389,3 +390,28 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 	$('#signup-phone-label').removeClass('invalid-input-label');
 	$("#phone-validation").remove();
 });
+
+// Removes currently active popup when clicking elements with the specified ID
+$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
+    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+        $("#popup-wrapper").remove();
+    }
+});
+
+// Converts a number to a string, with leading zeros
+function leadingZero (digits, number){
+	var str = number + "";
+	while (str.length < digits) {
+		str = "0" + str;
+	}
+	return str;
+}
+function getLocalStartTime(dateObj){
+	return dateObj.getHours() + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalEndTime(dateObj){
+	return (dateObj.getHours() == "0" ? "24" : dateObj.getHours()) + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalDate(dateObj){
+	return dateObj.getYear() + 1900 + "-" + (leadingZero(2, dateObj.getMonth() + 1)) + "-" + leadingZero(2, dateObj.getDate());
+}

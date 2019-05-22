@@ -1,8 +1,5 @@
 // Adds interactive map using Mapbox GL JS
 
-// JSON Web Token authentication
-const jwt = localStorage.getItem('jwt');
-
 // Opens map drawer on click
 $("#map-drawer-expansion-button").on("click", () => {
     $("#map-drawer").toggleClass("map-side-expanded");
@@ -36,13 +33,6 @@ function checkSelected() {
     }
 }
 
-// Removes booking popup upon button click
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
-});
-
 // Event listener for clicking confirm button for a booking
 $('body').on("click", "#popup-confirm", (e) => {
 
@@ -64,14 +54,13 @@ $('body').on("click", "#popup-back", (e) => {
 });
 
 // Event listener for clicking second confirm button
-$('body').on("click", "#popup-confirm-validate", (e) => {
+const successfulBooking = (e) => {
     var date = $("#popup-date").html();
     var time = $("#popup-time").html();
-
     // Advance to next page of booking popup
     $("#popup").children().not("#popup-close-button").remove();
     setPopupBookingPageThree(date, time);
-});
+}
 
 // Adds a new time slot button
 var addTimeSlot = (startTime, endTime) => {
@@ -145,25 +134,6 @@ $('body').on("click", ".marker", async (e) => {
     }
 });
 
-// Builds rating stars
-const buildStars = (rating) => {
-    if (rating === 0) {
-        html = '<span class="host-marker-stars-drawer"> No rating yet! </span>'
-    } else {
-        let numOfStars = ''
-
-        for (let i = 0; i < Math.floor(rating); i++) {
-            numOfStars = numOfStars + '<i class="fas fa-star"></i>'
-        }
-
-        for (let i = 0; i < 5 - Math.floor(rating); i++) {
-            numOfStars = numOfStars + '<i class="far fa-star"></i>'
-        }
-        html = '<span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
-    }
-    return html;
-}
-
 // Pulls and displays Charger information for map display
 const populateChargerInfo = (chargerid, chargername, city, cost, details, level, type, rating) => {
     //console.log(chargername, city, cost, details, level, type, rating);
@@ -181,6 +151,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
     // If valid, allow booking
     if (jwt) {
          // When changing days, display new time slots
+        $('body').off('change', '#datepicker');
         $('body').on('change', '#datepicker', async (evt) => {
             console.log($('#' + evt.target.id).val());
             evt.preventDefault();
@@ -228,18 +199,18 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
         });
 
         // Sends POST request to add a new booking
+        $('body').off('click', '#popup-confirm-validate');
         $('body').on('click', '#popup-confirm-validate', async (evt) => {
             const date = $('#popup-date').html();
             var startTime = $('#popup-time').html().split(' - ')[0];
             var endTime = $('#popup-time').html().split(' - ')[1];
             const url = 'booking/newBooking'
-            console.log(url);
             const data = {
                 charger: chargerid,
                 timeStart: date + " " + startTime,
                 timeEnd: date + " " + endTime
             }
-            console.log(data);
+            console.log('Sending booking req: ', data);
             try {
                 fetch(url, {
                     method: 'POST',
@@ -248,8 +219,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + jwt
                     }
-                }).then(response =>
-                    console.log(response));
+                }).then(response => successfulBooking());
             } catch (error) {
                 console.log("Error: ", error)
             }

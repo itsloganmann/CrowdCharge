@@ -2,14 +2,19 @@
 main {
   background: #F3F3F3;
   position: relative;
+  min-height: calc(100vh - 290px);
+}
+
+textarea {
+  resize: none;
 }
 
 .green-highlight {
-  color: #1DBF73;
+  color: #1DBF73 !important;
 }
 
 .orange-highlight {
-  color: #F05A29;
+  color: #F05A29 !important;
 }
 
 body {
@@ -267,10 +272,10 @@ body {
 }
 
 .orange-button {
-  font-size: 14pt;
+  font-size: 13pt;
   display: block;
   background-color: #F05A29;
-  margin: 24px auto 8px;
+  margin: 8px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
   border-radius: 4px;
@@ -278,6 +283,7 @@ body {
   padding: 8px 16px;
   width: 100%;
 }
+
 .orange-button:hover {
   background-color: #D45125;
 }
@@ -286,7 +292,7 @@ body {
   font-size: 14pt;
   display: block;
   background-color: #FFFFFF;
-  margin: 24px auto 8px;
+  margin: 8px auto 8px;
   color: #F05A29;
   cursor: pointer;
   border-radius: 4px;
@@ -296,6 +302,38 @@ body {
 }
 .white-button:hover {
   background-color: #EEEEEE;
+}
+
+.green-button {
+  font-size: 14pt;
+  display: block;
+  background-color: #1DBF73;
+  margin: 8px auto 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 100%;
+}
+.green-button:hover {
+  background-color: #189b5d;
+}
+
+.red-button {
+  font-size: 14pt;
+  display: block;
+  background-color: #ff0000;
+  margin: 8px auto 8px;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 0px;
+  padding: 8px 16px;
+  width: 100%;
+}
+.red-button:hover {
+  background-color: #c20000;
 }
 
 .disabled-button {
@@ -413,7 +451,6 @@ footer ul {
   z-index: 6;
   margin: 0 auto;
   width: 60vw;
-  min-width: 378px;
   max-width: 524px;
   border-radius: 8px;
   color: #464648;
@@ -423,6 +460,10 @@ footer ul {
   overflow: auto;
   border-top: 12px solid #1DBF73;
   max-height: 100vh;
+}
+
+.full-screen-modal {
+  min-width: 378px;
 }
 
 
@@ -465,12 +506,15 @@ footer ul {
 }
 
 @media only screen and (max-width: 768px){
+  .full-screen-modal {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0px !important;
+    max-width: unset !important;
+    min-width: 100vw !important;
+  }
   #popup {
-    min-width: unset;
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
-    max-width: unset;
+    width: 100vw;
   }
 }
 

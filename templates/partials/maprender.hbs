@@ -14,7 +14,7 @@
         .mapboxgl-ctrl-geocoder { min-width:100%; }
     </style>
 
-    <!-- Div map elements -->
+    <!-- Div for map elements -->
     <div id='map'></div>
     <div id='geocoder' class='geocoder'></div>
 
@@ -81,7 +81,8 @@
         const renderMarkers = (geojson) => {
 
             map.on('load', function () {
-                // Add a layer showing the places.
+
+                // Adds a layer showing the geo markers
                 map.addLayer({
                     "id": "places",
                     "type": "symbol",

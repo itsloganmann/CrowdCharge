@@ -2,9 +2,6 @@
 //
 // Fetches user information and generates dynamic content.
 
-// JSON Web Token authentication
-const jwt = localStorage.getItem('jwt');
-
 // Fetch user's name onto the header of the page
 fetch('/users/me', {
 	method: 'GET',
@@ -26,49 +23,57 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 	});
 }
 
-// Gets the current time and formats the string.
-function getTime(timeObject) {
-	return timeObject.split("T")[1].split(":00.000Z")[0].replace(/^0+/, '');
-}
-
 // Creates popup for payment
 function confirmationPopupPay(value, booking) {
 	createPopup();
 	createPopupHeader("h5", "Do you wish to pay for the booking at </br><b id='confirm-charger-address'>"
 		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
-		+ " on <b id='confirm-charger-date'>" + booking.startTime.split("T")[0] + "</b>"
-		+ "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"
-		+ "<b>" + getTime(booking.endTime) + "</b>", "confirm-popup-subheader", "popup-subheader");
+		+ " on <b id='confirm-charger-date'>" + getLocalDate(new Date(booking.startTime)) + "</b>"
+		+ "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + " - "
+		+ getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
 	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
 	$("body").off('click', "#pay-now-btn");
-	$("body").on('click', "#pay-now-btn", () => {
-		var url = '/booking/payBooking';
-		const dataToSend = {
-			bUID: booking.bookingID
-		}
-		console.log(dataToSend);
-
-		// The Fetch call to POST payment information
-		fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(dataToSend),
-			headers: {
-				'content-type': 'application/json',
-				'Authorization': 'Bearer ' + jwt
-			}
-		}).then(res => {
-			console.log(res)
-		}).then((response) => {
-
-				// Informs user of success.
-				$("#popup").children().not("#popup-close-button").remove();
-				createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
-				$('body').on("click", (e) => {
-					location.reload(true);
+	$("body").on('click', "#pay-now-btn", async () => {
+		try {
+			// Subtracts user balance. If insufficient funds, display message
+			await fetch('/users/pay', {
+				method: 'PATCH',
+				body: JSON.stringify({ cost: booking.cost, bookingID: booking.bookingID }),
+				headers: {
+					'content-type': 'application/json',
+					'Authorization': 'Bearer ' + jwt
+				}
+			}).then(res => res.json())
+				.then(async (response) => {
+					if (response.error) {
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader('h5', "Not enough funds! Please reload your balance before proceeding.", "insufficient-funds");
+						createPopupCancelButton("popup-cancel", "Close");
+					} else {
+						// Fetch POST method for an unpaid to paid booking
+						await fetch('/booking/payBooking', {
+							method: 'POST',
+							body: JSON.stringify({ bUID: booking.bookingID }),
+							headers: {
+								'content-type': 'application/json',
+								'Authorization': 'Bearer ' + jwt
+							}
+						})
+						// Informs user of success.
+						$("#popup").children().not("#popup-close-button").remove();
+						createPopupHeader("h3", "Payment successful!", "confirm-popup-header", "popup-header");
+						$('body').on("click", (e) => {
+							location.reload(true);
+						})
+					}
 				})
-			})
-			.catch(error => console.error(error));
+		} catch (error) {
+			console.log(error);
+		}
+		/*
+
+		*/
 	});
 }
 
@@ -88,10 +93,10 @@ async function fetchBooking(url, status) {
 	}).then((res) => {
 		return res.json()
 	}).then((db) => {
+		console.log(db.length)
 		console.log(db)
 		dataFromdb = db
 	}).catch(error => console.log(error));
-
 	// Build the HTML string
 	const build = () => {
 		for (i = 0; i < dataFromdb.length; i++) {
@@ -101,23 +106,23 @@ async function fetchBooking(url, status) {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
-					+ "<div class='card-text-lg'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + (dataFromdb[i].startTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "-"
-					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '')
+					+ "<div class='card-text-lg'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
+					+  getLocalEndTime(new Date(dataFromdb[i].endTime))  + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ "</div></div>";
-			} 
+			}
 			// Build-case for "Paid" and "Unpaid" booking types
 			else {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm "
 					+ ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + status + "</div></div>"
-					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + (dataFromdb[i].startTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "-"
-					+ (dataFromdb[i].endTime.split("T")[1].split(":00.000Z")[0]).replace(/^0+/, '') + "</div>"
+					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
+					+ getLocalEndTime(new Date(dataFromdb[i].endTime)) + "</div>"
 					+ ((status == "paid") ? "<div class='card-text-sm'>" + dataFromdb[i].address + "</div>" : "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>")
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ ((status == "unpaid") ? ("<button id= 'payment-" + i + "' class='pay-now-btn orange-button'>Pay Now</button>") : "")
@@ -133,11 +138,10 @@ async function fetchBooking(url, status) {
 };
 
 
-// Changes tab colours and clears tab contents
-// Clearing done when switching tabs to allow for new data population
+// Changes tab colours
 $('.tab-button').on('click', (e) => {
-	$(".tab-button:not(#" + event.target.id + ")").css({ "color": "inherit" });
-	$("#" + event.target.id).css({ "color": "#F05A29" });
+	$('.tab-button:not(#' + event.target.id + ')').removeClass('orange-highlight');
+	$('#' + event.target.id).addClass('orange-highlight');
 });
 
 
@@ -154,14 +158,13 @@ const bookingTab = async (e) => {
 
 	// Instantiate containers for Confirmed Bookings
 	var paidCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Confirmed Bookings", "client-confirmed-subheader",
-		"These bookings have been confirmed by the host and are ready to go!");
+	var confirmContainer = createContentContainer("confirmed-content", "client-confirmed-header", "Paid Bookings", "client-confirmed-subheader",
+		"These bookings have already been confirmed and paid for!");
 	confirmContainer.append(paidCardContainer);
 
 	// Populate containers with data
 	const confirmedBookingURL = "/client/paidBookings";
 	let cBDatas = await fetchBooking(confirmedBookingURL, "paid");
-	console.log("data:" + cBDatas);
 	if (cBDatas == "") {
 		nothingToDisplay(paidCardContainer, "paid bookings");
 	}
@@ -196,7 +199,7 @@ const bookingTab = async (e) => {
 }
 bookingTab();
 
-$("#bookings-tab").click(async function (event) {	
+$("#bookings-tab").click(async function (event) {
 	bookingTab();
 });
 
@@ -308,9 +311,9 @@ $("#history-tab").click(async function (event) {
 		});
 	}
 	$("#tab-content").append(historyContainer);
-
 })
 
+// Renders completed bookings
 function renderCompletedBooking(booking){
 	let container = $("<div class='card-panel col-md completedBooking'></div>")
 	let content = ""

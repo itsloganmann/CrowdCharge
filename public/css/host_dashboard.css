@@ -4,32 +4,38 @@
     margin: 0px auto 16px;
     max-width: 328px;
 }
-.accept-icon{
-    margin: 5px;
-    color: #1DBF73;
-    font-size: 30pt;
-    cursor: pointer;
+.accept-decline-wrapper > button {
+    font-size: 12pt;
+    width: calc(50% - 4px);
+    border-radius: 16px;
+    margin-top: 8px;
+    margin-bottom: 0px;
 }
-.accept-icon:hover{
-    color: #149149;
+.booking-accept-button {
+    float: left;
+    margin-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}   
+.booking-reject-button {
+    float: right;
+    margin-left: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
-.reject-icon{
-    margin: 5px;
-    color:  #FF0000;
-    font-size: 30pt;
-    cursor: pointer;
+#new-charger-form, #edit-charger-form {
+    width: 100%;
 }
-.reject-icon:hover{
-    color:  #BD0000;
-}
-.accept-decline-wrapper {
-    position: absolute;
-    bottom: 24px;
-    right: 4px;
-}
+
 @media only screen and (max-width: 576px) {
     .charger-button {
         height: 202px;
+    }
+    .accept-decline-wrapper > button {
+        font-size: 10pt;
+        width: 100%;
+        border-radius: 16px;
+        font-size: 12pt;
     }
 }
 
