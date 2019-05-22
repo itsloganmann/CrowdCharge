@@ -308,8 +308,6 @@ function renderCompletedBooking(booking){
 	//main content
 	content+="<div class='card-text-lg'>"+getLocalDate(new Date(booking.startTime))+"</div>"
 	content+="<div class='card-text-md'>"+getLocalStartTime(new Date(booking.startTime)) + " - " + getLocalEndTime(new Date(booking.endTime))+"</div>"
-	content+="<div class='card-text-sm'>"+booking.client+"</div>"
-	content+="<div class='card-text-sm'>Charger: "+ booking.chargername+ "</div>"
 	content+="<div class='card-text-sm'>"+booking.address+"</div>"
 	content+="<div class='card-text-sm'>"+booking.city+", "+booking.province+"</div>"
 
