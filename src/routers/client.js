@@ -69,6 +69,7 @@ let getClientBookings = async function(uUID, state){
                 element.client = client.name;
                 element.chargername = charger.chargername;
                 element.bookingID = booking._id;
+                element.chargerID = booking.charger
                 // console.log(element)
                 return element;
             }catch(error){
