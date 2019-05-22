@@ -371,6 +371,7 @@ async function chargerInfo(chargerNumber) {
 					return res.json()
 				}).then((db) => {
 					chargers = db;
+					location.reload(true);
 				}).catch(error => console.log(error));
 
 			})
@@ -581,7 +582,7 @@ $("body").on('click', "#submit-charger", (e) => {
 	}).then(res => console.log(res))
 		.then((response) => {
 			console.log('Success: charger added to db!', (response))
-			//window.location.replace('/host_dashboard');
+			window.location.replace('/host_dashboard');
 		})
 		.catch(error => console.error('Error:', error));
 });
