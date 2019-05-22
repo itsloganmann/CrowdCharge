@@ -30,7 +30,10 @@ function headerCap(header) {
     return (header[0].toUpperCase() + header.substring(1));
 }
 // Function for the case of having no notifications
-function noNotification() { }
+function noNotification() { 
+    createContent("tab-content", "p", "notif-no-data", "no-data" );
+    $("#notif-no-data").text("You don't have any notification. Try to add your charger if you haven't done so!");
+}
 
 // Creates elements to build the notification card.
 function buildElement(notificationObj, type, subheading, cardColor, content, index) {
@@ -161,7 +164,7 @@ async function renderNotification() {
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    buildElemen(notification, "declined"
+                    buildElement(notification, "declined"
                         , "These bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"
                         , "orange", dataInfo, count);
