@@ -24,9 +24,8 @@ function deleteNotification(notificationID, index, cardID) {
 
 // Get Header string and format it to have first character be capital
 function headerCap(header) {
-    return (header[0].toUpperCase()+ header.substring(1));
+    return (header[0].toUpperCase() + header.substring(1));
 }
-
 // Function for the case of having no notifications
 function noNotification() { }
 
@@ -50,26 +49,27 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
     var span = $("<span>" + content + "</span>");
     $("#" + cardID).append(x);
     $("#" + cardID).append(span);
-    $("#" + cardID).css({"z-index": 1});
+    $("#" + cardID).css({ "z-index": 1 });
     //close notification action
-    $(document).on("click", "#card-close-btn" + index, async (e) => {
+    $(document).on("click", "#card-close-btn" + index, (e) => {
         console.log(notificationObj._id);
         deleteNotification(notificationObj._id, index, cardID);
 
     })
 
     //notification card action
-    $(document).on("click", "#" + cardID, async (e) => {
+    $(document).on("click", "#" + cardID, (e) => {
         //request card and paid card go to charger dashboard
-        if (cardID[0] == "r" || cardID[0] == "p")
+        if (e.target.id == "card-close-btn" + index) {
+            //do nothing
+        }
+        else if (cardID[0] == "r" || cardID[0] == "p")
             location.replace('/host_dashboard');
         //accepted card go to user dashboard
         else if (cardID[0] == "a")
             location.replace('/client_dashboard');
     })
-    $(document).on("click", "#request-next", async (e) => {
-        location.replace('/host_dashboard');
-    })
+
     // $(document).on("click", ".fa-arrow-right", async (e) => {
     //     if (type == "Accepted") {
     //         location.replace('/client_dashboard');
@@ -99,7 +99,7 @@ async function renderNotification() {
         }
     }).then((res) => {
         return res.json()
-    }).then(async (db) => {
+    }).then((db) => {
         console.log(db);
         notifications = db;
     }).catch(error => console.log(error));
@@ -111,20 +111,19 @@ async function renderNotification() {
         // Create the message to display
         let dataInfo = "";
         let count = 0;
-        notifications.forEach(async notification => {
+        notifications.forEach(notification => {
 
             switch (notification.type) {
                 // Host cases
                 case "NEWREQ":
-                    dataInfo = "Charger: "
-                        //notification.charger.name
-                        + "Alex's charger"
+                    dataInfo = "charger Name: "
+                        + notification.booking.charger.chargername
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
+                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    //    + "<span id= 'request-next'style= 'float: right' class='fas fa-arrow-right' ></span>";
+                    //  + "<span style= 'float: right' class='fas fa-arrow-right request-next' ></span>";
 
-                    buildElement(notification, "Request"
+                    buildElement(notification, "request"
                         , "These are user requests to use your"
                         + " charger. Please reject or accept them"
                         + " by the date of the booking."
@@ -132,15 +131,14 @@ async function renderNotification() {
 
                     break;
                 case "PAID":
-                    dataInfo = "Charger: "
-                        //notification.charger.name
-                        + "Deep Cove"
+                    dataInfo = "charger name: "
+                        + notification.booking.charger.chargername
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
+                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' paid-next></span>";
 
-                    buildElement(notification, "Payment"
+                    buildElement(notification, "payment"
                         , "You have received your payment!"
                         , "dark-green", dataInfo, count);
 
@@ -155,14 +153,14 @@ async function renderNotification() {
                 // Client cases
                 case "ACCEPTED":
                     dataInfo = "Address: "
-                        //notification.charger.address + notification.charger.city + notification.charger.province
-                        + "2940 Panorama Dr" + " North Vancouver" + " BC"
+                        + notification.booking.charger.address + " " + notification.booking.charger.city + ", " + notification.booking.charger.province
+                        + ""
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
+                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' accepted-next></span>";
 
-                    buildElement(notification, "Accepted"
+                    buildElement(notification, "accepted"
                         , "These bookings have been accepted!"
                         + " Make your payment before the booking day"
                         , "green", dataInfo, count);
@@ -170,14 +168,13 @@ async function renderNotification() {
                     break;
                 case "DECLINED":
                     dataInfo = "Location: "
-                        //                        + notification.charger.city + ", " + notification.charger.province
-                        + "North Vancouver" + "BC"
+                        + notification.booking.charger.city + ", " + notification.booking.charger.province
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
+                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' declined-next></span>";
-                    buildElement(notification, "Declined"
-                        , "These bookings have been declined. "
+                    buildElement(notification, "declined"
+                        , "these bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"
                         , "orange", dataInfo, count);
                     break;
