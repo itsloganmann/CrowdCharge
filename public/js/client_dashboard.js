@@ -257,7 +257,7 @@ $("#reviews-tab").click(async function (event) {
 				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
 					+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
 					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
-					+ "<div class'card-text-md'>" + review.date + "</div>"
+					+ "<div class='card-text-md'>" + getLocalDate(new Date(review.date)) + "</div>"
 					+ "<div class='card-text-sm'>" + review.details + "</div>"
 					+ "</div>");
 				reviewCardContainer.append(review)
@@ -288,13 +288,13 @@ $("#history-tab").click(async function (event) {
 	
 	// Containers for History objects
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings");
+	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings. Click on them to");
 	historyContainer.append(historyCardContainer);
 	
 	// Await Fetch data of History
 	let data = await fetch("/client/completedBookings", {
 		method: 'GET',
-		headers:{
+		headers:{	
 			'content-type': 'application/json',
             'Authorization': 'Bearer ' + jwt
 		}
@@ -324,7 +324,7 @@ function renderCompletedBooking(booking){
 
 	//main content
 	content+="<div class='card-text-lg'>"+getLocalDate(new Date(booking.startTime))+"</div>"
-	content+="<div class='card-text-md'>"+getLocalStartTime(new Date(booking.startTime)) + "-" + getLocalEndTime(new Date(booking.endTime))+"</div>"
+	content+="<div class='card-text-md'>"+getLocalStartTime(new Date(booking.startTime)) + " - " + getLocalEndTime(new Date(booking.endTime))+"</div>"
 	content+="<div class='card-text-sm'>"+booking.client+"</div>"
 	content+="<div class='card-text-sm'>Charger: "+ booking.chargername+ "</div>"
 	content+="<div class='card-text-sm'>"+booking.address+"</div>"
