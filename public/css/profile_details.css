@@ -10,7 +10,6 @@
 	display: inline;
 }
 .small-btn {
-	width: 100%;
 	margin: 36px auto 18px;
 }
 #save-btn {
@@ -19,6 +18,8 @@
 .tab-section-content {
 	margin-bottom: 36px;
 	padding-top: 18px;
+	width: 600px;
+	max-width: 85vw;
 }
 .inner-header, #notif-settings-form {
 	text-align: center;
