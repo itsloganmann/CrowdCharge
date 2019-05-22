@@ -75,6 +75,13 @@ $('body').on('input', '#profile-name-input, #profile-email-input, #profile-phone
 			$('#save-btn').addClass('disabled-button');
 	}
 });
+// Prevents users from entering non-digit values in the phone input field
+$('body').on('keypress', '#profile-phone-input', (evt) => {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
 
 /** Change Password Validation */
 // Enables change password button if all fields are filled
@@ -160,6 +167,7 @@ $('body').on('keyup', '#profile-confirmpassword-input', (evt) => {
             console.log(res)
     
         }).then((response) => {
+            console.log(response);
         }).catch(error => console.error('Error:', error));
     });
 };

@@ -173,7 +173,7 @@ async function renderNotification() {
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' declined-next></span>";
-                    buildElemen(notification, "declined"
+                    buildElement(notification, "declined"
                         , "These bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"
                         , "orange", dataInfo, count);
