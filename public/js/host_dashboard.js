@@ -298,6 +298,8 @@ async function chargerInfo(chargerNumber) {
 
 	createLabel("edit-chargername", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	createInput("edit-chargername", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	//name validation
+	$("#charger-name").attr("maxlength", "14");
 	createLabel("edit-chargeraddress", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
 	createInput("edit-chargeraddress", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
 	createLabel("edit-chargercity", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
@@ -399,6 +401,7 @@ async function chargerInfo(chargerNumber) {
 					return res.json()
 				}).then((db) => {
 					chargers = db;
+					location.reload(true);
 				}).catch(error => console.log(error));
 
 			})
@@ -612,7 +615,7 @@ $("body").on('click', "#submit-charger", (e) => {
 	}).then(res => console.log(res))
 		.then((response) => {
 			console.log('Success: charger added to db!', (response))
-			//window.location.replace('/host_dashboard');
+			window.location.replace('/host_dashboard');
 		})
 		.catch(error => console.error('Error:', error));
 });

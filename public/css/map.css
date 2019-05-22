@@ -121,7 +121,7 @@
 #map-drawer-details-wrapper {
     display: none;
     max-height: 120px;
-    word-break: break-word;
+    /* word-break: break-word; */
 }
 .time-slot-button {
     background-color: #e9e9e9;

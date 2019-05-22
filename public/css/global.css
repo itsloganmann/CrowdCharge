@@ -141,7 +141,7 @@ body {
   cursor: pointer;
   color: #848FA5;
   background-color: inherit;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 2px solid #848FA5;
   margin-right: 10px;
   padding-top: 5px;
@@ -278,7 +278,7 @@ body {
   margin: 8px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 0px;
   padding: 8px 16px;
   width: 100%;
@@ -295,7 +295,7 @@ body {
   margin: 8px auto 8px;
   color: #F05A29;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 2px solid #CCCCCC;
   padding: 6px 14px;
   width: 100%;
@@ -311,7 +311,7 @@ body {
   margin: 8px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 0px;
   padding: 8px 16px;
   width: 100%;
@@ -327,7 +327,7 @@ body {
   margin: 8px auto 8px;
   color: #FFFFFF;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 0px;
   padding: 8px 16px;
   width: 100%;
@@ -345,7 +345,7 @@ body {
 .form-input {
   width: 100%;
   border: 0px;
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 8px 8px 0px 0px;
   padding: 3px 8px 3px;
   border-bottom: 1px solid #464648;
   outline: none;
@@ -356,7 +356,7 @@ body {
 }
 .form-input-full {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 3px 8px 3px;
   border: 1px solid #464648;
   outline: none;
@@ -540,6 +540,10 @@ footer ul {
 
 button:focus {
   outline: 0px;
+}
+#gen-validation {
+  margin: 0 auto;
+  font-size: 10pt;
 }
 
 .form-error-text {
