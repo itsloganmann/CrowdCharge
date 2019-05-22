@@ -5,10 +5,10 @@ let notifications = [];
 
 //Click event Handler function
 function deleteNotification(notificationID, index, cardID) {
+    var successfulRemove = false;
     reqParam = {
         id: notificationID
     }
-    console.log(notificationID)
     fetch('/notifications?' + $.param(reqParam), {
         method: 'DELETE',
         headers: {
@@ -16,9 +16,12 @@ function deleteNotification(notificationID, index, cardID) {
             'Authorization': 'Bearer ' + jwt
         }
     }).then((res) => {
+        if (res.status == 200)
+            successfulRemove = true;
         return res.json()
     }).then((data) => {
-        $("#" + cardID).toggle("drop");
+        if (successfulRemove)
+            $("#" + cardID).toggle("drop");
     }).catch(error => console.log(error));
 }
 
@@ -52,7 +55,6 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
     $("#" + cardID).css({ "z-index": 1 });
     //close notification action
     $(document).on("click", "#card-close-btn" + index, (e) => {
-        console.log(notificationObj._id);
         deleteNotification(notificationObj._id, index, cardID);
 
     })
@@ -69,26 +71,10 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
         else if (cardID[0] == "a")
             location.replace('/client_dashboard');
     })
-
-    // $(document).on("click", ".fa-arrow-right", async (e) => {
-    //     if (type == "Accepted") {
-    //         location.replace('/client_dashboard');
-    //     } else {
-    //         location.replace('/host_dashboard');
-    //     }
-    // })
-
-
-
-
 }
 
 // Main function to render notifications
 async function renderNotification() {
-
-    //TO BE REMOVED WHEN NOTIFICATION RENDER IS FINISHED
-    $("#tab-content").children().remove();
-    ///////////////////////////////////////////////////
 
     // Fetch notification from database
     await fetch('/notifications', {
@@ -100,7 +86,6 @@ async function renderNotification() {
     }).then((res) => {
         return res.json()
     }).then((db) => {
-        console.log(db);
         notifications = db;
     }).catch(error => console.log(error));
 
@@ -110,9 +95,16 @@ async function renderNotification() {
     } else {
         // Create the message to display
         let dataInfo = "";
+        // keep track of card number
         let count = 0;
+
+        //render response data
         notifications.forEach(notification => {
 
+            /*5 type of notification: 
+            Charger Owner: new request, received payment, request cancelled
+            Charger Renter: request accepted, request declined
+            */
             switch (notification.type) {
                 // Host cases
                 case "NEWREQ":
@@ -121,7 +113,6 @@ async function renderNotification() {
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    //  + "<span style= 'float: right' class='fas fa-arrow-right request-next' ></span>";
 
                     buildElement(notification, "request"
                         , "These are user requests to use your"
@@ -136,7 +127,6 @@ async function renderNotification() {
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    //  + "<span style= 'float: right' class='fas fa-arrow-right' paid-next></span>";
 
                     buildElement(notification, "payment"
                         , "You have received your payment!"
@@ -158,7 +148,6 @@ async function renderNotification() {
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    //  + "<span style= 'float: right' class='fas fa-arrow-right' accepted-next></span>";
 
                     buildElement(notification, "accepted"
                         , "These bookings have been accepted!"
@@ -172,7 +161,6 @@ async function renderNotification() {
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
-                    //  + "<span style= 'float: right' class='fas fa-arrow-right' declined-next></span>";
                     buildElemen(notification, "declined"
                         , "These bookings has been declined. "
                         + "You can try to make another booking from the surounding area!"

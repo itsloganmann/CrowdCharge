@@ -23,9 +23,9 @@ function carGo() {
 }
 
 // Timer setting of event listener
-$("#logo-img").hover( () => {
-        if (timer === undefined){
-            timer = setTimeout(carGo, 5000)
+$("#logo-img").hover(() => {
+    if (timer === undefined) {
+        timer = setTimeout(carGo, 5000)
     } else {
         timer = clearInterval(timer)
     }

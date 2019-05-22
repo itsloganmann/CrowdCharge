@@ -58,11 +58,8 @@ $('body').on("click", "#accept-btn", (e) => {
             successful = true;
     })
         .then((response) => {
-            // testing; to be removed
-            // successful = true;
-            // //////////////////
+            $("#popup").children().not("#popup-close-button").remove();
             if (successful) {
-                $("#popup").children().not("#popup-close-button").remove();
                 createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
@@ -70,7 +67,9 @@ $('body').on("click", "#accept-btn", (e) => {
 
             } else {
                 //if we recieve status for 404/400/500 
-
+                createPopupHeader("h5", "Sorry, the action was not successfully done. Please contact us at zapshareplatform@gmail.com"
+                    , "confirm-popup-header", "popup-subheader");
+                    location.replace("/contact");
             }
 
         })

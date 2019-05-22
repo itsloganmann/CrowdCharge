@@ -63,7 +63,6 @@ const chargersTab = async (e) => {
 	$('#tab-content').append(header);
 	$('#tab-content').append(subheader);
 	$('#tab-content').append(content);
-	console.log(yourCharger);
 	for (i = 0; i < chargers.length; i++) {
 		$('#charger-container').append(yourCharger[i]);
 	}
@@ -121,8 +120,6 @@ $('#requests-tab').click(async function (event) {
 			createContent("pending-card" + countPending, "div", "acc-rej-container" + countPending, "accept-decline-wrapper");
 			createButton("acc-rej-container" + countPending, "accept" + countPending, "Accept", "green-button booking-accept-button");
 			createButton("acc-rej-container" + countPending, "reject" + countPending, "Decline", "red-button booking-reject-button");
-			//	createContent("acc-rej-container" + countPending, "span", "accept" + countPending, "fas fa-check-circle accept-icon");
-			//	createContent("acc-rej-container" + countPending, "span", "reject" + countPending, "fas fa-times-circle reject-icon");
 			addEventListenerOnAccept($("#accept" + countPending), booking, jwt);
 			addEventListenerOnReject($("#reject" + countPending), booking, jwt);
 			countPending++;
@@ -236,36 +233,8 @@ $('#reviews-tab').click(async function (event) {
 	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
 	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
 
-	// Testing stock review data
-	//let reviewData = await fetchGET("host/allChargerReviews", jwt);
-	/*reviewData = [{
-		reviewer: "Jane Doe",
-		comment: "This is great!",
-		rating: "5.00"
-	}, {
-		reviewer: "William Smith",
-		comment: "This is bad!",
-		rating: "1.00"
-	}, {
-		reviewer: "Kevin Woo",
-		comment: "Great location!",
-		rating: "4.00"
-	}];*/
-
 	let countReview = 0;
 	$("#review-container").append("<div class='no-data'><p>You don't have any reviews!</p></div>");
-	/*
-	reviewData.forEach(review => {
-		createContent("review-container", "div", "review-card" + countReview, "card-panel col-md-11");
-		createContent("review-card" + countReview, "div", "reviewer" + countReview, "card-text-lg");
-		$("#reviewer" + countReview).text(review.reviewer);
-		createContent("review-card" + countReview, "div", "comment" + countReview, "card-text-md");
-		$("#comment" + countReview).text(review.comment);
-		createContent("review-card" + countReview, "div", "rating" + countReview, "card-text-lg");
-		$("#rating" + countReview).text(review.rating);
-		countReview++;
-	});
-	*/
 })
 
 
@@ -320,7 +289,6 @@ async function chargerInfo(chargerNumber) {
 
 	$("#edit-chargerdetails").append("<textarea disabled name='details' id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
 	$("#charger-details").html(chargers[chargerNumber].details);
-	console.log(chargers[chargerNumber].details);
 	// Edit and save buttons
 	createButton("edit-charger-form", "edit-btn", "Edit", "orange-button");
 	createButton("edit-charger-form", "save-btn", "Save", "orange-button");
@@ -372,8 +340,6 @@ async function chargerInfo(chargerNumber) {
 			cost: crate,
 			details: cdetails
 		}
-		console.log(dataToSent);
-		console.log("current charger id:" + chargers[chargerNumber]._id);
 
 		const paramForServer = {
 			cUID: chargers[chargerNumber]._id
@@ -486,7 +452,6 @@ function renderCompletedBooking(booking) {
 			let data = {};
 			data.review = review
 			data.type = "USER"
-			// console.log(data)
 			await fetch('/reviews', {
 				method: 'POST',
 				body: JSON.stringify(data),

@@ -168,10 +168,7 @@ $('#password-tab').click(function (event) {
     $(passwordContainer).append($(
 
         "<form class='col-11 tab-section-data row' id='password-change-form'>" +
-            // "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
-            //     "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
-            //     "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
-            // "</div>" +
+
             "<div class='full-center-wrapper' id='profile-newpassword-wrapper'>" +
                 "<label id='profile-newpassword-label' class='form-label profile-label' for='profile-newpassword-input'>New password</label>" +
                 "<input type='password' name='newpassword' id='profile-newpassword-input' class='form-input profile-input' >" +
