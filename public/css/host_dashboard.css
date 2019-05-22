@@ -7,7 +7,7 @@
 .accept-decline-wrapper > button {
     font-size: 12pt;
     width: calc(50% - 4px);
-    border-radius: 16px;
+    border-radius: 8px;
     margin-top: 8px;
     margin-bottom: 0px;
 }
@@ -82,8 +82,6 @@
     .accept-decline-wrapper > button {
         font-size: 10pt;
         width: 100%;
-        border-radius: 16px;
-        font-size: 12pt;
     }
 }
 
