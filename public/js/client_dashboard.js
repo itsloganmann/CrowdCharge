@@ -34,9 +34,9 @@ function confirmationPopupPay(value, booking) {
 	createPopup();
 	createPopupHeader("h5", "Do you wish to pay for the booking at </br><b id='confirm-charger-address'>"
 		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
-		+ " on <b id='confirm-charger-date'>" + booking.startTime.split("T")[0] + "</b>"
-		+ "</br>at <b id='confirm-charger-stime'>" + getTime(booking.startTime) + "-</b>"
-		+ "<b>" + getTime(booking.endTime) + "</b>", "confirm-popup-subheader", "popup-subheader");
+		+ " on <b id='confirm-charger-date'>" + getLocalDate(new Date(booking.startTime)) + "</b>"
+		+ "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + "-</b>"
+		+ "<b>" + getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
 	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
 	$("body").off('click', "#pay-now-btn");
@@ -112,9 +112,9 @@ async function fetchBooking(url, status) {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
-					+ "<div class='card-text-lg'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + getTime(dataFromdb[i].startTime) + "-"
-					+ getTime(dataFromdb[i].endTime) + "</div>"
+					+ "<div class='card-text-lg'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + "-"
+					+  getLocalEndTime(new Date(dataFromdb[i].endTime))  + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
 					+ "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>"
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
@@ -126,9 +126,9 @@ async function fetchBooking(url, status) {
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
 					+ "</div><div class='price-card-text-sm "
 					+ ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + status + "</div></div>"
-					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + dataFromdb[i].startTime.split("T")[0] + "</div>"
-					+ "<div class='card-text-md'>" + getTime(dataFromdb[i].startTime) + " - "
-					+ getTime(dataFromdb[i].endTime) + "</div>"
+					+ "<div class='card-text-lg " + ((status == "paid") ? "green-highlight" : "orange-highlight") + "'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + "-"
+					+ getLocalEndTime(new Date(dataFromdb[i].endTime)) + "</div>"
 					+ ((status == "paid") ? "<div class='card-text-sm'>" + dataFromdb[i].address + "</div>" : "<div class='card-text-sm'> Charger: " + dataFromdb[i].chargername + "</div>")
 					+ "<div class='card-text-sm'>" + dataFromdb[i].city + ", " + dataFromdb[i].province + "</div>"
 					+ ((status == "unpaid") ? ("<button id= 'payment-" + i + "' class='pay-now-btn orange-button'>Pay Now</button>") : "")
@@ -255,22 +255,38 @@ $("#reviews-tab").click(async function (event) {
 	}).then((db) => {
 		reviews = db;
 		$("#tab-content").children().remove();
+		if (reviews == "") {
+			nothingToDisplay(reviewCardContainer, "reviews");
+		}else{
+			console.log(reviews)
+			reviews.forEach(review => {
+				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+					+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
+					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+					+ "<div class'card-text-md'>" + review.date + "</div>"
+					+ "<div class='card-text-sm'>" + review.details + "</div>"
+					+ "</div>");
+				reviewCardContainer.append(review)
+			});
+		}
+		$("#tab-content").append(reviewContainer);
 	}).catch(error => console.error('Error:', error));
-	if (reviews == "") {
-		nothingToDisplay(reviewCardContainer, "reviews");
-	} else {
-		// Currently no review system in place. This code will not render anything
-		reviews.forEach(review => {
-			review = $("<div class='card-panel col-md-10' id='reviewsData'>"
-				+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
-				+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
-				+ "<div class'card-text-md'>" + review.date + "</div>"
-				+ "<div class='card-text-sm'>" + review.details + "</div>"
-				+ "</div>");
-		});
-	}
+	// if (reviews == "") {
+	// 	nothingToDisplay(reviewCardContainer, "reviews");
+	// } else {
+		
+	// 	// Currently no review system in place. This code will not render anything
+	// 	reviews.forEach(review => {
+	// 		review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+	// 			+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
+	// 			+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+	// 			+ "<div class'card-text-md'>" + review.date + "</div>"
+	// 			+ "<div class='card-text-sm'>" + review.details + "</div>"
+	// 			+ "</div>");
+	// 	});
+	// }
 	// Append content to tab
-	$("#tab-content").append(reviewContainer);
+	// $("#tab-content").append(reviewContainer);
 });
 
 // History tab event listener

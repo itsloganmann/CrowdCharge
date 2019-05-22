@@ -397,3 +397,40 @@ $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
         $("#popup-wrapper").remove();
     }
 });
+
+// Builds rating stars
+const buildStars = (rating) => {
+    if (rating === 0) {
+        html = '<span class="host-marker-stars-drawer"> No rating yet! </span>'
+    } else {
+        let numOfStars = ''
+
+        for (let i = 0; i < Math.floor(rating); i++) {
+            numOfStars = numOfStars + '<i class="fas fa-star"></i>'
+        }
+
+        for (let i = 0; i < 5 - Math.floor(rating); i++) {
+            numOfStars = numOfStars + '<i class="far fa-star"></i>'
+        }
+        html = '<span class="host-marker-stars">' + numOfStars + '</span>' + '  ' + rating.toFixed(2)
+    }
+    return html;
+}
+
+// Converts a number to a string, with leading zeros
+function leadingZero (digits, number){
+	var str = number + "";
+	while (str.length < digits) {
+		str = "0" + str;
+	}
+	return str;
+}
+function getLocalStartTime(dateObj){
+	return dateObj.getHours() + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalEndTime(dateObj){
+	return (dateObj.getHours() == "0" ? "24" : dateObj.getHours()) + ":" + leadingZero(2, dateObj.getMinutes());
+}
+function getLocalDate(dateObj){
+	return dateObj.getYear() + 1900 + "-" + (leadingZero(2, dateObj.getMonth() + 1)) + "-" + leadingZero(2, dateObj.getDate());
+}
