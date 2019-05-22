@@ -1,7 +1,8 @@
-.wrapper4{
-    width:90%;
+.policy-wrapper{
+    width: 1000px;
     margin: 0 auto;
     text-align:left;
+    max-width: 90vw;
 }
 
 .headerimagecontainer{
@@ -30,11 +31,5 @@
 }
 
 h1, h2, h3, h4{
-    margin:3vh 0;
-}
-
-@media only screen and (min-width: 1024px) {
-    .wrapper3{
-        width: 70%;
-    }
+    margin: 3vh 0;
 }

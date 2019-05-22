@@ -89,6 +89,12 @@ router.get('/terms', (req, res) => {
     })
 })
 
+router.get('/faq', (req, res) => {
+    res.render('faq', {
+        title: 'ZapShare - FAQ'
+    })
+})
+
 // Demonstrates a use for local API modules and how to get data from call back functions.
 router.get('/weather', (req, res) => {
     if (!req.query.address) {

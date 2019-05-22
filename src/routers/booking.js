@@ -24,7 +24,6 @@ router.post('/newBooking', auth, async (req, res) => {
         })
         
         await notification.save()
-        res.send("Successfully requested a new booking!");
 
         res.status(201).send(booking)
     } catch (error) {
@@ -33,7 +32,6 @@ router.post('/newBooking', auth, async (req, res) => {
 })
 
 //Accepts a booking
-
 router.post('/acceptBooking', auth, async (req,res) =>{
     try{
         const booking = await Booking.findByIdAndUpdate(req.body.bUID,{state: "UNPAID"});
@@ -47,7 +45,6 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 
         res.send(booking);
     } catch (error) {
-        console.log("error")
         res.status(400).send(error)
     }
 })
@@ -68,7 +65,6 @@ router.delete('/declineBooking', async (req, res) => {
                 read: false
             })
             await notification.save()
-            res.send("successfully declined booking");
         }
         res.send(booking)
     } catch (error) {
@@ -79,9 +75,7 @@ router.delete('/declineBooking', async (req, res) => {
 //Pays for a booking
 router.post('/payBooking', auth, async (req, res) => {
     try {
-        console.log(req.body.bUID);
         const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "PAID" });
-        console.log(booking);
         const charger = await Charger.findById(booking.charger);
         let notification = new Notification({
             booking: booking,
@@ -90,7 +84,7 @@ router.post('/payBooking', auth, async (req, res) => {
             read: false
         })
         await notification.save()
-        res.send("successfully paid for booking");
+        res.send(notification);
     } catch (error) {
         console.log(error)
         res.status(400).send(error)
@@ -105,10 +99,12 @@ router.delete('/cancelBooking', async (req, res) => {
         if (!booking) {
             console.log("Booking not found, could not cancel.")
             return res.status(400).send()
+
         } else if (booking.state == "PAID") {
             await booking.save()
             console.log("Could not cancel booking, already paid.")
             return res.status(500).send()
+
         } else {
             let notificationClient = new Notification({
                 booking: booking,
@@ -125,7 +121,6 @@ router.delete('/cancelBooking', async (req, res) => {
                 read: false
             })
             await notificationHost.save()
-            res.send("successfully cancelled booking");
         }
         res.send(booking)
     } catch (error) {
@@ -161,6 +156,5 @@ router.patch('/bookings/:id', auth, async (req, res) => {
         res.status(400).send(error)
     }
 })
-
 
 module.exports = router

@@ -69,21 +69,19 @@
 }
 
 .page_about { 
-    padding: 20px 0; 
+    padding-top: 20px;
     background:#fff;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 .page_ecocity { 
-    padding: 30px 0;
+    padding: 50px 0;
     background:#F0F0F0;
-    padding-bottom: 30px;
 }
 
 .page_team { 
-    padding: 30px 0;
+    padding: 50px 0;
     background:#fff;
-    padding-bottom: 30px;
 }
 
 .content_box_about{ 
