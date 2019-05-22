@@ -141,10 +141,10 @@ const appendAddChargerPage = () => {
 		+ '<div class="full-center-wrapper"><label id="charger-name-label" class="form-label-full" for="charger-name-input">Name</label><input type="text" name="name" maxlength="14" id="charger-name-input" class="form-input-full" required></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-address-label" class="form-label-full" for="charger-address-input">Address</label><input type="text" name="address" id="charger-address-input" class="form-input-full" required></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-city-label" class="form-label-full" for="charger-city-input">City</label><input type="text" name="city" id="charger-city-input" class="form-input-full" required></div>'
-		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">Port J1772</option><option value="type3">Nema 1450</option><option value="type4">CHAdeMO</option><option value="type4">SAE Combo CCS</option><option value="type5">Tesla HPWC</option><option value="type4">Telsa supercharger</option></select></div>'
-		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">J-1772</option><option value="type3">Tesla (Roadster)</option><option value="type4">NEMA 14-50</option><option value="type5">Tesla</option></select></div>'
+		+ '<div class="full-center-wrapper"><label id="charger-level-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
-		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -279,76 +279,82 @@ async function chargerInfo(chargerNumber) {
 
 	// Remove old content so we can rebuild with new content
 	let prevPage = $('#tab-content').children().detach();
-	$("#tab-content").css({
-		'padding-right' : '3.33333%',
-		'padding-left' : '3.33333%'
-	});
 	// Create label and input elements for the new charger form.
-	createLabel("tab-content", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
-	createInput("tab-content", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
-	createLabel("tab-content", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
-	createInput("tab-content", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
-	createLabel("tab-content", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
-	createInput("tab-content", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
-	createLabel("tab-content", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
-	createInput("tab-content", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
-	createLabel("tab-content", "charger-type", "Type", "lb-charger-type", "form-label readonly-label");
-	createInput("tab-content", "text", true, "type", "charger-type", "form-input readonly-input", chargers[chargerNumber].type);
-	createLabel("tab-content", "charger-level", "Level", "lb-charger-level", "form-label readonly-label");
-	createInput("tab-content", "text", true, "level", "charger-level", "form-input readonly-input", chargers[chargerNumber].level);
-	createLabel("tab-content", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("tab-content", "number", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
-	createLabel("tab-content", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
-	$("#tab-content").append("<textarea name='details' id='charger-details' class='form-input-full readonly-input-full' rows='6' cols='60' readonly>");
-	$("#charger-details").text(chargers[chargerNumber].details);
-	$("#charger-rate").attr("min", "0");
-	$("#charger-rate").attr("step", "0.01");
-	//switch between two buttons when clicked
-	//edit -> save; save->edit
-	createButton("tab-content", "edit-btn", "Edit", "orange-button");
-	createButton("tab-content", "save-btn", "Save", "orange-button");
-	createButton("tab-content", "back-btn", "Back", "white-button");
+	$("#tab-content").html('<h3 class="inner-header col-11">Edit Charger</h3>'
+		+ '<h6 class="inner-subheader col-11">Edit your charger!</h6>'
+		+ '<div class="col-11 tab-section-data row" id="edit-charger-wrapper"><form id="edit-charger-form"></form></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargername"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargeraddress"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargercity"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargertype"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerlevel"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerrate"></div>');
+	$("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerdetails"></div>');
+	
+	createLabel("edit-chargername", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
+	createInput("edit-chargername", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	createLabel("edit-chargeraddress", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
+	createInput("edit-chargeraddress", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
+	createLabel("edit-chargercity", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
+	createInput("edit-chargercity", "text", true, "city", "charger-city", "form-input readonly-input", chargers[chargerNumber].city);
+	createLabel("edit-chargerprovince", "charger-province", "Province", "lb-charger-province", "form-label readonly-label");
+	createInput("edit-chargerprovince", "text", true, "province", "charger-province", "form-input readonly-input", chargers[chargerNumber].province);
+    createLabel("edit-chargertype", "charger-type", "Charger Type", "lb-charger-type", "form-label readonly-label");
+	createLabel("edit-chargerlevel", "charger-level", "Charger Level", "lb-charger-level", "form-label readonly-label");
+	var selectType = '<select disabled id="charger-type" class="form-input readonly-input" name="type" form="edit-charger-form" required><option value="Wall Outlet">Wall Outlet</option><option value="J-1772">J-1772</option><option value="Tesla (Roadster)">Tesla (Roadster)</option><option value="NEMA 14-50">NEMA 14-50</option><option value="Tesla">Tesla</option></select>'
+	$("#lb-charger-type").after(selectType);
+	$('#charger-type').val(chargers[chargerNumber].type);
+	var selectLevel = '<select disabled id="charger-level" class="form-input readonly-input" name="level" form="edit-charger-form" required><option value="1">1</option><option value="2">2</option></select>'
+	$("#lb-charger-level").after(selectLevel);
+	$('#charger-level').val(chargers[chargerNumber].level);
+	createLabel("edit-chargerrate", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
+	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
+	createLabel("edit-chargerdetails", "charger-details", "Additional details", "lb-charger-details", "form-label readonly-label");
+	$("#edit-chargerdetails").append("<textarea disabled name='details' id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
+	$("#charger-details").html(chargers[chargerNumber].details);
+	console.log(chargers[chargerNumber].details);
+	// Edit and save buttons
+	createButton("edit-charger-form", "edit-btn", "Edit", "orange-button");
+	createButton("edit-charger-form", "save-btn", "Save", "orange-button");
+	createButton("edit-charger-form", "back-btn", "Cancel", "white-button");
 	$("#save-btn").css({ "display": "none" });
 
 	// Append new content
 	$("#back-btn").click((e) => {
+		e.preventDefault();
 		$("#tab-content").children().remove();;
 		$("#tab-content").append(prevPage);
 	});
 
 	// Event listener for edit button click
 	$('#edit-btn').click(function (event) {
+		event.preventDefault();
 		$('#edit-btn').css({ "display": "none" });
 		$('#save-btn').css({ "display": "block" });;
-		$('.readonly-input').removeAttr("readonly");
-		$('.readonly-input-full').removeAttr("readonly");
+		$('.readonly-input, .readonly-input-full').removeAttr("disabled");
 		$('.readonly-input').removeClass("readonly-input");
-		$('.readonly-input-full').removeAttr("readonly-input-full");
-		$("#charger-details").css({ "background-color": "white" });
+		$('.readonly-input-full').removeClass("readonly-input-full");
 
 	});
 
 	// Event listener for save button click
 	$('#save-btn').click(function (event) {
+		event.preventDefault();
 		$('#save-btn').css({ "display": "none" });
 		$('#edit-btn').css({ "display": "block" });;
-		$('.form-input').attr("readonly", true);
+		$('.form-input, .form-input-full').attr("disabled", true);
 		$('.form-input').addClass("readonly-input");
-		$('.readonly-input-full').attr("readonly", true);
-		$('.readonly-input-full').addClass(".readonly-input-full");
-		$("#charger-details").css({ "background-color": "inherit" });
-
-
-
+		$('.form-input-full').addClass("readonly-input-full");
 		var cname = $("#charger-name").val();
 		var caddress = $("#charger-address").val();
 		var ccity = $("#charger-city").val();
-		var cprovince = $("#charger-province").val();
-		var ctype = $("#charger-type").val();
-		var clevel = $("#charger-level").val();
-		if ($("#charger-rate").val() > 0) { }
+		//var cprovince = $("#charger-province").val();
+		var cprovince = "BC";
+		var ctype = $("#charger-type option:selected").text();
+		var clevel = parseFloat($("#charger-level option:selected").text());
 		var crate = $("#charger-rate").val();
-		var cdetails = $.trim($("#charger-details").val());
+		var cdetails = $("#charger-details").val();
+		// Declare data object
 		let dataToSent = {
 			chargername: cname,
 			address: caddress,
@@ -358,6 +364,7 @@ async function chargerInfo(chargerNumber) {
 			cost: crate,
 			details: cdetails
 		}
+		console.log(dataToSent);
 		console.log("current charger id:" + chargers[chargerNumber]._id);
 
 		const paramForServer = {
@@ -472,7 +479,7 @@ $("body").on('click', "#submit-charger", (e) => {
 	}).then(res => console.log(res))
 		.then((response) => {
 			console.log('Success: charger added to db!', (response))
-			window.location.replace('/host_dashboard');
+			//window.location.replace('/host_dashboard');
 		})
 		.catch(error => console.error('Error:', error));
 });
