@@ -35,39 +35,39 @@ router.get('/unpaidBookings', auth, async(req, res)=>{
 
 //Gets charger's pending bookings
 // cUID -> [booking]
-router.get('/pendingChargerBookings', async(req,res)=>{
+router.get('/pendingChargerBookings', auth, async(req,res)=>{
     res.send(await getChargerBookings( req.cUID,"PENDING"));
 })
 
 //Gets charger's unpaid bookings
 // cUID -> [booking]
-router.get('/unpaidChargerBookings', async(req,res)=>{
+router.get('/unpaidChargerBookings', auth, async(req,res)=>{
     res.send(await getChargerBookings(req.cUID,"UNPAID"));
 })
 
 //Gets charger's paid bookings
 // cUID -> [booking]
-router.get('/paidChargerBookings', async(req,res)=>{
+router.get('/paidChargerBookings', auth, async(req,res)=>{
     res.send(await getChargerBookings(req.cUID,"PAID"));
 })
 
 //Gets charger's completed bookings
 // cUID -> [booking]
-router.get('/completedChargerBookings', async(req,res)=>{
+router.get('/completedChargerBookings', auth, async(req,res)=>{
     res.send(await getChargerBookings(req.query.cUID,"COMPLETED"));
 })
 
-router.get('/chargerReviews', async(req,res)=>{
+router.get('/chargerReviews',auth, async(req,res)=>{
    res.send(await getChargerReviews(req.query.cUID));
 })
 
-router.get('/allChargerReviews', async(req,res)=>{
+router.get('/allChargerReviews', auth, async(req,res)=>{
     try{
-        const chargers = await Charger.find({owner: req.user});
-        var promises = chargers.map(async(charger)=>{return await getChargerReviews(charger._id,state)});
+        const chargers = await Charger.find({owner: req.user._id});
+        var promises = chargers.map(async(charger)=>{return await getChargerReviews(charger._id)});
         const results = await Promise.all(promises)
         var merged = [].concat.apply([], results);
-        return(merged);
+        res.send(merged);
     }catch(error){
         console.log(error)
     }
@@ -75,8 +75,15 @@ router.get('/allChargerReviews', async(req,res)=>{
 
 let getChargerReviews = async function(cUID){
     try{
-        const reviews = await reviews.find({reviewee:cUID});
-        return reviews;
+        const reviews = await Review.find( {reviewee: cUID});
+        let promises = reviews.map(async(review)=>{
+            let reviewer = await User.findById(review.reviewer)
+            let element = review;
+            element.reviewer=reviewer.name
+            return element;
+        })
+        const results = await Promise.all(promises)
+       return(results)
     }catch(error){
         console.log(error)
         res.send("Error, could not get reviews")

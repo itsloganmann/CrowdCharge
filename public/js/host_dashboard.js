@@ -226,17 +226,45 @@ $('#bookings-tab').click(async function (event) {
 	};
 })
 
-// Review tab eventListener
-$('#reviews-tab').click(async function (event) {
+// Reviews tab eventListener
+$("#reviews-tab").click(async function (event) {
 
-	// Container box and its headers
-	createHeader("tab-content", "h3", "Reviews for You", "col-11 inner-header");
-	createSubheader("tab-content", "h6", "These are the comments of hosts that you’ve charged with.", "col-11 inner-subheader");
-	createContent("tab-content", "div", "review-container", "col-11 tab-section-data row");
+	// Container holds all review details for user
+	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
+		, "These are the comments of hosts that you’ve charged with.");
+	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
+	reviewContainer.append(reviewCardContainer);
+	let reviews = []
 
-	let countReview = 0;
-	$("#review-container").append("<div class='no-data'><p>You don't have any reviews!</p></div>");
-})
+	// The Fetch request to get Review data
+	await fetch("/host/allChargerReviews", {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	}).then((res) => {
+		return res.json()
+	}).then((db) => {
+		reviews = db;
+		$("#tab-content").children().remove();
+		if (reviews == "") {
+			nothingToDisplay(reviewCardContainer, "reviews");
+		}else{
+			console.log(reviews)
+			reviews.forEach(review => {
+				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
+					+ "<div class='card-text-lg orange-highlight'>" + review.reviewer + "</div>"
+					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+					+ "<div class='card-text-md'>" + getLocalDate(new Date(review.date)) + " " + getLocalStartTime(new Date(review.date)) + "</div>"
+					+ "<div class='card-text-sm'>" + review.details + "</div>"
+					+ "</div>");
+				reviewCardContainer.append(review)
+			});
+		}
+		$("#tab-content").append(reviewContainer);
+	}).catch(error => console.error('Error:', error));
+});
 
 
 // Lets the user create a new charger
