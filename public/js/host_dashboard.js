@@ -29,12 +29,6 @@ async function fetchGET(url, jwt) {
 	return hostData;
 }
 
-// Get the current time and format the object.
-function getTime(timeObject) {
-	let time = timeObject.split("T")[1].split(":00.000Z")[0];
-	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
-}
-
 // Function to switch to the chargers tab
 const chargersTab = async (e) => {
 	let chargers = [];

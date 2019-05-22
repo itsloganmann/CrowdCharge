@@ -59,11 +59,6 @@ function deleteNotification(notificationID, index, cardID) {
     }).catch(error => console.log(error));
 }
 
-// Get Time object and format it
-function getTime(timeObject) {
-    return timeObject.split("T")[1].split(":00.000Z")[0];
-}
-
 // Function for the case of having no notifications
 function noNotification() { }
 

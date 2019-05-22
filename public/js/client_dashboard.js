@@ -23,12 +23,6 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 	});
 }
 
-// Gets the current time and formats the string.
-function getTime(timeObject) {
-	let time = timeObject.split("T")[1].split(":00.000Z")[0];
-	return (time == "00:00") ? "24:00" : time.replace(/^0+/, '');
-}
-
 // Creates popup for payment
 function confirmationPopupPay(value, booking) {
 	createPopup();
