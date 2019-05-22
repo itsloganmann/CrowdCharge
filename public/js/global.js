@@ -67,17 +67,6 @@ var createPopupCancelButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
-/*
-var createFormButton = (id, text) => {
-	var button = document.createElement('input');
-	button.setAttribute("type", "submit");
-	button.setAttribute("value", "Confirm");
-	button.id = id;
-	button.className = "orange-button";
-	$('#popup').append(button);
-}
-*/
-
 // Array of months
 var months = ["January", "February", "March", "April", "May", "June",
 	"July", "August", "September", "October", "November", "December"];
@@ -91,15 +80,6 @@ var getCurrentDate = () => {
 	return (year + "-" + (month >= 10 ? month : "0" + month) + "-" + day);
 }
 
-/*
-var addPopupHiddenField = (name, value) => {
-	let input = document.createElement("input")
-	input.setAttribute("type", "hidden");
-	input.setAttribute("name", name);
-	input.setAttribute("value", value);
-	$('#popup').append(input);
-}
-*/
 
 // Function for creating popup input
 var createPopupInput = (targetId, type, name, id, className, value) => {

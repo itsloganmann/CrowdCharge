@@ -93,8 +93,6 @@ async function fetchBooking(url, status) {
 	}).then((res) => {
 		return res.json()
 	}).then((db) => {
-		console.log(db.length)
-		console.log(db)
 		dataFromdb = db
 	}).catch(error => console.log(error));
 	// Build the HTML string
@@ -265,22 +263,6 @@ $("#reviews-tab").click(async function (event) {
 		}
 		$("#tab-content").append(reviewContainer);
 	}).catch(error => console.error('Error:', error));
-	// if (reviews == "") {
-	// 	nothingToDisplay(reviewCardContainer, "reviews");
-	// } else {
-		
-	// 	// Currently no review system in place. This code will not render anything
-	// 	reviews.forEach(review => {
-	// 		review = $("<div class='card-panel col-md-10' id='reviewsData'>"
-	// 			+ "<div class='card-text-lg'>" + review.reviewer + "</div>"
-	// 			+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
-	// 			+ "<div class'card-text-md'>" + review.date + "</div>"
-	// 			+ "<div class='card-text-sm'>" + review.details + "</div>"
-	// 			+ "</div>");
-	// 	});
-	// }
-	// Append content to tab
-	// $("#tab-content").append(reviewContainer);
 });
 
 // History tab event listener
@@ -361,7 +343,6 @@ function renderCompletedBooking(booking){
 			let data ={};
 			data.review=review
 			data.type="CHARGER"
-			// console.log(data)
 			await fetch('/reviews',{
 				method: 'POST',
 				body: JSON.stringify(data),
