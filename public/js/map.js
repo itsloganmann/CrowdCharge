@@ -54,14 +54,13 @@ $('body').on("click", "#popup-back", (e) => {
 });
 
 // Event listener for clicking second confirm button
-$('body').on("click", "#popup-confirm-validate", (e) => {
+const successfulBooking = (e) => {
     var date = $("#popup-date").html();
     var time = $("#popup-time").html();
-
     // Advance to next page of booking popup
     $("#popup").children().not("#popup-close-button").remove();
     setPopupBookingPageThree(date, time);
-});
+}
 
 // Adds a new time slot button
 var addTimeSlot = (startTime, endTime) => {
@@ -171,6 +170,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
     // If valid, allow booking
     if (jwt) {
          // When changing days, display new time slots
+        $('body').off('change', '#datepicker');
         $('body').on('change', '#datepicker', async (evt) => {
             console.log($('#' + evt.target.id).val());
             evt.preventDefault();
@@ -218,18 +218,18 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
         });
 
         // Sends POST request to add a new booking
+        $('body').off('click', '#popup-confirm-validate');
         $('body').on('click', '#popup-confirm-validate', async (evt) => {
             const date = $('#popup-date').html();
             var startTime = $('#popup-time').html().split(' - ')[0];
             var endTime = $('#popup-time').html().split(' - ')[1];
             const url = 'booking/newBooking'
-            console.log(url);
             const data = {
                 charger: chargerid,
                 timeStart: date + " " + startTime,
                 timeEnd: date + " " + endTime
             }
-            console.log(data);
+            console.log('Sending booking req: ', data);
             try {
                 fetch(url, {
                     method: 'POST',
@@ -238,8 +238,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + jwt
                     }
-                }).then(response =>
-                    console.log(response));
+                }).then(response => successfulBooking());
             } catch (error) {
                 console.log("Error: ", error)
             }
