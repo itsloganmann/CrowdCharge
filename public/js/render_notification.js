@@ -144,7 +144,7 @@ async function renderNotification() {
             switch (notification.type) {
                 // Host cases
                 case "NEWREQ":
-                    dataInfo = "Charger Name: "
+                    dataInfo = "Charger: "
                         //notification.charger.name
                         + "Alex's charger"
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
@@ -160,7 +160,7 @@ async function renderNotification() {
 
                     break;
                 case "PAID":
-                    dataInfo = "Charger name: "
+                    dataInfo = "Charger: "
                         //notification.charger.name
                         + "Deep Cove"
                         + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
