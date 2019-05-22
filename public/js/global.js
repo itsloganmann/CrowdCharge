@@ -67,20 +67,6 @@ var createPopupCancelButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
-// Array of months
-var months = ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"];
-
-// Get date and return as a string
-var getCurrentDate = () => {
-	var today = new Date();
-	var day = today.getDate();
-	var month = today.getMonth() + 1;
-	var year = today.getFullYear();
-	return (year + "-" + (month >= 10 ? month : "0" + month) + "-" + day);
-}
-
-
 // Function for creating popup input
 var createPopupInput = (targetId, type, name, id, className, value) => {
 	let input = document.createElement("input")
