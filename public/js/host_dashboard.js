@@ -317,6 +317,7 @@ async function chargerInfo(chargerNumber) {
 	createLabel("edit-chargerrate", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
 	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost.toFixed(2));
 	createLabel("edit-chargerdetails", "charger-details", "Additional details (optional)", "lb-charger-details", "form-label readonly-label");
+
 	$("#edit-chargerdetails").append("<textarea disabled name='details' placeholder='Max 80 characters'id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
 	$("#charger-details").html(chargers[chargerNumber].details);
 	console.log(chargers[chargerNumber].details);
