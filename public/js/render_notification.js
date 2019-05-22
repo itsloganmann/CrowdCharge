@@ -118,8 +118,8 @@ async function renderNotification() {
                 case "NEWREQ":
                     dataInfo = "charger Name: "
                         + notification.booking.charger.chargername
-                        + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
+                        + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
+                        + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right request-next' ></span>";
 
@@ -133,8 +133,8 @@ async function renderNotification() {
                 case "PAID":
                     dataInfo = "charger name: "
                         + notification.booking.charger.chargername
-                        + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
+                        + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
+                        + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' paid-next></span>";
 
@@ -155,8 +155,8 @@ async function renderNotification() {
                     dataInfo = "Address: "
                         + notification.booking.charger.address + " " + notification.booking.charger.city + ", " + notification.booking.charger.province
                         + ""
-                        + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
+                        + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
+                        + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' accepted-next></span>";
 
@@ -169,8 +169,8 @@ async function renderNotification() {
                 case "DECLINED":
                     dataInfo = "Location: "
                         + notification.booking.charger.city + ", " + notification.booking.charger.province
-                        + "</br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
-                        + "</br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
+                        + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
+                        + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + "-"
                         + getLocalEndTime(new Date(notification.booking.timeEnd))
                     //  + "<span style= 'float: right' class='fas fa-arrow-right' declined-next></span>";
                     buildElement(notification, "declined"

@@ -54,7 +54,7 @@ const chargersTab = async (e) => {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
-			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
+			i + "'>" + chargers[i].chargername + "<br>" + chargers[i].address + "<br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
 
