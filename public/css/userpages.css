@@ -44,11 +44,12 @@ main {
 /** Tabs */
 #tabs-wrapper {
     width: 100%;
-    margin: 12px auto 12px;
+    margin: 20px auto 5px;
 }
+
 .tab-button {
     font-weight: 700;
-    padding: 4px 4.1666667%;
+    margin-right: 4vw;
     color: #555555;
     cursor: pointer;
 }
