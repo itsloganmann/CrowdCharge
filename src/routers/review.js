@@ -2,6 +2,7 @@
 const express = require('express')
 const Review = require('../models/review')
 const Charger = require('../models/charger')
+const Booking = require('../models/booking')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -20,11 +21,12 @@ router.get('/reviews', auth, async (req, res) => {
 router.post('/reviews', auth, async (req, res) => {
     const review = new Review(req.body.review)
     review.reviewer=req.user._id
-    console.log(review)
+    console.log(req.body)
     try {
         await review.save()
 
         if(req.body.type=="CHARGER"){
+            //calculating new charger rating and saving
             let allReviews = await Review.find({reviewee:req.body.review.reviewee})
             let sum=0;
             allReviews.forEach(review=>{
@@ -36,6 +38,14 @@ router.post('/reviews', auth, async (req, res) => {
             charger.rating = newChargerRating
             console.log(charger)
             await charger.save()
+
+            //saving new review to booking (as Client Review)
+            await Booking.findByIdAndUpdate(req.body.booking, {chargerReview: review._id})
+        }else{
+            //saving new review to booking (as User Feedback)
+            await Booking.findByIdAndUpdate(req.body.booking, {userFeedback: review._id})
+            test = await Booking.findById(req.body.booking)
+            console.log(test)
         }
         res.status(201).send(review)
     } catch (error) {
