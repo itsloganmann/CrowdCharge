@@ -550,17 +550,14 @@ $('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-
 
 
 // Prevents users from entering non digit values and the characater "-" in the charger rate input fields
-$('body').on('keypress', '#charger-rate, #charger-input-rate', (evt) => {
+$('body').on('keypress', '#charger-rate, #charger-cost-input', (evt) => {
     if (evt.which < 46 || evt.which > 57 || evt.which == 47)
     {
         evt.preventDefault();
 	}
-	if ($(evt.target).val().split('.')[1] != undefined && $(evt.target).val().split('.')[1].length == 2) {
-		evt.preventDefault();
-	}
 });
-// Prevents input of more than two decimals
-$('body').on('keyup', '#charger-rate, #charger-input-rate', (e) => {
+// Prevents input of more one decimal
+$('body').on('keyup', '#charger-rate, #charger-cost-input', (e) => {
 	var val = $(e.target).val();
     if(isNaN($(e.target).val())){
 		val =  $(e.target).val().replace(/[^0-9\.]/g,'');
@@ -571,7 +568,7 @@ $('body').on('keyup', '#charger-rate, #charger-input-rate', (e) => {
 	$(e.target).val(val);
 });
 // Converts to two decimal places if at zero or one decimal places
-$('body').on('focusout', '#charger-rate, #charger-input-rate', (e) => {
+$('body').on('focusout', '#charger-rate, #charger-cost-input', (e) => {
 	if (!isNaN(parseFloat($(e.target).val()).toFixed(2))){
 		$(e.target).val(parseFloat($(e.target).val()).toFixed(2));
 	} else {
