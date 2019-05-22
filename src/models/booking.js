@@ -55,6 +55,14 @@ const Booking = mongoose.model('Booking', {
     state: {
         type: String,
         default: 'PENDING'
+    },
+    chargerReview: {
+        type: String,
+        required: false
+    },
+    userFeedback:{
+        type: String,
+        required: false
     }
 })
 
