@@ -570,7 +570,6 @@ button:focus {
 }
 
 .readonly-label{
-  font-weight: bold;
   margin-top: 4px;
 }
 .readonly-input:focus {

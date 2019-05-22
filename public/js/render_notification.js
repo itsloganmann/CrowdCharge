@@ -22,7 +22,7 @@ function deleteNotification(notificationID, index, cardID) {
     }).catch(error => console.log(error));
 }
 
-// Get Header string and format it
+// Get Header string and format it to have first character be capital
 function headerCap(header) {
     return (header[0].toUpperCase() + header.substring(1));
 }

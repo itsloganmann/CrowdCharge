@@ -29,12 +29,6 @@ router.get('/host_dashboard', (req, res) => {
     })
 })
 
-router.get('/add_new_charger', (req, res) => {
-    res.render('add_new_charger', {
-        title: 'ZapShare - Add a Charger'
-    })
-})
-
 router.get('/client_dashboard', (req, res) => {
     res.render('client_dashboard', {
         title: 'ZapShare - User Dashboard'
