@@ -432,17 +432,18 @@ $("#history-tab").click(async function (event) {
 	$("#tab-content").append(historyContainer);
 })
 
+// Renders completed bookings
 function renderCompletedBooking(booking) {
 	let localStartDate = new Date(booking.startTime);
 	let localEndDate = new Date(booking.endTime);
 	let localStartTime = getLocalStartTime(localStartDate);
 	let localEndTime = getLocalEndTime(localEndDate);
 	let localDate = getLocalDate(localStartDate);
-	let container = $("<div class='card-panel col-md'></div>")
+	let container = $("<div class='card-panel completedBooking col-md'></div>")
 	let content = ""
 	//right side div
 	content += "<div class='price-card-text-wrapper'>"
-	content += "<div class='price-card-text-lg'>$" + booking.cost + ".00</div>"
+	content += "<div class='price-card-text-lg'>$" + booking.cost.toFixed(2) + "</div>"
 	content += "<div class='price-card-text-sm'>Completed</div></div>"
 
 	//main content
@@ -495,8 +496,13 @@ function renderCompletedBooking(booking) {
 			})
 				.then(res => console.log(res))
 				.then((response) => {
-					console.log('Success: review added to db!', (response))
+					// console.log('Success: review added to db!', (response))
 					// window.location.replace('/host_dashboard');
+					$("#popup").children().not("#popup-close-button").remove();
+					createPopupHeader("h3", "Review Submitted!", "confirm-popup-header", "popup-header");
+					$('body').on("click", (e) => {
+						location.reload(true);
+					})
 				})
 				.catch(error => console.error('Error:', error));
 		})

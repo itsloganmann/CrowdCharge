@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const Review = require('../models/review')
+const Charger = require('../models/charger')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -19,19 +20,23 @@ router.get('/reviews', auth, async (req, res) => {
 router.post('/reviews', auth, async (req, res) => {
     const review = new Review(req.body.review)
     review.reviewer=req.user._id
+    console.log(review)
     try {
+        await review.save()
+
         if(req.body.type=="CHARGER"){
             let allReviews = await Review.find({reviewee:req.body.review.reviewee})
             let sum=0;
             allReviews.forEach(review=>{
                 sum+=review.rating
             })
-            
-            let charger = await Charger.findById(req.body.review.reviewee);
-            
+            let charger = await Charger.findById(review.reviewee);
+            let newChargerRating = sum/allReviews.length;
+            console.log(newChargerRating)
+            charger.rating = newChargerRating
+            console.log(charger)
+            await charger.save()
         }
-
-        await review.save()
         res.status(201).send(review)
     } catch (error) {
         res.status(400).send(error)
