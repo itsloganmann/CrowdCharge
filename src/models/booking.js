@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 
 const Booking = mongoose.model('Booking', {
+    //charger ID
     charger: {
         type: String,
         required: true,
         trim: true
     },
+    //Client ID
     client: {
         type: String,
         required: true,
@@ -49,6 +51,7 @@ const Booking = mongoose.model('Booking', {
         required: true,
         trim: true
     },
+    //4 states: PENDING, UNPAID, PAID, COMPLETED
     state: {
         type: String,
         default: 'PENDING'

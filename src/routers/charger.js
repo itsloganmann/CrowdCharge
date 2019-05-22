@@ -44,7 +44,6 @@ router.post('/charger/new', auth, async (req, res) => {
     charger.owner = req.user._id
 
     try {
-        console.log(req.body)
         await charger.save()
         res.status(201).send(charger)
     } catch (error) {
@@ -57,7 +56,6 @@ router.patch('/charger', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const charger_id = req.query.cUID
     const updates = Object.keys(req.body)
-    console.log(updates);
     const allowedUpdates = ['chargername', 'address', 'city', 'type', 'level', 'cost', 'details']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
@@ -69,10 +67,8 @@ router.patch('/charger', auth, async (req, res) => {
         const charger = await Charger.findById(charger_id)
         // Small adjustment required to use middleware. Updates charger data.
         await updates.forEach((update) => {
-            console.log(update)
             charger[update] = req.body[update]
         })
-        console.log(charger)
         await charger.save()
 
         // Sends back the found charger data back after updating it
@@ -93,7 +89,7 @@ router.delete('/chargers/:id', auth, async (req, res) => {
 
         res.send(charger)
     } catch (error) {
-        console.log('error!')
+        console.log(error)
         res.status(400).send(error)
     }
 })
@@ -104,7 +100,6 @@ router.post('/charger/setUnavailable/:id', auth, async (req, res) => {
         let unavail = new Booking(req.body);
         unavail.client = req.user;
         unavail.state = "PAID";
-        console.log(unavail);
         await unavail.save()
         res.status(201).send(charger)
     } catch (error) {
@@ -117,7 +112,6 @@ router.get('/charger/schedule', auth, async (req, res) => {
     try {
         let schedule = await getChargerBookings(req.query.cUID, "PAID", req.query.date);
         schedule = schedule.concat(await getChargerBookings(req.query.cUID, "UNPAID", req.query.date));
-        console.log(schedule);
         res.send(schedule);
     } catch (error) {
         console.log(error)
@@ -147,7 +141,6 @@ let getChargerBookings = async function(cUID,state,date){
                 element.cName = charger.cName;
                 if (state == "PENDING")
                     element.bookingID = booking._id;
-                // console.log(element)
                 return element;
             } catch (error) {
                 console.log(error)
