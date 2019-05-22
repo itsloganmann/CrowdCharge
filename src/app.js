@@ -9,6 +9,7 @@ const clientRouter = require('./routers/client')
 const markerRouter = require('./routers/marker')
 const hostRouter = require('./routers/host')
 const notificationRouter = require('./routers/notification')
+const reviewRouter = require('./routers/review')
 const hbs = require('hbs')
 require('./db/mongoose')
 
@@ -37,6 +38,8 @@ app.use(express.json())
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
 
+
+
 // Registers routers, allowing us to refactor routes into separate files
 app.use('/client',clientRouter);
 app.use('/host',hostRouter)
@@ -45,6 +48,7 @@ app.use('/booking',bookingRouter)
 app.use(chargerRouter)
 app.use(markerRouter)
 app.use(notificationRouter)
+app.use(reviewRouter)
 
 // Page router, do not move order, needs to come last.
 app.use(pagesRouter)

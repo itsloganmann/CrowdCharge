@@ -3,6 +3,7 @@ const validator = require('validator')
 
 // Creates mongoose data model for a charger object and adds validator to data
 const Charger = mongoose.model('Charger', {
+    //Owner ID
     owner: {
         type: String,
         required: true,

@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const Review = require('../models/review')
+const Charger = require('../models/charger')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -17,32 +18,28 @@ router.get('/reviews', auth, async (req, res) => {
 
 // REST API for creating resources. Sets up routing for POST requests to retrieve review json object from client
 router.post('/reviews', auth, async (req, res) => {
-    const review = new Review(req.body)
-
+    const review = new Review(req.body.review)
+    review.reviewer=req.user._id
+    console.log(review)
     try {
         await review.save()
+
+        if(req.body.type=="CHARGER"){
+            let allReviews = await Review.find({reviewee:req.body.review.reviewee})
+            let sum=0;
+            allReviews.forEach(review=>{
+                sum+=review.rating
+            })
+            let charger = await Charger.findById(review.reviewee);
+            let newChargerRating = sum/allReviews.length;
+            console.log(newChargerRating)
+            charger.rating = newChargerRating
+            console.log(charger)
+            await charger.save()
+        }
         res.status(201).send(review)
     } catch (error) {
         res.status(400).send(error)
-    }
-})
-
-// GET request endpoint for fetching review by id
-router.get('/reviews/:id', auth, async (req, res) => {
-    const _id = req.params.id
-
-    try {
-        const review = await Review.findById(_id)
-
-        // If it doesn't find any matching review id's, then send back 404
-        if (!review) {
-            return res.status(404).send()
-        }
-
-        // Send back the matching review if found
-        res.send(review)
-    } catch (error) {
-        res.status(500).send()
     }
 })
 

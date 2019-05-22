@@ -5,6 +5,10 @@ main {
   min-height: calc(100vh - 290px);
 }
 
+textarea {
+  resize: none;
+}
+
 .green-highlight {
   color: #1DBF73 !important;
 }
@@ -537,6 +541,10 @@ footer ul {
 button:focus {
   outline: 0px;
 }
+#gen-validation {
+  margin: 0 auto;
+  font-size: 10pt;
+}
 
 .form-error-text {
   float: left;
@@ -564,9 +572,7 @@ button:focus {
 .readonly-input, .readonly-input-full{
   background-color: inherit;
 }
-
 .readonly-label{
-  font-weight: bold;
   margin-top: 4px;
 }
 .readonly-input:focus {
