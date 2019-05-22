@@ -167,7 +167,6 @@ $('body').on('keyup', '#profile-confirmpassword-input', (evt) => {
             console.log(res)
     
         }).then((response) => {
-            console.log(response);
         }).catch(error => console.error('Error:', error));
     });
 };
