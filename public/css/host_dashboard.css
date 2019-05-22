@@ -26,6 +26,9 @@
 #new-charger-form, #edit-charger-form {
     width: 100%;
 }
+#charger-level, #charger-type{ 
+    color: #464648;
+}
 
 @media only screen and (max-width: 576px) {
     .charger-button {

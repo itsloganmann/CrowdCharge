@@ -319,7 +319,7 @@ function renderCompletedBooking(booking){
 	let content = ""
 	//right side div
 	content+="<div class='price-card-text-wrapper'>"
-	content+= "<div class='price-card-text-lg'>$"+booking.cost+"</div>"
+	content+= "<div class='price-card-text-lg'>$"+booking.cost.toFixed(2)+"</div>"
 	content+="<div class='price-card-text-sm'>Completed</div></div>"
 
 	//main content
