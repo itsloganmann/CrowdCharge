@@ -142,7 +142,7 @@ $('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
 
 // Creating login pop-up
 // Uses previous functions
-$("#login-button").on("click", () => {
+$("#login-button, #signup").on("click", () => {
 	createPopup();
 	createPopupHeader("h3", "Log in to your account", "login-header", "popup-header");
 	createPopupContent("popup", "div", "login-email-wrapper", "full-center-wrapper");
