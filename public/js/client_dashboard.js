@@ -231,7 +231,7 @@ $("#reviews-tab").click(async function (event) {
 
 	// Container holds all review details for user
 	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
-		, "These are the comments of hosts that you’ve charged with.");
+		, "These are the comments from hosts that you’ve charged with.");
 	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	reviewContainer.append(reviewCardContainer);
 	let reviews = []
