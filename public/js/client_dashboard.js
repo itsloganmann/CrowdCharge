@@ -253,8 +253,8 @@ $("#reviews-tab").click(async function (event) {
 			console.log(reviews)
 			reviews.forEach(review => {
 				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
-					+ "<div class='card-text-lg orange-highlight'>" + review.reviewer + "</div>"
-					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + "</div>"
+					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
+					+ "<div class='card-text-lg green-highlight'>" + review.reviewer + "</div>"
 					+ "<div class='card-text-md'>" + getLocalDate(new Date(review.date)) + " " + getLocalStartTime(new Date(review.date)) + "</div>"
 					+ "<div class='card-text-sm'>" + review.details + "</div>"
 					+ "</div>");

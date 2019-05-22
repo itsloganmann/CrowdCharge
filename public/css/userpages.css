@@ -155,6 +155,9 @@ main {
 #reviewDetails {
     width: auto;
 }
+.review-star {
+    color: #F05A29;
+}
 
 /** Completed Booking Styling*/
 .completedBooking:hover {
