@@ -54,7 +54,7 @@ const chargersTab = async (e) => {
 	var yourCharger = [];
 	for (i = 0; i < chargers.length; i++) {
 		var chargerString = "<div class='col-sm-6'><button onclick='chargerInfo(" + i + ")' class='charger-button orange-button' id='charger" +
-			i + "'>" + chargers[i].chargername + "</br>" + chargers[i].address + "</br>" + "</button></div>";
+			i + "'>" + chargers[i].chargername + "<br>" + chargers[i].address + "<br>" + "</button></div>";
 		yourCharger[i] = $(chargerString);
 	}
 
@@ -143,7 +143,7 @@ const appendAddChargerPage = () => {
 		+ '<div class="full-center-wrapper"><label id="charger-type-label" class="form-label-full" for="charger-type-input">Charger Type</label><select id="charger-type-input" class="form-input-full" name="type" form="new-charger-form" required><option value="type1">Wall Outlet</option><option value="type2">J-1772</option><option value="type3">Tesla (Roadster)</option><option value="type4">NEMA 14-50</option><option value="type5">Tesla</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-level-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
-		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60"placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
+		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60" placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -475,7 +475,7 @@ function renderCompletedBooking(booking) {
 		comments.append("<textarea id='comments'></textarea>")
 
 
-		let submit = $("<button type='button' id='submitBtn'>Submit Review</button>")
+		let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
 		submit.on("click", async (e) => {
 			e.preventDefault();
 			let review = {};
@@ -517,19 +517,35 @@ function renderCompletedBooking(booking) {
 
 // Enables add new charger button if all fields are filled
 $('body').on('input', '#charger-name-input, #charger-address-input, #charger-city-input, #charger-type-input, #charger-level-input, #charger-cost-input', (event) => {
-	var formFilled = false;
+	let formFilled = false;
 	if ($('#charger-name-input').val() && $('#charger-address-input').val() && $('#charger-city-input').val()
 		&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
 		formFilled = true;
 	}
 	console.log(formFilled);
 	if (formFilled) {
-		console.log('remove');
 		$('#submit-charger').removeAttr('disabled');
 		$('#submit-charger').removeClass('disabled-button');
 	} else {
 		$('#submit-charger').prop('disabled', true);
 		$('#submit-charger').addClass('disabled-button');
+	}
+});
+
+// Enables save charger details button if all fields are filled
+$('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-type, #charger-level, #charger-rate', (event) => {
+	let formFilled = false;
+	if ($('#charger-name').val() && $('#charger-address').val() && $('#charger-city').val()
+		&& $('#charger-type').val() && $('#charger-level').val() && $('#charger-rate').val()) {
+		formFilled = true;
+	}
+	console.log(formFilled);
+	if (formFilled) {
+		$('#save-btn').removeAttr('disabled');
+		$('#save-btn').removeClass('disabled-button');
+	} else {
+		$('#save-btn').prop('disabled', true);
+		$('#save-btn').addClass('disabled-button');
 	}
 });
 

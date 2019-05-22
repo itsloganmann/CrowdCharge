@@ -26,10 +26,10 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 // Creates popup for payment
 function confirmationPopupPay(value, booking) {
 	createPopup();
-	createPopupHeader("h5", "Do you wish to pay for the booking at </br><b id='confirm-charger-address'>"
+	createPopupHeader("h5", "Do you wish to pay for the booking at <br><b id='confirm-charger-address'>"
 		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
 		+ " on <b id='confirm-charger-date'>" + getLocalDate(new Date(booking.startTime)) + "</b>"
-		+ "</br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + " - "
+		+ "<br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + " - "
 		+ getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
 	createPopupConfirmButton("pay-now-btn", value);
 	createPopupCancelButton("popup-cancel", "Cancel");
@@ -350,7 +350,7 @@ function renderCompletedBooking(booking){
 		comments.append("<textarea id='comments'></textarea>")
 		
 
-		let submit = $("<button type='button' id='submitBtn'>Submit Review</button>")
+		let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
 		submit.on("click", async(e)=>{
 			e.preventDefault();
 			let review = {};
