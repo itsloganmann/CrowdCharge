@@ -1,9 +1,6 @@
 // This script creates accept/reject buttons for the bookings popup
 // and makes fetch calls.
 
-// Verify the script loaded
-console.log("file loaded success");
-
 // Create the booking object
 var bookingObj;
 

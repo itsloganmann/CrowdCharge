@@ -137,7 +137,7 @@ async function renderNotification() {
 
                     break;
                 case "CANCELLED":
-                    dataInfo = "This is cancellded!";
+                    dataInfo = "This is cancelled!";
                     buildElement(notification, "Cancelled"
                         , "These pending requests are cancelled."
                         , "grey", dataInfo, count);
@@ -154,7 +154,7 @@ async function renderNotification() {
 
                     buildElement(notification, "accepted"
                         , "These bookings have been accepted!"
-                        + " Make your payment before the booking day"
+                        + " Make your payment before the booking day."
                         , "green", dataInfo, count);
 
                     break;
