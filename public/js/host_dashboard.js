@@ -315,10 +315,10 @@ async function chargerInfo(chargerNumber) {
 	$("#lb-charger-level").after(selectLevel);
 	$('#charger-level').val(chargers[chargerNumber].level);
 	createLabel("edit-chargerrate", "charger-rate", "Hourly rate", "lb-charger-rate", "form-label readonly-label");
-	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost);
+	createInput("edit-chargerrate", "text", true, "rate", "charger-rate", "form-input readonly-input", chargers[chargerNumber].cost.toFixed(2));
 	createLabel("edit-chargerdetails", "charger-details", "Additional details (optional)", "lb-charger-details", "form-label readonly-label");
 
-	$("#edit-chargerdetails").append("<textarea disabled name='details' id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
+	$("#edit-chargerdetails").append("<textarea disabled name='details' placeholder='Max 80 characters'id='charger-details' class='form-input-full readonly-input-full' maxlength='80' rows='6' cols='60'>");
 	$("#charger-details").html(chargers[chargerNumber].details);
 	console.log(chargers[chargerNumber].details);
 	// Edit and save buttons
@@ -549,6 +549,33 @@ $('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-
 	}
 });
 
+
+// Prevents users from entering non digit values and the characater "-" in the charger rate input fields
+$('body').on('keypress', '#charger-rate, #charger-cost-input', (evt) => {
+    if (evt.which < 46 || evt.which > 57 || evt.which == 47)
+    {
+        evt.preventDefault();
+	}
+});
+// Prevents input of more one decimal
+$('body').on('keyup', '#charger-rate, #charger-cost-input', (e) => {
+	var val = $(e.target).val();
+    if(isNaN($(e.target).val())){
+		val =  $(e.target).val().replace(/[^0-9\.]/g,'');
+         if( $(e.target).val().split('.').length > 2) {
+			 val = val.replace(/\.+$/,"");
+		 }
+	}
+	$(e.target).val(val);
+});
+// Converts to two decimal places if at zero or one decimal places
+$('body').on('focusout', '#charger-rate, #charger-cost-input', (e) => {
+	if (!isNaN(parseFloat($(e.target).val()).toFixed(2))){
+		$(e.target).val(parseFloat($(e.target).val()).toFixed(2));
+	} else {
+		$(e.target).val("0.00");
+	}
+});
 // POSTS new charger data to database upon button click
 $("body").on('click', "#submit-charger", (e) => {
 	e.preventDefault();

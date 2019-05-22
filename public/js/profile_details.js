@@ -60,6 +60,28 @@ function defaultTab () {
             "</div>"
     ));
     $('#tab-content').append(detailsContainer);
+/** Profile Details Validation */
+// Enables save profile details button if all fields are filled
+$('body').on('input', '#profile-name-input, #profile-email-input, #profile-phone-input', (event) => {
+	let formFilled = false;
+	if ($('#profile-name-input').val() && $('#profile-email-input').val() && $('#profile-phone-input')) {
+		formFilled = true;
+	}
+	if (formFilled) {
+			$('#save-btn').removeAttr('disabled');
+			$('#save-btn').removeClass('disabled-button');
+	} else {
+			$('#save-btn').prop('disabled', true);
+			$('#save-btn').addClass('disabled-button');
+	}
+});
+// Prevents users from entering non-digit values in the phone input field
+$('body').on('keypress', '#profile-phone-input', (evt) => {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
 
 /** Change Password Validation */
 // Enables change password button if all fields are filled
@@ -145,6 +167,7 @@ $('body').on('keyup', '#profile-confirmpassword-input', (evt) => {
             console.log(res)
     
         }).then((response) => {
+            console.log(response);
         }).catch(error => console.error('Error:', error));
     });
 };
