@@ -3,7 +3,6 @@ const express = require('express')
 const Charger = require('../models/charger')
 const Booking = require('../models/booking')
 const User = require('../models/user')
-
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
