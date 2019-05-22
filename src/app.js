@@ -46,7 +46,6 @@ app.use(chargerRouter)
 app.use(markerRouter)
 app.use(notificationRouter)
 
-
 // Page router, do not move order, needs to come last.
 app.use(pagesRouter)
 
