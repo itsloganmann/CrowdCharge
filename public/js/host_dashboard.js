@@ -230,8 +230,8 @@ $('#bookings-tab').click(async function (event) {
 $("#reviews-tab").click(async function (event) {
 
 	// Container holds all review details for user
-	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
-		, "These are the comments of hosts that you’ve charged with.");
+	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for Your Chargers", "reviewSubHeading1"
+		, "These are the reviews that you have received from users who booked with you.");
 	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	reviewContainer.append(reviewCardContainer);
 	let reviews = []
@@ -446,7 +446,7 @@ function renderCompletedBooking(booking) {
 	//right side div
 	content += "<div class='price-card-text-wrapper'>"
 	content += "<div class='price-card-text-lg'>$" + booking.cost.toFixed(2) + "</div>"
-	content += "<div class='price-card-text-sm'>Completed</div></div>"
+	content += "<div class='price-card-text-sm'>completed</div></div>"
 
 	//main content
 	content += "<div class='card-text-lg'>" + localDate + "</div>"

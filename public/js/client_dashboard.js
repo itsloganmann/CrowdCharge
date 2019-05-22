@@ -27,7 +27,7 @@ function addEventListenerOnPayNow(id, booking, jwt) {
 function confirmationPopupPay(value, booking) {
 	createPopup();
 	createPopupHeader("h5", "Do you wish to pay for the booking at <br><b id='confirm-charger-address'>"
-		+ booking.address + " " + booking.city + ", " + booking.province + "</b>"
+		+ booking.address + " " + booking.city + ", " + booking.province + "</b><br>"
 		+ " on <b id='confirm-charger-date'>" + getLocalDate(new Date(booking.startTime)) + "</b>"
 		+ "<br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(booking.startTime)) + " - "
 		+ getLocalEndTime(new Date(booking.endTime)) + "</b>", "confirm-popup-subheader", "popup-subheader");
@@ -230,8 +230,8 @@ $("#payments-tab").click(async function (event) {
 $("#reviews-tab").click(async function (event) {
 
 	// Container holds all review details for user
-	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Reviews for You", "reviewSubHeading1"
-		, "These are the comments from hosts that you’ve charged with.");
+	var reviewContainer = createContentContainer("review-content", "reviewHeading1", "Feedback from Hosts", "reviewSubHeading1"
+		, "These are the feedback that you have received from previous bookings.");
 	var reviewCardContainer = $("<div class='col-11 tab-section-data row'></div>");
 	reviewContainer.append(reviewCardContainer);
 	let reviews = []
@@ -303,7 +303,7 @@ function renderCompletedBooking(booking){
 	//right side div
 	content+="<div class='price-card-text-wrapper'>"
 	content+= "<div class='price-card-text-lg'>$"+booking.cost.toFixed(2)+"</div>"
-	content+="<div class='price-card-text-sm'>Completed</div></div>"
+	content+="<div class='price-card-text-sm'>completed</div></div>"
 
 	//main content
 	content+="<div class='card-text-lg'>"+getLocalDate(new Date(booking.startTime))+"</div>"
