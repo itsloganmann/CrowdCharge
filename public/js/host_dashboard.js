@@ -102,11 +102,11 @@ $('#requests-tab').click(async function (event) {
 			// Pending booking information for the host
 			createContent("request-container", "div", "pending-card" + countPending, "card-panel col-md-5");
 			$('#pending-card' + countPending).append('<div class="price-card-text-wrapper">'
-				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm">pending</div></div>');
-			createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg");
+				+ '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div><div class="price-card-text-sm orange-yellow-highlight">pending</div></div>');
+			createContent("pending-card" + countPending, "div", "pending-date" + countPending, "card-text-lg orange-yellow-highlight");
 			createContent("pending-card" + countPending, "div", "pending-period" + countPending, "card-text-md");
 			$("#pending-period" + countPending).text(localStartTime + " - " + localEndTime);
-			createContent("pending-card" + countPending, "div", "pending-client" + countPending, "card-text-sm orange-highlight");
+			createContent("pending-card" + countPending, "div", "pending-client" + countPending, "card-text-sm orange-yellow-highlight");
 			$("#pending-client" + countPending).text(booking.client);
 
 			createContent("pending-card" + countPending, "div", "pending-charger-name" + countPending, "card-text-sm");

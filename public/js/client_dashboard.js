@@ -103,8 +103,9 @@ async function fetchBooking(url, status) {
 			if (status == "completed" || status == "pending") {
 				contentStrings[i] = "<div class='card-panel col-md-5'><div class='price-card-text-wrapper'>"
 					+ "<div class='price-card-text-lg'>$" + dataFromdb[i].cost.toFixed(2)
-					+ "</div><div class='price-card-text-sm'>" + status + "</div></div>"
-					+ "<div class='card-text-lg'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
+					+ "</div><div class='price-card-text-sm "
+					+ ((status == "pending") ? "orange-yellow-highlight" : "") + "'>" + status + "</div></div>"
+					+ "<div class='card-text-lg " + ((status == "pending") ? "orange-yellow-highlight" : "") + "'>" + getLocalDate(new Date(dataFromdb[i].startTime)) + "</div>"
 					+ "<div class='card-text-md'>" + getLocalStartTime(new Date(dataFromdb[i].startTime)) + " - "
 					+  getLocalEndTime(new Date(dataFromdb[i].endTime))  + "</div>"
 					+ ((status == "completed") ? ("</div>" + dataFromdb[i].address) : "")
@@ -270,7 +271,7 @@ $("#history-tab").click(async function (event) {
 	
 	// Containers for History objects
 	var historyCardContainer = $("<div class='col-11 tab-section-data row'></div>");
-	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings. Click on them to");
+	var historyContainer = createContentContainer("historyContainer", "history-heading", "Booking History", "history-subheading", "These are your past bookings. Click a booking to review your experience. Green cards have already been reviewed.");
 	historyContainer.append(historyCardContainer);
 	
 	// Await Fetch data of History
