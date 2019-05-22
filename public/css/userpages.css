@@ -144,11 +144,13 @@ main {
 
 /** Review Styling */
 .form-group label {
-    float: left
+    float: left;
 }
 #comments {
     width: 100%;
     height: 10vw;
+    min-height: 2em;
+    margin-bottom: 4px;
 }
 #reviewDetails {
     width: auto;
