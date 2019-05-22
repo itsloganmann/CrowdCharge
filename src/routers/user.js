@@ -98,7 +98,6 @@ router.patch('/users/addBalance', auth, async (req, res) => {
         const additionalBalance = req.body.balance;
         req.user.balance += parseInt(additionalBalance);
         await req.user.save()
-        console.log(req.user);
         res.send(req.user);
     } catch(error) {
         res.status(400).send(error);
@@ -129,7 +128,7 @@ router.patch('/users/me', auth, async (req, res) => {
         res.send(req.user)
 
     } catch (error) {
-        console.log('error!')
+        console.log(error)
         res.status(400).send(error)
     }
 })

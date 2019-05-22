@@ -6,16 +6,6 @@ const Charger = require('../models/charger')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
-// GET request endpoint for fetching all notifications
-// router.get('/notifications', auth, async (req, res) => {
-//     try {
-//         const notifications = await Notification.find( {user : req.user._id} )
-//         res.send(notifications)
-//     } catch (error) {
-//         // Sets up internal server error code. Database went wrong.
-//         res.status(500).send()
-//     }
-// })
 router.get('/notifications', auth, async (req, res) => {
     try {// {user: req.user._id}
         const notifications = await Notification.find({user: req.user._id})
@@ -24,7 +14,6 @@ router.get('/notifications', auth, async (req, res) => {
                 let charger = await Charger.findById(notif.booking.charger)
                 let element = notif
                 element.booking.charger= charger
-                console.log(element)
                 return element;
             }catch(error){
                 console.log(error)
