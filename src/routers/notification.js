@@ -14,7 +14,6 @@ router.get('/notifications', auth, async (req, res) => {
                 let charger = await Charger.findById(notif.booking.charger)
                 let element = notif
                 element.booking.charger= charger
-                console.log(element)
                 return element;
             }catch(error){
                 console.log(error)

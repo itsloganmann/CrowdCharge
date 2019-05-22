@@ -42,7 +42,6 @@ router.get('/Reviews', auth, async(req, res)=>{
             return element;
         })
         const results = await Promise.all(promises)
-        console.log(results)
         res.send(results)
     } catch (error) {
         // Sets up internal server error code. Database went wrong.
@@ -70,7 +69,6 @@ let getClientBookings = async function(uUID, state){
                 element.chargername = charger.chargername;
                 element.bookingID = booking._id;
                 element.chargerID = booking.charger
-                // console.log(element)
                 return element;
             }catch(error){
                 console.log(error)

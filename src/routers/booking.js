@@ -10,7 +10,7 @@ const CronJob = require('cron').CronJob;
 //Marks past paid bookings as completed and deletes past pending bookings
 const updateCompleted = new CronJob('0 0 * * *', async function(){
     try{
-        console.log("cron is working")
+        console.log("booking maintenance")
         await Booking.updateMany({timeStart:{$lte: Date.now()}, state:"PAID"}, { $set: { state: 'COMPLETED' } });
         await Booking.deleteMany({timeStart:{$lte: Date.now()}, state:"PENDING"});
     }catch(error){
@@ -61,7 +61,7 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 
         res.send(booking);
     } catch (error) {
-        console.log("error")
+        console.log(error)
         res.status(400).send(error)
     }
 })
@@ -69,7 +69,6 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 //Declines a booking
 router.delete('/declineBooking', async (req, res) => {
     try {
-        console.log(req.bUID);
         //booking remove
         const booking = await Booking.findByIdAndRemove(req.body.bUID);
         if (!booking) {
@@ -95,10 +94,8 @@ router.delete('/declineBooking', async (req, res) => {
 //Pays for a booking
 router.post('/payBooking', auth, async (req, res) => {
     try {
-        console.log(req.body.bUID);
         //status changed from unpaid to paid
         const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "PAID" });
-        console.log(booking);
         const charger = await Charger.findById(booking.charger);
         //notify charger owner that a payment has been received
         let notification = new Notification({
