@@ -134,7 +134,6 @@ $('body').on("click", ".marker", async (e) => {
     }
 });
 
-// Builds rating stars
 const buildStars = (rating) => {
     if (rating === 0) {
         html = '<span class="host-marker-stars-drawer"> No rating yet! </span>'

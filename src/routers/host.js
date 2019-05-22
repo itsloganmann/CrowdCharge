@@ -85,7 +85,6 @@ let getChargerReviews = async function(cUID){
 
 //Gets owners(uUID)'s charger's bookings of state as an array
 let getHostBookings = async function(uUID, state){
-    console.log(uUID, state);
     try{
         const chargers = await Charger.find({owner: uUID});
         var promises = chargers.map(async(charger)=>{return await getChargerBookings(charger._id,state)});
@@ -113,10 +112,10 @@ let getChargerBookings = async function(cUID,state){
                 element.city = charger.city;
                 element.province = charger.province;
                 element.client = client.name;
+                element.clientID = client._id;
                 element.chargername = charger.chargername;
                 if(state =="PENDING")
                     element.bookingID = booking._id;
-                // console.log(element)
                 return element;
             }catch(error){
                 console.log(error)

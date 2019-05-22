@@ -1,9 +1,6 @@
 // This script creates accept/reject buttons for the bookings popup
 // and makes fetch calls.
 
-// Verify the script loaded
-console.log("file loaded success");
-
 // Create the booking object
 var bookingObj;
 
@@ -25,10 +22,10 @@ function addEventListenerOnReject(element, booking, jwt) {
 // Creates a popup containing the booking
 function confirmationPopup(value, charger) {
     createPopup();
-    createPopupHeader("h5", "Are you sure you want to " + value + " the request for</br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
+    createPopupHeader("h5", "Are you sure you want to " + value + " the request for<br><b id='confirm-charger-name'>" + charger.chargername + "</b>"
         + " on <b id='confirm-charger-date'>" + charger.startTime.split("T")[0] + "</b>"
-        + "</br>at <b id='confirm-charger-stime'>" + getTime(charger.startTime) + "-</b>"
-        + "<b>" + getTime(charger.endTime) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
+        + "<br>at <b id='confirm-charger-stime'>" + getLocalStartTime(new Date(charger.startTime)) + "-</b>"
+        + "<b>" + getLocalEndTime(new Date(charger.endTime)) + "</b>" + "?", "confirm-popup-subheader", "popup-subheader");
     createPopupConfirmButton(value + "-btn", value.charAt(0).toUpperCase() + value.substring(1));
     if (value == "accept")
         $("#accept-btn").removeClass('orange-button').addClass('green-button');
@@ -58,11 +55,8 @@ $('body').on("click", "#accept-btn", (e) => {
             successful = true;
     })
         .then((response) => {
-            // testing; to be removed
-            // successful = true;
-            // //////////////////
+            $("#popup").children().not("#popup-close-button").remove();
             if (successful) {
-                $("#popup").children().not("#popup-close-button").remove();
                 createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {
                     location.reload(true);
@@ -70,7 +64,9 @@ $('body').on("click", "#accept-btn", (e) => {
 
             } else {
                 //if we recieve status for 404/400/500 
-
+                createPopupHeader("h5", "Sorry, the action was not successfully done. Please contact us at zapshareplatform@gmail.com"
+                    , "confirm-popup-header", "popup-subheader");
+                    location.replace("/contact");
             }
 
         })

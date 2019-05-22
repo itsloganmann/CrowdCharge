@@ -5,6 +5,10 @@ main {
   min-height: calc(100vh - 290px);
 }
 
+textarea {
+  resize: none;
+}
+
 .green-highlight {
   color: #1DBF73 !important;
 }
@@ -564,9 +568,7 @@ button:focus {
 .readonly-input, .readonly-input-full{
   background-color: inherit;
 }
-
 .readonly-label{
-  font-weight: bold;
   margin-top: 4px;
 }
 .readonly-input:focus {

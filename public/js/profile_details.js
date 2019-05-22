@@ -60,6 +60,28 @@ function defaultTab () {
             "</div>"
     ));
     $('#tab-content').append(detailsContainer);
+/** Profile Details Validation */
+// Enables save profile details button if all fields are filled
+$('body').on('input', '#profile-name-input, #profile-email-input, #profile-phone-input', (event) => {
+	let formFilled = false;
+	if ($('#profile-name-input').val() && $('#profile-email-input').val() && $('#profile-phone-input')) {
+		formFilled = true;
+	}
+	if (formFilled) {
+			$('#save-btn').removeAttr('disabled');
+			$('#save-btn').removeClass('disabled-button');
+	} else {
+			$('#save-btn').prop('disabled', true);
+			$('#save-btn').addClass('disabled-button');
+	}
+});
+// Prevents users from entering non-digit values in the phone input field
+$('body').on('keypress', '#profile-phone-input', (evt) => {
+    if (evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
 
 /** Change Password Validation */
 // Enables change password button if all fields are filled
@@ -168,10 +190,7 @@ $('#password-tab').click(function (event) {
     $(passwordContainer).append($(
 
         "<form class='col-11 tab-section-data row' id='password-change-form'>" +
-            // "<div class='full-center-wrapper' id='profile-currentpassword-wrapper'>" + 
-            //     "<label id='profile-currentpassword-label' class='form-label profile-label' for='profile-currentpassword-input'>Current Password</label>" +
-            //     "<input type='password' name='currentpassword' id='profile-currentpassword-input' class='form-input profile-input' >" +
-            // "</div>" +
+
             "<div class='full-center-wrapper' id='profile-newpassword-wrapper'>" +
                 "<label id='profile-newpassword-label' class='form-label profile-label' for='profile-newpassword-input'>New password</label>" +
                 "<input type='password' name='newpassword' id='profile-newpassword-input' class='form-input profile-input' >" +

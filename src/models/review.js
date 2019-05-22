@@ -3,11 +3,13 @@ const validator = require('validator')
 
 // Creates mongoose data model for a review object and adds validator to data
 const Review = mongoose.model('Review', {
+    //reviewer ID
     reviewer: {
         type: String,
         required: true,
         trim: true
     },
+    //reviewee ID
     reviewee: {
         type: String,
         required: true,
@@ -15,7 +17,7 @@ const Review = mongoose.model('Review', {
     },
     details: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     rating: {

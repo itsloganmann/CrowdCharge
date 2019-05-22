@@ -5,17 +5,30 @@ const Charger = require('../models/charger')
 const Notification = require('../models/notification')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const CronJob = require('cron').CronJob;
 
+//Marks past paid bookings as completed and deletes past pending bookings
+const updateCompleted = new CronJob('0 0 * * *', async function(){
+    try{
+        console.log("booking maintenance")
+        await Booking.updateMany({timeStart:{$lte: Date.now()}, state:"PAID"}, { $set: { state: 'COMPLETED' } });
+        await Booking.deleteMany({timeStart:{$lte: Date.now()}, state:"PENDING"});
+    }catch(error){
+        console.log(error)
+    }
+})
+updateCompleted.start();
 
 // Creates a new booking from booking information
 router.post('/newBooking', auth, async (req, res) => {
     try {
+        //create new booking
         const booking = new Booking(req.body)
         booking.client = req.user._id
         let charger = await Charger.findById(booking.charger);
         booking.cost = (charger.cost * (booking.timeEnd - booking.timeStart) * (25/9) * 1e-7).toFixed(2);
         await booking.save()
-
+        //create new notification (notify a charger owner that a request has been sent to the corresponding charger)
         let notification = new Notification({
             booking: booking,
             user: charger.owner,
@@ -34,7 +47,9 @@ router.post('/newBooking', auth, async (req, res) => {
 //Accepts a booking
 router.post('/acceptBooking', auth, async (req,res) =>{
     try{
+        //booking status update(from pending to unpaid)
         const booking = await Booking.findByIdAndUpdate(req.body.bUID,{state: "UNPAID"});
+        //notify user that their request for the charger has been accepted
         let notification = new Notification({
             booking: booking,
             user: booking.client,
@@ -45,6 +60,7 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 
         res.send(booking);
     } catch (error) {
+        console.log(error)
         res.status(400).send(error)
     }
 })
@@ -52,12 +68,13 @@ router.post('/acceptBooking', auth, async (req,res) =>{
 //Declines a booking
 router.delete('/declineBooking', async (req, res) => {
     try {
-        console.log(req.bUID);
+        //booking remove
         const booking = await Booking.findByIdAndRemove(req.body.bUID);
         if (!booking) {
             console.log("Booking not found, could not delete.")
             return res.status(404).send("not found")
         } else {
+            //notify user that their request for the charger has been declined
             let notification = new Notification({
                 booking: booking,
                 user: booking.client,
@@ -75,8 +92,10 @@ router.delete('/declineBooking', async (req, res) => {
 //Pays for a booking
 router.post('/payBooking', auth, async (req, res) => {
     try {
+        //status changed from unpaid to paid
         const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "PAID" });
         const charger = await Charger.findById(booking.charger);
+        //notify charger owner that a payment has been received
         let notification = new Notification({
             booking: booking,
             user: charger.owner,
@@ -94,6 +113,7 @@ router.post('/payBooking', auth, async (req, res) => {
 //Cancels a booking
 router.delete('/cancelBooking', async (req, res) => {
     try {
+        //remove booking
         const booking = await Booking.findByIdAndRemove(req.bUID);
         const charger = await Charger.findById(booking.charger);
         if (!booking) {
@@ -106,6 +126,7 @@ router.delete('/cancelBooking', async (req, res) => {
             return res.status(500).send()
 
         } else {
+            //notify charger owner that a pending request has been cancelled
             let notificationClient = new Notification({
                 booking: booking,
                 user: booking.client,
