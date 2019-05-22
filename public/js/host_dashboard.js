@@ -298,6 +298,8 @@ async function chargerInfo(chargerNumber) {
 
 	createLabel("edit-chargername", "charger-name", "Name", "lb-charger-name", "form-label readonly-label");
 	createInput("edit-chargername", "text", true, "name", "charger-name", "form-input readonly-input", chargers[chargerNumber].chargername);
+	//name validation
+	$("#charger-name").attr("maxlength", "14");
 	createLabel("edit-chargeraddress", "charger-address", "Address", "lb-charger-address", "form-label readonly-label");
 	createInput("edit-chargeraddress", "text", true, "address", "charger-address", "form-input readonly-input", chargers[chargerNumber].address);
 	createLabel("edit-chargercity", "charger-city", "City", "lb-charger-city", "form-label readonly-label");
