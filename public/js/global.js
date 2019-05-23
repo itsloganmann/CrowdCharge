@@ -5,13 +5,11 @@ const jwt = localStorage.getItem('jwt');
 
 // If token is present, user is logged in
 if (jwt) {
-	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
 }
 // If token is not present, user is not logged in
 else {
-	console.log("Not logged in");
 	// Remove user-only functions
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
@@ -188,7 +186,6 @@ $('body').on('click', '#login-popup-button', (event) => {
 			if (response.error) {
 				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
 			} else {
-				console.log('Success:', JSON.stringify(response))
 				localStorage.setItem('jwt', response.token)
 				window.location.replace('/client_dashboard');
 			}
@@ -292,7 +289,6 @@ $('body').on('click', '#logout-button', (event) => {
 // Enables sign up button if all fields are filled
 $('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
-	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;

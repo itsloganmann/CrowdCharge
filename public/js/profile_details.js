@@ -231,12 +231,10 @@ $('#password-tab').click(function (event) {
                     'Authorization': 'Bearer ' + jwt
                 }
             }).then(res => {
-                console.log(res);
                 if (res.status == 400) {
                     throw new Error();
                 }
             }).then((response) => {
-                console.log(response)
                 createPopup();
                 createPopupHeader("h5", "Password change successful", "confirm-popup-header", "popup-subheader");
                 $('body').on("click", (e) => {

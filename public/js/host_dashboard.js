@@ -87,7 +87,6 @@ $('#requests-tab').click(async function (event) {
 
 	// Pending booking data render
 	const pendingData = await fetchGET('/host/pendingBookings', jwt)
-	console.log("DATA ", pendingData);
 	let countPending = 0;
 	if (pendingData.length == 0) {
 		$("#request-container").append("<div class='no-data'><p>You don't have any pending booking requests!</p></div>");
@@ -251,7 +250,6 @@ $("#reviews-tab").click(async function (event) {
 		if (reviews == "") {
 			nothingToDisplay(reviewCardContainer, "reviews");
 		} else {
-			console.log(reviews)
 			reviews.forEach(review => {
 				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
 					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
@@ -390,7 +388,6 @@ async function chargerInfo(chargerNumber) {
 		})
 			.then(res => console.log(res))
 			.then((response) => {
-				console.log('Success:', response)
 				fetch('/chargers', {
 					method: 'GET',
 					headers: {
@@ -527,7 +524,6 @@ $('body').on('input', '#charger-name-input, #charger-address-input, #charger-cit
 		&& $('#charger-type-input').val() && $('#charger-level-input').val() && $('#charger-cost-input').val()) {
 		formFilled = true;
 	}
-	console.log(formFilled);
 	if (formFilled) {
 		$('#submit-charger').removeAttr('disabled');
 		$('#submit-charger').removeClass('disabled-button');
@@ -544,7 +540,6 @@ $('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-
 		&& $('#charger-type').val() && $('#charger-level').val() && $('#charger-rate').val()) {
 		formFilled = true;
 	}
-	console.log(formFilled);
 	if (formFilled) {
 		$('#save-btn').removeAttr('disabled');
 		$('#save-btn').removeClass('disabled-button');
@@ -615,7 +610,6 @@ $("body").on('click', "#submit-charger", (e) => {
 		}
 	}).then(res => console.log(res))
 		.then((response) => {
-			console.log('Success: charger added to db!', (response))
 			window.location.replace('/host_dashboard');
 		})
 		.catch(error => console.error('Error:', error));

@@ -39,7 +39,6 @@ $('body').on("click", "#popup-confirm", (e) => {
     //Store date and time
     var date = $("#datepicker").val();;
     var time = $("#popup-time").html();
-    console.log(time);
 
     // Advance booking process to next page
     popupPageOne = $("#popup").children().not("#popup-close-button").detach();
@@ -111,11 +110,9 @@ $('body').on("click", ".time-slot-button", (e) => {
 
 // Renders charger information onto drawer
 $('body').on("click", ".marker", async (e) => {
-    console.log(e.target.id);
     e.preventDefault();
     try {
         const url = '/charger/query?charger_id=' + e.target.id;
-        console.log(url);
         const response = await fetch(url);
         const json = await response.json();
         const data = json['0'];
@@ -126,7 +123,6 @@ $('body').on("click", ".marker", async (e) => {
         const level = data['level']
         const type = data['type']
         const rating = data['rating']
-        console.log(data);
         $("#map-drawer").show();
         populateChargerInfo(e.target.id, chargername, city, cost, details, level, type, rating);
     } catch (error) {
@@ -154,7 +150,6 @@ const buildStars = (rating) => {
 
 // Pulls and displays Charger information for map display
 const populateChargerInfo = (chargerid, chargername, city, cost, details, level, type, rating) => {
-    //console.log(chargername, city, cost, details, level, type, rating);
     $('#map-drawer-text-wrapper').children().remove();
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-charger-name">' + chargername + '</div>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">City</div><div class="map-drawer-text-right">' + city + '</div></div><br>')
@@ -171,7 +166,6 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
         // When changing days, display new time slots
         $('body').off('change', '#datepicker');
         $('body').on('change', '#datepicker', async (evt) => {
-            console.log($('#' + evt.target.id).val());
             evt.preventDefault();
             try {
                 let date = $('#' + evt.target.id).val();
@@ -186,15 +180,12 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
 
                 //Display charger time slots
                 let json = await response.json();
-                console.log("JSON ", json);
                 let arr = ['00:00:00', '01:00:00', '02:00:00', '03:00:00', '04:00:00', '05:00:00',
                     '06:00:00', '07:00:00', '08:00:00', '09:00:00', '10:00:00', '11:00:00',
                     '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00',
                     '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00', '23:00:00'];
                 if (json['0'] !== null) {
                     json.forEach((item) => {
-                        console.log(item);
-                        console.log(item.startTime);
                         let localDate = new Date(item.startTime);
                         currItemStartTimeIndex = localDate.getHours();
                         delete arr[parseInt(currItemStartTimeIndex, 10)];
@@ -228,7 +219,6 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                 timeStart: date + " " + startTime,
                 timeEnd: date + " " + endTime
             }
-            console.log('Sending booking req: ', data);
             try {
                 fetch(url, {
                     method: 'POST',
