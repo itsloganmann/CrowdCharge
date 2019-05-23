@@ -60,7 +60,7 @@ const Booking = mongoose.model('Booking', {
         type: String,
         required: false
     },
-    userFeedback:{
+    userFeedback: {
         type: String,
         required: false
     }

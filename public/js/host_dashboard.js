@@ -141,7 +141,7 @@ const appendAddChargerPage = () => {
 		+ '<div class="full-center-wrapper"><label id="charger-level-label" class="form-label-full" for="charger-level-input">Charger Level</label><select id="charger-level-input" class="form-input-full" name="level" form="new-charger-form" required><option value="level-1">1</option><option value="level-2">2</option></select></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-rate-label" class="form-label-full" for="charger-cost-input">Hourly Rate</label><input type="text" name="rate" id="charger-cost-input" class="form-input-full" required></div>'
 		+ '<div class="full-center-wrapper"><label id="charger-details-label" class="form-label-full" for="charger-details-input">Additional Details (optional)</label><textarea name="details" id="charger-details-input" class="form-input-full" rows="6" cols="60" placeholder="Max 80 characters"></textarea></div><input class="orange-button disabled-button" id="submit-charger" type="button" value="Add Charger" disabled><input class="white-button" id="cancel-charger" type="button" value="Cancel"></form></div>');
-		$("#charger-cost-input").after("<div class='dollar-symbol-full'>$</div>");
+	$("#charger-cost-input").after("<div class='dollar-symbol-full'>$</div>");
 	$("#cancel-charger").on('click', (e) => {
 		$("#tab-content").children().remove();
 		$("#tab-content").append(prevPage);
@@ -250,7 +250,7 @@ $("#reviews-tab").click(async function (event) {
 		$("#tab-content").children().remove();
 		if (reviews == "") {
 			nothingToDisplay(reviewCardContainer, "reviews");
-		}else{
+		} else {
 			console.log(reviews)
 			reviews.forEach(review => {
 				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
@@ -458,26 +458,26 @@ function renderCompletedBooking(booking) {
 
 	container.append(content)
 
-	if(booking.reviewStatus==null){
+	if (booking.reviewStatus == null) {
 		$(container).addClass("completedBooking")
 		$(container).on("click", function () {
 			createPopup();
 			createPopupHeader("h3", "Leave a review!", "review-header", "popup-header");
 			let reviewDetails = $("<div id='reviewDetails' class='card-panel col-md'></div>")
 			reviewDetails.append(content)
-	
+
 			let form = $("<form></form>")
-	
+
 			let rating = $("<div class='form-group'></div>")
 			rating.append("<label for='ratingControlRange'><b> Rate your experience: </b></label>")
 			rating.append("<input type='range' class='form-control-range' id='formControlRange' min='1'max='5' step='0.5' oninput='formControlRangeDisp.value = formControlRange.value'>")
 			rating.append("<output id='formControlRangeDisp'></output>")
-	
+
 			let comments = $("<div class='form-group'></div>")
 			comments.append("<label for='ratingControlRange'><b> Comments (optional): </b></label> <br/>")
 			comments.append("<textarea id='comments'></textarea>")
-	
-	
+
+
 			let submit = $("<button type='button' class='orange-button' id='submitBtn'>Submit Review</button>")
 			submit.on("click", async (e) => {
 				e.preventDefault();
@@ -490,7 +490,7 @@ function renderCompletedBooking(booking) {
 				data.review = review
 				data.type = "USER"
 				data.booking = booking.bookingID
-				
+
 				await fetch('/reviews', {
 					method: 'POST',
 					body: JSON.stringify(data),
@@ -509,11 +509,11 @@ function renderCompletedBooking(booking) {
 					})
 					.catch(error => console.error('Error:', error));
 			})
-	
+
 			form.append(rating, comments, submit)
 			$("#popup").append(reviewDetails, form)
 		})
-	}else{
+	} else {
 		$(container).addClass("green-card")
 	}
 
@@ -557,25 +557,24 @@ $('body').on('input', '#charger-name, #charger-address, #charger-city, #charger-
 
 // Prevents users from entering non digit values and the characater "-" in the charger rate input fields
 $('body').on('keypress', '#charger-rate, #charger-cost-input', (evt) => {
-    if (evt.which < 46 || evt.which > 57 || evt.which == 47)
-    {
-        evt.preventDefault();
+	if (evt.which < 46 || evt.which > 57 || evt.which == 47) {
+		evt.preventDefault();
 	}
 });
 // Prevents input of more one decimal
 $('body').on('keyup', '#charger-rate, #charger-cost-input', (e) => {
 	var val = $(e.target).val();
-    if(isNaN($(e.target).val())){
-		val =  $(e.target).val().replace(/[^0-9\.]/g,'');
-         if( $(e.target).val().split('.').length > 2) {
-			 val = val.replace(/\.+$/,"");
-		 }
+	if (isNaN($(e.target).val())) {
+		val = $(e.target).val().replace(/[^0-9\.]/g, '');
+		if ($(e.target).val().split('.').length > 2) {
+			val = val.replace(/\.+$/, "");
+		}
 	}
 	$(e.target).val(val);
 });
 // Converts to two decimal places if at zero or one decimal places
 $('body').on('focusout', '#charger-rate, #charger-cost-input', (e) => {
-	if (!isNaN(parseFloat($(e.target).val()).toFixed(2))){
+	if (!isNaN(parseFloat($(e.target).val()).toFixed(2))) {
 		$(e.target).val(parseFloat($(e.target).val()).toFixed(2));
 	} else {
 		$(e.target).val("0.00");

@@ -125,45 +125,45 @@ function defaultTab() {
 
     //Save button behavior
     $('#save-btn').click((event) => {
-            event.preventDefault();
-            //PATCH profile information
-            var name = $('#profile-name-input').val();
-            var phone = $('#profile-phone-input').val();
-            var email = $('#profile-email-input').val();
-            const dataToSend = {
-                name: name,
-                phone: phone,
-                email: email,
+        event.preventDefault();
+        //PATCH profile information
+        var name = $('#profile-name-input').val();
+        var phone = $('#profile-phone-input').val();
+        var email = $('#profile-email-input').val();
+        const dataToSend = {
+            name: name,
+            phone: phone,
+            email: email,
+        }
+
+        fetch('/users/me', {
+            method: 'PATCH',
+            body: JSON.stringify(dataToSend),
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + jwt
             }
+        }).then(res => {
+            if (res.status == 400) {
+                throw new Error();
+            } else {
+                $('#profile-name-input').css({ 'background-color': 'inherit' });
+                $('#profile-email-input').css({ 'background-color': 'inherit' });
+                $('#profile-phone-input').css({ 'background-color': 'inherit' });
 
-            fetch('/users/me', {
-                method: 'PATCH',
-                body: JSON.stringify(dataToSend),
-                headers: {
-                    'content-type': 'application/json',
-                    'Authorization': 'Bearer ' + jwt
-                }
-            }).then(res => {
-                if (res.status == 400) {
-                    throw new Error();
-                } else {
-                    $('#profile-name-input').css({ 'background-color': 'inherit' });
-                    $('#profile-email-input').css({ 'background-color': 'inherit' });
-                    $('#profile-phone-input').css({ 'background-color': 'inherit' });
+                $('#profile-name-input').attr('readonly', 'true');
+                $('#profile-email-input').attr('readonly', 'true');
+                $('#profile-phone-input').attr('readonly', 'true');
 
-                    $('#profile-name-input').attr('readonly', 'true');
-                    $('#profile-email-input').attr('readonly', 'true');
-                    $('#profile-phone-input').attr('readonly', 'true');
-
-                    $('#save-btn').css({ 'display': 'none' });
-                    $('#edit-btn').css({ 'display': 'block' });
-                }
-            }).then((response) => {
-                console.log(response);
-            }).catch(error => {
-                $("#gen-validation").remove();
-                $('#save-btn').after("<div id='gen-validation' class='form-error-text'>There was an issue saving your details, please try again.</div>")
-            });
+                $('#save-btn').css({ 'display': 'none' });
+                $('#edit-btn').css({ 'display': 'block' });
+            }
+        }).then((response) => {
+            console.log(response);
+        }).catch(error => {
+            $("#gen-validation").remove();
+            $('#save-btn').after("<div id='gen-validation' class='form-error-text'>There was an issue saving your details, please try again.</div>")
+        });
     });
 };
 
