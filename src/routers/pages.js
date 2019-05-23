@@ -2,7 +2,6 @@
 const express = require('express')
 const router = new express.Router()
 const geocode = require ('../utils/geocode')
-const forecast = require ('../utils/forecast')
 
 // Setting up the routing for different pages.
 router.get('', (req, res) => {

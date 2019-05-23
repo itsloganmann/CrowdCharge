@@ -99,7 +99,7 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
+$('body').on("click", "#popup-wrapper, #popup-close-button, #popup-confirm-validate", (e) => {
 	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
 		$('body').css('position','initial');
