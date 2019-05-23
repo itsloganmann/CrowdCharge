@@ -16,7 +16,7 @@ const Notification = mongoose.model('Notification', {
     //notification type (one of: booking recieved, booking declined, booking accepted, booking paid, booking cancelled)
     type: {
         type: String,
-        enum : ['NEWREQ','ACCEPTED','DECLINED','PAID','CANCELLED','NEWREVIEW'],
+        enum: ['NEWREQ', 'ACCEPTED', 'DECLINED', 'PAID', 'CANCELLED', 'NEWREVIEW'],
         default: 0
     },
     //notification status

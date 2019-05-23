@@ -10,35 +10,35 @@ const auth = require('../middleware/auth')
 
 
 //gets clients PENDING bookings
-router.get('/pendingBookings', auth, async(req, res)=>{
+router.get('/pendingBookings', auth, async (req, res) => {
     res.send(await getClientBookings(req.user._id, "PENDING"));
 })
 
 //gets clients UNPAID bookings
-router.get('/unpaidBookings', auth, async(req, res)=>{
+router.get('/unpaidBookings', auth, async (req, res) => {
     res.send(await getClientBookings(req.user._id, "UNPAID"));
 })
 
 //gets clients PAID bookings
-router.get('/paidBookings', auth, async(req, res)=>{
+router.get('/paidBookings', auth, async (req, res) => {
     res.send(await getClientBookings(req.user._id, "PAID"));
 })
 
 //gets clients COMPLETED bookings
-router.get('/completedBookings', auth, async(req, res)=>{
+router.get('/completedBookings', auth, async (req, res) => {
     res.send(await getClientBookings(req.user._id, "COMPLETED"));
 })
 
 
 //Get client's bookings
 // uUID -> [bookings]
-router.get('/Reviews', auth, async(req, res)=>{
+router.get('/Reviews', auth, async (req, res) => {
     try {
-        const reviews = await Review.find( {reviewee: req.user._id});
-        let promises = reviews.map(async(review)=>{
+        const reviews = await Review.find({ reviewee: req.user._id });
+        let promises = reviews.map(async (review) => {
             let reviewer = await User.findById(review.reviewer)
             let element = review;
-            element.reviewer=reviewer.name
+            element.reviewer = reviewer.name
             return element;
         })
         const results = await Promise.all(promises)
@@ -51,14 +51,14 @@ router.get('/Reviews', auth, async(req, res)=>{
 })
 
 //Gets client's bookings of given state
-let getClientBookings = async function(uUID, state){
-    try{
-        const bookings = await Booking.find( {client : uUID, state : state} );
-        var promises = bookings.map(async booking=>{
-            try{
+let getClientBookings = async function (uUID, state) {
+    try {
+        const bookings = await Booking.find({ client: uUID, state: state });
+        var promises = bookings.map(async booking => {
+            try {
                 const charger = await Charger.findById(booking.charger);
                 const client = await User.findById(booking.client);
-                let element ={};
+                let element = {};
                 element.startTime = booking.timeStart;
                 element.endTime = booking.timeEnd;
                 element.cost = booking.cost;
@@ -69,17 +69,17 @@ let getClientBookings = async function(uUID, state){
                 element.chargername = charger.chargername;
                 element.bookingID = booking._id;
                 element.chargerID = booking.charger;
-                if(state=="COMPLETED"){
+                if (state == "COMPLETED") {
                     element.reviewStatus = booking.chargerReview
-                } 
+                }
                 return element;
-            }catch(error){
+            } catch (error) {
                 console.log(error)
             }
         });
         const results = await Promise.all(promises)
         return results;
-    }catch(error){
+    } catch (error) {
         res.status(500).send(error);
     }
 }

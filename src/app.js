@@ -20,7 +20,7 @@ console.log(__dirname)
 const app = express()
 
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
-const publicDirectoryPath =  path.join(__dirname, '../public')
+const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 app.use(express.static(publicDirectoryPath))
@@ -41,10 +41,10 @@ const port = process.env.PORT || 3000
 
 
 // Registers routers, allowing us to refactor routes into separate files
-app.use('/client',clientRouter);
-app.use('/host',hostRouter)
+app.use('/client', clientRouter);
+app.use('/host', hostRouter)
 app.use(userRouter)
-app.use('/booking',bookingRouter)
+app.use('/booking', bookingRouter)
 app.use(chargerRouter)
 app.use(markerRouter)
 app.use(notificationRouter)

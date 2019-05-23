@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
 
         // Finds a user with a correct id with the authentication stored
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
-        
+
         if (!user) {
             throw new Error()
         }
@@ -24,8 +24,8 @@ const auth = async (req, res, next) => {
         // User has proven they have been authenticated properly
         next()
     } catch (error) {
-        res.status(401).send({ error: 'Please authenticate.'})
+        res.status(401).send({ error: 'Please authenticate.' })
     }
-} 
+}
 
 module.exports = auth
