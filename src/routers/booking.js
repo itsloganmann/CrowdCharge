@@ -8,12 +8,12 @@ const auth = require('../middleware/auth')
 const CronJob = require('cron').CronJob;
 
 //Marks past paid bookings as completed and deletes past pending bookings
-const updateCompleted = new CronJob('0 0 * * *', async function(){
-    try{
+const updateCompleted = new CronJob('0 0 * * *', async function () {
+    try {
         console.log("booking maintenance")
-        await Booking.updateMany({timeStart:{$lte: Date.now()}, state:"PAID"}, { $set: { state: 'COMPLETED' } });
-        await Booking.deleteMany({timeStart:{$lte: Date.now()}, state:"PENDING"});
-    }catch(error){
+        await Booking.updateMany({ timeStart: { $lte: Date.now() }, state: "PAID" }, { $set: { state: 'COMPLETED' } });
+        await Booking.deleteMany({ timeStart: { $lte: Date.now() }, state: "PENDING" });
+    } catch (error) {
         console.log(error)
     }
 })
@@ -26,7 +26,7 @@ router.post('/newBooking', auth, async (req, res) => {
         const booking = new Booking(req.body)
         booking.client = req.user._id
         let charger = await Charger.findById(booking.charger);
-        booking.cost = (charger.cost * (booking.timeEnd - booking.timeStart) * (25/9) * 1e-7).toFixed(2);
+        booking.cost = (charger.cost * (booking.timeEnd - booking.timeStart) * (25 / 9) * 1e-7).toFixed(2);
         await booking.save()
         //create new notification (notify a charger owner that a request has been sent to the corresponding charger)
         let notification = new Notification({
@@ -35,7 +35,7 @@ router.post('/newBooking', auth, async (req, res) => {
             type: 'NEWREQ',
             read: false
         })
-        
+
         await notification.save()
 
         res.status(201).send(booking)
@@ -45,10 +45,10 @@ router.post('/newBooking', auth, async (req, res) => {
 })
 
 //Accepts a booking
-router.post('/acceptBooking', auth, async (req,res) =>{
-    try{
+router.post('/acceptBooking', auth, async (req, res) => {
+    try {
         //booking status update(from pending to unpaid)
-        const booking = await Booking.findByIdAndUpdate(req.body.bUID,{state: "UNPAID"});
+        const booking = await Booking.findByIdAndUpdate(req.body.bUID, { state: "UNPAID" });
         //notify user that their request for the charger has been accepted
         let notification = new Notification({
             booking: booking,

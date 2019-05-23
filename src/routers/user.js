@@ -27,9 +27,9 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateAuthToken()
-        res.send({ user, token })        
+        res.send({ user, token })
     } catch (error) {
-        res.status(400).send({"error" : "" + error});
+        res.status(400).send({ "error": "" + error });
     }
 })
 
@@ -71,8 +71,8 @@ router.patch('/users/pay', auth, async (req, res) => {
     try {
         const priceToPay = parseInt(req.body.cost);
         const userBalance = req.user.balance;
-        if (priceToPay > userBalance){
-            res.send({error: "Invalid balance."});
+        if (priceToPay > userBalance) {
+            res.send({ error: "Invalid balance." });
         } else {
             const booking = await Booking.findById(req.body.bookingID);
             console.log("Booking: ", booking);
@@ -87,7 +87,7 @@ router.patch('/users/pay', auth, async (req, res) => {
             await req.user.save()
             res.send(req.user);
         }
-    } catch(error) {
+    } catch (error) {
         res.status(400).send(error);
     }
 })
@@ -99,7 +99,7 @@ router.patch('/users/addBalance', auth, async (req, res) => {
         req.user.balance += parseInt(additionalBalance);
         await req.user.save()
         res.send(req.user);
-    } catch(error) {
+    } catch (error) {
         res.status(400).send(error);
     }
 })
@@ -108,7 +108,7 @@ router.patch('/users/addBalance', auth, async (req, res) => {
 router.patch('/users/me', auth, async (req, res) => {
     // Specifies what is allowed to be updated in the db
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['name', 'email', 'password','phone']
+    const allowedUpdates = ['name', 'email', 'password', 'phone']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     // Checks if the update is valid operation

@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const router = new express.Router()
+
 const geocode = require ('../utils/geocode')
 
 // Setting up the routing for different pages.
@@ -101,12 +102,12 @@ router.get('/weather', (req, res) => {
         if (error) {
             return res.send({ error })
         }
-    
+
         forecast(latitude, longitude, (error, forecastData) => {
             if (error) {
                 return res.send({ error })
             }
-            
+
             res.send({
                 forecast: forecastData,
                 location,
@@ -125,7 +126,7 @@ router.get('/address', (req, res) => {
     }
 
     // Added = {} to give it a default object so the app doesn't crash when there is an error.
-    geocode(decodeURIComponent(req.query.address), (error, { latitude, longitude} = {}) => {
+    geocode(decodeURIComponent(req.query.address), (error, { latitude, longitude } = {}) => {
         if (error) {
             return res.send({ error })
         }

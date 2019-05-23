@@ -30,8 +30,8 @@ function headerCap(header) {
     return (header[0].toUpperCase() + header.substring(1));
 }
 // Function for the case of having no notifications
-function noNotification() { 
-    createContent("tab-content", "p", "notif-no-data", "no-data" );
+function noNotification() {
+    createContent("tab-content", "p", "notif-no-data", "no-data");
     $("#notif-no-data").text("You don't have any notification. Try to add your charger if you haven't done so!");
 }
 

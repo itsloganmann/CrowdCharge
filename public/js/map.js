@@ -164,11 +164,11 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + buildStars(rating) + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + (details !== '' ? details : "<i>None</i>") + '</div></div>');
     $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
-    
+
     // Check JSON Web Token authentication
     // If valid, allow booking
     if (jwt) {
-         // When changing days, display new time slots
+        // When changing days, display new time slots
         $('body').off('change', '#datepicker');
         $('body').on('change', '#datepicker', async (evt) => {
             console.log($('#' + evt.target.id).val());

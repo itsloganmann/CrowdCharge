@@ -27,7 +27,7 @@ const Review = mongoose.model('Review', {
     },
     date: {
         type: Date,
-        required: true,        
+        required: true,
     }
 })
 
