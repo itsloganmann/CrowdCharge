@@ -40,18 +40,20 @@ let reviewJSON = JSON.parse(reviewsRawdata)
 
 reviewCollection = reviewJSON.map(element => {
     element._id = new ObjectId(element._id.$oid);
-    element.balance = element.balance.$numberInt;
-    element.tokens= []
+    element.rating = element.rating.$numberInt;
+    if(element.rating==null)
+    element.rating = element.rating.$numberDouble;
+    element.date= element.date.$date.$numberLong;
     delete element.__v
     console.log(element)
     return element
 });
 
-// Review.insertMany(reviewCollection, function (err, docs) {
-//     if (err){ 
-//         return console.error(err);
-//     } else {
-//       console.log("Multiple documents inserted to Collection");
-//     }
-//   });
+Review.insertMany(reviewCollection, function (err, docs) {
+    if (err){ 
+        return console.error(err);
+    } else {
+      console.log("Multiple documents inserted to Collection");
+    }
+  });
 
