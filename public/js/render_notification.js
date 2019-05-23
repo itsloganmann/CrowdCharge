@@ -125,7 +125,7 @@ async function renderNotification() {
 
                     break;
                 case "PAID":
-                    dataInfo = "charger name: "
+                    dataInfo = "Charger: "
                         + notification.booking.charger.chargername
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
@@ -137,7 +137,7 @@ async function renderNotification() {
 
                     break;
                 case "CANCELLED":
-                    dataInfo = "This is cancelled!";
+                    dataInfo = "This has been cancelled!";
                     buildElement(notification, "Cancelled"
                         , "These pending requests are cancelled."
                         , "grey", dataInfo, count);

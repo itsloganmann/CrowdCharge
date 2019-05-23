@@ -1,8 +1,8 @@
 // Imports
 const express = require('express')
 const router = new express.Router()
-const geocode = require('../utils/geocode')
-const forecast = require('../utils/forecast')
+
+const geocode = require ('../utils/geocode')
 
 // Setting up the routing for different pages.
 router.get('', (req, res) => {
