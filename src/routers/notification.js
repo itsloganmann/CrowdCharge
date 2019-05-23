@@ -8,16 +8,16 @@ const auth = require('../middleware/auth')
 
 router.get('/notifications', auth, async (req, res) => {
     try {// {user: req.user._id}
-        const notifications = await Notification.find({user: req.user._id})
-        let promises = notifications.map(async notif=>{
-            try{
+        const notifications = await Notification.find({ user: req.user._id })
+        let promises = notifications.map(async notif => {
+            try {
                 let charger = await Charger.findById(notif.booking.charger)
                 let element = notif
-                element.booking.charger= charger
+                element.booking.charger = charger
                 return element;
-            }catch(error){
+            } catch (error) {
                 console.log(error)
-            }   
+            }
         })
         const results = await Promise.all(promises)
         // return results;
@@ -93,7 +93,7 @@ router.patch('/notifications/:id', auth, async (req, res) => {
 router.delete('/notifications', auth, async (req, res) => {
     try {
         const notification = await Notification.findByIdAndDelete(req.query.id)
-        
+
         if (!notification) {
             return res.status(404).send()
         }

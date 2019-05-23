@@ -17,6 +17,11 @@ textarea {
   color: #F05A29 !important;
 }
 
+.orange-yellow-highlight {
+  color: #FF9F10 !important
+}
+
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -451,7 +456,7 @@ footer ul {
   z-index: 6;
   margin: 0 auto;
   width: 60vw;
-  max-width: 524px;
+  max-width: 584px;
   border-radius: 8px;
   color: #464648;
   background-color: #FFFFFF;

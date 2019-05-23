@@ -8,7 +8,7 @@ if (jwt) {
 	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
-} 
+}
 // If token is not present, user is not logged in
 else {
 	console.log("Not logged in");
@@ -19,7 +19,7 @@ else {
 
 // Creates initial popup
 var createPopup = () => {
-	$('body').css({'position': 'fixed', 'width': '100%'});
+	$('body').css({ 'position': 'fixed', 'width': '100%' });
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
 	var popup = document.createElement('div');
@@ -67,20 +67,6 @@ var createPopupCancelButton = (id, text) => {
 	$('#' + id).html(text);
 }
 
-// Array of months
-var months = ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"];
-
-// Get date and return as a string
-var getCurrentDate = () => {
-	var today = new Date();
-	var day = today.getDate();
-	var month = today.getMonth() + 1;
-	var year = today.getFullYear();
-	return (year + "-" + (month >= 10 ? month : "0" + month) + "-" + day);
-}
-
-
 // Function for creating popup input
 var createPopupInput = (targetId, type, name, id, className, value) => {
 	let input = document.createElement("input")
@@ -113,10 +99,10 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$('body').on("click", "#popup-wrapper, #popup-close-button", (e) => {
+$('body').on("click", "#popup-wrapper, #popup-close-button, #popup-confirm-validate", (e) => {
 	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
 		$("#popup-wrapper").remove();
-		$('body').css('position','initial');
+		$('body').css('position', 'initial');
 	}
 });
 
@@ -199,7 +185,7 @@ $('body').on('click', '#login-popup-button', (event) => {
 		}
 	}).then(res => res.json())
 		.then((response) => {
-			if (response.error){
+			if (response.error) {
 				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
 			} else {
 				console.log('Success:', JSON.stringify(response))
@@ -213,68 +199,68 @@ $('body').on('click', '#login-popup-button', (event) => {
 // Signup button listener
 $('body').on('click', '#signup-popup-button', (event) => {
 	if ($('#signup-confirm-password-input').val() == $('#signup-password-input').val()) {
-	const useremail = $('#signup-email-input').val();
-	const username = $('#signup-name-input').val();
-	const userphone = $('#signup-phone-input').val();
-	const userpassword = $('#signup-password-input').val();
-	const url = '/users/signup'
-	const data = {
-		name: username,
-		email: useremail,
-		password: userpassword,
-		phone: userphone
-	}
-	fetch(url, {
-		method: 'POST',
-		body: JSON.stringify(data),
-		headers: {
-			'Content-Type': 'application/json'
+		const useremail = $('#signup-email-input').val();
+		const username = $('#signup-name-input').val();
+		const userphone = $('#signup-phone-input').val();
+		const userpassword = $('#signup-password-input').val();
+		const url = '/users/signup'
+		const data = {
+			name: username,
+			email: useremail,
+			password: userpassword,
+			phone: userphone
 		}
-	}).then(res => res.json())
-		.then( (response) => {
-
-			// Error checking
-			if (response.errors || response.name) {
-
-			// Handle MongoDB error
-			if (response.name === "MongoError") {
-				$("#email-validation").remove();
-				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email, please use another email!</div>")
-				$('#signup-email-input').addClass('invalid-input-underline');
-				$('#signup-email-label').addClass('invalid-input-label');
-			}	
-			// Handle invalid email error
-			if (response.errors.email) {
-				$("#email-validation").remove();
-				$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
-				$('#signup-email-input').addClass('invalid-input-underline');
-				$('#signup-email-label').addClass('invalid-input-label');
+		fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json'
 			}
-			//Handle invalid phone number error
-			if (response.errors.phone) {
-				$("#phone-validation").remove();
-				$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
-				$('#signup-phone-input').addClass('invalid-input-underline');
-				$('#signup-phone-label').addClass('invalid-input-label');
-			} 
-			// Handle invalid password error
-			if (response.errors.password) {
-				$("#password-validation").remove();
-				$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
-				$('#signup-confirm-password-input').addClass('invalid-input-underline');
-				$('#signup-confirm-password-label').addClass('invalid-input-label');
-			} 
-		} 
-		// Success condition
-		else if (!response.errors) {
-			console.log('Login success:', JSON.stringify(response))
-			localStorage.setItem('jwt', response.token)
+		}).then(res => res.json())
+			.then((response) => {
 
-			// Reload to client dashboard
-			window.location.replace('/client_dashboard');
-			}
-		})
-		.catch(error => console.error('Error:', error));
+				// Error checking
+				if (response.errors || response.name) {
+
+					// Handle MongoDB error
+					if (response.name === "MongoError") {
+						$("#email-validation").remove();
+						$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email, please use another email!</div>")
+						$('#signup-email-input').addClass('invalid-input-underline');
+						$('#signup-email-label').addClass('invalid-input-label');
+					}
+					// Handle invalid email error
+					if (response.errors.email) {
+						$("#email-validation").remove();
+						$('#signup-email-input').after("<div id='email-validation' class='form-error-text'>Invalid email format!</div>")
+						$('#signup-email-input').addClass('invalid-input-underline');
+						$('#signup-email-label').addClass('invalid-input-label');
+					}
+					//Handle invalid phone number error
+					if (response.errors.phone) {
+						$("#phone-validation").remove();
+						$('#signup-phone-input').after("<div id='phone-validation' class='form-error-text'>Invalid phone number!</div>")
+						$('#signup-phone-input').addClass('invalid-input-underline');
+						$('#signup-phone-label').addClass('invalid-input-label');
+					}
+					// Handle invalid password error
+					if (response.errors.password) {
+						$("#password-validation").remove();
+						$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Invalid password!</div>")
+						$('#signup-confirm-password-input').addClass('invalid-input-underline');
+						$('#signup-confirm-password-label').addClass('invalid-input-label');
+					}
+				}
+				// Success condition
+				else if (!response.errors) {
+					console.log('Login success:', JSON.stringify(response))
+					localStorage.setItem('jwt', response.token)
+
+					// Reload to client dashboard
+					window.location.replace('/client_dashboard');
+				}
+			})
+			.catch(error => console.error('Error:', error));
 	} else {
 		$("#password-validation").remove();
 		$('#signup-confirm-password-input').after("<div id='password-validation' class='form-error-text'>Your password does not match!</div>")
@@ -327,11 +313,11 @@ $('body').on('input', '#login-email-input, #login-password-input', (event) => {
 		formFilled = true;
 	}
 	if (formFilled) {
-			$('#login-popup-button').removeAttr('disabled');
-			$('#login-popup-button').removeClass('disabled-button');
+		$('#login-popup-button').removeAttr('disabled');
+		$('#login-popup-button').removeClass('disabled-button');
 	} else {
-			$('#login-popup-button').prop('disabled', true);
-			$('#login-popup-button').addClass('disabled-button');
+		$('#login-popup-button').prop('disabled', true);
+		$('#login-popup-button').addClass('disabled-button');
 	}
 });
 
@@ -347,10 +333,9 @@ $('body').on('focusout', '#signup-confirm-password-input', () => {
 
 // Prevents users from entering non-digit values in the phone input field
 $('body').on('keypress', '#signup-phone-input', (evt) => {
-    if (evt.which < 48 || evt.which > 57)
-    {
-        evt.preventDefault();
-    }
+	if (evt.which < 48 || evt.which > 57) {
+		evt.preventDefault();
+	}
 });
 
 
@@ -373,25 +358,25 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 
 // Removes currently active popup when clicking elements with the specified ID
 $('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-    if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
-        $("#popup-wrapper").remove();
-    }
+	if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+		$("#popup-wrapper").remove();
+	}
 });
 
 // Converts a number to a string, with leading zeros
-function leadingZero (digits, number){
+function leadingZero(digits, number) {
 	var str = number + "";
 	while (str.length < digits) {
 		str = "0" + str;
 	}
 	return str;
 }
-function getLocalStartTime(dateObj){
+function getLocalStartTime(dateObj) {
 	return dateObj.getHours() + ":" + leadingZero(2, dateObj.getMinutes());
 }
-function getLocalEndTime(dateObj){
+function getLocalEndTime(dateObj) {
 	return (dateObj.getHours() == "0" ? "24" : dateObj.getHours()) + ":" + leadingZero(2, dateObj.getMinutes());
 }
-function getLocalDate(dateObj){
+function getLocalDate(dateObj) {
 	return dateObj.getYear() + 1900 + "-" + (leadingZero(2, dateObj.getMonth() + 1)) + "-" + leadingZero(2, dateObj.getDate());
 }

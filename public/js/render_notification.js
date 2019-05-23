@@ -30,8 +30,8 @@ function headerCap(header) {
     return (header[0].toUpperCase() + header.substring(1));
 }
 // Function for the case of having no notifications
-function noNotification() { 
-    createContent("tab-content", "p", "notif-no-data", "no-data" );
+function noNotification() {
+    createContent("tab-content", "p", "notif-no-data", "no-data");
     $("#notif-no-data").text("You don't have any notification. Try to add your charger if you haven't done so!");
 }
 
@@ -125,7 +125,7 @@ async function renderNotification() {
 
                     break;
                 case "PAID":
-                    dataInfo = "charger name: "
+                    dataInfo = "Charger: "
                         + notification.booking.charger.chargername
                         + "<br>Date: " + getLocalDate(new Date(notification.booking.timeStart))
                         + "<br>Time: " + getLocalStartTime(new Date(notification.booking.timeStart)) + " - "
@@ -137,7 +137,7 @@ async function renderNotification() {
 
                     break;
                 case "CANCELLED":
-                    dataInfo = "This is cancelled!";
+                    dataInfo = "This has been cancelled!";
                     buildElement(notification, "Cancelled"
                         , "These pending requests are cancelled."
                         , "grey", dataInfo, count);

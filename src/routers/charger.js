@@ -118,15 +118,15 @@ router.get('/charger/schedule', auth, async (req, res) => {
     }
 })
 
-let getChargerBookings = async function(cUID,state,date){
-    try{
+let getChargerBookings = async function (cUID, state, date) {
+    try {
         const time = "00:00:00"
         let today = new Date(date + " " + time);
         let tomorrow = new Date(date + " " + time);
         tomorrow = new Date(tomorrow.setDate(today.getDate() + 1));
-        const bookings = await Booking.find( {charger : cUID, state : state, timeStart : {"$gte" : today, "$lt" : tomorrow}} );
-        var promises = bookings.map(async booking=>{
-            try{
+        const bookings = await Booking.find({ charger: cUID, state: state, timeStart: { "$gte": today, "$lt": tomorrow } });
+        var promises = bookings.map(async booking => {
+            try {
                 const charger = await Charger.findById(booking.charger);
                 const client = await User.findById(booking.client);
                 let element = {};

@@ -66,7 +66,7 @@ $('body').on("click", "#accept-btn", (e) => {
                 //if we recieve status for 404/400/500 
                 createPopupHeader("h5", "Sorry, the action was not successfully done. Please contact us at zapshareplatform@gmail.com"
                     , "confirm-popup-header", "popup-subheader");
-                    location.replace("/contact");
+                location.replace("/contact");
             }
 
         })

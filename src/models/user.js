@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
-        validate(value){
+        validate(value) {
             // Validation to ensure email is in correct form.
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
                 throw new Error('phone must be a positive number')
             }
         }
-    }, 
+    },
     password: {
         type: String,
         required: true,
@@ -77,7 +77,7 @@ const userSchema = new mongoose.Schema({
     hasNewNotifs: {
         type: Boolean,
         default: false,
-        required:true
+        required: true
     }
 })
 
