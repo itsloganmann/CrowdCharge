@@ -50,7 +50,6 @@ $('body').on("click", "#accept-btn", (e) => {
             'Authorization': 'Bearer ' + jwt
         }
     }).then(res => {
-        console.log(res)
         if (res.status == 200)
             successful = true;
     })
@@ -80,7 +79,6 @@ $('body').on("click", "#decline-btn", (e) => {
     const dataToSend = {
         bUID: bookingObj.bookingID
     }
-
     fetch('booking/declineBooking', {
         method: 'DELETE',
         body: JSON.stringify(dataToSend),
@@ -88,9 +86,7 @@ $('body').on("click", "#decline-btn", (e) => {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + jwt
         }
-    }).then(res => {
-        console.log(res);
-    }).then((data) => {
+    }).then(res => {}).then((data) => {
         $("#popup").children().not("#popup-close-button").remove();
         createPopupHeader("h3", "This booking has been declined.", "confirm-popup-header", "popup-subheader");
         $('body').on("click", (e) => {

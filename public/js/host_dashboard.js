@@ -265,20 +265,24 @@ $("#reviews-tab").click(async function (event) {
 });
 
 
-// Lets the user create a new charger
+// Gets charger information
 async function chargerInfo(chargerNumber) {
 	let chargers = [];
-	await fetch('/chargers', {
+	const res = await fetch('/chargers', {
 		method: 'GET',
 		headers: {
 			'content-type': 'application/json',
 			'Authorization': 'Bearer ' + jwt
 		}
-	}).then((res) => {
-		return res.json()
-	}).then((db) => {
-		chargers = db;
-	}).catch(error => console.log(error));
+	})
+	const db = await res.json()
+	chargers = db
+		
+	// }).then((res) => {
+	// 	return res.json()
+	// }).then((db) => {
+	// 	chargers = db;
+	// }).catch(error => console.log(error));
 
 	// Remove old content so we can rebuild with new content
 	let prevPage = $('#tab-content').children().detach();

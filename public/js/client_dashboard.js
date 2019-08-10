@@ -311,7 +311,6 @@ function renderCompletedBooking(booking) {
 	content += "<div class='card-text-sm'>" + booking.city + ", " + booking.province + "</div>"
 
 	container.append(content)
-	console.log(booking.reviewStatus)
 	if (booking.reviewStatus == null) {
 		$(container).addClass("completedBooking")
 		$(container).on("click", function () {
