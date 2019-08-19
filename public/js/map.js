@@ -121,9 +121,10 @@ $('body').on("click", ".marker", async (e) => {
         const cost = data['cost']
         const details = data['details']
         const level = data['level']
-        const type = data['type']
+        const type = data['type']   
         const rating = data['rating']
         $("#map-drawer").show();
+        console.log(e.target.id);
         populateChargerInfo(e.target.id, chargername, city, cost, details, level, type, rating);
     } catch (error) {
         console.log("Error: ", error)
@@ -148,6 +149,41 @@ const buildStars = (rating) => {
     return html;
 }
 
+const addReview = (review) => {    
+    console.log(review);
+    card = $("<div class='card-panel'>"
+        + "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
+        + "<div class='card-text-lg green-highlight'>" + review.reviewer + "</div>"
+        + "<div class='card-text-md'>" + getLocalDate(new Date(review.date)) + " " + getLocalStartTime(new Date(review.date)) + "</div>"
+        + "<div class='card-text-sm'>" + review.details + "</div>"
+        + "</div>");
+        console.log(card)
+    $('#reviews-content').append(card)
+};
+
+const displayReviews = (res) => {
+    if (jQuery.isEmptyObject({})) {console.log("Hi")}
+    createPopup();
+    createPopupHeader('h3', 'Reviews', 'reviews-popup', 'popup-header');
+    createPopupContent('popup', 'div', 'reviews-content', 'full-center-wrapper');
+
+    res.forEach(review => {
+        addReview(review);
+    })
+}
+
+const fetchReviews = async (chargerid) => {
+    const response = await fetch("/host/chargerReviews?cUID=" + chargerid, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + jwt
+        }
+    })
+    const res = await response.json();
+    displayReviews(res);
+}
+
 // Pulls and displays Charger information for map display
 const populateChargerInfo = (chargerid, chargername, city, cost, details, level, type, rating) => {
     $('#map-drawer-text-wrapper').children().remove();
@@ -156,10 +192,17 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Level</div><div class="map-drawer-text-right">' + level + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Type</div><div class="map-drawer-text-right">' + type + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">Hourly Rate</div><div class="map-drawer-text-right">$' + cost.toFixed(2) + '</div></div><br>')
-    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div class="map-drawer-text-left">' + buildStars(rating) + '</div></div><br>')
+    $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row"><div id="stars-rating" class="map-drawer-text-left">' + buildStars(rating) + '</div></div><br>')
     $('#map-drawer-text-wrapper').append('<div class="map-drawer-text-row" id="map-drawer-details-wrapper"><div class="map-drawer-text-left">Additional Details</div><br><div class="map-drawer-text-left" id="map-drawer-details">' + (details !== '' ? details : "<i>None</i>") + '</div></div>');
     $('#map-drawer-text-wrapper').append('<button id="request-booking-button" class="orange-button">REQUEST BOOKING</button>')
 
+    if (rating !== 0) {
+        $('#stars-rating').after('<div id="reviews-button" class="map-drawer-text-right orange-highlight">See Reviews</div>');
+    }
+
+    $('body').on('click', '#reviews-button', (e) => {
+        fetchReviews(chargerid);
+    })
     // Check JSON Web Token authentication
     // If valid, allow booking
     if (jwt) {

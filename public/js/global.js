@@ -17,6 +17,7 @@ else {
 
 // Creates initial popup
 var createPopup = () => {
+	$('#popup-wrapper').remove();
 	$('body').css({ 'position': 'fixed', 'width': '100%' });
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
