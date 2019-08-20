@@ -23,9 +23,33 @@ router.get('/profile_details', (req, res) => {
     })
 })
 
-router.get('/host_dashboard', (req, res) => {
-    res.render('host_dashboard', {
+router.get('/charger_dashboard', (req, res) => {
+    res.render('charger_dashboard', {
         title: 'ZapShare - Charger Dashboard'
+    })
+})
+
+router.get('/charger_requests', (req, res) => {
+    res.render('charger_requests', {
+        title: 'ZapShare - Charger Requests'
+    })
+})
+
+router.get('/charger_bookings', (req, res) => {
+    res.render('charger_bookings', {
+        title: 'ZapShare - Charger Bookings'
+    })
+})
+
+router.get('/charger_reviews', (req, res) => {
+    res.render('charger_reviews', {
+        title: 'ZapShare - Charger Reviews'
+    })
+})
+
+router.get('/charger_history', (req, res) => {
+    res.render('charger_history', {
+        title: 'ZapShare - Charger History'
     })
 })
 
