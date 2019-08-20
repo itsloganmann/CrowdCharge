@@ -70,7 +70,7 @@ main {
 }
 .tab-section-data {
     margin: 12px auto;
-    max-width: 93.333333%;
+    max-width: 92%;
 }
 .no-data{
     height: 10em;
@@ -87,8 +87,7 @@ main {
 
 /** Cards */
 .card-panel {
-    box-sizing: content-box;
-    margin: 8px 0.99999%;
+    margin: 8px 1%;
     padding: 12px 10px 14px;
     border-radius: 8px;
     background-color: white;
@@ -183,8 +182,8 @@ main {
         max-width: 100% !important;
     }
     .card-panel {
-        flex: 0 0 44% !important;
-        max-width: 44% !important;
+        flex: 0 0 48% !important;
+        max-width: 48% !important;
     }
     .price-card-text-wrapper {
         margin-top: 2px;

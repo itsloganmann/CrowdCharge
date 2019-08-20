@@ -33,7 +33,9 @@ const setName = async() => {
     const paidBookings = await responsePaid.json();
     
     if (!$.isEmptyObject(pendingBookings)) { $('#user-pending').children().remove(); }
+        else { $('#user-pending').children()[0].innerHTML = "<p>You don't have any pending bookings!</p>"  }
     if (!$.isEmptyObject(paidBookings)) { $('#user-paid').children().remove(); }
+        else { $('#user-paid').children()[0].innerHTML = "<p>You don't have any paid bookings!</p>"  }
     addBookingsToPage(pendingBookings, 'pending');
     addBookingsToPage(paidBookings, 'paid');
 })();
@@ -54,7 +56,7 @@ const displayBookingCard = (booking, index, type) => {
     let localDate = getLocalDate(localStartDate);
     let colorHighlight = type == 'paid' ? 'green-highlight' : 'orange-yellow-highlight';
 
-    $('#user-' + type).append('<div class="card-panel col-md-5">'
+    $('#user-' + type).append('<div class="card-panel col-md">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm ' + colorHighlight + '">' + type + '</div>'

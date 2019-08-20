@@ -180,11 +180,6 @@
     display: unset;
 }
 
-.card-panel {
-    max-width: initial !important;
-    flex: initial !important;
-}
-
 #reviews-button {
     cursor: pointer;
 }

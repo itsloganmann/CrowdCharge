@@ -189,7 +189,7 @@ $('body').on('click', '#login-popup-button', (event) => {
 				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
 			} else {
 				localStorage.setItem('jwt', response.token)
-				window.location.replace('/client_dashboard');
+				window.location.replace('/user_bookings');
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -256,7 +256,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 					localStorage.setItem('jwt', response.token)
 
 					// Reload to client dashboard
-					window.location.replace('/client_dashboard');
+					window.location.replace('/user_bookings');
 				}
 			})
 			.catch(error => console.error('Error:', error));

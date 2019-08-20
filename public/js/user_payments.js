@@ -23,7 +23,8 @@ const setName = async() => {
     })
     const unpaidBookings = await response.json();
     
-    if (!$.isEmptyObject(unpaidBookings)) { $('#user-payment').children().remove(); }
+	if (!$.isEmptyObject(unpaidBookings)) { $('#user-payment').children().remove(); }
+		else { $('#user-payment').children()[0].innerHTML = "<p>You don't have any unpaid bookings!</p>"  }
     addBookingsToPage(unpaidBookings);
 })();
 
@@ -44,7 +45,7 @@ const displayBookingCard = (booking, index) => {
     let localDate = getLocalDate(localStartDate);
     let colorHighlight = 'orange-highlight';
 
-    $('#user-payment').append('<div class="card-panel col-md-5">'
+    $('#user-payment').append('<div class="card-panel col-md">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm ' + colorHighlight + '">unpaid</div>'

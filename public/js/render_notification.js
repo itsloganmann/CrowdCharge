@@ -32,7 +32,7 @@ function headerCap(header) {
 // Function for the case of having no notifications
 function noNotification() {
     createContent("tab-content", "p", "notif-no-data", "no-data");
-    $("#notif-no-data").text("You don't have any notification. Try to add your charger if you haven't done so!");
+    $("#notif-no-data").text("You don't have any notifications. Try to add your charger if you haven't done so!");
 }
 
 // Creates elements to build the notification card.
@@ -50,7 +50,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
 
     //create card    
     var cardID = type + "-card-" + index;
-    createContent("notif-" + type + "-data", "div", cardID, "card-panel col-md-5 " + cardColor + "-card");
+    createContent("notif-" + type + "-data", "div", cardID, "card-panel col-md " + cardColor + "-card");
     var x = $("<span id='card-close-btn" + index + "' style='float: right; font-size: 30pt z-index: 2' class='fas fa-times ui-button-custom'></span>");
     var span = $("<span>" + content + "</span>");
     $("#" + cardID).append(x);
@@ -72,7 +72,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
             location.replace('/host_dashboard');
         //accepted card go to user dashboard
         else if (cardID[0] == "a")
-            location.replace('/client_dashboard');
+            location.replace('/user_bookings');
     })
 }
 

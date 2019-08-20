@@ -9,6 +9,7 @@
     })
     const reviews = await response.json();
     if (!$.isEmptyObject(reviews)) { $('#charger-review').children().remove(); }
+        else { $('#charger-review').children()[0].innerHTML = "<p>You don't have any reviews for your chargers!</p>"  }
     addBookingsToPage(reviews);
 })();
 
@@ -25,7 +26,7 @@ const displayBookingCard = (review, index) => {
 	let localTime = getLocalStartTime(localStartDate);
 	let localDate = getLocalDate(localStartDate);
 
-    $('#charger-review').append("<div class='card-panel col-md-10' id='reviewsData'>"
+    $('#charger-review').append("<div class='card-panel col-md'>"
     + "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
     + "<div class='card-text-lg orange-highlight'>" + review.reviewer + "</div>"
     + "<div class='card-text-md'>" + localDate + " " + localTime + "</div>"

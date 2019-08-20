@@ -22,7 +22,8 @@ const setName = async() => {
         }
     })
     const bookings = await response.json();
-    if (!$.isEmptyObject(bookings)) { $('#user-history').children().remove(); }
+	if (!$.isEmptyObject(bookings)) { $('#user-history').children().remove(); }
+		else { $('#user-history').children()[0].innerHTML = "<p>You don't have any past bookings!</p>"  }
     addBookingsToPage(bookings);
 })();
 

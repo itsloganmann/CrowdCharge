@@ -9,11 +9,12 @@
     })
     const requests = await response.json();
     if (!$.isEmptyObject(requests)) { $('#charger-request').children().remove(); }
-    addRequestsToPage(requests);
+        else { $('#charger-request').children()[0].innerHTML = "<p>You don't have any pending booking requests!</p>"  }
+    addBookingsToPage(requests);
 })();
 
 // Adds all requests to page.
-const addRequestsToPage = (requests) => {
+const addBookingsToPage = (requests) => {
     requests.forEach((request, index) => {
         displayBookingCard (request, index);
         addAcceptDeclineFuntionality(request, index);
@@ -28,7 +29,7 @@ const displayBookingCard  = (request, index) => {
     let localEndTime = getLocalEndTime(localEndDate);
     let localDate = getLocalDate(localStartDate);
 
-    $('#charger-request').append('<div class="card-panel col-md-5">'
+    $('#charger-request').append('<div class="card-panel col-md">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + request.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm orange-yellow-highlight">pending</div>'

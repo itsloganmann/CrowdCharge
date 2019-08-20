@@ -8,7 +8,8 @@
         }
     })
     const bookings = await response.json();
-    if (!$.isEmptyObject(bookings)) { $('#charger-history').children().remove(); }
+	if (!$.isEmptyObject(bookings)) { $('#charger-history').children().remove(); }
+		else { $('#charger-history').children()[0].innerHTML = "<p>You don't have any past booking requests!</p>"  }
     addBookingsToPage(bookings);
 })();
 
