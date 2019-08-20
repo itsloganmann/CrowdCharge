@@ -198,7 +198,6 @@
         const getMarkers = async () => {
             const response = await fetch('/markers');
             const json = await response.json();
-            console.log(json);
             renderMarkers(json)
             return json;
         }

@@ -251,7 +251,6 @@ $("#reviews-tab").click(async function (event) {
 		if (reviews == "") {
 			nothingToDisplay(reviewCardContainer, "reviews");
 		} else {
-			console.log(reviews)
 			reviews.forEach(review => {
 				review = $("<div class='card-panel col-md-10' id='reviewsData'>"
 					+ "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
@@ -312,7 +311,6 @@ function renderCompletedBooking(booking) {
 	content += "<div class='card-text-sm'>" + booking.city + ", " + booking.province + "</div>"
 
 	container.append(content)
-	console.log(booking.reviewStatus)
 	if (booking.reviewStatus == null) {
 		$(container).addClass("completedBooking")
 		$(container).on("click", function () {

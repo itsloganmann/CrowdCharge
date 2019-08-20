@@ -42,7 +42,7 @@ const geocode = async(address) => {
             })
         );
         return response;
-
+            
     }catch(error){
         console.log(error);
     }
