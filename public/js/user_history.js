@@ -1,6 +1,21 @@
+// Sets name to be header
+const setName = async() => {
+	const response = await fetch('/users/me', {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			'Authorization': 'Bearer ' + jwt
+		}
+	})
+	const res = await response.json();
+	$("#user-name").text(res.name.split(" ")[0] + "'s");
+}
+
+
 // Immediately fetches history.
 (async function () {
-    const response = await fetch('/host/completedBookings', {
+	setName();
+    const response = await fetch('/client/completedBookings', {
         method: 'GET',
         headers: {
             'content-type': 'application/json',
@@ -21,11 +36,6 @@ const addHistoryToPage = (bookings) => {
 
 // Renders completed bookings
 function displayBookingCard(booking) {
-	let localStartDate = new Date(booking.startTime);
-	let localEndDate = new Date(booking.endTime);
-	let localStartTime = getLocalStartTime(localStartDate);
-	let localEndTime = getLocalEndTime(localEndDate);
-	let localDate = getLocalDate(localStartDate);
 	let container = $("<div class='card-panel col-md'></div>")
 	let content = ""
 	//right side div
@@ -34,15 +44,12 @@ function displayBookingCard(booking) {
 	content += "<div class='price-card-text-sm'>completed</div></div>"
 
 	//main content
-	content += "<div class='card-text-lg'>" + localDate + "</div>"
-	content += "<div class='card-text-md'>" + localStartTime + " - " + localEndTime + "</div>"
-	content += "<div class='card-text-sm'>" + booking.client + "</div>"
-	content += "<div class='card-text-sm'>Charger: " + booking.chargername + "</div>"
+	content += "<div class='card-text-lg'>" + getLocalDate(new Date(booking.startTime)) + "</div>"
+	content += "<div class='card-text-md'>" + getLocalStartTime(new Date(booking.startTime)) + " - " + getLocalEndTime(new Date(booking.endTime)) + "</div>"
 	content += "<div class='card-text-sm'>" + booking.address + "</div>"
 	content += "<div class='card-text-sm'>" + booking.city + ", " + booking.province + "</div>"
 
 	container.append(content)
-
 	if (booking.reviewStatus == null) {
 		$(container).addClass("completedBooking")
 		$(container).on("click", function () {
@@ -67,15 +74,15 @@ function displayBookingCard(booking) {
 			submit.on("click", async (e) => {
 				e.preventDefault();
 				let review = {};
-				review.reviewee = booking.clientID;
+				review.reviewee = booking.chargerID;
 				review.details = $("#comments").val();
 				review.rating = $("#formControlRange").val()
 				review.date = Date.now()
 				let data = {};
 				data.review = review
-				data.type = "USER"
+				data.type = "CHARGER"
 				data.booking = booking.bookingID
-
+				console.log(data)
 				await fetch('/reviews', {
 					method: 'POST',
 					body: JSON.stringify(data),
@@ -86,6 +93,8 @@ function displayBookingCard(booking) {
 				})
 					.then(res => console.log(res))
 					.then((response) => {
+						// console.log('Success: review added to db!', (response))
+						// window.location.replace('/host_dashboard');
 						$("#popup").children().not("#popup-close-button").remove();
 						createPopupHeader("h3", "Review Submitted!", "confirm-popup-header", "popup-header");
 						$('body').on("click", (e) => {

@@ -15,13 +15,13 @@
 // Adds all requests to page.
 const addRequestsToPage = (requests) => {
     requests.forEach((request, index) => {
-        displayRequestCard(request, index);
+        displayBookingCard (request, index);
         addAcceptDeclineFuntionality(request, index);
     });
 }
 
 // Displays the specified request on the page.
-const displayRequestCard = (request, index) => {
+const displayBookingCard  = (request, index) => {
     let localStartDate = new Date(request.startTime);
     let localEndDate = new Date(request.endTime);
     let localStartTime = getLocalStartTime(localStartDate);
@@ -34,7 +34,7 @@ const displayRequestCard = (request, index) => {
         + '<div class="price-card-text-sm orange-yellow-highlight">pending</div>'
     + '</div>'
     + '<div class="card-text-lg orange-yellow-highlight">' + localDate +'</div>'
-    + '<div class="card-text-md"> ' + localStartTime + '-' + localEndTime+ ' </div>'
+    + '<div class="card-text-md"> ' + localStartTime + ' - ' + localEndTime+ ' </div>'
     + '<div class="card-text-sm orange-yellow-highlight">' + request.client + '</div>'
     + '<div class="card-text-sm">Charger: ' + request.chargername +'</div>'
     + '<div class="card-text-sm">' + request.address + '</div>'
@@ -98,6 +98,7 @@ const addAcceptFunctionality = (request) => {
         })
         $("#popup").children().not("#popup-close-button").remove();
         createPopupHeader("h5", "This booking has been accepted.", "confirm-popup-header", "popup-subheader");
+        createPopupCancelButton("popup-cancel", "Close");
         $('body').on("click", (e) => {
             location.reload(true);
         })

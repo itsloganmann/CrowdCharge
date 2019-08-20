@@ -55,9 +55,10 @@ async function showChargerInfo(charger) {
     document.getElementById("charger-level").value = charger.level;
 
     // Edit and save buttons
-    createButton("edit-charger-form", "edit-btn", "Edit", "orange-button");
-    createButton("edit-charger-form", "save-btn", "Save", "orange-button");
-    createButton("edit-charger-form", "back-btn", "Cancel", "white-button");
+    $("tab-content").append('<button id="edit-btn" class="orange-button">Edit</button>');
+    $("tab-content").append('<button id="save-btn" display:"none" class="orange-button">Save</button>');
+    $("tab-content").append('<button id="back-btn" class="orange-button">Cancel</button>');
+
     $("#save-btn").css({ "display": "none" });
 
     // Append previous page.
@@ -260,9 +261,3 @@ $('body').on('focusout', '#charger-rate, #charger-rate-input', (e) => {
         $(e.target).val("0.00");
     }
 });
-
-// General header if no booking is created
-function nothingToDisplay(container, bookingType) {
-    nothingDiv = $("<div class='no-data'><p>You don't have any " + bookingType + "!</p></div>");
-    $(container).append(nothingDiv);
-}

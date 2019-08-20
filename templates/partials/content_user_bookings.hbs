@@ -1,0 +1,36 @@
+<main>
+    <div id="wrapper">
+        <div id="header-wrapper" class="col-11">
+            <h1 id="user-name" class="outer-header"></h1>
+            <h3 class="outer-subheader">Dashboard</h3>
+        </div>
+        <div id="tabs-wrapper" class="col-11">
+            <a href='./user_bookings' class="tab-button orange-highlight" id="bookings-tab">Bookings</a>
+            <a href='./user_payments' class="tab-button" id="payments-tab">Payments</a>
+            <a href='./user_feedback' class="tab-button" id="reviews-tab">Feedback</a>
+            <a href='./user_history'class="tab-button" id="history-tab">History</a>
+        </div>
+        <div id="tab-content" class="col-11">
+            <div id="confirmed-content" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="client-confirmed-header"><b>Paid Bookings</b></h3>
+                <h6 class="col-11 inner-subheader" id="client-confirmed-subheader">These bookings have already been
+                    confirmed and paid for!</h6>
+                <div class="col-11 tab-section-data row" id="paid-container">
+                    <div class="no-data">
+                        <p>You don't have any paid bookings!</p>
+                    </div>
+                </div>
+            </div>
+            <div id="pending-content" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="bookingHeading2"><b>Pending Bookings</b></h3>
+                <h6 class="col-11 inner-subheader" id="bookingSubHeading2">These bookings have not been confirmed by the
+                    host yet, we’ll notify you when they do!</h6>
+                <div class="col-11 tab-section-data row" id="pending-container">
+                    <div class="no-data">
+                        <p>You don't have any pending bookings!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

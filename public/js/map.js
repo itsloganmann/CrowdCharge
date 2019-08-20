@@ -94,7 +94,7 @@ var setPopupBookingPageTwo = (date, time) => {
 // Creates the third page of the Booking popup
 var setPopupBookingPageThree = (date, time) => {
     createPopupHeader("h5", "Your booking for <b id='popup-date'>" + date + "</b> at <b id='popup-time'>" + time + "</b> has been sent. Please wait for a confirmation from the host before making your payment.", "booking-finish-text", "popup-subheader");
-    createPopupCancelButton("popup-finish", "Close");
+    createPopupCancelButton("popup-cancel", "Close");
 }
 
 // Colour change for time slot button

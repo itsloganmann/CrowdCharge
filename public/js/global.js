@@ -98,8 +98,9 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$('body').on("click", "#popup-wrapper, #popup-cancel, #popup-finish, #popup-close-button, #popup-confirm-validate, #submitBtn", (e) => {
-	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
+$('body').on("click", "#popup-wrapper, #popup-cancel, #popup-close-button, #popup-confirm-validate, #submitBtn", (e) => {
+	if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-close-button" ||
+		e.target.id == "popup-confirm-validate" || e.target.id == "submitBtn") {
 		$("#popup-wrapper").remove();
 		$('body').css('position', 'initial');
 	}
@@ -354,8 +355,8 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 });
 
 // Removes currently active popup when clicking elements with the specified ID
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-	if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+$('body').on("click", "#popup-cancel", (e) => {
+	if (e.target.id == "popup-cancel") {
 		$("#popup-wrapper").remove();
 	}
 });

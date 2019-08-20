@@ -53,9 +53,27 @@ router.get('/charger_history', (req, res) => {
     })
 })
 
-router.get('/client_dashboard', (req, res) => {
-    res.render('client_dashboard', {
-        title: 'ZapShare - User Dashboard'
+router.get('/user_bookings', (req, res) => {
+    res.render('user_bookings', {
+        title: 'ZapShare - User Bookings'
+    })
+})
+
+router.get('/user_payments', (req, res) => {
+    res.render('user_payments', {
+        title: 'ZapShare - User Payments'
+    })
+})
+
+router.get('/user_feedback', (req, res) => {
+    res.render('user_feedback', {
+        title: 'ZapShare - User Feedback'
+    })
+})
+
+router.get('/user_history', (req, res) => {
+    res.render('user_history', {
+        title: 'ZapShare - User History'
     })
 })
 
