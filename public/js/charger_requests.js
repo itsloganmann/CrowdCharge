@@ -8,7 +8,7 @@
         }
     })
     const requests = await response.json();
-    if (!$.isEmptyObject(requests)) { $('#request-container').children().remove(); }
+    if (!$.isEmptyObject(requests)) { $('#charger-request').children().remove(); }
     addRequestsToPage(requests);
 })();
 
@@ -28,7 +28,7 @@ const displayBookingCard  = (request, index) => {
     let localEndTime = getLocalEndTime(localEndDate);
     let localDate = getLocalDate(localStartDate);
 
-    $('#request-container').append('<div class="card-panel col-md-5">'
+    $('#charger-request').append('<div class="card-panel col-md-5">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + request.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm orange-yellow-highlight">pending</div>'

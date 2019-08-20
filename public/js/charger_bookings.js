@@ -18,8 +18,8 @@
     })
     const paidBookings = await responsePaid.json();
     
-    if (!$.isEmptyObject(unpaidBookings)) { $('#unpaid-container').children().remove(); }
-    if (!$.isEmptyObject(paidBookings)) { $('#paid-container').children().remove(); }
+    if (!$.isEmptyObject(unpaidBookings)) { $('#charger-unpaid').children().remove(); }
+    if (!$.isEmptyObject(paidBookings)) { $('#charger-paid').children().remove(); }
     addBookingsToPage(unpaidBookings, 'unpaid');
     addBookingsToPage(paidBookings, 'paid');
 })();
@@ -40,7 +40,7 @@ const displayBookingCard = (booking, index, type) => {
     let localDate = getLocalDate(localStartDate);
     let colorHighlight = type == 'paid' ? 'green-highlight' : 'orange-highlight';
 
-    $('#' + type + '-container').append('<div class="card-panel col-md-5">'
+    $('#charger-' + type).append('<div class="card-panel col-md-5">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm ' + colorHighlight + '">' + type + '</div>'

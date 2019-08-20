@@ -21,7 +21,7 @@ const addChargersToPage = (chargers) => {
 
 // Displays the specified charger button.
 const displayChargerButton = (charger, index) => {
-    $('#charger-container').prepend("<div class='col-sm-6'><button class='charger-button orange-button' id='charger-" +
+    $('#charger-charger').prepend("<div class='col-sm-6'><button class='charger-button orange-button' id='charger-" +
     index + "'>" + charger.chargername + "<br>" + charger.address + "<br>" + "</button></div>");
 }
 
