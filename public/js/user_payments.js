@@ -11,7 +11,6 @@ const setName = async() => {
 	$("#user-name").text(res.name.split(" ")[0] + "'s");
 }
 
-
 // Immediately fetches bookings that require payment.
 (async function () {
 	setName();
@@ -24,7 +23,7 @@ const setName = async() => {
     })
     const unpaidBookings = await response.json();
     
-    if (!$.isEmptyObject(unpaidBookings)) { $('#payment-container').children().remove(); }
+    if (!$.isEmptyObject(unpaidBookings)) { $('#user-payment').children().remove(); }
     addBookingsToPage(unpaidBookings);
 })();
 
@@ -45,7 +44,7 @@ const displayBookingCard = (booking, index) => {
     let localDate = getLocalDate(localStartDate);
     let colorHighlight = 'orange-highlight';
 
-    $('#payment-container').append('<div class="card-panel col-md-5">'
+    $('#user-payment').append('<div class="card-panel col-md-5">'
     + '<div class="price-card-text-wrapper">'
         + '<div class="price-card-text-lg">$' + booking.cost.toFixed(2) + '</div>'
         + '<div class="price-card-text-sm ' + colorHighlight + '">unpaid</div>'

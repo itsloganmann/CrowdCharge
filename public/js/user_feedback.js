@@ -11,7 +11,6 @@ const setName = async() => {
 	$("#user-name").text(res.name.split(" ")[0] + "'s");
 }
 
-
 // Immediately fetches reviews (feedback).
 (async function () {
     setName();
@@ -23,7 +22,7 @@ const setName = async() => {
         }
     })
     const reviews = await response.json();
-    if (!$.isEmptyObject(reviews)) { $('#feedback-container').children().remove(); }
+    if (!$.isEmptyObject(reviews)) { $('#user-feedback').children().remove(); }
     addReviewsToPage(reviews);
 })();
 
@@ -40,7 +39,7 @@ const displayBookingCard = (review, index) => {
 	let localTime = getLocalStartTime(localStartDate);
 	let localDate = getLocalDate(localStartDate);
 
-    $('#feedback-container').append("<div class='card-panel col-md-10' id='reviewsData'>"
+    $('#user-feedback').append("<div class='card-panel col-md-10' id='reviewsData'>"
     + "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
     + "<div class='card-text-lg orange-highlight'>" + review.reviewer + "</div>"
     + "<div class='card-text-md'>" + localDate + " " + localTime + "</div>"

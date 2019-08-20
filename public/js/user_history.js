@@ -14,7 +14,7 @@ const setName = async() => {
 // Immediately fetches history.
 (async function () {
 	setName();
-    const response = await fetch('/client/completedBookings', {
+	const response = await fetch('/client/completedBookings', {
         method: 'GET',
         headers: {
             'content-type': 'application/json',
@@ -22,7 +22,7 @@ const setName = async() => {
         }
     })
     const bookings = await response.json();
-    if (!$.isEmptyObject(bookings)) { $('#history-container').children().remove(); }
+    if (!$.isEmptyObject(bookings)) { $('#user-history').children().remove(); }
     addBookingsToPage(bookings);
 })();
 
@@ -56,7 +56,7 @@ const displayBookingCard = (booking) => {
 
 	container.append(content)
 	leaveHistoryFeedback(booking, container, content);
-	$("#history-container").append(container);
+	$("#user-history").append(container);
 }
 
 // Allows user to leave feedback if haven't been left previously.
