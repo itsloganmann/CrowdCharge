@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<title>{{title}}</title>
-		<meta charset="utf-8">
+		<meta charset='utf-8'>
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		{{>imports}}
 		<link rel="stylesheet" type="text/css" href="/css/global.css">
-		<link rel="stylesheet" type="text/css" href="/css/faq.css">
+		<link rel="stylesheet" type="text/css" href="/css/userpages.css">
+		<link rel="stylesheet" type="text/css" href="/css/wallet.css">
 	</head>
-	
+
 	<body>
-	{{>sidenav}}
-	{{>topnav}}
-	{{>content_faq}}
-	{{>footer}}
-	{{>javascripts}}
+	    {{>sidenav}}
+		{{>topnav}}
+        {{>content_recharge}}		
+		{{>footer}}
+        {{>javascripts}}
+		<script src="js/recharge.js"></script>
 	</body>
+	
 </html>

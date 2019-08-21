@@ -23,7 +23,7 @@ const setName = async() => {
     })
     const reviews = await response.json();
     if (!$.isEmptyObject(reviews)) { $('#user-feedback').children().remove(); }
-        else { $('#user-feedback').children()[0].innerHTML = "<p>You don't have any feedback from any hosts!</p>"  }
+        else { $('#user-feedback').children()[0].innerHTML = "<p>You don't have any feedback from hosts!</p>"  }
     addReviewsToPage(reviews);
 })();
 

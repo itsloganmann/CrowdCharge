@@ -49,15 +49,15 @@ async function showChargerInfo(charger) {
     $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargercity"><label id="lb-charger-city" class="form-label readonly-label" for="charger-city">City</label><input type="text" name="city" disabled="true" value="' + charger.city + '" id="charger-city" class="form-input readonly-input"></div>');
     $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargertype"><label id="lb-charger-type" class="form-label readonly-label" for="charger-type">Charger Type</label><select disabled="" id="charger-type" class="form-input readonly-input" name="type" form="edit-charger-form" required=""><option value="Wall Outlet">Wall Outlet</option><option value="J-1772">J-1772</option><option value="Tesla (Roadster)">Tesla (Roadster)</option><option value="NEMA 14-50">NEMA 14-50</option><option value="Tesla">Tesla</option></select></div>');
     $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerlevel"><label id="lb-charger-level" class="form-label readonly-label" for="charger-level">Charger Level</label><select disabled="" id="charger-level" class="form-input readonly-input" name="level" form="edit-charger-form" required=""><option value="1">1</option><option value="2">2</option></select></div>');
-    $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerrate"><label id="lb-charger-rate" class="form-label readonly-label" for="charger-rate">Hourly rate</label><input type="text" name="rate" disabled="true" value="' + charger.cost + '" id="charger-rate" class="form-input readonly-input left-labelled-input-full"><div class="dollar-symbol">$</div></div>');
+    $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerrate"><label id="lb-charger-rate" class="form-label readonly-label" for="charger-rate">Hourly rate</label><input type="text" name="rate" disabled="true" value="' + charger.cost.toFixed(2) + '" id="charger-rate" class="form-input readonly-input left-labelled-input-full"><div class="dollar-symbol">$</div></div>');
     $("#edit-charger-form").append('<div class="full-center-wrapper" id="edit-chargerdetails"><label id="lb-charger-details" class="form-label readonly-label" for="charger-details">Additional details (optional)</label><textarea disabled="" name="details" placeholder="Max 80 characters" id="charger-details" class="form-input-full readonly-input-full" maxlength="80" rows="6" cols="60">' + charger.details + '</textarea></div>');
     document.getElementById("charger-type").value = charger.type;
     document.getElementById("charger-level").value = charger.level;
 
     // Edit and save buttons
-    $("tab-content").append('<button id="edit-btn" class="orange-button">Edit</button>');
-    $("tab-content").append('<button id="save-btn" display:"none" class="orange-button">Save</button>');
-    $("tab-content").append('<button id="back-btn" class="orange-button">Cancel</button>');
+    $("#edit-charger-form").append('<button id="edit-btn" class="orange-button">Edit</button>');
+    $("#edit-charger-form").append('<button id="save-btn" display:"none" class="orange-button">Save</button>');
+    $("#edit-charger-form").append('<button id="back-btn" class="white-button">Cancel</button>');
 
     $("#save-btn").css({ "display": "none" });
 

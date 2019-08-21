@@ -563,7 +563,7 @@ button:focus {
 }
 
 .invalid-input-underline {
-  padding: 0px 8px 5.6px;
+  padding: 3px 8px 2.6px;
   border-bottom: 1.4px solid red !important;
 }
 

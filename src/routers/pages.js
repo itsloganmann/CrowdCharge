@@ -23,6 +23,12 @@ router.get('/profile_details', (req, res) => {
     })
 })
 
+router.get('/change_password', (req, res) => {
+    res.render('change_password', {
+        title: 'ZapShare - Change Password'
+    })
+})
+
 router.get('/charger_dashboard', (req, res) => {
     res.render('charger_dashboard', {
         title: 'ZapShare - Charger Dashboard'
@@ -80,6 +86,12 @@ router.get('/user_history', (req, res) => {
 router.get('/wallet', (req, res) => {
     res.render('wallet', {
         title: 'ZapShare - Your Wallet'
+    })
+})
+
+router.get('/recharge', (req, res) => {
+    res.render('recharge', {
+        title: 'ZapShare - Recharge'
     })
 })
 
