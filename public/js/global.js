@@ -98,9 +98,8 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$('body').on("click", "#popup-wrapper, #popup-cancel, #popup-close-button, #popup-confirm-validate, #submitBtn", (e) => {
-	if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-close-button" ||
-		e.target.id == "popup-confirm-validate" || e.target.id == "submitBtn") {
+$('body').on("click", "#popup-wrapper, #popup-cancel, #popup-close-button, #submitBtn", (e) => {
+	if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-close-button" || e.target.id == "submitBtn") {
 		$("#popup-wrapper").remove();
 		$('body').css('position', 'initial');
 	}

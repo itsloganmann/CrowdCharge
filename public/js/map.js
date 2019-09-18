@@ -124,7 +124,6 @@ $('body').on("click", ".marker", async (e) => {
         const type = data['type']   
         const rating = data['rating']
         $("#map-drawer").show();
-        console.log(e.target.id);
         populateChargerInfo(e.target.id, chargername, city, cost, details, level, type, rating);
     } catch (error) {
         console.log("Error: ", error)
@@ -150,19 +149,16 @@ const buildStars = (rating) => {
 }
 
 const addReview = (review) => {    
-    console.log(review);
     card = $("<div class='card-panel'>"
         + "<div class='price-card-text-wrapper price-card-text-lg'>" + review.rating + " " + '<i class="review-star fa fa-star"></i>' + "</div>"
         + "<div class='card-text-lg green-highlight'>" + review.reviewer + "</div>"
         + "<div class='card-text-md'>" + getLocalDate(new Date(review.date)) + " " + getLocalStartTime(new Date(review.date)) + "</div>"
         + "<div class='card-text-sm'>" + review.details + "</div>"
         + "</div>");
-        console.log(card)
     $('#reviews-content').append(card)
 };
 
 const displayReviews = (res) => {
-    if (jQuery.isEmptyObject({})) {console.log("Hi")}
     createPopup();
     createPopupHeader('h3', 'Reviews', 'reviews-popup', 'popup-header');
     createPopupContent('popup', 'div', 'reviews-content', 'full-center-wrapper');
@@ -221,7 +217,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                     }
                 })
 
-                //Display charger time slots
+                // Create array with unbooked time slots
                 let json = await response.json();
                 let arr = ['00:00:00', '01:00:00', '02:00:00', '03:00:00', '04:00:00', '05:00:00',
                     '06:00:00', '07:00:00', '08:00:00', '09:00:00', '10:00:00', '11:00:00',
@@ -235,7 +231,7 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                     })
                 }
 
-                // Display final confirmation
+                // Only display time slots which are not before current time
                 $("#popup-time-slots").children().remove();
                 let currDate = new Date();
                 arr.forEach((startTime) => {
@@ -249,13 +245,13 @@ const populateChargerInfo = (chargerid, chargername, city, cost, details, level,
                 console.log("Error: ", error)
             }
         });
-
+            
         // Sends POST request to add a new booking
         $('body').off('click', '#popup-confirm-validate');
         $('body').on('click', '#popup-confirm-validate', async (evt) => {
             const date = $('#popup-date').html();
-            var startTime = $('#popup-time').html().split(' - ')[0];
-            var endTime = $('#popup-time').html().split(' - ')[1];
+            const startTime = $('#popup-time').html().split(' - ')[0];
+            const endTime = $('#popup-time').html().split(' - ')[1];
             const url = 'booking/newBooking'
             const data = {
                 charger: chargerid,
