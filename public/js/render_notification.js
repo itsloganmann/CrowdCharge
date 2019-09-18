@@ -114,8 +114,8 @@ function headerCap(header) {
 }
 // Function for the case of having no notifications
 function noNotification() {
-    createContent("tab-content", "p", "notif-no-data", "no-data");
-    $("#notif-no-data").text("You don't have any notifications. Try to add your charger if you haven't done so!");
+    createContent("tab-content", "div", "notif-no-data", "no-data");
+    $("#notif-no-data").html("<p>You have no new notifications. Try adding a charger if you haven't done so!</p>");
 }
 
 // Creates elements to build the notification card.
@@ -152,7 +152,7 @@ function buildElement(notificationObj, type, subheading, cardColor, content, ind
             //do nothing
         }
         else if (cardID[0] == "r" || cardID[0] == "p")
-            location.replace('/host_dashboard');
+            location.replace('/charger_dashboard');
         //accepted card go to user dashboard
         else if (cardID[0] == "a")
             location.replace('/user_bookings');

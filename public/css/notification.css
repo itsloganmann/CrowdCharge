@@ -26,3 +26,6 @@ body{
 .dark-green-card:hover {
 	background-color: #15814f
 }
+#tab-content {
+	min-height: initial;
+}

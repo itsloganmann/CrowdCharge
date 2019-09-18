@@ -231,7 +231,7 @@ $("body").on('click', "#submit-charger", (e) => {
     }).then(res => console.log(res))
         .then((response) => {
             console.log('Success: charger added to db!', (response))
-            window.location.replace('/host_dashboard');
+            window.location.replace('/charger_dashboard');
         })
         .catch(error => console.error('Error:', error));
 });
