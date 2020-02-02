@@ -1,7 +1,7 @@
 # ZapShare
-Peer-to-peer Electric Vehicle Charging Network Web App
+Peer-to-peer Electric Vehicle Chargers Network Web App
 
-## Version 2.00:
+## Version 2.00 (May 2019 release):
 Features:
 <ol>
   <li>Dashboard feature for users to interact with our web app.</li>
@@ -10,7 +10,7 @@ Features:
   <li>In-app payment and wallet feature for users and hosts to store their in-app dollar balances.</li>
 </ol>
 
-## Version 1.00:
+## Version 1.00 (April 2019 release):
 Features:
 <ol>
   <li>A user and host login system to access and retrieve stored data using Google Firebase.</li>
@@ -24,32 +24,28 @@ We believe we can change the world for the better by increasing the adoption of 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Changes pushed to master branch will be automatically deployed by Heroku, which is where the production web app is hosted.
+These instructions will get a copy of this project up and running on your local machine for development and testing purposes. Changes pushed to master branch are automatically pulled and deployed by Heroku, which is where the production web app is hosted.
 
 ### Prerequisites
 
 These are the prerequisites of items needed to launch ZapShare web app on your local machine.
 
+* [Node.js](https://nodejs.org/en/) - Install the Node.js runtime environment on your local machine
+* [NPM packages](https://nodejs.org/en/) - Install all the npm modules dependencies by using the following command:
 ```
-Node.js
-npm packages 
+npm install
 ```
 
-### Installing
+## Built as a Full-stack Web Application
 
-```
-Install Node.js from nodejs.org
-Install npm packages using the command npm install in the project directory
-```
+* [MongoDB](https://www.mongodb.com/) - Database NoSQL
+* [Express.js](https://expressjs.com/) - Web Framework
+* [Handlebars](https://handlebarsjs.com/) - Front-end HTML/CSS templating
+* [Node.js](https://nodejs.org/en/) - Back-end
 
 ## Deployment
 
-* [Heroku](http://www.heroku.com/) - The hosting platform used
-
-## Built With
-
-* [Node.js](https://nodejs.org/en/) - Web server
-* [MongoDB](https://www.mongodb.com/) - Database NoSQL
+* [Heroku](http://www.heroku.com/) - Hosting platform and environment
 
 ## Authors
 
@@ -58,5 +54,3 @@ Install npm packages using the command npm install in the project directory
 * **Eric Huang** - [Ericwhh](https://github.com/Ericwhh)
 * **Louis Lu** - [LouisYiLu](https://github.com/LouisYiLu)
 * **Vivian Wu** - [vvnwu](https://github.com/vvnwu)
-
-
