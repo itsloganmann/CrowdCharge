@@ -69,19 +69,15 @@ router.get('/users/me', auth, async (req, res) => {
 // Updates own balance and balance of host after paying for booking
 router.patch('/users/pay', auth, async (req, res) => {
     try {
-        const priceToPay = parseInt(req.body.cost);
+        const priceToPay = parseFloat(req.body.cost);
         const userBalance = req.user.balance;
         if (priceToPay > userBalance) {
             res.send({ error: "Invalid balance." });
         } else {
             const booking = await Booking.findById(req.body.bookingID);
-            console.log("Booking: ", booking);
             const charger = await Charger.findById(booking.charger);
-            console.log("Charger: ", charger);
             const owner = await User.findById(charger.owner);
-            console.log("Owner: ", owner);
             owner.balance += priceToPay;
-            console.log("Owner bal ", owner.balance);
             req.user.balance -= priceToPay;
             await owner.save();
             await req.user.save()

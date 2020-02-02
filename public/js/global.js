@@ -5,13 +5,11 @@ const jwt = localStorage.getItem('jwt');
 
 // If token is present, user is logged in
 if (jwt) {
-	console.log("Logged in");
 	// Remove login button
 	$("#login-button").remove();
 }
 // If token is not present, user is not logged in
 else {
-	console.log("Not logged in");
 	// Remove user-only functions
 	$("#bell-wrapper").remove();
 	$("#user-menu-button").remove();
@@ -19,6 +17,7 @@ else {
 
 // Creates initial popup
 var createPopup = () => {
+	$('#popup-wrapper').remove();
 	$('body').css({ 'position': 'fixed', 'width': '100%' });
 	var popupWrapper = document.createElement('div');
 	popupWrapper.id = "popup-wrapper";
@@ -99,8 +98,8 @@ var createErrorMessage = (targetId, message, className) => {
 }
 
 // Removes popup
-$('body').on("click", "#popup-wrapper, #popup-close-button, #popup-confirm-validate", (e) => {
-	if (e.target.id == "popup-wrapper" || e.target.id == "popup-close-button") {
+$('body').on("click", "#popup-wrapper, #popup-cancel, #popup-close-button, #submitBtn", (e) => {
+	if (e.target.id == "popup-wrapper" || e.target.id == "popup-cancel" || e.target.id == "popup-close-button" || e.target.id == "submitBtn") {
 		$("#popup-wrapper").remove();
 		$('body').css('position', 'initial');
 	}
@@ -188,9 +187,8 @@ $('body').on('click', '#login-popup-button', (event) => {
 			if (response.error) {
 				$('#login-popup-button').before("<div id='login-validation' class='error-message'>Unable to sign in. Please try again.</div>")
 			} else {
-				console.log('Success:', JSON.stringify(response))
 				localStorage.setItem('jwt', response.token)
-				window.location.replace('/client_dashboard');
+				window.location.replace('/user_bookings');
 			}
 		})
 		.catch(error => console.error('Error:', error));
@@ -257,7 +255,7 @@ $('body').on('click', '#signup-popup-button', (event) => {
 					localStorage.setItem('jwt', response.token)
 
 					// Reload to client dashboard
-					window.location.replace('/client_dashboard');
+					window.location.replace('/user_bookings');
 				}
 			})
 			.catch(error => console.error('Error:', error));
@@ -292,7 +290,6 @@ $('body').on('click', '#logout-button', (event) => {
 // Enables sign up button if all fields are filled
 $('body').on('input', '#signup-name-input, #signup-email-input, #signup-password-input, #signup-confirm-password-input, #signup-phone-input', (event) => {
 	var formFilled = false;
-	console.log(formFilled);
 	if ($('#signup-name-input').val() && $('#signup-email-input').val() && $('#signup-password-input').val()
 		&& $('#signup-confirm-password-input').val() && $('#signup-phone-input').val()) {
 		formFilled = true;
@@ -357,8 +354,8 @@ $('body').on('keyup, keypress', '#signup-phone-input', (evt) => {
 });
 
 // Removes currently active popup when clicking elements with the specified ID
-$('body').on("click", "#popup-cancel, #popup-finish", (e) => {
-	if (e.target.id == "popup-cancel" || e.target.id == "popup-finish") {
+$('body').on("click", "#popup-cancel", (e) => {
+	if (e.target.id == "popup-cancel") {
 		$("#popup-wrapper").remove();
 	}
 });

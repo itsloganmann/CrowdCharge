@@ -11,3 +11,21 @@ body{
 .fa-arrow-right{
 	font-size: 30pt;
 }
+.card-panel {
+	cursor: pointer;
+}
+.orange-card:hover {
+	background-color: #e48e0f
+}
+.dark-orange-card:hover {
+	background-color: #da5327
+}
+.green-card:hover {
+	background-color: #1cb36c
+}
+.dark-green-card:hover {
+	background-color: #15814f
+}
+#tab-content {
+	min-height: initial;
+}

@@ -108,7 +108,3 @@ main {
 .balance-button-selected:hover {
     background-image: linear-gradient(#168a54, #1cb36c);
 }
-
-#recharge-balance {
-	display: none;
-}

@@ -4,12 +4,34 @@
             <h1 class="outer-header">Your Profile</h1>
         </div>
         <div id="tabs-wrapper" class="col-11">
-            <span class="tab-button orange-highlight" id="details-tab">Profile Details</span>
-            <span class="tab-button" id='password-tab'>Change Password</span>
+            <a href="./profile_details" class="tab-button orange-highlight" id="details-tab">Profile Details</a>
+            <a href="./change_password" class="tab-button" id='password-tab'>Change Password</a>
             <!-- Notification setting feature not implemented yet, commented out
             <span class="tab-button" id='notification-tab'>Notifications</span> -->
         </div>
         <div id="tab-content" class="col-11">
+            <div id="details-content" class="tab-section-content col-12">
+                <h3 class="col-11 inner-header" id="details-header"><b>Profile Details</b></h3>
+                <h6 class="col-11 inner-subheader" id=""></h6>
+                <div id="profile-details" class="tab-section-data col-12">
+                    <form class="col-11 tab-section-data row" id="profile-details-form">
+                        <div class="full-center-wrapper" id="profile-name-wrapper"><label id="profile-name-label"
+                                class="form-label profile-label" for="profile-name-input">Name</label><input type="text"
+                                name="name" id="profile-name-input" class="form-input profile-input"
+                                disabled="disabled"></div>
+                        <div class="full-center-wrapper" id="profile-email-wrapper"><label id="profile-email-label"
+                                class="form-label profile-label" for="profile-email-input">Email</label><input
+                                type="text" name="email" id="profile-email-input" class="form-input profile-input"
+                                disabled="disabled"></div>
+                        <div class="full-center-wrapper" id="profile-phone-wrapper"><label id="profile-phone-label"
+                                class="form-label profile-label" for="profile-phone-input">Phone</label><input
+                                type="text" name="phone" id="profile-phone-input" maxlength="10"
+                                class="form-input profile-input" disabled="disabled"></div><input type="submit"
+                            id="save-btn" class="orange-button small-btn" value="Save"><button id="edit-btn"
+                            class="white-button small-btn">Edit</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </main>

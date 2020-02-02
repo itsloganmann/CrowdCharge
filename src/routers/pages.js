@@ -23,21 +23,75 @@ router.get('/profile_details', (req, res) => {
     })
 })
 
-router.get('/host_dashboard', (req, res) => {
-    res.render('host_dashboard', {
+router.get('/change_password', (req, res) => {
+    res.render('change_password', {
+        title: 'ZapShare - Change Password'
+    })
+})
+
+router.get('/charger_dashboard', (req, res) => {
+    res.render('charger_dashboard', {
         title: 'ZapShare - Charger Dashboard'
     })
 })
 
-router.get('/client_dashboard', (req, res) => {
-    res.render('client_dashboard', {
-        title: 'ZapShare - User Dashboard'
+router.get('/charger_requests', (req, res) => {
+    res.render('charger_requests', {
+        title: 'ZapShare - Charger Requests'
+    })
+})
+
+router.get('/charger_bookings', (req, res) => {
+    res.render('charger_bookings', {
+        title: 'ZapShare - Charger Bookings'
+    })
+})
+
+router.get('/charger_reviews', (req, res) => {
+    res.render('charger_reviews', {
+        title: 'ZapShare - Charger Reviews'
+    })
+})
+
+router.get('/charger_history', (req, res) => {
+    res.render('charger_history', {
+        title: 'ZapShare - Charger History'
+    })
+})
+
+router.get('/user_bookings', (req, res) => {
+    res.render('user_bookings', {
+        title: 'ZapShare - User Bookings'
+    })
+})
+
+router.get('/user_payments', (req, res) => {
+    res.render('user_payments', {
+        title: 'ZapShare - User Payments'
+    })
+})
+
+router.get('/user_feedback', (req, res) => {
+    res.render('user_feedback', {
+        title: 'ZapShare - User Feedback'
+    })
+})
+
+router.get('/user_history', (req, res) => {
+    res.render('user_history', {
+        title: 'ZapShare - User History'
     })
 })
 
 router.get('/wallet', (req, res) => {
     res.render('wallet', {
         title: 'ZapShare - Your Wallet'
+    })
+})
+
+router.get('/recharge', (req, res) => {
+    res.render('recharge', {
+        title: 'ZapShare - Recharge'
     })
 })
 

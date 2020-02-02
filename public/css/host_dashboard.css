@@ -17,7 +17,7 @@
     padding-top: 4px;
     padding-bottom: 4px;
 }   
-.booking-reject-button {
+.booking-decline-button {
     float: right;
     margin-left: 4px;
     padding-top: 4px;
@@ -34,7 +34,7 @@
     padding: 3px 8px 3px 2px;
     float: right;
 }
-#charger-cost-input {
+#charger-rate-input {
     width: calc(100% - 18px);
     padding: 3px 8px 3px 2px;
     float: right;

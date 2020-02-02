@@ -180,6 +180,18 @@
     display: unset;
 }
 
+#reviews-button {
+    cursor: pointer;
+}
+
+#reviews-button:hover {
+    text-decoration: underline;
+}
+.card-text-sm {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 @media only screen and (min-width: 769px) {
     #map-drawer-text-wrapper {
         padding-top: 8px;
@@ -206,5 +218,11 @@
 
     #map-drawer-details-wrapper {
         display: block;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .card-panel {
+        max-width: initial !important;
     }
 }
