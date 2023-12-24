@@ -96,7 +96,7 @@ userSchema.methods.toJSON = function () {
 // Generates user web auth token. This is an instanced method.
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({ _id: user._id.toString() }, 'zapsharerox')
+    const token = jwt.sign({ _id: user._id.toString() }, 'CrowdChargerox')
 
     user.tokens = user.tokens.concat({ token })
     await user.save()

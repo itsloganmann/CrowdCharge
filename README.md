@@ -1,7 +1,7 @@
-# ZapShare
+# CrowdCharge
 Peer-to-peer Electric Vehicle Chargers Network Web App
 
-## Version 2.00 (May 2019 release):
+## Version 2.00 (May 2023 release):
 Features:
 <ol>
   <li>Dashboard feature for users to interact with our web app.</li>
@@ -10,7 +10,7 @@ Features:
   <li>In-app payment and wallet feature for users and hosts to store their in-app dollar balances.</li>
 </ol>
 
-## Version 1.00 (April 2019 release):
+## Version 1.00 (April 2023 release):
 Features:
 <ol>
   <li>A user and host login system to access and retrieve stored data using Google Firebase.</li>
@@ -19,7 +19,7 @@ Features:
 </ol>
 
 ## Our Story and Mission:
-What is ZapShare all about?
+What is CrowdCharge all about?
 We believe we can change the world for the better by increasing the adoption of electric vehicles in our cities by offering an app that allows users to find private chargers on a map. Home owners can become a host on the network by offering their private charger to other users for a fee.
 
 ## Getting Started
@@ -28,7 +28,7 @@ These instructions will get a copy of this project up and running on your local 
 
 ### Prerequisites
 
-These are the prerequisites of items needed to launch ZapShare web app on your local machine.
+These are the prerequisites of items needed to launch CrowdCharge web app on your local machine.
 
 * [Node.js](https://nodejs.org/en/) - Install the Node.js runtime environment on your local machine
 * [NPM packages](https://nodejs.org/en/) - Install all the npm modules dependencies by using the following command:

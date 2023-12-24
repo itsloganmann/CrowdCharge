@@ -10,7 +10,7 @@ router.get('/markers', async (req, res) => {
         const chargers = await Charger.find();
         let promises = chargers.map(async charger => {
             try {
-                let geoJSON = await geocode(charger.address + " " + charger.city + " " + charger.province + " " + charger.country);
+                let geoJSON = await geocode(charger.address + " " + charger.city);
                 let properties = {
                     "name": charger.chargername,
                     "cost": charger.cost,

@@ -7,139 +7,139 @@ const geocode = require ('../utils/geocode')
 // Setting up the routing for different pages.
 router.get('', (req, res) => {
     res.render('index', {
-        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network'
+        title: 'CrowdCharge - Peer-to-peer Electric Vehicle Charging Network'
     })
 })
 
 router.get('/index', (req, res) => {
     res.render('index', {
-        title: 'ZapShare - Peer-to-peer Electric Vehicle Charging Network'
+        title: 'CrowdCharge - Peer-to-peer Electric Vehicle Charging Network'
     })
 })
 
 router.get('/profile_details', (req, res) => {
     res.render('profile_details', {
-        title: 'ZapShare - Your Profile'
+        title: 'CrowdCharge - Your Profile'
     })
 })
 
 router.get('/change_password', (req, res) => {
     res.render('change_password', {
-        title: 'ZapShare - Change Password'
+        title: 'CrowdCharge - Change Password'
     })
 })
 
 router.get('/charger_dashboard', (req, res) => {
     res.render('charger_dashboard', {
-        title: 'ZapShare - Charger Dashboard'
+        title: 'CrowdCharge - Charger Dashboard'
     })
 })
 
 router.get('/charger_requests', (req, res) => {
     res.render('charger_requests', {
-        title: 'ZapShare - Charger Requests'
+        title: 'CrowdCharge - Charger Requests'
     })
 })
 
 router.get('/charger_bookings', (req, res) => {
     res.render('charger_bookings', {
-        title: 'ZapShare - Charger Bookings'
+        title: 'CrowdCharge - Charger Bookings'
     })
 })
 
 router.get('/charger_reviews', (req, res) => {
     res.render('charger_reviews', {
-        title: 'ZapShare - Charger Reviews'
+        title: 'CrowdCharge - Charger Reviews'
     })
 })
 
 router.get('/charger_history', (req, res) => {
     res.render('charger_history', {
-        title: 'ZapShare - Charger History'
+        title: 'CrowdCharge - Charger History'
     })
 })
 
 router.get('/user_bookings', (req, res) => {
     res.render('user_bookings', {
-        title: 'ZapShare - User Bookings'
+        title: 'CrowdCharge - User Bookings'
     })
 })
 
 router.get('/user_payments', (req, res) => {
     res.render('user_payments', {
-        title: 'ZapShare - User Payments'
+        title: 'CrowdCharge - User Payments'
     })
 })
 
 router.get('/user_feedback', (req, res) => {
     res.render('user_feedback', {
-        title: 'ZapShare - User Feedback'
+        title: 'CrowdCharge - User Feedback'
     })
 })
 
 router.get('/user_history', (req, res) => {
     res.render('user_history', {
-        title: 'ZapShare - User History'
+        title: 'CrowdCharge - User History'
     })
 })
 
 router.get('/wallet', (req, res) => {
     res.render('wallet', {
-        title: 'ZapShare - Your Wallet'
+        title: 'CrowdCharge - Your Wallet'
     })
 })
 
 router.get('/recharge', (req, res) => {
     res.render('recharge', {
-        title: 'ZapShare - Recharge'
+        title: 'CrowdCharge - Recharge'
     })
 })
 
 router.get('/contact', (req, res) => {
     res.render('contact', {
-        title: 'ZapShare - Contact Us'
+        title: 'CrowdCharge - Contact Us'
     })
 })
 
 router.get('/notification', (req, res) => {
     res.render('notification', {
-        title: 'ZapShare - Notifications'
+        title: 'CrowdCharge - Notifications'
     })
 })
 
 router.get('/about', (req, res) => {
     res.render('about', {
-        title: 'ZapShare - About Us'
+        title: 'CrowdCharge - About Us'
     })
 })
 
 router.get('/map', (req, res) => {
     res.render('map', {
-        title: 'ZapShare - Map'
+        title: 'CrowdCharge - Map'
     })
 })
 
 router.get('/privacy', (req, res) => {
     res.render('privacy', {
-        title: 'ZapShare - Privacy Policy'
+        title: 'CrowdCharge - Privacy Policy'
     })
 })
 
 router.get('/disclaimer', (req, res) => {
     res.render('disclaimer', {
-        title: 'ZapShare - Disclaimer'
+        title: 'CrowdCharge - Disclaimer'
     })
 })
 
 router.get('/terms', (req, res) => {
     res.render('terms', {
-        title: 'ZapShare - Terms of Service'
+        title: 'CrowdCharge - Terms of Service'
     })
 })
 
 router.get('/faq', (req, res) => {
     res.render('faq', {
-        title: 'ZapShare - FAQ'
+        title: 'CrowdCharge - FAQ'
     })
 })
 
@@ -195,7 +195,7 @@ router.get('/address', (req, res) => {
 // Handles 404 not found.
 router.get('*', (req, res) => {
     res.render('404', {
-        title: 'ZapShare - 404 Page Not Found',
+        title: 'CrowdCharge - 404 Page Not Found',
         name: '',
         errorMessage: 'Page not found.'
     })

@@ -2,11 +2,12 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Types.ObjectId;
 
 //change this to your local database
-const local = 'mongodb://127.0.0.1:27017/zapshare-api'
+const local = 'mongodb://localhost:27017'
 
 mongoose.connect(local, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useUnifiedTopology: true, // Add this line
     useFindAndModify: false
 })
 

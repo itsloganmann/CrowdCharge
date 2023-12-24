@@ -23,7 +23,7 @@ const request = require('request');
 
 const geocode = async(address) => {
     try{
-        const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + '.json?access_token=pk.eyJ1IjoiZXBhdTg4IiwiYSI6ImNqdjhyemQwNDAzM3U0MnJ5bW9ndHI4bXoifQ.JjTAqjq-WeON4_zK7naPEw&limit=1';
+        const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + '.json?access_token=sk.eyJ1IjoibG9nYW5tYW5uIiwiYSI6ImNsa3lhd29heDBmc3ozbGxzZnI0b3BpNHIifQ.SBmReYQb7hWNJ_jD5J0WlQ';
 
         let response = await (
             new Promise((resolve, reject)=>{

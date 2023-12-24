@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
         // Stores incoming token from the header and gets rid of Bearer in the string
         const token = req.header('Authorization').replace('Bearer ', '')
         console.log(token)
-        const decoded = jwt.verify(token, 'zapsharerox')
+        const decoded = jwt.verify(token, 'CrowdChargerox')
         console.log(decoded)
 
         // Finds a user with a correct id with the authentication stored

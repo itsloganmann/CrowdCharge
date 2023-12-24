@@ -1,4 +1,4 @@
-// Easter Egg for ZapShare app.
+// Easter Egg for CrowdCharge app.
 
 // After hovering on the car logo, it will drive off to the right side of the screen
 // and appear again in its proper place from the left.

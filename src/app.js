@@ -36,7 +36,7 @@ app.set('views', viewsPath)
 app.use(express.json())
 
 // Sets up environmental variable used for Heroku (port)
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8080
 
 
 

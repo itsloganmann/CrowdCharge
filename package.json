@@ -10,15 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^3.0.8",
     "bcryptjs": "^2.4.3",
     "cron": "^1.7.1",
     "express": "^4.16.4",
     "hbs": "^4.0.4",
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.2.3",
-    "mongoose": "^5.5.8",
+    "mongoose": "^5.11.15",
     "request": "^2.88.0",
+    "teslajs": "^4.10.0",
     "validation": "0.0.1",
     "validator": "^10.11.0"
   },
