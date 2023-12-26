@@ -23,7 +23,6 @@
     "mongoose": "^5.11.15",
     "request": "^2.88.0",
     "teslajs": "^4.10.0",
-    "validation": "0.0.1",
     "validator": "^10.11.0"
   },
   "devDependencies": {
