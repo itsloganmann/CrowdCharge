@@ -1,13 +1,13 @@
 {
   "name": "web-server",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js"
-  },
-  "engines": {
-    "node": "14.x"
   },
   "keywords": [],
   "author": "",
@@ -18,14 +18,17 @@
     "cron": "^1.7.1",
     "express": "^4.16.4",
     "hbs": "^4.0.4",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^3.2.3",
     "mongoose": "^5.11.15",
     "request": "^2.88.0",
     "teslajs": "^4.10.0",
-    "validator": "^10.11.0"
+    "validator": "^13.11.0"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "devDependencies": {
-    "nodemon": "^1.19.0"
+    "nodemon": "^3.0.2"
   }
 }
