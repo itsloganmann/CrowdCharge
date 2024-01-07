@@ -1,4 +1,5 @@
 // Imports
+const User = require('./models/user');
 const path = require('path')
 const express = require('express')
 const stripe = require('stripe')('sk_test_51NWQUFJDvNhYRqstsiExOGGTfPTpM7AqBxFdXjgFZ6mQ4quW67CtMEwbEXTM9cpiU7EFoaoFlNcAbAdH5KDDkxP800781j2q78'); // Add this line
@@ -54,7 +55,7 @@ app.post('/create-checkout-session', auth, async (req, res) => {
             quantity: 1,
         }],
         mode: 'payment',
-        success_url: `${req.protocol}://${req.get('host')}/recharge/success/{CHECKOUT_SESSION_ID}?user_id=${req.user._id}`,
+        success_url: `${req.protocol}://${req.get('host')}/recharge/success/{CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.protocol}://${req.get('host')}/recharge`,
     });
 
@@ -62,21 +63,28 @@ app.post('/create-checkout-session', auth, async (req, res) => {
 });
 
 app.get('/recharge/success/:session_id', async (req, res) => {
-    const userId = req.query.user._id;
-    const sessionId = req.params.session_id;
+    try {
+        const sessionId = req.params.session_id;
 
-    // Retrieve the session to make sure the payment was successful
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+        // Retrieve the session to make sure the payment was successful
+        const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-    if (session.payment_status === 'paid') {
-        // Find the user and update their balance
-        const user = await User.findById(userId);
-        user.balance += session.amount_total;
-        await user.save();
+        if (session.payment_status === 'paid') {
+            // Find the user and update their balance
+            const user = await User.findById(session.customer); // Replace User with your user model
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+            user.balance += session.amount_total;
+            await user.save();
 
-        res.send('Balance updated successfully');
-    } else {
-        res.send('Payment was not successful');
+            res.send('Balance updated successfully');
+        } else {
+            res.send('Payment was not successful');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while updating the balance');
     }
 });
 
