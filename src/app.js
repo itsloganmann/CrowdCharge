@@ -12,6 +12,7 @@ const hostRouter = require('./routers/host')
 const notificationRouter = require('./routers/notification')
 const reviewRouter = require('./routers/review')
 const hbs = require('hbs')
+const auth = require('./middleware/auth')
 require('./db/mongoose')
 
 // Variable for the current directory is __dirname.
@@ -37,7 +38,7 @@ app.set('views', viewsPath)
 app.use(express.json())
 
 // Add this block for Stripe Checkout
-app.post('/create-checkout-session', async (req, res) => {
+app.post('/create-checkout-session', auth, async (req, res) => {
     const { amount } = req.body;
 
     const session = await stripe.checkout.sessions.create({
@@ -53,11 +54,30 @@ app.post('/create-checkout-session', async (req, res) => {
             quantity: 1,
         }],
         mode: 'payment',
-        success_url: `${req.protocol}://${req.get('host')}/recharge?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${req.protocol}://${req.get('host')}/recharge/success/{CHECKOUT_SESSION_ID}?user_id=${req.user._id}`,
         cancel_url: `${req.protocol}://${req.get('host')}/recharge`,
     });
 
     res.json({ id: session.id });
+});
+
+app.get('/recharge/success/:session_id', async (req, res) => {
+    const userId = req.query.user._id;
+    const sessionId = req.params.session_id;
+
+    // Retrieve the session to make sure the payment was successful
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (session.payment_status === 'paid') {
+        // Find the user and update their balance
+        const user = await User.findById(userId);
+        user.balance += session.amount_total;
+        await user.save();
+
+        res.send('Balance updated successfully');
+    } else {
+        res.send('Payment was not successful');
+    }
 });
 
 // Sets up environmental variable used for Heroku (port)
