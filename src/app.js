@@ -57,6 +57,7 @@ app.post('/create-checkout-session', auth, async (req, res) => {
         mode: 'payment',
         success_url: `${req.protocol}://${req.get('host')}/recharge/success/{CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.protocol}://${req.get('host')}/recharge`,
+        client_reference_id: req.user._id.toString(), // Add this line
     });
 
     res.json({ id: session.id });
@@ -71,7 +72,7 @@ app.get('/recharge/success/:session_id', async (req, res) => {
 
         if (session.payment_status === 'paid') {
             // Find the user and update their balance
-            const user = await User.findById(session.customer); // Replace User with your user model
+            const user = await User.findById(session.client_reference_id); // Change this line
             if (!user) {
                 return res.status(404).send('User not found');
             }
