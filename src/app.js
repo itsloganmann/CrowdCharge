@@ -33,7 +33,31 @@ hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 
+app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+    let event;
 
+    try {
+        event = stripe.webhooks.constructEvent(req.body, req.headers['stripe-signature'], 'whsec_Dr1GfFJJPYIzZ64DNUZhddCkuzQOV6Y8');
+    } catch (err) {
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+
+        // Get user from session, and update their balance
+        const user = await User.findBySessionId(session.id);
+        const amountPaid = session.amount_total / 100; // Convert from cents to dollars
+
+        user.balance += amountPaid;
+        await user.save();
+    }
+
+    res.json({received: true});
+});
+
+// Customizes server, automatically parse incoming json into an object
+app.use(express.json())
 
 // Add this block for Stripe Checkout
 app.post('/create-checkout-session', async (req, res) => {
@@ -59,30 +83,9 @@ app.post('/create-checkout-session', async (req, res) => {
     res.json({ id: session.id });
 });
 
-app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
-    let event;
 
-    try {
-        event = stripe.webhooks.constructEvent(req.body, req.headers['stripe-signature'], 'whsec_Dr1GfFJJPYIzZ64DNUZhddCkuzQOV6Y8');
-    } catch (err) {
-        return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
 
-    if (event.type === 'checkout.session.completed') {
-        const session = event.data.object;
 
-        // Get user from session, and update their balance
-        const user = await User.findBySessionId(session.id);
-        const amountPaid = session.amount_total / 100; // Convert from cents to dollars
-
-        user.balance += amountPaid;
-        await user.save();
-    }
-
-    res.json({received: true});
-});
-
-app.use(express.json());
 
 
 // Sets up environmental variable used for Heroku (port)
