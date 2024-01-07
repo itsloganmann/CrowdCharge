@@ -33,8 +33,7 @@ hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 
-// Customizes server, automatically parse incoming json into an object
-app.use(express.json())
+
 
 // Add this block for Stripe Checkout
 app.post('/create-checkout-session', async (req, res) => {
