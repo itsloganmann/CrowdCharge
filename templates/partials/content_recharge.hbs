@@ -22,3 +22,31 @@
         </div>
     </div>
 </main>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.getElementById('recharge-button').addEventListener('click', async () => {
+        let amount = document.querySelector('.balance-button-selected').innerText.replace(/^\$+/, '');
+        amount = parseFloat(amount) * 100; // Stripe uses cents instead of dollars
+
+        const response = await fetch('/create-checkout-session', {
+            method: "POST",
+            body: JSON.stringify({ amount: amount }),
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + jwt
+            }
+        })
+        const session = await response.json();
+
+        const stripe = Stripe('pk_test_51NWQUFJDvNhYRqstHSerYpzi09bxUZMkis3qjgfNFYhwq4gK0d4ncQoF9zYSMWP062nWpJFNYkgTH3insQR65L4J00HvLec1K9');
+
+        const { error } = await stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+
+        if (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>

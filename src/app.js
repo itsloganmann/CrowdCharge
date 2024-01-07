@@ -1,6 +1,7 @@
 // Imports
 const path = require('path')
 const express = require('express')
+const stripe = require('stripe')('sk_test_51NWQUFJDvNhYRqstsiExOGGTfPTpM7AqBxFdXjgFZ6mQ4quW67CtMEwbEXTM9cpiU7EFoaoFlNcAbAdH5KDDkxP800781j2q78'); // Add this line
 const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
 const chargerRouter = require('./routers/charger')
@@ -35,10 +36,32 @@ app.set('views', viewsPath)
 // Customizes server, automatically parse incoming json into an object
 app.use(express.json())
 
+// Add this block for Stripe Checkout
+app.post('/create-checkout-session', async (req, res) => {
+    const { amount } = req.body;
+
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+            price_data: {
+                currency: 'usd',
+                product_data: {
+                    name: 'Recharge',
+                },
+                unit_amount: amount,
+            },
+            quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: `${req.protocol}://${req.get('host')}/recharge?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.protocol}://${req.get('host')}/recharge`,
+    });
+
+    res.json({ id: session.id });
+});
+
 // Sets up environmental variable used for Heroku (port)
-const port = process.env.PORT || 8080
-
-
+const port = process.env.PORT || 3000
 
 // Registers routers, allowing us to refactor routes into separate files
 app.use('/client', clientRouter);

@@ -18,7 +18,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^3.2.3",
     "mongoose": "^5.11.15",
+    "paypal-rest-sdk": "^1.8.1",
     "request": "^2.88.0",
+    "stripe": "^14.11.0",
     "teslajs": "^4.10.0",
     "validator": "^13.11.0"
   },
