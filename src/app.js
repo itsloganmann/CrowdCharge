@@ -60,6 +60,29 @@ app.post('/create-checkout-session', async (req, res) => {
     res.json({ id: session.id });
 });
 
+app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(req.body, req.headers['stripe-signature'], YOUR_ENDPOINT_SECRET);
+    } catch (err) {
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+
+        // Get user from session, and update their balance
+        const user = await User.findBySessionId(session.id);
+        const amountPaid = session.amount_total / 100; // Convert from cents to dollars
+
+        user.balance += amountPaid;
+        await user.save();
+    }
+
+    res.json({received: true});
+});
+
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
 
