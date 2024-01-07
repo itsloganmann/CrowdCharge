@@ -1,7 +1,7 @@
 // Imports
 const path = require('path')
 const express = require('express')
-const stripe = require('stripe')('sk_test_51NWQUFJDvNhYRqstsiExOGGTfPTpM7AqBxFdXjgFZ6mQ4quW67CtMEwbEXTM9cpiU7EFoaoFlNcAbAdH5KDDkxP800781j2q78'); // Add this line
+const stripe = require('stripe')('sk_test_51NWQUFJDvNhYRqstsiExOGGTfPTpM7AqBxFdXjgFZ6mQ4quW67CtMEwbEXTM9cpiU7EFoaoFlNcAbAdH5KDDkxP800781j2q78');
 const userRouter = require('./routers/user')
 const bookingRouter = require('./routers/booking')
 const chargerRouter = require('./routers/charger')
@@ -20,6 +20,9 @@ console.log(__dirname)
 // Initializes express and sets up the paths.
 const app = express()
 
+// Create a new router
+const rawRouter = express.Router();
+
 // Setup static directory to-serve. Customizes the server, pass in the path that we want to serve, the public folder 
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -33,7 +36,8 @@ hbs.registerPartials(partialsPath)
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
 
-app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+// Use the raw router for the webhook route
+rawRouter.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
     let event;
 
     try {
@@ -55,6 +59,9 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
 
     res.json({received: true});
 });
+
+// Use the raw router in your app
+app.use(rawRouter);
 
 // Customizes server, automatically parse incoming json into an object
 app.use(express.json())
@@ -82,11 +89,6 @@ app.post('/create-checkout-session', async (req, res) => {
 
     res.json({ id: session.id });
 });
-
-
-
-
-
 
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
