@@ -83,6 +83,9 @@ app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) =
     res.json({received: true});
 });
 
+app.use(express.json());
+
+
 // Sets up environmental variable used for Heroku (port)
 const port = process.env.PORT || 3000
 
