@@ -1,2 +1,2 @@
 # CrowdCharge
-Platform for sharing Tesla chargers unitilizing the Tesla API
+Platform for hosting and renting Tesla chargers for money
