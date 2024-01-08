@@ -72,14 +72,15 @@ app.get('/recharge/success/:session_id', async (req, res) => {
 
         if (session.payment_status === 'paid') {
             // Find the user and update their balance
-            const user = await User.findById(session.client_reference_id); // Change this line
+            const user = await User.findById(session.client_reference_id);
             if (!user) {
                 return res.status(404).send('User not found');
             }
-            user.balance += session.amount_total;
+            user.balance += session.amount_total / 100;
             await user.save();
 
-            res.send('Balance updated successfully');
+            // Redirect to the recharge page
+            res.redirect('/recharge');
         } else {
             res.send('Payment was not successful');
         }
