@@ -46,11 +46,3 @@ npm install
 ## Deployment
 
 * [Heroku](http://www.heroku.com/) - Hosting platform and environment
-
-## Authors
-
-* **Alex Giasson** - [alexg900](https://github.com/alexg900)
-* **Edwin Pau** - [Edwin-Pau](https://github.com/Edwin-Pau)
-* **Eric Huang** - [Ericwhh](https://github.com/Ericwhh)
-* **Louis Lu** - [LouisYiLu](https://github.com/LouisYiLu)
-* **Vivian Wu** - [vvnwu](https://github.com/vvnwu)
